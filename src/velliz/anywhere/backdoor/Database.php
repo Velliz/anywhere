@@ -1,7 +1,6 @@
 <?php
-namespace config\anywheredb;
 
-class AnywhereDB
+class Database
 {
     var $configurations = array();
     var $connections = null;

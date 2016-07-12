@@ -1,21 +1,16 @@
 ## Anywhere
-Anywhere is Web Service PHP 5 based portal that simplify data object transition state. ~~Fun weekends projects for sure~~
-
+Anywhere is Web Service that simplify data object transition state. 
+~~fun weekends projects lalala~~
 ```
-This project is still on idea
+WARNING: this project is still on idea
 ```
 
-## TODO
-- Array Data To PDF service
-- Array Data To JSON service
-- Array Data To Excel service
-- User Acount Control and Management
-- Another IDEA ?
+### Code Standard
+PHP 5.6
+PSR-4
 
-## About
+### About
 made with <3 from **Bandung** Indonesia.
 
-## Contributing
+### Contributing
 If you want to join to this project fll free to contact me at diditvelliz@gmail.com
-
-Thanks :)
