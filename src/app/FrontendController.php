@@ -21,6 +21,7 @@ class FrontendController extends AnywhereController
     }
 
     public function login(){
-        echo 'login';
+        $this->view('templates/head');
+        $this->view('frontend/login', array('nama' => 'didit'));
     }
 }
