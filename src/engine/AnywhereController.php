@@ -6,7 +6,7 @@ abstract class AnywhereController
 
     public abstract function main();
 
-    public function view($strViewPath, $arrayOfData)
+    public function view($strViewPath, $arrayOfData = array())
     {
         $strViewPath = 'src/view/' . $strViewPath . '.php';
         extract($arrayOfData);
