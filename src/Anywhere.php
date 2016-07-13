@@ -2,6 +2,7 @@
 namespace anywhere;
 
 use anywhere\app\FrontendController;
+use anywhere\app\PDFController;
 
 class Anywhere extends AnyAddress
 {
@@ -34,10 +35,13 @@ class Anywhere extends AnyAddress
             return call_user_func(array(new FrontendController(), 'main'));
         if ($_GET['query'] == 'login')
             return call_user_func(array(new FrontendController(), 'login'));
+        if ($_GET['query'] == 'pdf')
+            return call_user_func(array(new PDFController(), 'main'));
+
+        if ($_GET['query'] == 'home')
+            return call_user_func(array(new FrontendController(), 'home'));
 
         $address = explode('/', $_GET['query']);
-        $this->command = $address[0];
-
         return true;
     }
 

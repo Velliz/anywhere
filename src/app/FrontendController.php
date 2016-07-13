@@ -35,4 +35,10 @@ class FrontendController extends AnywhereController
     {
 
     }
+
+    public function home()
+    {
+        $this->view('templates/head');
+        $this->view('manager/main', array('nama' => 'didit'));
+    }
 }
