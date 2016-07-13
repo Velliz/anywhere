@@ -1,8 +1,8 @@
 {
     "name": "velliz/anywhere",
-    "description": "service that simplify data object interchanges",
+    "description": "Service that simplify data object interchanges.",
     "type": "toolkit",
-    "license": "Apache Lisence 2.0",
+    "license": "Apache License 2.0",
     "authors": [
         {
             "name": "Didit Velliz",
@@ -25,7 +25,8 @@
         "phpoffice/phpword": "dev-master"
     },
     "autoload": {
-        "psr-0": {"velliz\\anywhere": "src/"},
-        "psr-4": {"velliz\\anywhere\\": "src/"}
+        "psr-4": {
+            "anywhere\\": "src/"
+        }
     }
 }

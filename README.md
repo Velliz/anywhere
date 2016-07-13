@@ -1,13 +1,13 @@
 ## Anywhere
-Anywhere is Web Service that simplify data object transition state. 
-~~fun weekends projects lalala~~
+Anywhere is Web Service that simplify data object transition state.
+~~fun projects~~
 ```
 WARNING: this project is still on idea
 ```
 
 ### Code Standard
-PHP 5.6
-PSR-4
+* PHP 5.6
+* PSR-4
 
 ### About
 made with <3 from **Bandung** Indonesia.

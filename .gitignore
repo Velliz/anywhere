@@ -3,3 +3,11 @@
 /vendor/
 composer.lock
 composer.phar
+LICENSE
+README.md
+css/
+font-awesome/
+fonts/
+img/
+index.html
+js/

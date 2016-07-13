@@ -5,3 +5,4 @@
 * Migrating to composer based project
 * Migrating to PSR-4
 * Base class architect
+* View and Routing mapping

@@ -1,5 +1,7 @@
 <?php
 
+define('FILE', dirname(__FILE__));
+
 define('DEVELOPMENT', 'DEV');
 define('PRODUCTION', 'PROD');
 
