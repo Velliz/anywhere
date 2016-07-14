@@ -1,6 +1,7 @@
+</head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-blue navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
@@ -12,8 +13,8 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" class="btn btn-lg btn-dark">Login</a></li>
-                <li><a href="#" class="btn btn-lg btn-dark">Register</a></li>
+                <li><a href="login">Login</a></li>
+                <li><a href="register">Register</a></li>
             </ul>
         </div>
     </div>
@@ -168,8 +169,8 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h3>Let's build your own Document or Reporting.</h3>
-                <a href="#" class="btn btn-lg btn-light">Login</a>
-                <a href="#" class="btn btn-lg btn-dark">Register</a>
+                <a href="login" class="btn btn-lg btn-light">Login</a>
+                <a href="register" class="btn btn-lg btn-dark">Register</a>
             </div>
         </div>
     </div>

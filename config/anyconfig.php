@@ -8,5 +8,4 @@ define('PRODUCTION', 'PROD');
 define('API', 'diditvelliz');
 define('SALT', 'asdfg');
 
-
 ?>

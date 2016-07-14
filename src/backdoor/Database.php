@@ -1,6 +1,12 @@
 <?php
 namespace anywhere\backdoor;
 
+/**
+ * Class Database
+ * @package anywhere\backdoor
+ *
+ * @deprecated since version 0.1
+ */
 class Database
 {
     var $configurations = array();
@@ -8,6 +14,9 @@ class Database
     var $statement = null;
     var $affectedRows = 0, $numRows = 0;
 
+    /**
+     * @deprecated since version 0.1
+     */
     function Database($configurations = null)
     {
         if ($configurations != null) {
@@ -18,6 +27,9 @@ class Database
         }
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function Connect()
     {
         if ($this->configurations['DATABASE_TYPE'] == 'mysql') {
@@ -40,6 +52,9 @@ class Database
         }
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function ExecuteQuery($query)
     {
         if ($this->configurations['DATABASE_TYPE'] == "mysql") {
@@ -56,6 +71,9 @@ class Database
         return $this->statement;
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function FetchArray($query = null)
     {
         $statement = ($query != null) ? $query : $this->statement;
@@ -66,6 +84,9 @@ class Database
         return $result;
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function Insert($tablename, $arrayData)
     {
         $fields = array();
@@ -78,6 +99,9 @@ class Database
         return $this->ExecuteQuery($query);
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function Update($tablename, $arrayData, $condition = "")
     {
 
@@ -89,12 +113,18 @@ class Database
         return $this->ExecuteQuery($sqlQuery);
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function Delete($tablename, $condition = "")
     {
         $sqlQuery = "DELETE FROM " . $tablename . ($condition ? " WHERE $condition" : "");
         return $this->ExecuteQuery($sqlQuery);
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function Select($tablename, $fields = "*", $condition = "", $ordering = "")
     {
         $listFields = "*";
@@ -126,6 +156,9 @@ class Database
         }
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function ReadRow($statement = null)
     {
         $count = 0;
@@ -153,6 +186,9 @@ class Database
         return $arrData;
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function SelectLimit($table, $start = 1, $end = 0)
     {
         $query = "select * from(select a.*,row_number()over(order by rownum)rnum from ($table) a) where rnum <=" . intval($end) . " and rnum >= " . intval($start);
@@ -160,6 +196,9 @@ class Database
         return $this->ReadRow($statement);
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function GetTotalRow($dtIndex = "*", $sTable = "")
     {
         $query = "SELECT COUNT(" . ($dtIndex == "*" ? "*" : "a." . $dtIndex) . ") FROM ($sTable) a";
@@ -169,6 +208,9 @@ class Database
         return $totalRecord;
     }
 
+    /**
+     * @deprecated since version 0.1
+     */
     function GetMaximumValue($columnName, $table)
     {
         $query = "SELECT MAX(" . $columnName . ") FROM ($table)";

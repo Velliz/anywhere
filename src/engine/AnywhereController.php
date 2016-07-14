@@ -17,4 +17,11 @@ abstract class AnywhereController
         echo $strView;
     }
 
+    public function RedirectTo($url, $permanent = false)
+    {
+        if(strpos($url, '/') === false) header('Location: ' . $url, true, $permanent ? 301 : 302);
+        if(strpos($url, '/') !== false) header('Location: ' . ROOT . $url, true, $permanent ? 301 : 302);
+        exit();
+    }
+
 }
