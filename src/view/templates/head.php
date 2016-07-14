@@ -11,7 +11,7 @@
 
     <title>Anywhere</title>
 
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/stylish-portfolio.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
 
