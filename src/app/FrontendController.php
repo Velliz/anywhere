@@ -23,6 +23,9 @@ class FrontendController extends AnywhereController
 
     public function main()
     {
+        if (isset($_SESSION['ID']) && isset($_SESSION['username']))
+            $this->RedirectTo('beranda');
+
         $this->view('templates/head');
         $this->view('frontend/main', array());
     }
@@ -96,7 +99,8 @@ class FrontendController extends AnywhereController
 
     public function sorry()
     {
-        echo 'SORRY';
+        $this->view('templates/head');
+        $this->view('frontend/sorry', array());
     }
 
     public function beranda()

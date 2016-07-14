@@ -2,6 +2,7 @@
 namespace anywhere\app;
 
 use anywhere\engine\AnywhereController;
+use anywhere\model\DBAnywhere;
 use Dompdf\Dompdf;
 
 class PDFController extends AnywhereController
@@ -9,10 +10,11 @@ class PDFController extends AnywhereController
 
     public function __construct()
     {
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
-        header("Author: Anywhere 0.1");
-        header('Content-Type: application/pdf');
+        @session_start();
+//        header("Cache-Control: no-cache");
+//        header("Pragma: no-cache");
+//        header("Author: Anywhere 0.1");
+//        header('Content-Type: application/pdf');
     }
 
     public function main()
@@ -38,5 +40,16 @@ class PDFController extends AnywhereController
     public function render()
     {
 
+    }
+
+    public function designer($id)
+    {
+        $dataPDF = $_SESSION;
+        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id)[0];
+
+        var_dump($dataPDF);
+
+        $this->view('templates/head');
+        $this->view('frontend/pdf/designer', $dataPDF);
     }
 }

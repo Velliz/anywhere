@@ -19,6 +19,26 @@ class DBAnywhere extends Model
         return $model->Save($arrayData);
     }
 
+    public static function NewPdfPage($userID)
+    {
+        $model = new Model('pdf');
+        $filename = date('d-m-Y-His');
+        $arrayData = array(
+            'userID' => $userID,
+            'reportname' => 'PDF-' . $filename . '.pdf',
+            'html' => 'HTML-PDF-' . $filename . '.html',
+            'css' => 'CSS-PDF-' . $filename . '.css',
+            'outputmode' => 'Inline',
+        );
+        return $model->Save($arrayData);
+    }
+
+    public static function GetPdfPage($pdfID)
+    {
+        return Data::From('SELECT * FROM `pdf` WHERE `PDFID` = @1 LIMIT 1;')
+            ->FetchAll($pdfID);
+    }
+
     /**
      * @param $idMember
      * @return array
