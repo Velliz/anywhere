@@ -189,17 +189,14 @@
                 <br>
                 <ul class="list-inline">
                     <li>
-                        <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                        <a href="https://facebook.com/divelliz"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
+                        <a href="https://github.com/Velliz/anywhere"><i class="fa fa-github fa-fw fa-3x"></i></a>
                     </li>
                 </ul>
                 <hr class="medium">
-                <p class="text-muted">Copyright &copy; 2016 - Didit Velliz</p>
+                <p class="text-muted">Copyright &copy; 2016 - Didit Velliz - Crafted with <i class="fa fa-heart"></i> from Bandung Indonesia.</p>
             </div>
         </div>
     </div>

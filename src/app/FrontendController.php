@@ -101,9 +101,12 @@ class FrontendController extends AnywhereController
 
     public function beranda()
     {
-        if (!isset($_SESSION['ID']) && !isset($_SESSION['username'])) {
+        if (!isset($_SESSION['ID']) && !isset($_SESSION['username']))
             $this->RedirectTo('sorry');
-        }
+
+        $this->view('templates/head');
+        $this->view('frontend/beranda', $_SESSION);
+
     }
 
 }

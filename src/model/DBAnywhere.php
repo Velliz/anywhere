@@ -8,7 +8,8 @@ class DBAnywhere extends Model
 {
     public static function GetUser($username, $password)
     {
-        return Data::From('SELECT * FROM `user` WHERE `username` = @1 AND `password` = @2 LIMIT 1;')
+        return Data::From('SELECT u.*, s.`status` FROM `user` u LEFT JOIN `status` s ON (s.ID = u.statusID)
+        WHERE `username` = @1 AND `password` = @2 LIMIT 1;')
             ->FetchAll($username, $password);
     }
 
