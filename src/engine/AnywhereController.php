@@ -17,6 +17,17 @@ abstract class AnywhereController
         echo $strView;
     }
 
+    public function renderview($strViewPath, $arrayOfData = array())
+    {
+        $strViewPath = 'src/view/' . $strViewPath . '.php';
+        extract($arrayOfData);
+        ob_start();
+        require $strViewPath;
+        $strView = ob_get_contents();
+        ob_end_clean();
+        return $strView;
+    }
+
     public function RedirectTo($url, $permanent = false)
     {
         if(strpos($url, '/') === false) header('Location: ' . $url, true, $permanent ? 301 : 302);

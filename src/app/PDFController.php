@@ -11,6 +11,7 @@ class PDFController extends AnywhereController
     private $outputmode;
     private $paper;
     private $html;
+    private $css;
     private $reportname;
     private $requesttype;
 
@@ -26,31 +27,55 @@ class PDFController extends AnywhereController
 
     public function render($apikey, $pdfID)
     {
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
-        header("Author: Anywhere 0.1");
-        header('Content-Type: application/pdf');
-
         $pdfRender = DBAnywhere::GetPdfRender($apikey, $pdfID)[0];
 
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];
         $this->html = $pdfRender['html'];
+        $this->css = $pdfRender['css'];
         $this->reportname = $pdfRender['reportname'];
         $this->requesttype = $pdfRender['requesttype'];
         $this->requestsample = $pdfRender['requestsample'];
 
-        $path = FILE . '/storage/' . $pdfRender['ID'] . '/';
+        $head = file_get_contents(FILE . '/storage/head.html');
+        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['ID'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
+        $path = file_get_contents(FILE . '/storage/' . $pdfRender['ID'] . '/' . $pdfRender['html']);
+        $tail = file_get_contents(FILE . '/storage/tail.html');
+        $content = $head . $path . $tail;
+
+        /*
+         * log if error triggered
+         */
+        //echo($content); die();
+
         $this->dompdf->setPaper($this->paper);
-        $this->dompdf->loadHtml(file_get_contents($path . $pdfRender['html']));
+        $this->dompdf->loadHtml($content);
         $this->dompdf->render();
 
-        if($this->outputmode == 'Inline') $this->dompdf->stream($this->reportname, array("Attachment" => false));
-        if($this->outputmode == 'Download') $this->dompdf->stream($this->reportname, array("Attachment" => true));
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/pdf');
+
+        if ($this->outputmode == 'Inline') $this->dompdf->stream($this->reportname, array("Attachment" => false));
+        if ($this->outputmode == 'Download') $this->dompdf->stream($this->reportname, array("Attachment" => true));
         //echo file_put_contents('Brochure.pdf', $output);
     }
 
     public function designer($id)
+    {
+        $dataPDF = $_SESSION;
+        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id)[0];
+        $this->view('templates/head');
+        $this->view('frontend/pdf/designer', $dataPDF);
+    }
+
+    public function main()
+    {
+        return $this->renderview('templates/head');
+    }
+
+    public function update($id)
     {
         if (isset($_POST['pdfid']) && isset($_POST['paper']) && isset($_POST['requesttype']) && isset($_POST['requesturl'])) {
             $arrayID = array('PDFID' => $_POST['pdfid']);
@@ -71,9 +96,5 @@ class PDFController extends AnywhereController
         $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id)[0];
         $this->view('templates/head');
         $this->view('frontend/pdf/designer', $dataPDF);
-    }
-
-    public function main()
-    {
     }
 }

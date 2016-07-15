@@ -87,15 +87,18 @@ class Anywhere extends AnyAddress
             if (!is_numeric($address[3])) {
                 if ($_SESSION['status'] == 'Free Plan') {
                     $result = DBAnywhere::CountPDFUser($_SESSION['ID'])[0];
-                    if ($result['result'] > 2) return call_user_func(array(new FrontendController(), 'limitations'));
+                    if ($result['result'] >= 2) return call_user_func(array(new FrontendController(), 'limitations'));
                 }
-                // todo : ini kena trigger bug kalo dia update.
-                $pdfID = DBAnywhere::NewPdfPage($address[0]);
             }
 
             switch ($address[1]) {
                 case 'pdf':
-                    return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
+                    if ($address[2] == 'designer') {
+                        $pdfID = DBAnywhere::NewPdfPage($address[0]);
+                        return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
+                    } elseif ($address[2] == 'update')
+                        return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
+
                     break;
                 case 'word':
                     return call_user_func_array(array(new WordController(), $address[2]), array($pdfID));

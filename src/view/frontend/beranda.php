@@ -65,7 +65,7 @@
                         <ul class="list-group text-center">
                             <?php foreach ($PDFLists as $val) { ?>
                                 <li class="list-group-item">
-                                    <a style="width: 100%;" href="<?= $ID ?>/pdf/designer/<?= $val['PDFID'] ?>" class="btn btn-dark"><?= $val['reportname'] ?></a>
+                                    <a style="width: 100%;" href="<?= $ID ?>/pdf/update/<?= $val['PDFID'] ?>" class="btn btn-dark"><?= $val['reportname'] ?></a>
                                 </li>
                             <?php } ?>
                         </ul>

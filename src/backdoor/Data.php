@@ -19,7 +19,7 @@ abstract class Data
 
     protected function __construct($tablename = null)
     {
-        $db = include(FILE . '/database.php');
+        $db = include(FILE . '/config/database.php');
         if (!$db) {
             throw new Exception("Can't connect to database.");
         }

@@ -58,7 +58,7 @@
 
 <div class="design-page">
     <div class="form">
-        <form class="login-form" action="" method="POST">
+        <form class="login-form" action="<?= $ID ?>/pdf/update/<?= $pdf['PDFID'] ?>" method="POST">
             <input type="hidden" name="pdfid" value="<?= $pdf['PDFID'] ?>">
             <input type="text" name="reportname" placeholder="report name" value="<?= $pdf['reportname'] ?>"/>
 
@@ -85,7 +85,7 @@
             <br>
             <br>
 
-            <p id="apiurl">API URL <a target="_blank" href="<?= BASEPATH . 'render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?>"><?= BASEPATH . 'render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?></a></p>
+            <p id="apiurl">API URL <a target="_blank" href="<?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?>"><?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?></a></p>
 
             <a href="" class="btn btn-dark">.html designer</a>
             <a href="" class="btn btn-dark">.css designer</a>

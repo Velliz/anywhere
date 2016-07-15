@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <base href="<?= BASEPATH; ?>">
+    <base href="<?= ROOT; ?>/">
 
     <title>Anywhere</title>
 
