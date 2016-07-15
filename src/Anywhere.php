@@ -89,6 +89,7 @@ class Anywhere extends AnyAddress
                     $result = DBAnywhere::CountPDFUser($_SESSION['ID'])[0];
                     if ($result['result'] > 2) return call_user_func(array(new FrontendController(), 'limitations'));
                 }
+                // todo : ini kena trigger bug kalo dia update.
                 $pdfID = DBAnywhere::NewPdfPage($address[0]);
             }
 

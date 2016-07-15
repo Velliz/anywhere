@@ -72,7 +72,7 @@
             <label><input type="radio" name="requesttype" value="POST" <?= ($pdf['requesttype'] == 'POST') ? 'checked' : '' ?>>POST</label>
             <label><input type="radio" name="requesttype" value="URL" <?= ($pdf['requesttype'] == 'URL') ? 'checked' : '' ?>>URL</label>
 
-            <input type="text" name="requesturl" placeholder="url data source here" value="<?= ($pdf['requesttype'] != null) ? $pdf['requesttype'] : 'http://yourwebsite.com/jsondata' ?>"/>
+            <input type="text" name="requesturl" placeholder="url data source here" value="<?= ($pdf['requesturl'] != null) ? $pdf['requesturl'] : 'http://yourwebsite.com/jsondata' ?>"/>
 
             <br>
             <label><input type="radio" name="outputmode" value="Inline" <?= ($pdf['outputmode'] == 'Inline') ? 'checked' : '' ?>>Open in Browser</label>
