@@ -95,6 +95,12 @@ class FrontendController extends AnywhereController
         $this->view('frontend/sorry', array());
     }
 
+    public function limitations()
+    {
+        $this->view('templates/head');
+        $this->view('frontend/limitations', array());
+    }
+
     public function beranda()
     {
         if (!isset($_SESSION['ID']) && !isset($_SESSION['username']))

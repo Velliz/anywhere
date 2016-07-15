@@ -19,6 +19,12 @@ class DBAnywhere extends Model
         return $model->Save($arrayData);
     }
 
+    public static function CountPDFUser($userID)
+    {
+        return Data::From('SELECT count(*) AS result FROM `pdf` WHERE userID = 1 LIMIT 1;')
+            ->FetchAll($userID);
+    }
+
     public static function NewPdfPage($userID)
     {
         $model = new Model('pdf');
@@ -32,6 +38,13 @@ class DBAnywhere extends Model
             'paper' => 'A4',
             'requesttype' => 'POST',
         );
+
+        $path = FILE . '/storage/' . $userID;
+        mkdir($path, 0777, true);
+
+        fopen($path . '/HTML-PDF-' . $filename . '.html', "w");
+        fopen($path . '/CSS-PDF-' . $filename . '.css', "w");
+
         return $model->Save($arrayData);
     }
 
@@ -74,5 +87,12 @@ class DBAnywhere extends Model
     {
         $model = new Model('member');
         return $model->Save($arrayMember);
+    }
+
+    public static function GetPdfRender($apikey, $pdfID)
+    {
+        return Data::From('SELECT * FROM `pdf` p LEFT JOIN `user` u ON (p.userID = u.ID)
+        WHERE u.apikey = @1 AND p.PDFID = @2 LIMIT 1;')
+            ->FetchAll($apikey, $pdfID);
     }
 }

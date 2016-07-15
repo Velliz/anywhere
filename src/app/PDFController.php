@@ -8,38 +8,46 @@ use Dompdf\Dompdf;
 class PDFController extends AnywhereController
 {
 
+    private $outputmode;
+    private $paper;
+    private $html;
+    private $reportname;
+    private $requesttype;
+
+    private $requestsample; //json sample data
+
+    private $dompdf;
+
     public function __construct()
     {
         @session_start();
-//        header("Cache-Control: no-cache");
-//        header("Pragma: no-cache");
-//        header("Author: Anywhere 0.1");
-//        header('Content-Type: application/pdf');
+        $this->dompdf = new DOMPDF();
     }
 
-    public function main()
+    public function render($apikey, $pdfID)
     {
-        $dompdf = new DOMPDF();
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/pdf');
 
-        $html = "<html>
-         <body>
-          <h1>Hello Dompdf</h1>
-         </body>
-        </html>";
+        $pdfRender = DBAnywhere::GetPdfRender($apikey, $pdfID)[0];
 
-        $dompdf->loadHtml($html);
-        $dompdf->render();
+        $this->outputmode = $pdfRender['outputmode'];
+        $this->paper = $pdfRender['paper'];
+        $this->html = $pdfRender['html'];
+        $this->reportname = $pdfRender['reportname'];
+        $this->requesttype = $pdfRender['requesttype'];
+        $this->requestsample = $pdfRender['requestsample'];
 
-        $dompdf->stream('hello', array("Attachment" => false));
-        exit(0);
+        $path = FILE . '/storage/' . $pdfRender['ID'] . '/';
+        $this->dompdf->setPaper($this->paper);
+        $this->dompdf->loadHtml(file_get_contents($path . $pdfRender['html']));
+        $this->dompdf->render();
 
-//        $output = $dompdf->output();
-//        echo file_put_contents('Brochure.pdf', $output);
-    }
-
-    public function render()
-    {
-
+        if($this->outputmode == 'Inline') $this->dompdf->stream($this->reportname, array("Attachment" => false));
+        if($this->outputmode == 'Download') $this->dompdf->stream($this->reportname, array("Attachment" => true));
+        //echo file_put_contents('Brochure.pdf', $output);
     }
 
     public function designer($id)
@@ -55,12 +63,17 @@ class PDFController extends AnywhereController
                 'requesturl' => $_POST['requesturl'],
                 'requestsample' => $_POST['requestsample'],
             );
-            DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
+            $result = DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
+            if ($result) $this->RedirectTo('/beranda');
         }
 
         $dataPDF = $_SESSION;
         $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id)[0];
         $this->view('templates/head');
         $this->view('frontend/pdf/designer', $dataPDF);
+    }
+
+    public function main()
+    {
     }
 }

@@ -85,7 +85,7 @@
             <br>
             <br>
 
-            <p id="apiurl">API URL <label><?= BASEPATH . 'render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?></label></p>
+            <p id="apiurl">API URL <a target="_blank" href="<?= BASEPATH . 'render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?>"><?= BASEPATH . 'render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?></a></p>
 
             <a href="" class="btn btn-dark">.html designer</a>
             <a href="" class="btn btn-dark">.css designer</a>
