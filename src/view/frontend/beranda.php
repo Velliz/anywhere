@@ -17,8 +17,8 @@
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li><a data-toggle="tooltip" title="Create new PDF Tempaltes" href="<?= $ID ?>/pdf/designer"><i class="fa fa-plus"></i> <i class="fa fa-file-pdf-o"></i> pdf</a></li>
-                <li><a data-toggle="tooltip" title="Create new Word Templates" href="<?= $ID ?>/word/designer"><i class="fa fa-plus"></i> <i class="fa fa-file-word-o"></i> word</a></li>
-                <li><a data-toggle="tooltip" title="Create new Excel Templates" href="<?= $ID ?>/excel/designer"><i class="fa fa-plus"></i> <i class="fa fa-file-excel-o"></i> excel</a></li>
+                <li><a data-toggle="tooltip" title="Create new Word Templates" href="#"><i class="fa fa-plus"></i> <i class="fa fa-file-word-o"></i> word</a></li>
+                <li><a data-toggle="tooltip" title="Create new Excel Templates" href="#"><i class="fa fa-plus"></i> <i class="fa fa-file-excel-o"></i> excel</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -62,12 +62,12 @@
                 <div class="panel-heading">PDF lists</div>
                 <div class="panel-body">
                     <div class="panel-primary">
-                        <ul class="list-group">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                        <ul class="list-group text-center">
+                            <?php foreach ($PDFLists as $val) { ?>
+                                <li class="list-group-item">
+                                    <a style="width: 100%;" href="<?= $ID ?>/pdf/designer/<?= $val['PDFID'] ?>" class="btn btn-dark"><?= $val['reportname'] ?></a>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -84,11 +84,7 @@
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                            <li class="list-group-item text-center">comming soon</li>
                         </ul>
                     </div>
                 </div>
@@ -104,11 +100,7 @@
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                            <li class="list-group-item text-center">comming soon</li>
                         </ul>
                     </div>
                 </div>

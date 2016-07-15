@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Didit Velliz
- * Date: 7/13/2016
- * Time: 8:41 AM
- */
-
 namespace anywhere\app;
-
 
 use anywhere\engine\AnywhereController;
 use anywhere\model\DBAnywhere;
@@ -108,9 +100,11 @@ class FrontendController extends AnywhereController
         if (!isset($_SESSION['ID']) && !isset($_SESSION['username']))
             $this->RedirectTo('sorry');
 
-        $this->view('templates/head');
-        $this->view('frontend/beranda', $_SESSION);
+        $vars = $_SESSION;
+        $vars['PDFLists'] = DBAnywhere::GetPdfLists($_SESSION['ID']);
 
+        $this->view('templates/head');
+        $this->view('frontend/beranda', $vars);
     }
 
 }

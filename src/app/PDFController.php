@@ -44,11 +44,22 @@ class PDFController extends AnywhereController
 
     public function designer($id)
     {
+        if (isset($_POST['pdfid']) && isset($_POST['paper']) && isset($_POST['requesttype']) && isset($_POST['requesturl'])) {
+            $arrayID = array('PDFID' => $_POST['pdfid']);
+            $arrayData = array(
+                'PDFID' => $_POST['pdfid'],
+                'reportname' => $_POST['reportname'],
+                'outputmode' => $_POST['outputmode'],
+                'paper' => $_POST['paper'],
+                'requesttype' => $_POST['requesttype'],
+                'requesturl' => $_POST['requesturl'],
+                'requestsample' => $_POST['requestsample'],
+            );
+            DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
+        }
+
         $dataPDF = $_SESSION;
         $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id)[0];
-
-        var_dump($dataPDF);
-
         $this->view('templates/head');
         $this->view('frontend/pdf/designer', $dataPDF);
     }

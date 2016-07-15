@@ -29,14 +29,28 @@ class DBAnywhere extends Model
             'html' => 'HTML-PDF-' . $filename . '.html',
             'css' => 'CSS-PDF-' . $filename . '.css',
             'outputmode' => 'Inline',
+            'paper' => 'A4',
+            'requesttype' => 'POST',
         );
         return $model->Save($arrayData);
+    }
+
+    public static function UpdatePdfPage($pdfID, $dataUpdate)
+    {
+        $model = new Model('pdf');
+        return $model->Update($pdfID, $dataUpdate);
     }
 
     public static function GetPdfPage($pdfID)
     {
         return Data::From('SELECT * FROM `pdf` WHERE `PDFID` = @1 LIMIT 1;')
             ->FetchAll($pdfID);
+    }
+
+    public static function GetPdfLists($userID)
+    {
+        return Data::From('SELECT * FROM `pdf` WHERE `userID` = @1;')
+            ->FetchAll($userID);
     }
 
     /**

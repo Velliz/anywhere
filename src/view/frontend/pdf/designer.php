@@ -1,4 +1,4 @@
-<link href="assets/css/login.css" rel="stylesheet">
+<link href="assets/css/designer.css" rel="stylesheet">
 </head>
 <body style="background: #fdfdfe !important;">
 <nav class="navbar navbar-blue navbar-fixed-top">
@@ -49,15 +49,50 @@
     </div>
 </nav>
 
+<div class="container text-center" style="padding-top: 50px;">
+    <div class="">
 
-<div class="login-page">
+
+    </div>
+</div>
+
+<div class="design-page">
     <div class="form">
-        <form class="login-form" action="auth" method="POST">
+        <form class="login-form" action="" method="POST">
+            <input type="hidden" name="pdfid" value="<?= $pdf['PDFID'] ?>">
             <input type="text" name="reportname" placeholder="report name" value="<?= $pdf['reportname'] ?>"/>
-            <input type="text" name="reportname" placeholder="html file" value="<?= $pdf['html'] ?>"/>
-            <input type="text" name="reportname" placeholder="css file" value="<?= $pdf['css'] ?>"/>
+
+            <label><input type="radio" name="paper" value="F4" <?= ($pdf['paper'] == 'F4') ? 'checked' : '' ?>>F4</label>
+            <label><input type="radio" name="paper" value="A4" <?= ($pdf['paper'] == 'A4') ? 'checked' : '' ?>>A4</label>
+            <label><input type="radio" name="paper" value="B5" <?= ($pdf['paper'] == 'B5') ? 'checked' : '' ?>>B5</label>
+
+            <input type="text" name="html" placeholder="html file" value="<?= $pdf['html'] ?>" disabled/>
+            <input type="text" name="css" placeholder="css file" value="<?= $pdf['css'] ?>" disabled/>
+
+            <label><input type="radio" name="requesttype" value="POST" <?= ($pdf['requesttype'] == 'POST') ? 'checked' : '' ?>>POST</label>
+            <label><input type="radio" name="requesttype" value="URL" <?= ($pdf['requesttype'] == 'URL') ? 'checked' : '' ?>>URL</label>
+
+            <input type="text" name="requesturl" placeholder="url data source here" value="<?= ($pdf['requesttype'] != null) ? $pdf['requesttype'] : 'http://yourwebsite.com/jsondata' ?>"/>
+
+            <br>
             <label><input type="radio" name="outputmode" value="Inline" <?= ($pdf['outputmode'] == 'Inline') ? 'checked' : '' ?>>Open in Browser</label>
             <label><input type="radio" name="outputmode" value="Download" <?= ($pdf['outputmode'] == 'Download') ? 'checked' : '' ?>>Download File</label>
+            <br>
+
+            .json data sample
+            <textarea style="resize: none; width: 100%;" name="requestsample" rows="8"><?= $pdf['requestsample'] ?></textarea>
+
+            <br>
+            <br>
+
+            <p id="apiurl">API URL <label><?= BASEPATH . 'render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?></label></p>
+
+            <a href="" class="btn btn-dark">.html designer</a>
+            <a href="" class="btn btn-dark">.css designer</a>
+            <a href="" class="btn btn-dark">request sample</a>
+
+            <br>
+            <br>
             <button name="submit" type="submit">finish</button>
         </form>
     </div>
@@ -66,6 +101,5 @@
 
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
-
 </body>
 </html>
