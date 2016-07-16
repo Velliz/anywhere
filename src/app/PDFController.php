@@ -97,4 +97,15 @@ class PDFController extends AnywhereController
         $this->view('templates/head');
         $this->view('frontend/pdf/designer', $dataPDF);
     }
+
+    public function HtmlDesigner($idpdf)
+    {
+        $this->view('frontend/pdf/html', array());
+    }
+
+    public function CssDesigner($idpdf)
+    {
+        $this->view('frontend/pdf/css', array());
+    }
+
 }

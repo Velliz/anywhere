@@ -85,9 +85,9 @@ class Anywhere extends AnyAddress
 
             $pdfID = $address[3];
             if (!is_numeric($address[3])) {
-                if ($_SESSION['status'] == 'Free Plan') {
+                if ((int)$_SESSION['statusID'] == 1) {
                     $result = DBAnywhere::CountPDFUser($_SESSION['ID'])[0];
-                    if ($result['result'] >= 2) return call_user_func(array(new FrontendController(), 'limitations'));
+                    if ((int) $result['result'] >= 2) return call_user_func(array(new FrontendController(), 'limitations'));
                 }
             }
 
@@ -98,7 +98,10 @@ class Anywhere extends AnyAddress
                         return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
                     } elseif ($address[2] == 'update')
                         return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
-
+                    elseif ($address[2] == 'html')
+                        return call_user_func_array(array(new PDFController(), "HtmlDesigner"), array($pdfID));
+                    elseif ($address[2] == 'css')
+                        return call_user_func_array(array(new PDFController(), "CssDesigner"), array($pdfID));
                     break;
                 case 'word':
                     return call_user_func_array(array(new WordController(), $address[2]), array($pdfID));

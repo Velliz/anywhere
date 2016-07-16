@@ -21,7 +21,7 @@ class DBAnywhere extends Model
 
     public static function CountPDFUser($userID)
     {
-        return Data::From('SELECT count(*) AS result FROM `pdf` WHERE userID = 1 LIMIT 1;')
+        return Data::From('SELECT count(*) AS result FROM `pdf` WHERE userID = @1 LIMIT 1;')
             ->FetchAll($userID);
     }
 
