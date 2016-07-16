@@ -49,13 +49,6 @@
     </div>
 </nav>
 
-<div class="container text-center" style="padding-top: 50px;">
-    <div class="">
-
-
-    </div>
-</div>
-
 <div class="design-page">
     <div class="form">
         <form class="login-form" action="<?= $ID ?>/pdf/update/<?= $pdf['PDFID'] ?>" method="POST">
