@@ -84,32 +84,33 @@
         </div>
     </div>
 </nav>
-<article>
-    <h2>Full Screen Editing</h2>
 
-    <form>
-        <textarea id="code" name="code" rows="5"></textarea>
-    </form>
-
-    <script>
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            lineNumbers: true,
-            theme: "night",
-            extraKeys: {
-                "F11": function (cm) {
-                    cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-                },
-                "Esc": function (cm) {
-                    if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-                }
+<div class="container-fluid" style="height: 100%; padding-top: 50px;">
+    <div class="row" style="height: 100%">
+        <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0"
+             style="padding: 0; background-color: #3E3E3F; height: 100%;">
+            <form style="height: 100%">
+                <textarea id="code" name="code" rows="5"></textarea>
+            </form>
+        </div>
+        <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0"
+             style="padding: 0; background-color: #3E3E3F; height: 100%;">
+            <embed src="http://localhost/anywhere/pdf" width="100%" height="99%" type="application/pdf">
+        </div>
+    </div>
+</div>
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        theme: "night",
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
             }
-        });
-    </script>
-
-    <p>Demonstration of
-        the <a href="assets/doc/manual.html#addon_fullscreen">fullscreen</a>
-        addon. Press <strong>F11</strong> when cursor is in the editor to
-        toggle full screen editing. <strong>Esc</strong> can also be used
-        to <i>exit</i> full screen editing.</p>
-</article>
+        }
+    });
+</script>
 </body>
