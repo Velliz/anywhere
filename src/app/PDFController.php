@@ -57,8 +57,12 @@ class PDFController extends AnywhereController
         header("Author: Anywhere 0.1");
         header('Content-Type: application/pdf');
 
-        if ($this->outputmode == 'Inline') $this->dompdf->stream($this->reportname, array("Attachment" => false));
-        if ($this->outputmode == 'Download') $this->dompdf->stream($this->reportname, array("Attachment" => true));
+        if ($this->outputmode == 'Inline') {
+            $this->dompdf->stream($this->reportname, array("Attachment" => false));
+        }
+        if ($this->outputmode == 'Download') {
+            $this->dompdf->stream($this->reportname, array("Attachment" => true));
+        }
         //echo file_put_contents('Brochure.pdf', $output);
     }
 
@@ -89,7 +93,8 @@ class PDFController extends AnywhereController
                 'requestsample' => $_POST['requestsample'],
             );
             $result = DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
-            if ($result) $this->RedirectTo('/beranda');
+            if ($result)
+                $this->RedirectTo('/beranda');
         }
 
         $dataPDF = $_SESSION;
@@ -100,7 +105,11 @@ class PDFController extends AnywhereController
 
     public function HtmlDesigner($idpdf)
     {
-        $this->view('frontend/pdf/html', array());
+        // todo fetch original html file data
+        $path = FILE . '/storage/' . $_SESSION['ID'];
+        $file = DBAnywhere::GetPdfPage($idpdf)[0];
+        $file['file'] = fopen($path . '/HTML-PDF-' . $file['html'], 'r');
+        $this->view('frontend/pdf/html', $file);
     }
 
     public function CssDesigner($idpdf)

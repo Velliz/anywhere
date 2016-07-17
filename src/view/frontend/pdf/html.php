@@ -86,16 +86,16 @@
 </nav>
 
 <div class="container-fluid" style="height: 100%; padding-top: 50px;">
-    <div class="row" style="height: 100%">
+    <div class="row">
         <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0"
-             style="padding: 0; background-color: #3E3E3F; height: 100%;">
-            <form style="height: 100%">
-                <textarea id="code" name="code" rows="5"></textarea>
+             style="padding: 0; height: 100%;">
+            <form>
+                <textarea id="code" name="code" height="100%" rows="5"></textarea>
             </form>
         </div>
         <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0"
              style="padding: 0; background-color: #3E3E3F; height: 100%;">
-            <embed src="http://localhost/anywhere/pdf" width="100%" height="99%" type="application/pdf">
+                <!--<embed src="http://localhost/anywhere/pdf" width="100%" height="99%" type="application/pdf">-->
         </div>
     </div>
 </div>
