@@ -1,7 +1,3 @@
-# Documentation for Puko Framework
-
-You can download this project to explore features and example in Puko Framework.
-
 ## About
 
 Crafted with <3 from **Bandung**, Indonesia.

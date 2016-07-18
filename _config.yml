@@ -7,10 +7,10 @@ highlighter:         rouge
 permalink:           pretty
 
 # Setup
-title:               PUKO PHP Framework
-tagline:             Documentation for PUKO PHP Framework.
-url:                 http://velliz.github.io/pukodocs
-baseurl:             /pukodocs/
+title:               Anywhere
+tagline:             Documentation for Anywhere.
+url:                 http://velliz.github.io/anywhere
+baseurl:             /anywhere/
 
 # Assets
 #

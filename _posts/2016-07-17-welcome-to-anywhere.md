@@ -1,129 +1,116 @@
 ---
 layout: post
-title: Puko Database Access
+title: Welcome To Anywhere
 ---
 
-Configuration for database located in **config/database.php** file
+## Welcome to Anywhere
+To use anywhere simply create a new PDF template in 'beranda' page use +pdf a href buttons.
+and now you see a basic configuration for the PDF like:
 
-```PHP
-return array(
-    'dbType' => 'MySQL',
-    'host' => 'localhost',
-    'user' => 'root',
-    'pass' => '',
-    'dbName' => 'puko',
-);
-```
+* report name.
+* paper size.
+* data source [POST/URL].
+* data url.
+* option to download or inline display PDF file in browser.
+* json data sample.
 
-Until **PUKO 0.93.0** only MySQL database supported. Other database type coming soon.
+> CSS designer is in development. is available in version 0.4.0 later
 
-PUKO use MVC pattern, so Database take Model part for MVC architecture.
-Model file can be located in model directory. Lets take a look model class sample:
-
-```PHP
-namespace Model;
-
-use Puko\Core\Backdoor\Data;
-use Puko\Core\Backdoor\Model;
-
-class Member extends Model
-{
-
-    public static function GetMember()
-    {
-        return Data::From('SELECT * FROM `member`')->FetchAll();
-    }
-
-    public static function GetMemberByID($idMember)
-    {
-        return Data::From('SELECT * FROM `member` WHERE `ID` = @1')->FetchAll($idMember);
-    }
-
-    public static function AddMember($arrayMember)
-    {
-        $model = new Model('member');
-        return $model->Save($arrayMember);
-    }
-}
-```
-
-That is sample for Select and Creating new Member Data. Member.php class can called in controller. 
-For example:
-
-```PHP
-use Model\Member;
-use Puko\Core\Presentation\View;
-
-class Main extends View
-{
-
-    private $id;
-
-    public function __construct($id)
-    {
-        parent::__construct();
-        $this->id = $id;
-    }
-
-    /**
-     * #Value PageTitle Selamat Datang
-     * @return mixed
-     */
-    public function Main()
-    {
-        if($this->IsSubmit() && $this->ValidateCsrf()) {
-            Member::AddMember(array(
-                'Name' => $_POST['name'],
-                'Mail' => $_POST['mail'],
-                'Username' => $_POST['username'],
-                'Password' => $_POST['password'],
-                'Age' => $_POST['age'],
-            ));
-        }
-
-        $var['Member'] = Member::GetMember();
-        return $var;
-    }
-}
-```
-
-As simple as that. Now you have part of Model and Controller for Online Registation App. And now lets take a look on View parts:
-
+### data source [POST/URL].
+for data source if you choose [POST] you can make request to anywhere website use:
 ```HTML
-<h1>Pendaftaran Member</h1>
-<form action="" method="post">
-    <input type="hidden" name="token" value="{!token}">
-    <input type="text" name="name" placeholder="name"><br>
-    <input type="email" name="mail" placeholder="mail"><br>
-    <input type="text" name="username" placeholder="username"><br>
-    <input type="password" name="password" placeholder="password"><br>
-    <input type="number" name="age" placeholder="age"><br>
-    <input type="submit" name="_submit" value="Kirim">
+<form action="http://localhost/anywhere/render/pdf/b793b0baad9ed2a2db4b5774fc63de8a/1" method="post">
+    <input type='hidden' name='jsondata' value='{
+  "Looping": [
+    {
+      "nama": "Didit Velliz",
+      "umur": "21"
+    },
+    {
+      "nama": "Danny henry Gallatang",
+      "umur": "21"
+    },
+    {
+      "nama": "Akbar Sidik Maulana",
+      "umur": "21"
+    },
+    {
+      "nama": "Rizky Aditya Perdana",
+      "umur": "22"
+    }
+  ]
+}'>
+    <input type="submit" name="submit"/>
 </form>
-<hr>
-<h1>Data Member</h1>
-<table border="1">
-    <thead>
+```
+
+for data source if you choose [URL] you need to specify the url for Anywhere to fetch the data example 
+```HTML
+http://localhost/testdata/getdata.php
+```
+and in your getdata.php file like:
+
+```PHP
+header("Cache-Control: no-cache");
+header("Pragma: no-cache");
+header('Content-Type: application/json');
+
+$vars = array(
+	'Looping' => array(
+		array(
+			'nama' => 'Didit Velliz',
+			'umur' => 21
+		),
+		array(
+			'nama' => 'Didit Second Place',
+			'umur' => 21
+		),
+		array(
+			'nama' => 'Didit Thrid Places',
+			'umur' => 21
+		),
+		)
+);
+echo json_encode($vars);
+```
+
+### json data sample.
+you can use data sample to supply data for template builder in JSON format. example of data:
+```JSON
+{
+  "Looping": [
+    {
+      "nama": "Didit Velliz",
+      "umur": "21"
+    },
+    {
+      "nama": "Danny henry Gallatang",
+      "umur": "21"
+    },
+    {
+      "nama": "Akbar Sidik Maulana",
+      "umur": "21"
+    },
+    {
+      "nama": "Rizky Aditya Perdana",
+      "umur": "22"
+    }
+  ]
+}
+```
+
+and write in the html template:
+```HTML
+<table style="width: 100%; color: #268bd2; background-color: aliceblue">
     <tr>
-        <th>Name</th>
-        <th>Mail</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Age</th>
+        <td>Name</td>
+        <td>Age</td>
     </tr>
-    </thead>
-    <tbody>
-    <!--{!Member}-->
+    <!--{!Looping}-->
     <tr>
-        <td>{!Name}</td>
-        <td>{!Mail}</td>
-        <td>{!Username}</td>
-        <td>{!Password}</td>
-        <td>{!Age}</td>
+        <td>{!nama}</td>
+        <td>{!umur}</td>
     </tr>
-    <!--{/Member}-->
-    </tbody>
+    <!--{/Looping}-->
 </table>
 ```
-
-**More example cooming soon.**
