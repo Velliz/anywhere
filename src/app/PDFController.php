@@ -15,6 +15,7 @@ class PDFController extends AnywhereController
     private $css;
     private $reportname;
     private $requesttype;
+    private $requesturl;
 
     private $requestsample; //json sample data
 
@@ -37,6 +38,7 @@ class PDFController extends AnywhereController
         $this->reportname = $pdfRender['reportname'];
         $this->requesttype = $pdfRender['requesttype'];
         $this->requestsample = $pdfRender['requestsample'];
+        $this->requesturl = $pdfRender['requesturl'];
 
         $head = file_get_contents(FILE . '/storage/head.html');
         $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['ID'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
@@ -44,8 +46,36 @@ class PDFController extends AnywhereController
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
 
+        $coreData = json_decode($pdfRender['requestsample']);
+
+        if ($this->requesttype == 'POST') {
+
+            $data = array(
+                'status' => 'success',
+            );
+
+            if (!isset($_POST['jsondata'])) {
+                header("Cache-Control: no-cache");
+                header("Pragma: no-cache");
+                header("Author: Puko Framework v1");
+                header('Content-Type: application/json');
+
+                $data['status'] = 'failed';
+                $data['reason'] = 'post data [jsondata] is not defined.';
+                die(json_encode($data));
+            } elseif (isset($_POST['jsondata'])) {
+                $coreData = json_decode($_POST['jsondata']);
+            }
+        }
+
+        if ($this->requesttype == 'URL') {
+            //todo : fetch json from url
+            $fetch = file_get_contents($this->requesturl);
+            $coreData = json_decode($fetch);
+        }
+
         $template = new ParseEngine($content);
-        $template->setArrays(json_decode($pdfRender['requestsample']));
+        $template->setArrays($coreData);
         $template->Parse();
 
         $this->dompdf->setPaper($this->paper);
