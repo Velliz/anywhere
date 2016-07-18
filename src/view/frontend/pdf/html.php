@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="assets/addon/display/fullscreen.css">
     <link rel="stylesheet" href="assets/theme/night.css">
 
-    <link href="assets/css/designer.css" rel="stylesheet">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,6 +31,30 @@
     <script src="assets/js/codemirror.js"></script>
     <script src="assets/mode/xml/xml.js"></script>
     <script src="assets/addon/display/fullscreen.js"></script>
+
+    <style>
+        .CodeMirror {
+            /* Firefox */
+            height: -moz-calc(100vh - 190px);
+            /* WebKit */
+            height: -webkit-calc(100vh - 190px);
+            /* Opera */
+            height: -o-calc(100vh - 190px);
+            /* Standard */
+            height: calc(100vh - 190px);
+        }
+
+        a:hover {
+            cursor:pointer;
+        }
+        .container-fluid {
+            padding-top: 50px !important;
+        }
+        .nopadding {
+            padding: 0 0 0 0 !important;
+            margin: 0 0 0 0 !important;
+        }
+    </style>
 
 </head>
 <body>
@@ -53,7 +75,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a data-toggle="tooltip" title="Back" href="beranda"><i class="fa fa-arrow-left"></i></a></li>
+                <li><a data-toggle="tooltip" title="Save and Reload" name="save-btn"><i class="fa fa-save"></i></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -85,20 +107,22 @@
     </div>
 </nav>
 
-<div class="container-fluid" style="height: 100%; padding-top: 50px;">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0"
-             style="padding: 0; height: 100%;">
-            <form>
-                <textarea id="code" name="code" height="100%" rows="5"></textarea>
+        <div class="col-lg-6 nopadding" style="height: 80%;">
+            <form name="save" id="save" action="" method="post">
+                <textarea id="code" name="code"><?= $html ?></textarea>
             </form>
         </div>
-        <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0"
-             style="padding: 0; background-color: #3E3E3F; height: 100%;">
-                <!--<embed src="http://localhost/anywhere/pdf" width="100%" height="99%" type="application/pdf">-->
+        <div class="col-lg-6 nopadding" style="height: 100%;">
+            <embed src="<?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?>" type="application/pdf" width="100%" height="768px">
         </div>
     </div>
 </div>
+
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
 <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
@@ -112,5 +136,11 @@
             }
         }
     });
+
+    $('a[name=save-btn]').on('click', function(){
+        $('form[name=save]').submit();
+    });
+
 </script>
+
 </body>

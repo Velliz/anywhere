@@ -107,8 +107,16 @@ class PDFController extends AnywhereController
     {
         // todo fetch original html file data
         $path = FILE . '/storage/' . $_SESSION['ID'];
-        $file = DBAnywhere::GetPdfPage($idpdf)[0];
-        $file['file'] = fopen($path . '/HTML-PDF-' . $file['html'], 'r');
+
+        $file = $_SESSION;
+        $file['pdf'] = DBAnywhere::GetPdfPage($idpdf)[0];
+
+        if(isset($_POST['code'])){
+            file_put_contents($path . '/' . $file['pdf']['html'], $_POST['code']);
+        }
+
+        $file['html'] = file_get_contents($path . '/' . $file['pdf']['html']);
+
         $this->view('frontend/pdf/html', $file);
     }
 

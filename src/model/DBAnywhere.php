@@ -42,8 +42,8 @@ class DBAnywhere extends Model
         $path = FILE . '/storage/' . $userID;
         mkdir($path, 0777, true);
 
-        fopen($path . '/HTML-PDF-' . $filename . '.html', "w");
-        fopen($path . '/CSS-PDF-' . $filename . '.css', "w");
+        file_put_contents($path . '/HTML-PDF-' . $filename . '.html', "<h1>Hello to Anywhere</h1>");
+        file_put_contents($path . '/CSS-PDF-' . $filename . '.css', "<h1>Hello to Anywhere</h1>");
 
         return $model->Save($arrayData);
     }

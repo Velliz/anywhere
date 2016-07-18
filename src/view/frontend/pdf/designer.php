@@ -80,8 +80,8 @@
 
             <p id="apiurl">API URL <a target="_blank" href="<?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?>"><?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?></a></p>
 
-            <a href="<?= $ID ?>/pdf/html/<?= $pdf['PDFID'] ?>" class="btn btn-dark">.html designer</a>
-            <a href="<?= $ID ?>/pdf/css/<?= $pdf['PDFID'] ?>" class="btn btn-dark">.css designer</a>
+            <a target="_blank" href="<?= $ID ?>/pdf/html/<?= $pdf['PDFID'] ?>" class="btn btn-dark">.html designer</a>
+            <a target="_blank" href="<?= $ID ?>/pdf/css/<?= $pdf['PDFID'] ?>" class="btn btn-dark">.css designer</a>
             <a href="#" class="btn btn-dark">request sample</a>
 
             <br>

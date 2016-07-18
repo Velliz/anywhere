@@ -84,17 +84,18 @@ class Anywhere extends AnyAddress
             // http://localhost/anywhere/1/pdf/designer/1
 
             $pdfID = $address[3];
-            if (!is_numeric($address[3])) {
-                if ((int)$_SESSION['statusID'] == 1) {
-                    $result = DBAnywhere::CountPDFUser($_SESSION['ID'])[0];
-                    if ((int) $result['result'] >= 2) return call_user_func(array(new FrontendController(), 'limitations'));
-                }
-            }
+
+//            if (!is_numeric($address[3])) {
+//                if ((int)$_SESSION['statusID'] == 1) {
+//                    $result = DBAnywhere::CountPDFUser($_SESSION['ID'])[0];
+//                    if ((int) $result['result'] >= 2) return call_user_func(array(new FrontendController(), 'limitations'));
+//                }
+//            }
 
             switch ($address[1]) {
                 case 'pdf':
                     if ($address[2] == 'designer') {
-                        $pdfID = DBAnywhere::NewPdfPage($address[0]);
+//                        $pdfID = DBAnywhere::NewPdfPage($address[0]);
                         return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
                     } elseif ($address[2] == 'update')
                         return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
