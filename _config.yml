@@ -1,0 +1,20 @@
+# Syntax highlighting
+highlighter:         rouge
+
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           pretty
+
+# Setup
+title:               PUKO PHP Framework
+tagline:             Documentation for PUKO PHP Framework.
+url:                 http://velliz.github.io/pukodocs
+baseurl:             /pukodocs/
+
+# Assets
+#
+# We specify the directory for Jekyll so we can use @imports.
+sass:
+  sass_dir:          _scss
+  style:            :compressed
