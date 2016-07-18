@@ -23,9 +23,9 @@ class Anywhere extends AnyAddress
     public static function Setup($env = DEVELOPMENT)
     {
         self::$env = $env;
-        self::ParseAddress(self::$address);
         if (!isset(self::$instance))
             self::$instance = new Anywhere();
+        self::$instance->ParseAddress(self::$address);
         return self::$instance;
     }
 
