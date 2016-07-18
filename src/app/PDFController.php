@@ -2,6 +2,7 @@
 namespace anywhere\app;
 
 use anywhere\engine\AnywhereController;
+use anywhere\engine\ParseEngine;
 use anywhere\model\DBAnywhere;
 use Dompdf\Dompdf;
 
@@ -43,13 +44,12 @@ class PDFController extends AnywhereController
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
 
-        /*
-         * log if error triggered
-         */
-        //echo($content); die();
+        $template = new ParseEngine($content);
+        $template->setArrays(json_decode($pdfRender['requestsample']));
+        $template->Parse();
 
         $this->dompdf->setPaper($this->paper);
-        $this->dompdf->loadHtml($content);
+        $this->dompdf->loadHtml($template->ClearOutput());
         $this->dompdf->render();
 
         header("Cache-Control: no-cache");
@@ -66,10 +66,51 @@ class PDFController extends AnywhereController
         //echo file_put_contents('Brochure.pdf', $output);
     }
 
-    public function designer($id)
+    public function CodeRender($apikey, $pdfID)
     {
+        $pdfRender = DBAnywhere::GetPdfRender($apikey, $pdfID)[0];
+
+        $this->outputmode = $pdfRender['outputmode'];
+        $this->paper = $pdfRender['paper'];
+        $this->html = $pdfRender['html'];
+        $this->css = $pdfRender['css'];
+        $this->reportname = $pdfRender['reportname'];
+        $this->requesttype = $pdfRender['requesttype'];
+        $this->requestsample = $pdfRender['requestsample'];
+
+        $head = file_get_contents(FILE . '/storage/head.html');
+        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['ID'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
+        $path = file_get_contents(FILE . '/storage/' . $pdfRender['ID'] . '/' . $pdfRender['html']);
+        $tail = file_get_contents(FILE . '/storage/tail.html');
+        $content = $head . $path . $tail;
+
+        $template = new ParseEngine($content);
+        $template->setArrays(json_decode($pdfRender['requestsample']));
+        $template->Parse();
+
+        $this->dompdf->setPaper($this->paper);
+        $this->dompdf->loadHtml($template->ClearOutput());
+        $this->dompdf->render();
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/pdf');
+
+        $this->dompdf->stream($this->reportname, array("Attachment" => false));
+        //echo file_put_contents('Brochure.pdf', $output);
+    }
+
+    public function designer()
+    {
+        if ((int)$_SESSION['statusID'] == 1) {
+            $result = DBAnywhere::CountPDFUser($_SESSION['ID'])[0];
+            if ((int)$result['result'] >= 2)
+                $this->RedirectTo('/limitations');
+        }
+        $pdfID = DBAnywhere::NewPdfPage($_SESSION['ID']);
         $dataPDF = $_SESSION;
-        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id)[0];
+        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($pdfID)[0];
         $this->view('templates/head');
         $this->view('frontend/pdf/designer', $dataPDF);
     }
@@ -103,24 +144,21 @@ class PDFController extends AnywhereController
         $this->view('frontend/pdf/designer', $dataPDF);
     }
 
-    public function HtmlDesigner($idpdf)
+    public function html($idpdf)
     {
-        // todo fetch original html file data
         $path = FILE . '/storage/' . $_SESSION['ID'];
-
         $file = $_SESSION;
         $file['pdf'] = DBAnywhere::GetPdfPage($idpdf)[0];
 
-        if(isset($_POST['code'])){
+        if (isset($_POST['code'])) {
             file_put_contents($path . '/' . $file['pdf']['html'], $_POST['code']);
         }
 
         $file['html'] = file_get_contents($path . '/' . $file['pdf']['html']);
-
         $this->view('frontend/pdf/html', $file);
     }
 
-    public function CssDesigner($idpdf)
+    public function css($idpdf)
     {
         $this->view('frontend/pdf/css', array());
     }

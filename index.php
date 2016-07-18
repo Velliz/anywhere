@@ -9,4 +9,4 @@ define('PRODUCTION', 'PROD');
 require __DIR__ . '/vendor/autoload.php';
 
 use anywhere\Anywhere;
-Anywhere::Setup(DEVELOPMENT)->Start();
+Anywhere::Setup(DEVELOPMENT);

@@ -29,25 +29,19 @@ class Anywhere extends AnyAddress
         return self::$instance;
     }
 
-    public function Start()
-    {
-
-    }
-
     public function ParseAddress(&$address)
     {
         @session_start();
-        // localhost/anywhere/
+
+        // localhost/anywhere/ -> main welcome method
         if (!isset($_GET['query']))
             return call_user_func(array(new FrontendController(), 'main'));
 
         $address = explode('/', self::URLAddressChecker(strtolower($_GET['query'])));
 
-        if ($address[0] == 'render') {
-
+        if ($address[0] == 'render' || $address[0] == 'coderender') {
             $apikey = $address[2];
             $pdfID = $address[3];
-
             // http://localhost/anywhere/render/pdf/[APIKEY]/[PDFID]
             switch ($address[1]) {
                 case 'pdf':
@@ -69,41 +63,23 @@ class Anywhere extends AnyAddress
         if (sizeof($address) <= 2) {
             return call_user_func(array(new FrontendController(), $_GET['query']));
         } elseif (sizeof($address) > 2) {
+            // invalid userid
             if (!is_numeric($address[0]))
                 return call_user_func(array(new FrontendController(), 'sorry'));
-
-            // login handler
+            // userid not logged in
             if (!isset($_SESSION['ID']))
                 return call_user_func(array(new FrontendController(), 'sorry'));
-
-            //only can access own data handler
+            // user only can access own data
             if ((int)$address[0] != (int)$_SESSION['ID'])
                 return call_user_func(array(new FrontendController(), 'sorry'));
 
             // http://localhost/anywhere/1/pdf/designer
             // http://localhost/anywhere/1/pdf/designer/1
-
             $pdfID = $address[3];
-
-//            if (!is_numeric($address[3])) {
-//                if ((int)$_SESSION['statusID'] == 1) {
-//                    $result = DBAnywhere::CountPDFUser($_SESSION['ID'])[0];
-//                    if ((int) $result['result'] >= 2) return call_user_func(array(new FrontendController(), 'limitations'));
-//                }
-//            }
 
             switch ($address[1]) {
                 case 'pdf':
-                    if ($address[2] == 'designer') {
-//                        $pdfID = DBAnywhere::NewPdfPage($address[0]);
-                        return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
-                    } elseif ($address[2] == 'update')
-                        return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
-                    elseif ($address[2] == 'html')
-                        return call_user_func_array(array(new PDFController(), "HtmlDesigner"), array($pdfID));
-                    elseif ($address[2] == 'css')
-                        return call_user_func_array(array(new PDFController(), "CssDesigner"), array($pdfID));
-                    break;
+                    return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
                 case 'word':
                     return call_user_func_array(array(new WordController(), $address[2]), array($pdfID));
                     break;
@@ -112,7 +88,6 @@ class Anywhere extends AnyAddress
                     break;
             }
         }
-
         return true;
     }
 

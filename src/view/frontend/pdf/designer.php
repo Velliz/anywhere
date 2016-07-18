@@ -1,4 +1,13 @@
 <link href="assets/css/designer.css" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/codemirror.css">
+<link rel="stylesheet" href="assets/addon/display/fullscreen.css">
+<link rel="stylesheet" href="assets/theme/night.css">
+
+<script src="assets/js/codemirror.js"></script>
+<script src="assets/mode/javascript/javascript.js"></script>
+<script src="assets/addon/display/fullscreen.js"></script>
+
 </head>
 <body style="background: #fdfdfe !important;">
 <nav class="navbar navbar-blue navbar-fixed-top">
@@ -55,25 +64,31 @@
             <input type="hidden" name="pdfid" value="<?= $pdf['PDFID'] ?>">
             <input type="text" name="reportname" placeholder="report name" value="<?= $pdf['reportname'] ?>"/>
 
-            <label><input type="radio" name="paper" value="F4" <?= ($pdf['paper'] == 'F4') ? 'checked' : '' ?>>F4</label>
-            <label><input type="radio" name="paper" value="A4" <?= ($pdf['paper'] == 'A4') ? 'checked' : '' ?>>A4</label>
-            <label><input type="radio" name="paper" value="B5" <?= ($pdf['paper'] == 'B5') ? 'checked' : '' ?>>B5</label>
+            <center>
+                <label><input type="radio" name="paper" value="F4" <?= ($pdf['paper'] == 'F4') ? 'checked' : '' ?>>F4</label>
+                <label><input type="radio" name="paper" value="A4" <?= ($pdf['paper'] == 'A4') ? 'checked' : '' ?>>A4</label>
+                <label><input type="radio" name="paper" value="B5" <?= ($pdf['paper'] == 'B5') ? 'checked' : '' ?>>B5</label>
+            </center>
 
             <input type="text" name="html" placeholder="html file" value="<?= $pdf['html'] ?>" disabled/>
             <input type="text" name="css" placeholder="css file" value="<?= $pdf['css'] ?>" disabled/>
 
-            <label><input type="radio" name="requesttype" value="POST" <?= ($pdf['requesttype'] == 'POST') ? 'checked' : '' ?>>POST</label>
-            <label><input type="radio" name="requesttype" value="URL" <?= ($pdf['requesttype'] == 'URL') ? 'checked' : '' ?>>URL</label>
+            <center>
+                <label><input type="radio" name="requesttype" value="POST" <?= ($pdf['requesttype'] == 'POST') ? 'checked' : '' ?>>POST</label>
+                <label><input type="radio" name="requesttype" value="URL" <?= ($pdf['requesttype'] == 'URL') ? 'checked' : '' ?>>URL</label>
+            </center>
 
             <input type="text" name="requesturl" placeholder="url data source here" value="<?= ($pdf['requesturl'] != null) ? $pdf['requesturl'] : 'http://yourwebsite.com/jsondata' ?>"/>
 
             <br>
-            <label><input type="radio" name="outputmode" value="Inline" <?= ($pdf['outputmode'] == 'Inline') ? 'checked' : '' ?>>Open in Browser</label>
-            <label><input type="radio" name="outputmode" value="Download" <?= ($pdf['outputmode'] == 'Download') ? 'checked' : '' ?>>Download File</label>
+            <center>
+                <label><input type="radio" name="outputmode" value="Inline" <?= ($pdf['outputmode'] == 'Inline') ? 'checked' : '' ?>>Open in Browser</label>
+                <label><input type="radio" name="outputmode" value="Download" <?= ($pdf['outputmode'] == 'Download') ? 'checked' : '' ?>>Download File</label>
+            </center>
             <br>
 
-            .json data sample
-            <textarea style="resize: none; width: 100%;" name="requestsample" rows="8"><?= $pdf['requestsample'] ?></textarea>
+            <b>.json data sample</b>
+            <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8"><?= $pdf['requestsample'] ?></textarea>
 
             <br>
             <br>
@@ -86,13 +101,30 @@
 
             <br>
             <br>
-            <button name="submit" type="submit">finish</button>
+            <button name="submit" type="submit">save configuration</button>
         </form>
     </div>
 </div>
 
 
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
+        lineNumbers: true,
+        theme: "night",
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+        }
+    });
+</script>
+
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+
+
 </body>
 </html>

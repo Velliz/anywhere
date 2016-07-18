@@ -115,7 +115,7 @@
             </form>
         </div>
         <div class="col-lg-6 nopadding" style="height: 100%;">
-            <embed src="<?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?>" type="application/pdf" width="100%" height="768px">
+            <embed src="<?= ROOT . '/coderender/pdf/' . $apikey . '/' . $pdf['PDFID'] ?>" type="application/pdf" width="100%" height="768px">
         </div>
     </div>
 </div>
