@@ -18,7 +18,7 @@ and now you see a basic configuration for the PDF like:
 ### Data Source [POST/URL].
 for data source if you choose [POST] you can make request to anywhere website use:
 
-```
+```HTML
 <form action="http://localhost/anywhere/render/pdf/b793b0baad9ed2a2db4b5774fc63de8a/1" method="post">
     <input type='hidden' name='jsondata' value='{
   "Looping": [
@@ -52,13 +52,13 @@ http://localhost/testdata/getdata.php
 
 and in your getdata.php file like:
 
-```
+```PHP
 header("Cache-Control: no-cache");
 header("Pragma: no-cache");
 header('Content-Type: application/json');
 
 $vars = array(
-	'Looping' => array(
+'Looping' => array(
 		array(
 			'nama' => 'Didit Velliz',
 			'umur' => 21
@@ -71,7 +71,7 @@ $vars = array(
 			'nama' => 'Didit Thrid Places',
 			'umur' => 21
 		),
-		)
+	)
 );
 echo json_encode($vars);
 ```
@@ -105,7 +105,7 @@ you can use data sample to supply data for template builder in JSON format. exam
 
 and write in the html template:
 
-```
+```HTML
 <table style="width: 100%; color: #268bd2; background-color: aliceblue">
     <tr>
         <td>Name</td>
