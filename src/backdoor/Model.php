@@ -15,7 +15,7 @@ class Model extends Data
 
     protected function Save($array)
     {
-        $insert_text = "INSERT INTO `$this->tableName`";
+        $insert_text = "INSERT INTO $this->tableName";
         $keys = array();
         $values = array();
         foreach ($array as $k => $v) {
@@ -24,7 +24,7 @@ class Model extends Data
         }
         $key_string = "(";
         foreach ($keys as $key) {
-            $key_string = $key_string . "`" . $key . "`, ";
+            $key_string = $key_string . $key . ", ";
         }
         $key_string = substr($key_string, 0, -2);
         $insert_text = $insert_text . " " . $key_string . ")";
@@ -58,9 +58,9 @@ class Model extends Data
 
     protected function Delete($arrWhere)
     {
-        $del_text = "DELETE FROM `$this->tableName` WHERE ";
+        $del_text = "DELETE FROM $this->tableName WHERE ";
         foreach ($arrWhere as $col => $value) {
-            $del_text .= "`" . $col . "`" . " = '" . $value . "' AND ";
+            $del_text .=  $col . " = '" . $value . "' AND ";
         }
         $del_text = substr($del_text, 0, -4);
 
@@ -72,18 +72,18 @@ class Model extends Data
     {
         $array = array_merge($id, $array);
 
-        $update_text = "UPDATE `$this->tableName` SET ";
+        $update_text = "UPDATE $this->tableName SET ";
 
         $key_string = "";
         $key_where = " WHERE ";
 
         foreach ($array as $key => $val) {
-            $key_string = $key_string . "`" . $key . "` = :" . $key . ", ";
+            $key_string = $key_string . $key . " = :" . $key . ", ";
         }
         $key_string = substr($key_string, 0, -2);
 
         foreach ($id as $key => $val) {
-            $key_where = $key_where . "`" . $key . "` = :" . $key . " AND ";
+            $key_where = $key_where . $key . " = :" . $key . " AND ";
         }
         $key_where = substr($key_where, 0, -4);
 
