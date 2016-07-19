@@ -1,6 +1,6 @@
 <?php
 define('FILE', dirname(__FILE__));
-define('ROOT', 'http://localhost/anywhere');
+define('ROOT', 'https://hidden-beach-23274.herokuapp.com/');
 
 define('DEVELOPMENT', 'DEV');
 define('PRODUCTION', 'PROD');
