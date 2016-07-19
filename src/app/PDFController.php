@@ -41,8 +41,8 @@ class PDFController extends AnywhereController
         $this->requesturl = $pdfRender['requesturl'];
 
         $head = file_get_contents(FILE . '/storage/head.html');
-        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['ID'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
-        $path = file_get_contents(FILE . '/storage/' . $pdfRender['ID'] . '/' . $pdfRender['html']);
+        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['id'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
+        $path = file_get_contents(FILE . '/storage/' . $pdfRender['id'] . '/' . $pdfRender['html']);
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
 
@@ -109,8 +109,8 @@ class PDFController extends AnywhereController
         $this->requestsample = $pdfRender['requestsample'];
 
         $head = file_get_contents(FILE . '/storage/head.html');
-        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['ID'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
-        $path = file_get_contents(FILE . '/storage/' . $pdfRender['ID'] . '/' . $pdfRender['html']);
+        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['id'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
+        $path = file_get_contents(FILE . '/storage/' . $pdfRender['id'] . '/' . $pdfRender['html']);
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
 
@@ -134,11 +134,11 @@ class PDFController extends AnywhereController
     public function designer()
     {
         if ((int)$_SESSION['statusID'] == 1) {
-            $result = DBAnywhere::CountPDFUser($_SESSION['ID'])[0];
+            $result = DBAnywhere::CountPDFUser($_SESSION['id'])[0];
             if ((int)$result['result'] >= 2)
                 $this->RedirectTo('/limitations');
         }
-        $pdfID = DBAnywhere::NewPdfPage($_SESSION['ID']);
+        $pdfID = DBAnywhere::NewPdfPage($_SESSION['id']);
         $dataPDF = $_SESSION;
         $dataPDF['pdf'] = DBAnywhere::GetPdfPage($pdfID)[0];
         $this->view('templates/head');
@@ -176,7 +176,7 @@ class PDFController extends AnywhereController
 
     public function html($idpdf)
     {
-        $path = FILE . '/storage/' . $_SESSION['ID'];
+        $path = FILE . '/storage/' . $_SESSION['id'];
         $file = $_SESSION;
         $file['pdf'] = DBAnywhere::GetPdfPage($idpdf)[0];
 

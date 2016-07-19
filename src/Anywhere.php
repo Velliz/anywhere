@@ -80,6 +80,7 @@ class Anywhere extends AnyAddress
             switch ($address[1]) {
                 case 'pdf':
                     return call_user_func_array(array(new PDFController(), $address[2]), array($pdfID));
+                    break;
                 case 'word':
                     return call_user_func_array(array(new WordController(), $address[2]), array($pdfID));
                     break;

@@ -15,7 +15,7 @@ class FrontendController extends AnywhereController
 
     public function main()
     {
-        if (isset($_SESSION['ID']) && isset($_SESSION['username']))
+        if (isset($_SESSION['id']) && isset($_SESSION['username']))
             $this->RedirectTo('beranda');
 
         $this->view('templates/head');
@@ -103,11 +103,11 @@ class FrontendController extends AnywhereController
 
     public function beranda()
     {
-        if (!isset($_SESSION['ID']) && !isset($_SESSION['username']))
+        if (!isset($_SESSION['id']) && !isset($_SESSION['username']))
             $this->RedirectTo('sorry');
 
         $vars = $_SESSION;
-        $vars['PDFLists'] = DBAnywhere::GetPdfLists($_SESSION['ID']);
+        $vars['PDFLists'] = DBAnywhere::GetPdfLists($_SESSION['id']);
 
         $this->view('templates/head');
         $this->view('frontend/beranda', $vars);
