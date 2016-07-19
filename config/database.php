@@ -6,4 +6,5 @@ return array(
     'user' => 'root',
     'pass' => '',
     'dbName' => 'anywhere',
+    'port' => 3306
 );

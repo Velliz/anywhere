@@ -17,25 +17,20 @@ abstract class Data
     protected $queryPattern = '#@([0-9]+)#';
     protected $queryParams = null;
 
-    protected function __construct($tablename = null)
+    protected function __construct($tableName = null)
     {
         $db = include(FILE . '/config/database.php');
-        if (!$db) {
-            throw new Exception("Can't connect to database.");
-        }
-        $this->pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbName'],
-            $db['user'],
-            $db['pass']
-        );
-
+        if (!$db) throw new Exception("Can't connect to database.");
+        $this->pdo = new PDO("mysql:host=" . $db['host'] . ";port=" . $db['port'] . ";dbname=" . $db['dbName'], $db['user'], $db['pass']);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->tableName = $tablename;
+        $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $this->tableName = $tableName;
     }
 
-    public static function To($tablename)
+    public static function To($tableName)
     {
         if (!isset(self::$Instance) && !is_object(self::$Instance)) {
-            self::$Instance = new Model($tablename);
+            self::$Instance = new Model($tableName);
         }
         return self::$Instance;
     }
