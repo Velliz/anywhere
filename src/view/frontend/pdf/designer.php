@@ -60,8 +60,8 @@
 
 <div class="design-page">
     <div class="form">
-        <form class="login-form" action="<?= $ID ?>/pdf/update/<?= $pdf['PDFID'] ?>" method="POST">
-            <input type="hidden" name="pdfid" value="<?= $pdf['PDFID'] ?>">
+        <form class="login-form" action="<?= $id ?>/pdf/update/<?= $pdf['pdfid'] ?>" method="POST">
+            <input type="hidden" name="pdfid" value="<?= $pdf['pdfid'] ?>">
             <input type="text" name="reportname" placeholder="report name" value="<?= $pdf['reportname'] ?>"/>
 
             <center>
@@ -93,10 +93,10 @@
             <br>
             <br>
 
-            <p id="apiurl">API URL <a target="_blank" href="<?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?>"><?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['PDFID'] ?></a></p>
+            <p id="apiurl">API URL <a target="_blank" href="<?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['pdfid'] ?>"><?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['pdfid'] ?></a></p>
 
-            <a target="_blank" href="<?= $ID ?>/pdf/html/<?= $pdf['PDFID'] ?>" class="btn btn-dark">.html designer</a>
-            <a target="_blank" href="<?= $ID ?>/pdf/css/<?= $pdf['PDFID'] ?>" class="btn btn-dark">.css designer</a>
+            <a target="_blank" href="<?= $id ?>/pdf/html/<?= $pdf['pdfid'] ?>" class="btn btn-dark">.html designer</a>
+            <a target="_blank" href="<?= $id ?>/pdf/css/<?= $pdf['pdfid'] ?>" class="btn btn-dark">.css designer</a>
             <a href="#" class="btn btn-dark">request sample</a>
 
             <br>

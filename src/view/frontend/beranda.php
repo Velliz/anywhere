@@ -16,7 +16,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a data-toggle="tooltip" title="Create new PDF Tempaltes" href="<?= $ID ?>/pdf/designer"><i class="fa fa-plus"></i> <i class="fa fa-file-pdf-o"></i> pdf</a></li>
+                <li><a data-toggle="tooltip" title="Create new PDF Tempaltes" href="<?= $id ?>/pdf/designer"><i class="fa fa-plus"></i> <i class="fa fa-file-pdf-o"></i> pdf</a></li>
                 <li><a data-toggle="tooltip" title="Create new Word Templates" href="#"><i class="fa fa-plus"></i> <i class="fa fa-file-word-o"></i> word</a></li>
                 <li><a data-toggle="tooltip" title="Create new Excel Templates" href="#"><i class="fa fa-plus"></i> <i class="fa fa-file-excel-o"></i> excel</a></li>
             </ul>
@@ -65,7 +65,7 @@
                         <ul class="list-group text-center">
                             <?php foreach ($PDFLists as $val) { ?>
                                 <li class="list-group-item">
-                                    <a style="width: 100%;" href="<?= $ID ?>/pdf/update/<?= $val['PDFID'] ?>" class="btn btn-dark"><?= $val['reportname'] ?></a>
+                                    <a style="width: 100%;" href="<?= $id ?>/pdf/update/<?= $val['pdfid'] ?>" class="btn btn-dark"><?= $val['reportname'] ?></a>
                                 </li>
                             <?php } ?>
                         </ul>
