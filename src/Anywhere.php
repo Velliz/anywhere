@@ -67,10 +67,10 @@ class Anywhere extends AnyAddress
             if (!is_numeric($address[0]))
                 return call_user_func(array(new FrontendController(), 'sorry'));
             // userid not logged in
-            if (!isset($_SESSION['ID']))
+            if (!isset($_SESSION['id']))
                 return call_user_func(array(new FrontendController(), 'sorry'));
             // user only can access own data
-            if ((int)$address[0] != (int)$_SESSION['ID'])
+            if ((int)$address[0] != (int)$_SESSION['id'])
                 return call_user_func(array(new FrontendController(), 'sorry'));
 
             // http://localhost/anywhere/1/pdf/designer
