@@ -8,20 +8,20 @@ class DBAnywhere extends Model
 {
     public static function GetUser($username, $password)
     {
-        return Data::From('SELECT u.*, s.`status` FROM `user` u LEFT JOIN `status` s ON (s.ID = u.statusID)
-        WHERE `username` = @1 AND `password` = @2 LIMIT 1;')
+        return Data::From('SELECT u.*, s.status FROM users u LEFT JOIN status s ON (s.ID = u.statusID)
+        WHERE username = @1 AND password = @2 LIMIT 1;')
             ->FetchAll($username, $password);
     }
 
     public static function NewUser($arrayData)
     {
-        $model = new Model('user');
+        $model = new Model('users');
         return $model->Save($arrayData);
     }
 
     public static function CountPDFUser($userID)
     {
-        return Data::From('SELECT count(*) AS result FROM `pdf` WHERE userID = @1 LIMIT 1;')
+        return Data::From('SELECT count(*) AS result FROM pdf WHERE userID = @1 LIMIT 1;')
             ->FetchAll($userID);
     }
 
@@ -56,13 +56,13 @@ class DBAnywhere extends Model
 
     public static function GetPdfPage($pdfID)
     {
-        return Data::From('SELECT * FROM `pdf` WHERE `PDFID` = @1 LIMIT 1;')
+        return Data::From('SELECT * FROM pdf WHERE PDFID = @1 LIMIT 1;')
             ->FetchAll($pdfID);
     }
 
     public static function GetPdfLists($userID)
     {
-        return Data::From('SELECT * FROM `pdf` WHERE `userID` = @1;')
+        return Data::From('SELECT * FROM pdf WHERE userID = @1;')
             ->FetchAll($userID);
     }
 
@@ -74,7 +74,7 @@ class DBAnywhere extends Model
      */
     public static function GetMemberByID($idMember)
     {
-        return Data::From('SELECT * FROM `member` WHERE `ID` = @1')->FetchAll($idMember);
+        return Data::From('SELECT * FROM member WHERE ID = @1')->FetchAll($idMember);
     }
 
     /**
@@ -91,7 +91,7 @@ class DBAnywhere extends Model
 
     public static function GetPdfRender($apikey, $pdfID)
     {
-        return Data::From('SELECT * FROM `pdf` p LEFT JOIN `user` u ON (p.userID = u.ID)
+        return Data::From('SELECT * FROM pdf p LEFT JOIN users u ON (p.userID = u.ID)
         WHERE u.apikey = @1 AND p.PDFID = @2 LIMIT 1;')
             ->FetchAll($apikey, $pdfID);
     }
