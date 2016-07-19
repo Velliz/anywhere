@@ -21,7 +21,7 @@ abstract class Data
     {
         $db = include(FILE . '/config/database.php');
         if (!$db) throw new Exception("Can't connect to database.");
-        $this->pdo = new PDO("pgsql:host=" . $db['host'] . ";port=" . $db['port'] . ";dbname=" . $db['dbName'], $db['user'], $db['pass']);
+        $this->pdo = new PDO($db['dbType'] . ":host=" . $db['host'] . ";port=" . $db['port'] . ";dbname=" . $db['dbName'], $db['user'], $db['pass']);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         $this->tableName = $tableName;
