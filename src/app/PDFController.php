@@ -133,7 +133,7 @@ class PDFController extends AnywhereController
 
     public function designer()
     {
-        if ((int)$_SESSION['statusID'] == 1) {
+        if ((int)$_SESSION['statusid'] == 1) {
             $result = DBAnywhere::CountPDFUser($_SESSION['id'])[0];
             if ((int)$result['result'] >= 2)
                 $this->RedirectTo('/limitations');
