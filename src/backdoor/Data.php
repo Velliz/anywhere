@@ -19,7 +19,7 @@ abstract class Data
 
     protected function __construct($tableName = null)
     {
-        $db = include(__DIR__ . '/config/database.php');
+        $db = include(FILE . '/config/database.php');
         if (!$db) throw new Exception("Can't connect to database.");
         $this->pdo = new PDO("mysql:host=" . $db['host'] . ";port=" . $db['port'] . ";dbname=" . $db['dbName'], $db['user'], $db['pass']);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
