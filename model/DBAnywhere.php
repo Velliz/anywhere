@@ -1,28 +1,26 @@
 <?php
-namespace anywhere\model;
+namespace model;
 
-use anywhere\backdoor\Data;
 use anywhere\backdoor\Model;
+use pukoframework\pda\DBI;
 
-class DBAnywhere extends Model
+class DBAnywhere
 {
     public static function GetUser($username, $password)
     {
-        return Data::From('SELECT u.*, s.status FROM users u LEFT JOIN status s ON (s.ID = u.statusID)
-        WHERE username = @1 AND password = @2 LIMIT 1;')
-            ->FetchAll($username, $password);
+        return DBI::Prepare("SELECT u.*, s.status FROM users u LEFT JOIN status s ON (s.ID = u.statusID) WHERE username = @1 AND password = @2 LIMIT 1;")
+            ->GetData($username, $password);
     }
 
     public static function NewUser($arrayData)
     {
-        $model = new Model('users');
-        return $model->Save($arrayData);
+        return DBI::Prepare("users")->Save($arrayData);
     }
 
     public static function CountPDFUser($userID)
     {
-        return Data::From('SELECT count(*) AS result FROM pdf WHERE userID = @1 LIMIT 1;')
-            ->FetchAll($userID);
+        return DBI::Prepare('SELECT count(*) AS result FROM pdf WHERE userID = @1 LIMIT 1;')
+            ->GetData($userID);
     }
 
     public static function NewPdfPage($userID)

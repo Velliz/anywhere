@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Anywhere</title>
+
+    <link href="{URL}assets/global/css/bootstrap.css" rel="stylesheet">
+    <link href="{URL}assets/global/css/stylish-portfolio.css" rel="stylesheet">
+    <link href="{URL}assets/global/css/custom.css" rel="stylesheet">
+    <link href="{URL}assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="{URL}assets/global/css/register.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="login-page">
+    <div class="form">
+        <form class="register-form" method="POST">
+            <!--{!!Exception}-->
+            <div class="alert alert-danger">
+                {!ExceptionMessage}
+            </div>
+            <!--{/Exception}-->
+            <input type="hidden" name="token" value="{!token}">
+            <input type="text" name="name" placeholder="name" required/>
+            <input type="email" name="email" placeholder="email address" required/>
+            <input type="text" name="username" placeholder="username" required/>
+            <input type="password" name="password" placeholder="password" required/>
+            <button type="submit" name="_submit">Daftar</button>
+            <p class="message">Sudah terdaftar? <a href="{URL}login">Login</a></p>
+        </form>
+    </div>
+</div>
+
+<script src="{URL}assets/global/js/jquery.js"></script>
+<script src="{URL}assets/global/js/bootstrap.min.js"></script>
+
+</body>
+</html>

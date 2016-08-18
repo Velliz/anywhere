@@ -11,22 +11,22 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.6.0",
-        "phpunit/phpunit": "5.4",
+        "puko/framework": "dev-master",
         "dompdf/dompdf": "dev-master",
         "phpoffice/phpexcel": "dev-master",
         "phpoffice/phpword": "dev-master"
     },
     "require-dev": {
-        "php": ">=5.6.0",
-        "phpunit/phpunit": "5.4",
+        "puko/framework": "dev-master",
         "dompdf/dompdf": "dev-master",
         "phpoffice/phpexcel": "dev-master",
         "phpoffice/phpword": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "anywhere\\": "src/"
+            "controller\\": "controller/",
+            "model\\": "model/",
+            "config\\": "config/"
         }
     }
 }
