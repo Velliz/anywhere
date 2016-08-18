@@ -81,10 +81,10 @@
     </div>
 </div>
 
-<script src="{URL}global/assets/js/jquery.js"></script>
-<script src="{URL}global/assets/js/bootstrap.min.js"></script>
+<script src="{URL}assets/global/js/jquery.js"></script>
+<script src="{URL}assets/global/js/bootstrap.min.js"></script>
 
-<script>
+<script type="text/javascript">
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
         theme: "night",
@@ -98,10 +98,11 @@
         }
     });
 
-    $('a[name=save-btn]').on('click', function(){
-        $('form[name=save]').submit();
+    $(document).ready(function(){
+        $('a[name=save-btn]').on('click', function(){
+            $('form[name=save]').submit();
+        });
     });
-
 </script>
 
 </body>

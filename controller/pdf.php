@@ -2,6 +2,7 @@
 namespace controller;
 
 use Dompdf\Dompdf;
+use Dompdf\Exception;
 use model\DBAnywhere;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
@@ -26,6 +27,9 @@ class pdf extends View implements Auth
         $this->dompdf = new DOMPDF();
     }
 
+    /**
+     * #Template html false
+     */
     public function main()
     {
         $session = Session::Get($this)->GetLoginData();
@@ -36,7 +40,7 @@ class pdf extends View implements Auth
         }
         $filename = date('d-m-Y-His');
         $path = FILE . '/storage/' . $session['ID'];
-        mkdir($path, 0777, true);
+        if (!file_exists($path)) mkdir($path, 0777, true);
 
         file_put_contents($path . '/HTML-PDF-' . $filename . '.html', "<h1>Hello to Anywhere</h1>");
         file_put_contents($path . '/CSS-PDF-' . $filename . '.css', "<h1>Hello to Anywhere</h1>");
@@ -46,8 +50,12 @@ class pdf extends View implements Auth
         $this->RedirectTo('update/' . $dataPDF['PDFID']);
     }
 
+    /**
+     * #Template master false
+     */
     public function render($apikey, $pdfID)
     {
+        $session = Session::Get($this)->GetLoginData();
         $pdfRender = DBAnywhere::GetPdfRender($apikey, $pdfID)[0];
 
         $this->outputmode = $pdfRender['outputmode'];
@@ -60,10 +68,12 @@ class pdf extends View implements Auth
         $this->requesturl = $pdfRender['requesturl'];
 
         $head = file_get_contents(FILE . '/storage/head.html');
-        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['id'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
-        $path = file_get_contents(FILE . '/storage/' . $pdfRender['id'] . '/' . $pdfRender['html']);
+        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
+        $path = file_get_contents(FILE . '/storage/' . $pdfRender['userID'] . '/' . $pdfRender['html']);
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
+        $filepath = FILE . '/storage/' . $session['ID'];
+        file_put_contents($filepath . '/render-' . $this->reportname . '.html', $content);
 
         $coreData = json_decode($pdfRender['requestsample']);
 
@@ -93,7 +103,8 @@ class pdf extends View implements Auth
         }
 
         $render = new \pukoframework\pte\RenderEngine();
-        $template = $render->PTEParser($content, $coreData);
+        $render->useMasterLayout = false;
+        $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', $coreData);
 
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
@@ -132,14 +143,14 @@ class pdf extends View implements Auth
                 'requestsample' => $_POST['requestsample'],
             );
             $resultUpdate = DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
-            if($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
+            if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
             $this->RedirectTo(BASE_URL . 'sorry');
         }
 
         $dataPDF = $session;
         $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id);
-        foreach($dataPDF['pdf'] as $key => $value) {
-            switch($value['paper']){
+        foreach ($dataPDF['pdf'] as $key => $value) {
+            switch ($value['paper']) {
                 case 'A4':
                     $dataPDF['pdf'][$key]['A4'] = 'checked';
                     break;
@@ -150,7 +161,7 @@ class pdf extends View implements Auth
                     $dataPDF['pdf'][$key]['F4'] = 'checked';
                     break;
             }
-            switch($value['requesttype']){
+            switch ($value['requesttype']) {
                 case 'POST':
                     $dataPDF['pdf'][$key]['POST'] = 'checked';
                     break;
@@ -158,7 +169,7 @@ class pdf extends View implements Auth
                     $dataPDF['pdf'][$key]['URL'] = 'checked';
                     break;
             }
-            switch($value['outputmode']){
+            switch ($value['outputmode']) {
                 case 'Inline':
                     $dataPDF['pdf'][$key]['Inline'] = 'checked';
                     break;
@@ -191,12 +202,12 @@ class pdf extends View implements Auth
     }
 
     /**
-     * #Template master false
+     * #Template html false
      */
     public function coderender($apikey, $pdfID)
     {
+        $session = Session::Get($this)->GetLoginData();
         $pdfRender = DBAnywhere::GetPdfRender($apikey, $pdfID)[0];
-
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];
         $this->html = $pdfRender['html'];
@@ -210,11 +221,12 @@ class pdf extends View implements Auth
         $path = file_get_contents(FILE . '/storage/' . $pdfRender['userID'] . '/' . $pdfRender['html']);
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
+        $filepath = FILE . '/storage/' . $session['ID'];
+        file_put_contents($filepath . '/render-' . $this->reportname . '.html', $content);
 
         $render = new \pukoframework\pte\RenderEngine();
-        $template = $render->PTEParser($content, json_decode($pdfRender['requestsample']));
-
-        echo $template;
+        $render->useMasterLayout = false;
+        $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', json_decode($pdfRender['requestsample']));
 
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
