@@ -12,8 +12,10 @@ $framework->RouteMapping(array(
     'home' => 'main/home',
     'sorry' => 'main/sorry',
 
+    'pdf/beranda' => 'users/beranda',
     'beranda' => 'users/beranda',
 
     'pdf/main' => 'pdf/main',
+    'pdf/css' => 'pdf/css',
 ));
 $framework->Start();

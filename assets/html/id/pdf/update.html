@@ -1,45 +1,87 @@
+<nav class="navbar navbar-blue navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                    class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a data-toggle="tooltip" title="Back" href="{URL}beranda"><i class="fa fa-arrow-left"></i></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-gear"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Api Key</li>
+                        <li class="dropdown-header">{!apikey}</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">{!name}</li>
+                        <li class="dropdown-header">{!status}</li>
+                        <li><a href="{URL}logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <div class="design-page">
     <div class="form">
-        <form class="login-form"  method="POST">
+        <form class="login-form" method="POST">
             <!--{!pdf}-->
-            <input type="hidden" name="pdfid" value="{!pdfid}">
+            <input type="hidden" name="pdfid" value="{!PDFID}">
             <input type="text" name="reportname" placeholder="report name" value="{!reportname}"/>
 
             <center>
-                <label><input type="radio" name="paper" value="F4" {!paper}>F4</label>
-                <label><input type="radio" name="paper" value="A4" {!paper}>A4</label>
-                <label><input type="radio" name="paper" value="B5" {!paper}>B5</label>
+                <label><input type="radio" name="paper" value="F4" {!F4}>F4</label>
+                <label><input type="radio" name="paper" value="A4" {!A4}>A4</label>
+                <label><input type="radio" name="paper" value="B5" {!B5}>B5</label>
             </center>
 
             <input type="text" name="html" placeholder="html file" value="{!html}" disabled/>
-            <input type="text" name="css" placeholder="css file" value="{!css'}" disabled/>
+            <input type="text" name="css" placeholder="css file" value="{!css}" disabled/>
 
             <center>
-                <label><input type="radio" name="requesttype" value="POST" {!requesttype}>POST</label>
-                <label><input type="radio" name="requesttype" value="URL" {!requesttype}>URL</label>
+                <label><input type="radio" name="requesttype" value="POST" {!POST}>POST</label>
+                <label><input type="radio" name="requesttype" value="URL" {!URL}>URL</label>
             </center>
 
-            <input type="text" name="requesturl" placeholder="url data source here" value="<?= ($pdf['requesturl'] != null) ? $pdf['requesturl'] : 'http://yourwebsite.com/jsondata' ?>"/>
+            <input type="text" name="requesturl" placeholder="url data source here" value="{!requesturl}"/>
 
             <br>
             <center>
-                <label><input type="radio" name="outputmode" value="Inline" <?= ($pdf['outputmode'] == 'Inline') ? 'checked' : '' ?>>Open in Browser</label>
-                <label><input type="radio" name="outputmode" value="Download" <?= ($pdf['outputmode'] == 'Download') ? 'checked' : '' ?>>Download File</label>
+                <label><input type="radio" name="outputmode" value="Inline" {!Inline}>Open in Browser</label>
+                <label><input type="radio" name="outputmode" value="Download" {!Download}>Download File</label>
             </center>
             <br>
 
             <b>.json data sample</b>
-            <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8"><?= $pdf['requestsample'] ?></textarea>
-
+            <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8">{!requestsample}</textarea>
             <br>
             <br>
+            <p id="apiurl">API URL <a target="_blank" href="{URL}pdf/render/{!apikey}/{!PDFID}">{URL}pdf/render/{!apikey}/{!PDFID}</a></p>
 
-            <p id="apiurl">API URL <a target="_blank" href="<?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['pdfid'] ?>"><?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['pdfid'] ?></a></p>
-
-            <a target="_blank" href="<?= $id ?>/pdf/html/<?= $pdf['pdfid'] ?>" class="btn btn-dark">.html designer</a>
-            <a target="_blank" href="<?= $id ?>/pdf/css/<?= $pdf['pdfid'] ?>" class="btn btn-dark">.css designer</a>
-            <a href="#" class="btn btn-dark">request sample</a>
+            <a target="_blank" href="{URL}pdf/html/{!PDFID}" class="btn btn-dark">.html designer</a>
+            <a target="_blank" href="{URL}pdf/css/{!PDFID}" class="btn btn-dark">.css designer</a>
+            <a href="javascript:;" class="btn btn-dark">request sample</a>
 
             <br>
             <br>
@@ -49,7 +91,8 @@
     </div>
 </div>
 
-
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
         lineNumbers: true,
@@ -64,10 +107,5 @@
         }
     });
 </script>
-
-<script src="assets/js/jquery.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-
-
 </body>
 </html>

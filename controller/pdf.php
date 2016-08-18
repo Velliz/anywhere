@@ -33,10 +33,9 @@ class pdf extends View implements Auth
         if ((int)$session['statusID'] == 1) {
             $result = DBAnywhere::CountPDFUser($session['ID'])[0];
             if ((int)$result['result'] >= 2) $this->RedirectTo('limitations');
-            return;
         }
         $filename = date('d-m-Y-His');
-        $path = FILE . '/storage/' . $session['id'];
+        $path = FILE . '/storage/' . $session['ID'];
         mkdir($path, 0777, true);
 
         file_put_contents($path . '/HTML-PDF-' . $filename . '.html', "<h1>Hello to Anywhere</h1>");
@@ -45,11 +44,6 @@ class pdf extends View implements Auth
         $pdfID = DBAnywhere::NewPdfPage($session['ID'], $filename);
         $dataPDF = DBAnywhere::GetPdfPage($pdfID)[0];
         $this->RedirectTo('update/' . $dataPDF['PDFID']);
-    }
-
-    public function limitations()
-    {
-
     }
 
     public function render($apikey, $pdfID)
@@ -118,7 +112,88 @@ class pdf extends View implements Auth
         }
     }
 
-    public function CodeRender($apikey, $pdfID)
+    public function limitations()
+    {
+
+    }
+
+    public function update($id)
+    {
+        $session = Session::Get($this)->GetLoginData();
+        if (isset($_POST['pdfid']) && isset($_POST['paper']) && isset($_POST['requesttype'])) {
+            $arrayID = array('PDFID' => $_POST['pdfid']);
+            $arrayData = array(
+                'PDFID' => $_POST['pdfid'],
+                'reportname' => $_POST['reportname'],
+                'outputmode' => $_POST['outputmode'],
+                'paper' => $_POST['paper'],
+                'requesttype' => $_POST['requesttype'],
+                'requesturl' => $_POST['requesturl'],
+                'requestsample' => $_POST['requestsample'],
+            );
+            $resultUpdate = DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
+            if($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
+            $this->RedirectTo(BASE_URL . 'sorry');
+        }
+
+        $dataPDF = $session;
+        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id);
+        foreach($dataPDF['pdf'] as $key => $value) {
+            switch($value['paper']){
+                case 'A4':
+                    $dataPDF['pdf'][$key]['A4'] = 'checked';
+                    break;
+                case 'B5':
+                    $dataPDF['pdf'][$key]['B5'] = 'checked';
+                    break;
+                case 'F4':
+                    $dataPDF['pdf'][$key]['F4'] = 'checked';
+                    break;
+            }
+            switch($value['requesttype']){
+                case 'POST':
+                    $dataPDF['pdf'][$key]['POST'] = 'checked';
+                    break;
+                case 'URL':
+                    $dataPDF['pdf'][$key]['URL'] = 'checked';
+                    break;
+            }
+            switch($value['outputmode']){
+                case 'Inline':
+                    $dataPDF['pdf'][$key]['Inline'] = 'checked';
+                    break;
+                case 'Download':
+                    $dataPDF['pdf'][$key]['Download'] = 'checked';
+                    break;
+            }
+        }
+        return $dataPDF;
+    }
+
+    public function html($idpdf)
+    {
+        $session = Session::Get($this)->GetLoginData();
+        $path = FILE . '/storage/' . $session['ID'];
+        $file = $session;
+        $file['pdf'] = DBAnywhere::GetPdfPage($idpdf);
+
+        if (isset($_POST['code'])) {
+            file_put_contents($path . '/' . $file['pdf'][0]['html'], $_POST['code']);
+        }
+
+        $file['html'] = file_get_contents($path . '/' . $file['pdf'][0]['html']);
+        return $file;
+    }
+
+    public function css($idpdf)
+    {
+        echo $idpdf;
+    }
+
+    /**
+     * #Template master false
+     */
+    public function coderender($apikey, $pdfID)
     {
         $pdfRender = DBAnywhere::GetPdfRender($apikey, $pdfID)[0];
 
@@ -131,13 +206,15 @@ class pdf extends View implements Auth
         $this->requestsample = $pdfRender['requestsample'];
 
         $head = file_get_contents(FILE . '/storage/head.html');
-        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['id'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
-        $path = file_get_contents(FILE . '/storage/' . $pdfRender['id'] . '/' . $pdfRender['html']);
+        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
+        $path = file_get_contents(FILE . '/storage/' . $pdfRender['userID'] . '/' . $pdfRender['html']);
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
 
         $render = new \pukoframework\pte\RenderEngine();
         $template = $render->PTEParser($content, json_decode($pdfRender['requestsample']));
+
+        echo $template;
 
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
@@ -149,66 +226,6 @@ class pdf extends View implements Auth
         header('Content-Type: application/pdf');
 
         $this->dompdf->stream($this->reportname, array("Attachment" => false));
-    }
-
-    public function designer()
-    {
-        if ((int)$_SESSION['statusid'] == 1) {
-            $result = DBAnywhere::CountPDFUser($_SESSION['id'])[0];
-            if ((int)$result['result'] >= 2)
-                $this->RedirectTo('limitations');
-        }
-        $filename = date('d-m-Y-His');
-        $pdfID = DBAnywhere::NewPdfPage($_SESSION['id'], $filename);
-
-        $dataPDF = $_SESSION;
-        $dataPDF[0]['pdf'] = DBAnywhere::GetPdfPage($pdfID)[0];
-
-        return $dataPDF;
-    }
-
-    public function update($id)
-    {
-        $session = Session::Get($this)->GetLoginData();
-        if (isset($_POST['pdfid']) && isset($_POST['paper']) && isset($_POST['requesttype']) && isset($_POST['requesturl'])) {
-            $arrayID = array('PDFID' => $_POST['pdfid']);
-            $arrayData = array(
-                'PDFID' => $_POST['pdfid'],
-                'reportname' => $_POST['reportname'],
-                'outputmode' => $_POST['outputmode'],
-                'paper' => $_POST['paper'],
-                'requesttype' => $_POST['requesttype'],
-                'requesturl' => $_POST['requesturl'],
-                'requestsample' => $_POST['requestsample'],
-            );
-            $result = DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
-            if ($result)
-                $this->RedirectTo('beranda');
-        }
-
-        $dataPDF = $session;
-        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id);
-        var_dump($dataPDF);
-        return $dataPDF;
-    }
-
-    public function html($idpdf)
-    {
-        $path = FILE . '/storage/' . $_SESSION['id'];
-        $file = $_SESSION;
-        $file['pdf'] = DBAnywhere::GetPdfPage($idpdf)[0];
-
-        if (isset($_POST['code'])) {
-            file_put_contents($path . '/' . $file['pdf']['html'], $_POST['code']);
-        }
-
-        $file['html'] = file_get_contents($path . '/' . $file['pdf']['html']);
-        return $file;
-    }
-
-    public function css($idpdf)
-    {
-
     }
 
     #region auth
