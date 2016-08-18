@@ -13,7 +13,6 @@ $framework->RouteMapping(array(
     'sorry' => 'main/sorry',
 
     'beranda' => 'users/beranda',
-    'limitations' => 'users/limitations',
 
     'pdf/main' => 'pdf/main',
 ));

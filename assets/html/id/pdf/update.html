@@ -1,0 +1,73 @@
+
+<div class="design-page">
+    <div class="form">
+        <form class="login-form"  method="POST">
+            <!--{!pdf}-->
+            <input type="hidden" name="pdfid" value="{!pdfid}">
+            <input type="text" name="reportname" placeholder="report name" value="{!reportname}"/>
+
+            <center>
+                <label><input type="radio" name="paper" value="F4" {!paper}>F4</label>
+                <label><input type="radio" name="paper" value="A4" {!paper}>A4</label>
+                <label><input type="radio" name="paper" value="B5" {!paper}>B5</label>
+            </center>
+
+            <input type="text" name="html" placeholder="html file" value="{!html}" disabled/>
+            <input type="text" name="css" placeholder="css file" value="{!css'}" disabled/>
+
+            <center>
+                <label><input type="radio" name="requesttype" value="POST" {!requesttype}>POST</label>
+                <label><input type="radio" name="requesttype" value="URL" {!requesttype}>URL</label>
+            </center>
+
+            <input type="text" name="requesturl" placeholder="url data source here" value="<?= ($pdf['requesturl'] != null) ? $pdf['requesturl'] : 'http://yourwebsite.com/jsondata' ?>"/>
+
+            <br>
+            <center>
+                <label><input type="radio" name="outputmode" value="Inline" <?= ($pdf['outputmode'] == 'Inline') ? 'checked' : '' ?>>Open in Browser</label>
+                <label><input type="radio" name="outputmode" value="Download" <?= ($pdf['outputmode'] == 'Download') ? 'checked' : '' ?>>Download File</label>
+            </center>
+            <br>
+
+            <b>.json data sample</b>
+            <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8"><?= $pdf['requestsample'] ?></textarea>
+
+            <br>
+            <br>
+
+            <p id="apiurl">API URL <a target="_blank" href="<?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['pdfid'] ?>"><?= ROOT . '/render/pdf/' . $apikey . '/' . $pdf['pdfid'] ?></a></p>
+
+            <a target="_blank" href="<?= $id ?>/pdf/html/<?= $pdf['pdfid'] ?>" class="btn btn-dark">.html designer</a>
+            <a target="_blank" href="<?= $id ?>/pdf/css/<?= $pdf['pdfid'] ?>" class="btn btn-dark">.css designer</a>
+            <a href="#" class="btn btn-dark">request sample</a>
+
+            <br>
+            <br>
+            <button name="submit" type="submit">save configuration</button>
+            <!--{/pdf}-->
+        </form>
+    </div>
+</div>
+
+
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
+        lineNumbers: true,
+        theme: "night",
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+        }
+    });
+</script>
+
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

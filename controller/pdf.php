@@ -26,18 +26,14 @@ class pdf extends View implements Auth
         $this->dompdf = new DOMPDF();
     }
 
-    /**
-     * #Template master false
-     * $Template html false
-     */
     public function main()
     {
         $session = Session::Get($this)->GetLoginData();
-        var_dump($session);
+
         if ((int)$session['statusID'] == 1) {
             $result = DBAnywhere::CountPDFUser($session['ID'])[0];
-            if ((int)$result['result'] >= 2)
-                $this->RedirectTo('/limitations');
+            if ((int)$result['result'] >= 2) $this->RedirectTo('limitations');
+            return;
         }
         $filename = date('d-m-Y-His');
         $path = FILE . '/storage/' . $session['id'];
@@ -47,9 +43,13 @@ class pdf extends View implements Auth
         file_put_contents($path . '/CSS-PDF-' . $filename . '.css', "<h1>Hello to Anywhere</h1>");
 
         $pdfID = DBAnywhere::NewPdfPage($session['ID'], $filename);
-        $dataPDF = $session;
-        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($pdfID)[0];
-        $this->RedirectTo('pdf/update');
+        $dataPDF = DBAnywhere::GetPdfPage($pdfID)[0];
+        $this->RedirectTo('update/' . $dataPDF['PDFID']);
+    }
+
+    public function limitations()
+    {
+
     }
 
     public function render($apikey, $pdfID)
@@ -162,13 +162,14 @@ class pdf extends View implements Auth
         $pdfID = DBAnywhere::NewPdfPage($_SESSION['id'], $filename);
 
         $dataPDF = $_SESSION;
-        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($pdfID)[0];
+        $dataPDF[0]['pdf'] = DBAnywhere::GetPdfPage($pdfID)[0];
 
         return $dataPDF;
     }
 
     public function update($id)
     {
+        $session = Session::Get($this)->GetLoginData();
         if (isset($_POST['pdfid']) && isset($_POST['paper']) && isset($_POST['requesttype']) && isset($_POST['requesturl'])) {
             $arrayID = array('PDFID' => $_POST['pdfid']);
             $arrayData = array(
@@ -185,8 +186,9 @@ class pdf extends View implements Auth
                 $this->RedirectTo('beranda');
         }
 
-        $dataPDF = $_SESSION;
-        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id)[0];
+        $dataPDF = $session;
+        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id);
+        var_dump($dataPDF);
         return $dataPDF;
     }
 
