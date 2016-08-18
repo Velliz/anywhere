@@ -9,8 +9,10 @@ $framework->RouteMapping(array(
     'logout' => 'main/userlogout',
     'about' => 'main/about',
     'home' => 'main/home',
-    'beranda' => 'main/beranda',
-    'limitations' => 'main/limitations',
+
+    'beranda' => 'users/beranda',
+    'limitations' => 'users/limitations',
+
     'sorry' => 'main/sorry',
 ));
 $framework->Start();

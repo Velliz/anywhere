@@ -12,6 +12,12 @@ class DBAnywhere
             ->GetData($username, $password);
     }
 
+    public static function GetUserById($id)
+    {
+        return DBI::Prepare("SELECT u.*, s.status FROM users u LEFT JOIN status s ON (s.ID = u.statusID) WHERE u.ID = @1 LIMIT 1;")
+            ->GetData($id);
+    }
+
     public static function NewUser($arrayData)
     {
         return DBI::Prepare("users")->Save($arrayData);
@@ -23,10 +29,16 @@ class DBAnywhere
             ->GetData($userID);
     }
 
-    public static function NewPdfPage($userID)
+    public static function NewPdfPage($userID, $filename)
     {
-        $model = new Model('pdf');
-        $filename = date('d-m-Y-His');
+        /*
+        $path = FILE . '/storage/' . $userID;
+        mkdir($path, 0777, true);
+
+        file_put_contents($path . '/HTML-PDF-' . $filename . '.html', "<h1>Hello to Anywhere</h1>");
+        file_put_contents($path . '/CSS-PDF-' . $filename . '.css', "<h1>Hello to Anywhere</h1>");
+        */
+
         $arrayData = array(
             'userID' => $userID,
             'reportname' => 'PDF-' . $filename . '.pdf',
@@ -37,31 +49,24 @@ class DBAnywhere
             'requesttype' => 'POST',
         );
 
-        $path = FILE . '/storage/' . $userID;
-        mkdir($path, 0777, true);
-
-        file_put_contents($path . '/HTML-PDF-' . $filename . '.html', "<h1>Hello to Anywhere</h1>");
-        file_put_contents($path . '/CSS-PDF-' . $filename . '.css', "<h1>Hello to Anywhere</h1>");
-
-        return $model->Save($arrayData);
+        return DBI::Prepare('pdf')->Save($arrayData);
     }
 
     public static function UpdatePdfPage($pdfID, $dataUpdate)
     {
-        $model = new Model('pdf');
-        return $model->Update($pdfID, $dataUpdate);
+        return DBI::Prepare('pdf')->Update($pdfID, $dataUpdate);
     }
 
     public static function GetPdfPage($pdfID)
     {
-        return Data::From('SELECT * FROM pdf WHERE PDFID = @1 LIMIT 1;')
-            ->FetchAll($pdfID);
+        return DBI::Prepare('SELECT * FROM pdf WHERE PDFID = @1 LIMIT 1;')
+            ->GetData($pdfID);
     }
 
     public static function GetPdfLists($userID)
     {
-        return Data::From('SELECT * FROM pdf WHERE userID = @1;')
-            ->FetchAll($userID);
+        return DBI::Prepare('SELECT * FROM pdf WHERE userID = @1;')
+            ->GetData($userID);
     }
 
     /**
