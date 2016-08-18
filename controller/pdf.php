@@ -1,16 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Didit Velliz
- * Date: 8/18/2016
- * Time: 1:05 PM
- */
-
 namespace controller;
 
-
 use Dompdf\Dompdf;
+use model\DBAnywhere;
 use pukoframework\auth\Auth;
+use pukoframework\auth\Session;
 use pukoframework\pte\View;
 
 class pdf extends View implements Auth
@@ -29,8 +23,33 @@ class pdf extends View implements Auth
 
     public function __construct()
     {
-        @session_start();
         $this->dompdf = new DOMPDF();
+    }
+
+    /**
+     * #Template master false
+     * $Template html false
+     */
+    public function main()
+    {
+        $session = Session::Get($this)->GetLoginData();
+        var_dump($session);
+        if ((int)$session['statusID'] == 1) {
+            $result = DBAnywhere::CountPDFUser($session['ID'])[0];
+            if ((int)$result['result'] >= 2)
+                $this->RedirectTo('/limitations');
+        }
+        $filename = date('d-m-Y-His');
+        $path = FILE . '/storage/' . $session['id'];
+        mkdir($path, 0777, true);
+
+        file_put_contents($path . '/HTML-PDF-' . $filename . '.html', "<h1>Hello to Anywhere</h1>");
+        file_put_contents($path . '/CSS-PDF-' . $filename . '.css', "<h1>Hello to Anywhere</h1>");
+
+        $pdfID = DBAnywhere::NewPdfPage($session['ID'], $filename);
+        $dataPDF = $session;
+        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($pdfID)[0];
+        $this->RedirectTo('pdf/update');
     }
 
     public function render($apikey, $pdfID)
@@ -75,17 +94,15 @@ class pdf extends View implements Auth
         }
 
         if ($this->requesttype == 'URL') {
-            //todo : fetch json from url
             $fetch = file_get_contents($this->requesturl);
             $coreData = json_decode($fetch);
         }
 
-        $template = new ParseEngine($content);
-        $template->setArrays($coreData);
-        $template->Parse();
+        $render = new \pukoframework\pte\RenderEngine();
+        $template = $render->PTEParser($content, $coreData);
 
         $this->dompdf->setPaper($this->paper);
-        $this->dompdf->loadHtml($template->ClearOutput());
+        $this->dompdf->loadHtml($template);
         $this->dompdf->render();
 
         header("Cache-Control: no-cache");
@@ -99,7 +116,6 @@ class pdf extends View implements Auth
         if ($this->outputmode == 'Download') {
             $this->dompdf->stream($this->reportname, array("Attachment" => true));
         }
-        //echo file_put_contents('Brochure.pdf', $output);
     }
 
     public function CodeRender($apikey, $pdfID)
@@ -120,12 +136,11 @@ class pdf extends View implements Auth
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
 
-        $template = new ParseEngine($content);
-        $template->setArrays(json_decode($pdfRender['requestsample']));
-        $template->Parse();
+        $render = new \pukoframework\pte\RenderEngine();
+        $template = $render->PTEParser($content, json_decode($pdfRender['requestsample']));
 
         $this->dompdf->setPaper($this->paper);
-        $this->dompdf->loadHtml($template->ClearOutput());
+        $this->dompdf->loadHtml($template);
         $this->dompdf->render();
 
         header("Cache-Control: no-cache");
@@ -134,7 +149,6 @@ class pdf extends View implements Auth
         header('Content-Type: application/pdf');
 
         $this->dompdf->stream($this->reportname, array("Attachment" => false));
-        //echo file_put_contents('Brochure.pdf', $output);
     }
 
     public function designer()
@@ -142,18 +156,15 @@ class pdf extends View implements Auth
         if ((int)$_SESSION['statusid'] == 1) {
             $result = DBAnywhere::CountPDFUser($_SESSION['id'])[0];
             if ((int)$result['result'] >= 2)
-                $this->RedirectTo('/limitations');
+                $this->RedirectTo('limitations');
         }
-        $pdfID = DBAnywhere::NewPdfPage($_SESSION['id']);
+        $filename = date('d-m-Y-His');
+        $pdfID = DBAnywhere::NewPdfPage($_SESSION['id'], $filename);
+
         $dataPDF = $_SESSION;
         $dataPDF['pdf'] = DBAnywhere::GetPdfPage($pdfID)[0];
-        $this->view('templates/head');
-        $this->view('frontend/pdf/designer', $dataPDF);
-    }
 
-    public function main()
-    {
-        return $this->renderview('templates/head');
+        return $dataPDF;
     }
 
     public function update($id)
@@ -171,13 +182,12 @@ class pdf extends View implements Auth
             );
             $result = DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
             if ($result)
-                $this->RedirectTo('/beranda');
+                $this->RedirectTo('beranda');
         }
 
         $dataPDF = $_SESSION;
         $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id)[0];
-        $this->view('templates/head');
-        $this->view('frontend/pdf/designer', $dataPDF);
+        return $dataPDF;
     }
 
     public function html($idpdf)
@@ -191,26 +201,28 @@ class pdf extends View implements Auth
         }
 
         $file['html'] = file_get_contents($path . '/' . $file['pdf']['html']);
-        $this->view('frontend/pdf/html', $file);
+        return $file;
     }
 
     public function css($idpdf)
     {
-        $this->view('frontend/pdf/css', array());
+
     }
 
+    #region auth
     public function Login($username, $password)
     {
-        // TODO: Implement Login() method.
+        $loginResult = DBAnywhere::GetUser($username, md5($password));
+        return $loginResult[0]['ID'];
     }
 
     public function Logout()
     {
-        // TODO: Implement Logout() method.
     }
 
     public function GetLoginData($id)
     {
-        // TODO: Implement GetLoginData() method.
+        return DBAnywhere::GetUserById($id)[0];
     }
+    #end region auth
 }

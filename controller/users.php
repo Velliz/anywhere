@@ -13,7 +13,6 @@ class users extends View implements Auth
     {
         $vars = Session::Get($this)->GetLoginData();
         $vars['PDFLists'] = DBAnywhere::GetPdfLists($vars['ID']);
-        //var_dump($vars);
         return $vars;
     }
 

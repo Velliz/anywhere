@@ -69,33 +69,10 @@ class DBAnywhere
             ->GetData($userID);
     }
 
-    /**
-     * @param $idMember
-     * @return array
-     *
-     * @deprecated
-     */
-    public static function GetMemberByID($idMember)
-    {
-        return Data::From('SELECT * FROM member WHERE ID = @1')->FetchAll($idMember);
-    }
-
-    /**
-     * @param $arrayMember
-     * @return bool|string
-     *
-     * @deprecated
-     */
-    public static function AddMember($arrayMember)
-    {
-        $model = new Model('member');
-        return $model->Save($arrayMember);
-    }
-
     public static function GetPdfRender($apikey, $pdfID)
     {
-        return Data::From('SELECT * FROM pdf p LEFT JOIN users u ON (p.userID = u.ID)
+        return DBI::Prepare('SELECT * FROM pdf p LEFT JOIN users u ON (p.userID = u.ID)
         WHERE u.apikey = @1 AND p.PDFID = @2 LIMIT 1;')
-            ->FetchAll($apikey, $pdfID);
+            ->GetData($apikey, $pdfID);
     }
 }
