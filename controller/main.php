@@ -60,8 +60,13 @@ class main extends View implements Auth
         }
     }
 
+    /**
+     * #Template html false
+     */
     public function userlogout()
     {
+        Session::Get($this)->Logout();
+        $this->RedirectTo("");
     }
 
     public function about()
