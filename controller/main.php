@@ -66,7 +66,7 @@ class main extends View implements Auth
     public function userlogout()
     {
         Session::Get($this)->Logout();
-        $this->RedirectTo("");
+        $this->RedirectTo("main/main");
     }
 
     public function about()
