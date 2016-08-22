@@ -46,15 +46,15 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6 nopadding" style="height: 100%;">
+            <div class="col-lg-6 nopadding" style="height: 80%;">
                 <form name="save" id="save" action="" method="post">
-                    <textarea id="code" name="code">{!html}</textarea>
+                    <textarea id="code" name="code">{!css}</textarea>
                 </form>
             </div>
             <div class="col-lg-6 nopadding" style="height: 100%;">
                 <!--{!pdf}-->
-                <embed src="{URL}pdf/coderender/{!apikey}/{!PDFID}" type="application/pdf" style="overflow:hidden;height:700px;width:100%">
-                <!--{/pdf}-->
+                <embed src="{URL}pdf/coderender/{!apikey}/{!PDFID}" type="application/pdf" width="100%" height="700px">
+                    <!--{/pdf}-->
             </div>
         </div>
     </div>

@@ -40,10 +40,11 @@ class pdf extends View implements Auth
         }
         $filename = date('d-m-Y-His');
         $path = FILE . '/storage/' . $session['ID'];
-        if (!file_exists($path)) mkdir($path, 0777, true);
 
-        file_put_contents($path . '/HTML-PDF-' . $filename . '.html', "<h1>Hello to Anywhere</h1>");
-        file_put_contents($path . '/CSS-PDF-' . $filename . '.css', "<h1>Hello to Anywhere</h1>");
+        if (!file_exists($path)) {
+            umask(0);
+            mkdir($path, 0777, true);
+        }
 
         $pdfID = DBAnywhere::NewPdfPage($session['ID'], $filename);
         $dataPDF = DBAnywhere::GetPdfPage($pdfID)[0];
@@ -68,7 +69,9 @@ class pdf extends View implements Auth
         $this->requesturl = $pdfRender['requesturl'];
 
         $head = file_get_contents(FILE . '/storage/head.html');
-        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
+        $head .= "<link href='" . BASE_URL . 'storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'>";
+        $head .= "</head><body>";
+
         $path = file_get_contents(FILE . '/storage/' . $pdfRender['userID'] . '/' . $pdfRender['html']);
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
@@ -189,6 +192,7 @@ class pdf extends View implements Auth
         $file['pdf'] = DBAnywhere::GetPdfPage($idpdf);
 
         if (isset($_POST['code'])) {
+            umask(0);
             file_put_contents($path . '/' . $file['pdf'][0]['html'], $_POST['code']);
         }
 
@@ -196,9 +200,20 @@ class pdf extends View implements Auth
         return $file;
     }
 
-    public function css($idpdf)
+    public function style($idpdf)
     {
-        echo $idpdf;
+        $session = Session::Get($this)->GetLoginData();
+        $path = FILE . '/storage/' . $session['ID'];
+        $file = $session;
+        $file['pdf'] = DBAnywhere::GetPdfPage($idpdf);
+
+        if (isset($_POST['code'])) {
+            umask(0);
+            file_put_contents($path . '/' . $file['pdf'][0]['css'], $_POST['code']);
+        }
+
+        $file['css'] = file_get_contents($path . '/' . $file['pdf'][0]['css']);
+        return $file;
     }
 
     /**
@@ -217,7 +232,8 @@ class pdf extends View implements Auth
         $this->requestsample = $pdfRender['requestsample'];
 
         $head = file_get_contents(FILE . '/storage/head.html');
-        $head .= "<link href='" . ROOT . '/storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'></head><body>";
+        $head .= "<link href='" . BASE_URL . 'storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'>";
+        $head .= "</head><body>";
         $path = file_get_contents(FILE . '/storage/' . $pdfRender['userID'] . '/' . $pdfRender['html']);
         $tail = file_get_contents(FILE . '/storage/tail.html');
         $content = $head . $path . $tail;
