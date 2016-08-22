@@ -47,8 +47,10 @@ class pdf extends View implements Auth
         }
 
         $pdfID = DBAnywhere::NewPdfPage($session['ID'], $filename);
-        $dataPDF = DBAnywhere::GetPdfPage($pdfID)[0];
-        $this->RedirectTo('update/' . $dataPDF['PDFID']);
+        $dataPDF = DBAnywhere::GetPdfPage($pdfID);
+        file_put_contents($path . '/' . $dataPDF['pdf'][0]['html'], $_POST['code']);
+        file_put_contents($path . '/' . $dataPDF['pdf'][0]['html'], $_POST['code']);
+        $this->RedirectTo('update/' . $dataPDF['PDFID'][0]);
     }
 
     /**
@@ -250,10 +252,11 @@ class pdf extends View implements Auth
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
-        header("Author: Anywhere 0.1");
+        header("Author: Anywhere 1.0");
         header('Content-Type: application/pdf');
 
         $this->dompdf->stream($this->reportname, array("Attachment" => false));
+        exit();
     }
 
     #region auth
