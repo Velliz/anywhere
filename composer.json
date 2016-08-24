@@ -14,13 +14,15 @@
         "puko/framework": "dev-master",
         "dompdf/dompdf": "dev-master",
         "phpoffice/phpexcel": "dev-master",
-        "phpoffice/phpword": "dev-master"
+        "phpoffice/phpword": "dev-master",
+        "phpmailer/phpmailer": "v6.0.0rc2"
     },
     "require-dev": {
         "puko/framework": "dev-master",
         "dompdf/dompdf": "dev-master",
         "phpoffice/phpexcel": "dev-master",
-        "phpoffice/phpword": "dev-master"
+        "phpoffice/phpword": "dev-master",
+        "phpmailer/phpmailer": "v6.0.0rc2"
     },
     "autoload": {
         "psr-4": {

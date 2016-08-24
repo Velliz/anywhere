@@ -1,4 +1,4 @@
 .idea/
 vendor/
 storage/
-/config/database.php
+/config/
