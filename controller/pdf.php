@@ -246,10 +246,19 @@ class pdf extends View implements Auth
         $render->useMasterLayout = false;
         $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', json_decode($pdfRender['requestsample']));
 
+        echo $template;
+        /*
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/pdf');
+
         $this->dompdf->stream($this->reportname, array("Attachment" => 0));
+        */
     }
 
     #region auth
