@@ -8,7 +8,7 @@ use pukoframework\pte\View;
 class mail extends View implements Auth
 {
 
-    var $mail;
+    private $mail;
 
     public function __construct()
     {
@@ -26,8 +26,6 @@ class mail extends View implements Auth
      */
     public function main()
     {
-        // Enable verbose debug output
-        //$this->mail->SMTPDebug = 3;
         // Specify main and backup SMTP servers
         $this->mail->Host = '';
         // Enable SMTP authentication

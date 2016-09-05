@@ -80,28 +80,35 @@ class pdf extends View implements Auth
 
         $coreData = json_decode($pdfRender['requestsample']);
 
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/json');
+
         if ($this->requesttype == 'POST') {
-
-            $data = array(
-                'status' => 'success',
-            );
-
+            $data['status'] = 'success';
             if (!isset($_POST['jsondata'])) {
-                header("Cache-Control: no-cache");
-                header("Pragma: no-cache");
-                header("Author: Puko Framework v1");
-                header('Content-Type: application/json');
-
                 $data['status'] = 'failed';
                 $data['reason'] = 'post data [jsondata] is not defined.';
                 die(json_encode($data));
-            } elseif (isset($_POST['jsondata'])) {
-                $coreData = json_decode($_POST['jsondata']);
             }
+            $coreData = json_decode($_POST['jsondata']);
         }
 
         if ($this->requesttype == 'URL') {
+            $data['status'] = 'success';
+            if ($this->requesturl == '') {
+                $data['status'] = 'failed';
+                $data['reason'] = 'request URL not defined.';
+                die(json_encode($data));
+            }
             $fetch = file_get_contents($this->requesturl);
+            if (!$fetch) {
+                $data['status'] = 'failed';
+                $data['reason'] = 'url return zero data.';
+                die(json_encode($data));
+            }
+
             $coreData = json_decode($fetch);
         }
 
@@ -113,9 +120,6 @@ class pdf extends View implements Auth
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
 
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
-        header("Author: Anywhere 0.1");
         header('Content-Type: application/pdf');
 
         if ($this->outputmode == 'Inline') {
@@ -247,6 +251,8 @@ class pdf extends View implements Auth
         $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', json_decode($pdfRender['requestsample']));
 
         echo $template;
+
+        //todo: disaster grabbed by download manager.
         /*
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);

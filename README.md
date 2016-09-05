@@ -1,9 +1,16 @@
 ## Anywhere
-Anywhere is Web Service that simplify data object transition state.
-~~fun projects~~
-```
-WARNING: this project is still on idea
-```
+Anywhere is Pukoframework based Web Console that simplify data object transition state. 
+it's turn object to document based page with wizard and step by step implementation.
+
+### Features
+* PDF service
+
+### TODO
+* Word service
+* Excel service
+* QRCode service
+* Excel service
+* Image (JPG/PNG) placeholder
 
 ### Code Standard
 * PHP 5.6
@@ -13,4 +20,4 @@ WARNING: this project is still on idea
 made with <3 from **Bandung** Indonesia.
 
 ### Contributing
-If you want to join to this project fll free to contact me at diditvelliz@gmail.com
+If you want to join to this project fill free to contact me at **diditvelliz@gmail.com**

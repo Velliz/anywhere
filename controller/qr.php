@@ -2,7 +2,7 @@
 
 namespace controller;
 
-class excel
+class qr
 {
 
 }

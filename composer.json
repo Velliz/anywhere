@@ -1,6 +1,6 @@
 {
     "name": "velliz/anywhere",
-    "description": "Service that simplify data object interchanges.",
+    "description": "Pukoframework based Web Console that simplify data object transition state",
     "type": "toolkit",
     "license": "Apache License 2.0",
     "authors": [
