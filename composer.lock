@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f17605b05c7dd668e23e535756c015b1",
+    "hash": "659ff3bc5811802a0b17182927ffcb81",
     "content-hash": "38116359cde2ae83fd6bb187ea32ecbd",
     "packages": [
         {
@@ -447,12 +447,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "9128ac386bfbce5b8ca2e33daa54d3ba9fb1f961"
+                "reference": "3a55d65902d9d4e771769cee17f51a42d1b5ee1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/9128ac386bfbce5b8ca2e33daa54d3ba9fb1f961",
-                "reference": "9128ac386bfbce5b8ca2e33daa54d3ba9fb1f961",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/3a55d65902d9d4e771769cee17f51a42d1b5ee1b",
+                "reference": "3a55d65902d9d4e771769cee17f51a42d1b5ee1b",
                 "shasum": ""
             },
             "type": "library",
@@ -472,7 +472,7 @@
                 }
             ],
             "description": "PSR 4 modular based MVC Puko Framework",
-            "time": "2016-08-18 08:54:47"
+            "time": "2016-10-11 02:58:58"
         },
         {
             "name": "zendframework/zend-escaper",

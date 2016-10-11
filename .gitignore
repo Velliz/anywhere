@@ -2,3 +2,4 @@
 vendor/
 storage/
 /config/
+anywhere.sql
