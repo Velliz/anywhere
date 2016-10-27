@@ -3,8 +3,8 @@
 return array(
     'dbType' => 'mysql',
     'host' => 'localhost',
-    'user' => 'adminUr5Apjy',
-    'pass' => 'mTWNlpNUc8Yi',
+    'user' => 'root',
+    'pass' => '',
     'dbName' => 'anywhere',
     'port' => 3306
 );
