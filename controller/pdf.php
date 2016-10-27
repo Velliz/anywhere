@@ -113,6 +113,7 @@ class pdf extends View implements Auth
         }
 
         $render = new \pukoframework\pte\RenderEngine();
+        $render->clearOutput = false;
         $render->useMasterLayout = false;
         $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', $coreData);
 
@@ -247,6 +248,7 @@ class pdf extends View implements Auth
         file_put_contents($filepath . '/render-' . $this->reportname . '.html', $content);
 
         $render = new \pukoframework\pte\RenderEngine();
+        $render->clearOutput = false;
         $render->useMasterLayout = false;
         $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', json_decode($pdfRender['requestsample']));
 
