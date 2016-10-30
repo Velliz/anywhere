@@ -8,6 +8,12 @@ use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
 
+/**
+ * Class pdf
+ * @package controller
+ *
+ * #ClearOutput false
+ */
 class pdf extends View implements Auth
 {
     private $outputmode;
