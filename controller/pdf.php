@@ -47,10 +47,8 @@ class pdf extends View implements Auth
         }
 
         $pdfID = DBAnywhere::NewPdfPage($session['ID'], $filename);
-        $dataPDF = DBAnywhere::GetPdfPage($pdfID);
-        file_put_contents($path . '/' . $dataPDF['pdf'][0]['html'], $_POST['code']);
-        file_put_contents($path . '/' . $dataPDF['pdf'][0]['html'], $_POST['code']);
-        $this->RedirectTo('update/' . $dataPDF['PDFID'][0]);
+        $dataPDF = DBAnywhere::GetPdfPage($pdfID)[0];
+        $this->RedirectTo('update/' . $dataPDF['PDFID']);
     }
 
     /**
@@ -121,10 +119,10 @@ class pdf extends View implements Auth
         header('Content-Type: application/pdf');
 
         if ($this->outputmode == 'Inline') {
-            $this->dompdf->stream($this->reportname, array("Attachment" => false));
+            $this->dompdf->stream($this->reportname, array("Attachment" => 0));
         }
         if ($this->outputmode == 'Download') {
-            $this->dompdf->stream($this->reportname, array("Attachment" => true));
+            $this->dompdf->stream($this->reportname, array("Attachment" => 1));
         }
     }
 
@@ -148,6 +146,8 @@ class pdf extends View implements Auth
                 'requestsample' => $_POST['requestsample'],
             );
             $resultUpdate = DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
+            $filepath = FILE . '/storage/' . $session['ID'];
+            unlink($filepath . '/render-' . $this->reportname . '.html');
             if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
             $this->RedirectTo(BASE_URL . 'sorry');
         }
@@ -249,14 +249,7 @@ class pdf extends View implements Auth
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
-
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
-        header("Author: Anywhere 1.0");
-        header('Content-Type: application/pdf');
-
-        $this->dompdf->stream($this->reportname, array("Attachment" => false));
-        exit();
+        $this->dompdf->stream($this->reportname, array("Attachment" => 0));
     }
 
     #region auth
