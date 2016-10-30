@@ -1,4 +1,5 @@
 <?php
+
 namespace controller;
 
 use Dompdf\Dompdf;
@@ -6,6 +7,7 @@ use Dompdf\Exception;
 use model\DBAnywhere;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
+use pukoframework\pte\RenderEngine;
 use pukoframework\pte\View;
 
 /**
@@ -16,6 +18,7 @@ use pukoframework\pte\View;
  */
 class pdf extends View implements Auth
 {
+
     private $outputmode;
     private $paper;
     private $html;
@@ -23,9 +26,11 @@ class pdf extends View implements Auth
     private $reportname;
     private $requesttype;
     private $requesturl;
-
     private $requestsample;
 
+    /**
+     * @var Dompdf
+     */
     private $dompdf;
 
     private $head = <<<HEAD
@@ -72,6 +77,10 @@ TAIL;
 
     /**
      * #Template master false
+     *
+     * @param $apikey
+     * @param $pdfID
+     * @throws \Exception
      */
     public function render($apikey, $pdfID)
     {
@@ -131,7 +140,7 @@ TAIL;
             $coreData = json_decode($fetch);
         }
 
-        $render = new \pukoframework\pte\RenderEngine();
+        $render = new RenderEngine();
         $render->clearOutput = false;
         $render->useMasterLayout = false;
         $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', $coreData);
@@ -148,11 +157,6 @@ TAIL;
         if ($this->outputmode == 'Download') {
             $this->dompdf->stream($this->reportname, array("Attachment" => 1));
         }
-    }
-
-    public function limitations()
-    {
-
     }
 
     public function update($id)
@@ -244,6 +248,10 @@ TAIL;
 
     /**
      * #Template html false
+     *
+     * @param $apikey
+     * @param $pdfID
+     * @throws \Exception
      */
     public function coderender($apikey, $pdfID)
     {
@@ -266,14 +274,13 @@ TAIL;
         $filepath = FILE . '/storage/' . $session['ID'];
         file_put_contents($filepath . '/render-' . $this->reportname . '.html', $content);
 
-        $render = new \pukoframework\pte\RenderEngine();
+        $render = new RenderEngine();
         $render->clearOutput = false;
         $render->useMasterLayout = false;
         $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', json_decode($pdfRender['requestsample']));
 
         echo $template;
 
-        //todo: disaster grabbed by download manager.
         /*
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
@@ -286,6 +293,11 @@ TAIL;
 
         $this->dompdf->stream($this->reportname, array("Attachment" => 0));
         */
+    }
+
+    public function limitations()
+    {
+
     }
 
     #region auth
