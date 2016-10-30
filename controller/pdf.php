@@ -28,6 +28,19 @@ class pdf extends View implements Auth
 
     private $dompdf;
 
+    private $head = <<<HEAD
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+HEAD;
+    private $tail = <<<TAIL
+        </body>
+        </html>
+TAIL;
+
+
     public function __construct()
     {
         $this->dompdf = new DOMPDF();
@@ -74,12 +87,12 @@ class pdf extends View implements Auth
         $this->requestsample = $pdfRender['requestsample'];
         $this->requesturl = $pdfRender['requesturl'];
 
-        $head = file_get_contents(FILE . '/storage/head.html');
+        $head = $this->head;
         $head .= "<link href='" . BASE_URL . 'storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'>";
         $head .= "</head><body>";
 
         $path = file_get_contents(FILE . '/storage/' . $pdfRender['userID'] . '/' . $pdfRender['html']);
-        $tail = file_get_contents(FILE . '/storage/tail.html');
+        $tail = $this->tail;
         $content = $head . $path . $tail;
         $filepath = FILE . '/storage/' . $session['ID'];
         file_put_contents($filepath . '/render-' . $this->reportname . '.html', $content);
@@ -244,11 +257,11 @@ class pdf extends View implements Auth
         $this->requesttype = $pdfRender['requesttype'];
         $this->requestsample = $pdfRender['requestsample'];
 
-        $head = file_get_contents(FILE . '/storage/head.html');
+        $head = $this->head;
         $head .= "<link href='" . BASE_URL . 'storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'>";
         $head .= "</head><body>";
         $path = file_get_contents(FILE . '/storage/' . $pdfRender['userID'] . '/' . $pdfRender['html']);
-        $tail = file_get_contents(FILE . '/storage/tail.html');
+        $tail = $this->tail;
         $content = $head . $path . $tail;
         $filepath = FILE . '/storage/' . $session['ID'];
         file_put_contents($filepath . '/render-' . $this->reportname . '.html', $content);
