@@ -1,10 +1,23 @@
 <?php
 namespace controller;
 
+use Dompdf\Exception;
+use model\DBAnywhere;
+use model\MailModel;
+use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use pukoframework\auth\Auth;
+use pukoframework\auth\Session;
 use pukoframework\pte\View;
+use pukoframework\Request;
 
+/**
+ * Class mail
+ * @package controller
+ *
+ * #Auth true
+ * #ClearOutput false
+ */
 class mail extends View implements Auth
 {
 
@@ -24,7 +37,7 @@ class mail extends View implements Auth
     /**
      * #Template html false
      */
-    public function main()
+    public function testing()
     {
         // Specify main and backup SMTP servers
         $this->mail->Host = '';
@@ -65,6 +78,56 @@ class mail extends View implements Auth
         }
     }
 
+    public function configure($id)
+    {
+        if (!is_numeric($id)) throw new Exception("ID not defined");
+
+        $session = Session::Get($this)->GetLoginData();
+
+        if (Request::IsPost()) {
+            $emailName = Request::Post('emailname', null);
+
+            $emailAddess = Request::Post('emailaddress', null);
+            $emailPassword = Request::Post('emailpassword', null);
+
+            $host = Request::Post('host', null);
+            $port = Request::Post('port', null);
+
+            $smtpauth = Request::Post('smtpauth', null);
+            $smtpsecure = Request::Post('smtpsecure', null);
+
+            $requesttype = Request::Post('requesttype', null);
+            $requesturl = Request::Post('requesturl', null);
+            $requestsample = Request::Post('requestsample', null);
+
+            //TODO: save data
+        }
+        $dataMAIL = $session;
+        $dataMAIL['mail'] = MailModel::GetMailPage($id);
+
+        return $dataMAIL;
+    }
+
+    public function view_designer()
+    {
+    }
+
+    public function style_designer()
+    {
+    }
+
+    public function test_output()
+    {
+    }
+
+    public function render_output()
+    {
+    }
+
+    public function limitations()
+    {
+    }
+
     public function Login($username, $password)
     {
     }
@@ -75,5 +138,6 @@ class mail extends View implements Auth
 
     public function GetLoginData($id)
     {
+        return UserModel::GetUserById($id)[0];
     }
 }

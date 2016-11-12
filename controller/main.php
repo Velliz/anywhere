@@ -54,7 +54,7 @@ class main extends View implements Auth
         if (Request::IsPost()) {
             $username = Request::Post('username', null);
             $password = Request::Post('password', null);
-            $loginData = Session::Get($this)->Login($username, $password);
+            $loginData = Session::Get($this)->Login($username, $password, Auth::EXPIRED_1_WEEK);
             if (!$loginData) throw new Exception("username atau password anda salah");
             $this->RedirectTo("beranda");
         }

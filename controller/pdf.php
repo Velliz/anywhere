@@ -4,7 +4,8 @@ namespace controller;
 
 use Dompdf\Dompdf;
 use Dompdf\Exception;
-use model\DBAnywhere;
+use model\PdfModel;
+use model\UserModel;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\RenderEngine;
@@ -15,6 +16,7 @@ use pukoframework\pte\View;
  * @package controller
  *
  * #ClearOutput false
+ * #Auth true
  */
 class pdf extends View implements Auth
 {
@@ -59,7 +61,7 @@ TAIL;
         $session = Session::Get($this)->GetLoginData();
 
         if ((int)$session['statusID'] == 1) {
-            $result = DBAnywhere::CountPDFUser($session['ID'])[0];
+            $result = PdfModel::CountPDFUser($session['ID'])[0];
             if ((int)$result['result'] >= 2) $this->RedirectTo('limitations');
         }
         $filename = date('d-m-Y-His');
@@ -70,8 +72,8 @@ TAIL;
             mkdir($path, 0777, true);
         }
 
-        $pdfID = DBAnywhere::NewPdfPage($session['ID'], $filename);
-        $dataPDF = DBAnywhere::GetPdfPage($pdfID)[0];
+        $pdfID = PdfModel::NewPdfPage($session['ID'], $filename);
+        $dataPDF = PdfModel::GetPdfPage($pdfID)[0];
         $this->RedirectTo('update/' . $dataPDF['PDFID']);
     }
 
@@ -85,7 +87,7 @@ TAIL;
     public function render($apikey, $pdfID)
     {
         $session = Session::Get($this)->GetLoginData();
-        $pdfRender = DBAnywhere::GetPdfRender($apikey, $pdfID)[0];
+        $pdfRender = PdfModel::GetPdfRender($apikey, $pdfID)[0];
 
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];
@@ -173,7 +175,7 @@ TAIL;
                 'requesturl' => $_POST['requesturl'],
                 'requestsample' => $_POST['requestsample'],
             );
-            $resultUpdate = DBAnywhere::UpdatePdfPage($arrayID, $arrayData);
+            $resultUpdate = PdfModel::UpdatePdfPage($arrayID, $arrayData);
             $filepath = FILE . '/storage/' . $session['ID'];
             unlink($filepath . '/render-' . $this->reportname . '.html');
             if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
@@ -181,7 +183,7 @@ TAIL;
         }
 
         $dataPDF = $session;
-        $dataPDF['pdf'] = DBAnywhere::GetPdfPage($id);
+        $dataPDF['pdf'] = PdfModel::GetPdfPage($id);
         foreach ($dataPDF['pdf'] as $key => $value) {
             switch ($value['paper']) {
                 case 'A4':
@@ -219,7 +221,7 @@ TAIL;
         $session = Session::Get($this)->GetLoginData();
         $path = FILE . '/storage/' . $session['ID'];
         $file = $session;
-        $file['pdf'] = DBAnywhere::GetPdfPage($idpdf);
+        $file['pdf'] = PdfModel::GetPdfPage($idpdf);
 
         if (isset($_POST['code'])) {
             umask(0);
@@ -235,7 +237,7 @@ TAIL;
         $session = Session::Get($this)->GetLoginData();
         $path = FILE . '/storage/' . $session['ID'];
         $file = $session;
-        $file['pdf'] = DBAnywhere::GetPdfPage($idpdf);
+        $file['pdf'] = PdfModel::GetPdfPage($idpdf);
 
         if (isset($_POST['code'])) {
             umask(0);
@@ -256,7 +258,7 @@ TAIL;
     public function coderender($apikey, $pdfID)
     {
         $session = Session::Get($this)->GetLoginData();
-        $pdfRender = DBAnywhere::GetPdfRender($apikey, $pdfID)[0];
+        $pdfRender = PdfModel::GetPdfRender($apikey, $pdfID)[0];
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];
         $this->html = $pdfRender['html'];
@@ -303,7 +305,7 @@ TAIL;
     #region auth
     public function Login($username, $password)
     {
-        $loginResult = DBAnywhere::GetUser($username, md5($password));
+        $loginResult = UserModel::GetUser($username, md5($password));
         return $loginResult[0]['ID'];
     }
 
@@ -313,7 +315,7 @@ TAIL;
 
     public function GetLoginData($id)
     {
-        return DBAnywhere::GetUserById($id)[0];
+        return UserModel::GetUserById($id)[0];
     }
     #end region auth
 }

@@ -1,28 +1,11 @@
 <?php
+
 namespace model;
 
-use anywhere\backdoor\Model;
 use pukoframework\pda\DBI;
 
-class DBAnywhere
+class PdfModel extends DBI
 {
-    public static function GetUser($username, $password)
-    {
-        return DBI::Prepare("SELECT u.*, s.status FROM users u LEFT JOIN status s ON (s.ID = u.statusID) WHERE username = @1 AND password = @2 LIMIT 1;")
-            ->GetData($username, $password);
-    }
-
-    public static function GetUserById($id)
-    {
-        return DBI::Prepare("SELECT u.*, s.status FROM users u LEFT JOIN status s ON (s.ID = u.statusID) WHERE u.ID = @1 LIMIT 1;")
-            ->GetData($id);
-    }
-
-    public static function NewUser($arrayData)
-    {
-        return DBI::Prepare("users")->Save($arrayData);
-    }
-
     public static function CountPDFUser($userID)
     {
         return DBI::Prepare('SELECT count(*) AS result FROM pdf WHERE userID = @1 LIMIT 1;')
@@ -31,14 +14,6 @@ class DBAnywhere
 
     public static function NewPdfPage($userID, $filename)
     {
-        /*
-        $path = FILE . '/storage/' . $userID;
-        mkdir($path, 0777, true);
-
-        file_put_contents($path . '/HTML-PDF-' . $filename . '.html', "<h1>Hello to Anywhere</h1>");
-        file_put_contents($path . '/CSS-PDF-' . $filename . '.css', "<h1>Hello to Anywhere</h1>");
-        */
-
         $arrayData = array(
             'userID' => $userID,
             'reportname' => 'PDF-' . $filename . '.pdf',
