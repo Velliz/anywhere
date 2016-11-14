@@ -78,6 +78,20 @@ class mail extends View implements Auth
         }
     }
 
+    /**
+     * #Template html false
+     * #Auth true
+     * #ClearOutput false
+     *
+     * initialize a new email template
+     * then redirect to configure
+     */
+    public function init()
+    {
+        $insertId = 1;
+        $this->RedirectTo('configure/' . $insertId);
+    }
+
     public function configure($id)
     {
         if (!is_numeric($id)) throw new Exception("ID not defined");

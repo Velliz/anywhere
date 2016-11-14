@@ -2,7 +2,7 @@
 namespace controller;
 
 use Dompdf\Exception;
-use model\DBAnywhere;
+use model\UserModel;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
@@ -40,7 +40,7 @@ class main extends View implements Auth
                 'statusID' => 1,
             );
 
-            $result = DBAnywhere::NewUser($userData);
+            $result = UserModel::NewUser($userData);
             if ($result) $this->RedirectTo('login');
             else $this->RedirectTo('sorry');
         }
@@ -80,7 +80,7 @@ class main extends View implements Auth
     #region auth
     public function Login($username, $password)
     {
-        $loginResult = DBAnywhere::GetUser($username, md5($password));
+        $loginResult = UserModel::GetUser($username, md5($password));
         return $loginResult[0]['ID'];
     }
 
@@ -90,7 +90,7 @@ class main extends View implements Auth
 
     public function GetLoginData($id)
     {
-        return DBAnywhere::GetUserById($id)[0];
+        return UserModel::GetUserById($id)[0];
     }
     #end region auth
 }
