@@ -21,12 +21,17 @@
         </div>
         <div class="col-md-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">E-Mail Templates</div>
+                <div class="panel-heading">Mail Templates</div>
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group text-center">
+                            <!--{!MAILLists}-->
                             <li class="list-group-item">
-                                <a href="#" class="btn btn-primary">Comming Soon</a>
+                                <a style="width: 100%;" href="{URL}mail/update/{!PDFID}" class="btn btn-dark">{!reportname}</a>
+                            </li>
+                            <!--{/MAILLists}-->
+                            <li class="list-group-item">
+                                <a href="{URL}mail/main" class="btn btn-primary">NEW</a>
                             </li>
                         </ul>
                     </div>

@@ -12,18 +12,8 @@ class MailModel extends DBI
             ->GetData($userID);
     }
 
-    public static function NewMailPage($userID, $filename)
+    public static function NewMailPage($arrayData)
     {
-        $arrayData = array(
-            'userID' => $userID,
-            'reportname' => 'PDF-' . $filename . '.pdf',
-            'html' => 'HTML-PDF-' . $filename . '.html',
-            'css' => 'CSS-PDF-' . $filename . '.css',
-            'outputmode' => 'Inline',
-            'paper' => 'A4',
-            'requesttype' => 'POST',
-        );
-
         return DBI::Prepare('mail')->Save($arrayData);
     }
 

@@ -87,8 +87,30 @@ class mail extends View implements Auth
      */
     public function Main()
     {
-        $insertId = 1;
-        $this->RedirectTo('configure/' . $insertId);
+        $session = Session::Get($this)->GetLoginData();
+        if (!isset($session['ID'])) $this->RedirectTo(BASE_URL);
+
+        if ((int)$session['statusID'] == 1) {
+            $result = MailModel::CountMailUser($session['ID'])[0];
+            if ((int)$result['result'] >= 2) $this->RedirectTo('limitations');
+        }
+
+        $snap_shoot = date('d-m-Y-His');
+
+        $arrayData = array(
+            'userID' => $session['ID'],
+            'reportname' => 'MAIL-' . $snap_shoot . '.html',
+            'html' => '<div>Welcome to Anywhere!</div>',
+            'css' => 'body {}',
+            'outputmode' => 'Inline',
+            'paper' => 'A4',
+            'requesttype' => 'POST',
+        );
+
+        $pdfID = MailModel::NewMailPage($arrayData);
+        $dataPDF = MailModel::NewMailPage($pdfID)[0];
+
+        $this->RedirectTo('update/' . $dataPDF['MAILID']);
     }
 
     public function Update($id)
