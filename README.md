@@ -8,7 +8,7 @@ The main feature of Anywhere is:
 
 Using HTML and CSS for layout, Data source in JSON. Anywhere is generating the .pdf output for you.
 
-Anywhere is build with [Puko Framework](https://velliz.github.io/pukoframework)
+Anywhere is build with [Puko Framework](https://github.com/Velliz/pukoframework)
 
 ### TODO
 
