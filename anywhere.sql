@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Microcap Server
-Source Server Version : 50547
+Source Server         : PC Local
+Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : anywhere
 
 Target Server Type    : MYSQL
-Target Server Version : 50547
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-10-11 16:00:00
+Date: 2016-11-15 16:11:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,8 +23,8 @@ CREATE TABLE `pdf` (
   `PDFID` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
   `reportname` varchar(255) NOT NULL,
-  `html` varchar(255) NOT NULL,
-  `css` varchar(255) NOT NULL,
+  `html` text NOT NULL,
+  `css` text NOT NULL,
   `outputmode` varchar(255) NOT NULL,
   `paper` varchar(255) NOT NULL,
   `requesttype` varchar(255) NOT NULL,
@@ -36,8 +36,8 @@ CREATE TABLE `pdf` (
 -- ----------------------------
 -- Records of pdf
 -- ----------------------------
-INSERT INTO `pdf` VALUES ('1', '3', 'Test Tags', 'HTML-PDF-22-08-2016-160528.html', 'CSS-PDF-22-08-2016-160528.css', 'Inline', 'A4', 'POST', '', '{\r\n	\"data\": \"Didit Velliz\"\r\n}');
-INSERT INTO `pdf` VALUES ('2', '3', 'PDF-24-08-2016-010708.pdf', 'HTML-PDF-24-08-2016-010708.html', 'CSS-PDF-24-08-2016-010708.css', 'Inline', 'A4', 'POST', '', '');
+INSERT INTO `pdf` VALUES ('1', '2', 'Laporan Kuning', '<div>\r\n	Welcome to Anywhere!\r\n    <br/>\r\n    {!Wonderfull}\r\n    <br/>\r\n    {!PDFID}\r\n</div>', 'body {\r\n	color: #000fff;\r\n}', 'Inline', 'B5', 'POST', '', '{\r\n\"Wonderfull\": \"Today is Wonderfull!!!\"\r\n}');
+INSERT INTO `pdf` VALUES ('2', '2', 'Laporan Keuangan', '<div>Welcome to Anywhere!</div>', 'body {}', 'Inline', 'A4', 'POST', '', '');
 
 -- ----------------------------
 -- Table structure for status
@@ -47,15 +47,14 @@ CREATE TABLE `status` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of status
 -- ----------------------------
 INSERT INTO `status` VALUES ('1', 'Free Plan');
 INSERT INTO `status` VALUES ('2', 'Personal Plan');
-INSERT INTO `status` VALUES ('3', 'Businnes Plan');
-INSERT INTO `status` VALUES ('4', 'Unlimited Plan');
+INSERT INTO `status` VALUES ('3', 'Bussiness Plan');
 
 -- ----------------------------
 -- Table structure for users
@@ -70,9 +69,10 @@ CREATE TABLE `users` (
   `apikey` varchar(255) NOT NULL,
   `statusID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('3', 'Microcapital Client', 'microcapid', '686bda3fd91988ca80c4cc798ebe3130', 'microcapid@gmail.com', 'ff3d7d8be708cdf2a3d24a6f0010102a', '1');
+INSERT INTO `users` VALUES ('1', 'Nurcholid Achmad', 'dummyAdmin', '827ccb0eea8a706c4c34a16891f84e7b', 'admin@yahoo.co.id', 'b793b0baad9ed2a2db4b5774fc63de8a', '1');
+INSERT INTO `users` VALUES ('2', 'Microcapital Client', 'velliz', '686bda3fd91988ca80c4cc798ebe3130', 'vernicariuz@yahoo.co.id', 'a6d063843a03639a9899945a3a9f0165', '1');
