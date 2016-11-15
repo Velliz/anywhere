@@ -2,7 +2,6 @@
 namespace controller;
 
 use Dompdf\Exception;
-use model\DBAnywhere;
 use model\MailModel;
 use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -37,7 +36,7 @@ class mail extends View implements Auth
     /**
      * #Template html false
      */
-    public function testing()
+    public function Testing()
     {
         // Specify main and backup SMTP servers
         $this->mail->Host = '';
@@ -86,13 +85,13 @@ class mail extends View implements Auth
      * initialize a new email template
      * then redirect to configure
      */
-    public function init()
+    public function Main()
     {
         $insertId = 1;
         $this->RedirectTo('configure/' . $insertId);
     }
 
-    public function configure($id)
+    public function Update($id)
     {
         if (!is_numeric($id)) throw new Exception("ID not defined");
 
@@ -122,23 +121,23 @@ class mail extends View implements Auth
         return $dataMAIL;
     }
 
-    public function view_designer()
+    public function Html()
     {
     }
 
-    public function style_designer()
+    public function Style()
     {
     }
 
-    public function test_output()
+    public function CodeRender()
     {
     }
 
-    public function render_output()
+    public function Render()
     {
     }
 
-    public function limitations()
+    public function Limitations()
     {
     }
 

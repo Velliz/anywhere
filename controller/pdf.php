@@ -40,8 +40,14 @@ class pdf extends View implements Auth
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>Title</title>
+            <title>PDF Output - Anywhere</title>
+            <style type="text/css">
 HEAD;
+    private $middle = <<<MIDDLE
+            </style>
+        </head>
+        <body>
+MIDDLE;
     private $tail = <<<TAIL
         </body>
         </html>
@@ -56,112 +62,35 @@ TAIL;
     /**
      * #Template html false
      */
-    public function main()
+    public function Main()
     {
         $session = Session::Get($this)->GetLoginData();
+        if (!isset($session['ID'])) $this->RedirectTo(BASE_URL);
 
         if ((int)$session['statusID'] == 1) {
             $result = PdfModel::CountPDFUser($session['ID'])[0];
             if ((int)$result['result'] >= 2) $this->RedirectTo('limitations');
         }
-        $filename = date('d-m-Y-His');
-        $path = FILE . '/storage/' . $session['ID'];
 
-        if (!file_exists($path)) {
-            umask(0);
-            mkdir($path, 0777, true);
-        }
+        $snap_shoot = date('d-m-Y-His');
 
-        $pdfID = PdfModel::NewPdfPage($session['ID'], $filename);
+        $arrayData = array(
+            'userID' => $session['ID'],
+            'reportname' => 'PDF-' . $snap_shoot . '.pdf',
+            'html' => '<div>Welcome to Anywhere!</div>',
+            'css' => 'body {}',
+            'outputmode' => 'Inline',
+            'paper' => 'A4',
+            'requesttype' => 'POST',
+        );
+
+        $pdfID = PdfModel::NewPdfPage($arrayData);
         $dataPDF = PdfModel::GetPdfPage($pdfID)[0];
+
         $this->RedirectTo('update/' . $dataPDF['PDFID']);
     }
 
-    /**
-     * #Template master false
-     *
-     * @param $apikey
-     * @param $pdfID
-     * @throws \Exception
-     */
-    public function render($apikey, $pdfID)
-    {
-        $session = Session::Get($this)->GetLoginData();
-        $pdfRender = PdfModel::GetPdfRender($apikey, $pdfID)[0];
-
-        $this->outputmode = $pdfRender['outputmode'];
-        $this->paper = $pdfRender['paper'];
-        $this->html = $pdfRender['html'];
-        $this->css = $pdfRender['css'];
-        $this->reportname = $pdfRender['reportname'];
-        $this->requesttype = $pdfRender['requesttype'];
-        $this->requestsample = $pdfRender['requestsample'];
-        $this->requesturl = $pdfRender['requesturl'];
-
-        $head = $this->head;
-        $head .= "<link href='" . BASE_URL . 'storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'>";
-        $head .= "</head><body>";
-
-        $path = file_get_contents(FILE . '/storage/' . $pdfRender['userID'] . '/' . $pdfRender['html']);
-        $tail = $this->tail;
-        $content = $head . $path . $tail;
-        $filepath = FILE . '/storage/' . $session['ID'];
-        file_put_contents($filepath . '/render-' . $this->reportname . '.html', $content);
-
-        $coreData = json_decode($pdfRender['requestsample']);
-
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
-        header("Author: Anywhere 0.1");
-        header('Content-Type: application/json');
-
-        if ($this->requesttype == 'POST') {
-            $data['status'] = 'success';
-            if (!isset($_POST['jsondata'])) {
-                $data['status'] = 'failed';
-                $data['reason'] = 'post data [jsondata] is not defined.';
-                die(json_encode($data));
-            }
-            $coreData = json_decode($_POST['jsondata']);
-        }
-
-        if ($this->requesttype == 'URL') {
-            $data['status'] = 'success';
-            if ($this->requesturl == '') {
-                $data['status'] = 'failed';
-                $data['reason'] = 'request URL not defined.';
-                die(json_encode($data));
-            }
-            $fetch = file_get_contents($this->requesturl);
-            if (!$fetch) {
-                $data['status'] = 'failed';
-                $data['reason'] = 'url return zero data.';
-                die(json_encode($data));
-            }
-
-            $coreData = json_decode($fetch);
-        }
-
-        $render = new RenderEngine();
-        $render->clearOutput = false;
-        $render->useMasterLayout = false;
-        $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', $coreData);
-
-        $this->dompdf->setPaper($this->paper);
-        $this->dompdf->loadHtml($template);
-        $this->dompdf->render();
-
-        header('Content-Type: application/pdf');
-
-        if ($this->outputmode == 'Inline') {
-            $this->dompdf->stream($this->reportname, array("Attachment" => 0));
-        }
-        if ($this->outputmode == 'Download') {
-            $this->dompdf->stream($this->reportname, array("Attachment" => 1));
-        }
-    }
-
-    public function update($id)
+    public function Update($id)
     {
         $session = Session::Get($this)->GetLoginData();
         if (isset($_POST['pdfid']) && isset($_POST['paper']) && isset($_POST['requesttype'])) {
@@ -176,8 +105,7 @@ TAIL;
                 'requestsample' => $_POST['requestsample'],
             );
             $resultUpdate = PdfModel::UpdatePdfPage($arrayID, $arrayData);
-            $filepath = FILE . '/storage/' . $session['ID'];
-            unlink($filepath . '/render-' . $this->reportname . '.html');
+
             if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
             $this->RedirectTo(BASE_URL . 'sorry');
         }
@@ -216,49 +144,56 @@ TAIL;
         return $dataPDF;
     }
 
-    public function html($idpdf)
+    public function Html($id_pdf)
     {
         $session = Session::Get($this)->GetLoginData();
-        $path = FILE . '/storage/' . $session['ID'];
         $file = $session;
-        $file['pdf'] = PdfModel::GetPdfPage($idpdf);
-
         if (isset($_POST['code'])) {
-            umask(0);
-            file_put_contents($path . '/' . $file['pdf'][0]['html'], $_POST['code']);
+            $arrayID = array('PDFID' => $id_pdf);
+            PdfModel::UpdatePdfPage($arrayID, array(
+                'html' => $_POST['code']
+            ));
         }
 
-        $file['html'] = file_get_contents($path . '/' . $file['pdf'][0]['html']);
+        $file['pdf'] = PdfModel::GetPdfPage($id_pdf);
+        $file['html'] = $file['pdf'][0]['html'];
+
         return $file;
     }
 
-    public function style($idpdf)
+    public function Style($id_pdf)
     {
         $session = Session::Get($this)->GetLoginData();
-        $path = FILE . '/storage/' . $session['ID'];
         $file = $session;
-        $file['pdf'] = PdfModel::GetPdfPage($idpdf);
-
         if (isset($_POST['code'])) {
-            umask(0);
-            file_put_contents($path . '/' . $file['pdf'][0]['css'], $_POST['code']);
+            $arrayID = array('PDFID' => $id_pdf);
+            PdfModel::UpdatePdfPage($arrayID, array(
+                'css' => $_POST['code']
+            ));
         }
 
-        $file['css'] = file_get_contents($path . '/' . $file['pdf'][0]['css']);
+        $file['pdf'] = PdfModel::GetPdfPage($id_pdf);
+        $file['css'] = $file['pdf'][0]['css'];
         return $file;
     }
 
     /**
      * #Template html false
      *
-     * @param $apikey
-     * @param $pdfID
+     * @param $api_key
+     * @param $pdfId
      * @throws \Exception
+     *
+     * #Auth true
      */
-    public function coderender($apikey, $pdfID)
+    public function CodeRender($api_key, $pdfId)
     {
         $session = Session::Get($this)->GetLoginData();
-        $pdfRender = PdfModel::GetPdfRender($apikey, $pdfID)[0];
+
+        if(!isset($session['ID'])) throw new Exception("Session Expired");
+
+        $pdfRender = PdfModel::GetPdfRender($api_key, $pdfId)[0];
+
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];
         $this->html = $pdfRender['html'];
@@ -267,23 +202,13 @@ TAIL;
         $this->requesttype = $pdfRender['requesttype'];
         $this->requestsample = $pdfRender['requestsample'];
 
-        $head = $this->head;
-        $head .= "<link href='" . BASE_URL . 'storage/' . $pdfRender['userID'] . '/' . $this->css . "' rel='stylesheet'>";
-        $head .= "</head><body>";
-        $path = file_get_contents(FILE . '/storage/' . $pdfRender['userID'] . '/' . $pdfRender['html']);
-        $tail = $this->tail;
-        $content = $head . $path . $tail;
-        $filepath = FILE . '/storage/' . $session['ID'];
-        file_put_contents($filepath . '/render-' . $this->reportname . '.html', $content);
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
 
-        $render = new RenderEngine();
+        $render = new RenderEngine('string');
         $render->clearOutput = false;
         $render->useMasterLayout = false;
-        $template = $render->PTEParser($filepath . '/render-' . $this->reportname . '.html', json_decode($pdfRender['requestsample']));
+        $template = $render->PTEParser($htmlFactory, json_decode($pdfRender['requestsample']));
 
-        echo $template;
-
-        /*
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
@@ -294,10 +219,86 @@ TAIL;
         header('Content-Type: application/pdf');
 
         $this->dompdf->stream($this->reportname, array("Attachment" => 0));
-        */
     }
 
-    public function limitations()
+    /**
+     * #Template master false
+     *
+     * @param $api_key
+     * @param $pdfID
+     * @throws \Exception
+     */
+    public function Render($api_key, $pdfID)
+    {
+        $session = Session::Get($this)->GetLoginData();
+
+        if(!isset($session['ID'])) throw new Exception("Session Expired");
+
+        $pdfRender = PdfModel::GetPdfRender($api_key, $pdfID)[0];
+
+        $this->outputmode = $pdfRender['outputmode'];
+        $this->paper = $pdfRender['paper'];
+        $this->html = $pdfRender['html'];
+        $this->css = $pdfRender['css'];
+        $this->reportname = $pdfRender['reportname'];
+        $this->requesttype = $pdfRender['requesttype'];
+        $this->requestsample = $pdfRender['requestsample'];
+        $this->requesturl = $pdfRender['requesturl'];
+
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
+
+        $coreData = json_decode($pdfRender['requestsample']);
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/pdf');
+
+        if ($this->requesttype == 'POST') {
+            $data['status'] = 'success';
+            if (!isset($_POST['jsondata'])) {
+                $data['status'] = 'failed';
+                $data['reason'] = 'post data [jsondata] is not defined.';
+                die(json_encode($data));
+            }
+            $coreData = json_decode($_POST['jsondata']);
+        }
+
+        if ($this->requesttype == 'URL') {
+            $data['status'] = 'success';
+            if ($this->requesturl == '') {
+                $data['status'] = 'failed';
+                $data['reason'] = 'request URL not defined.';
+                die(json_encode($data));
+            }
+            $fetch = file_get_contents($this->requesturl);
+            if (!$fetch) {
+                $data['status'] = 'failed';
+                $data['reason'] = 'url return zero data.';
+                die(json_encode($data));
+            }
+
+            $coreData = json_decode($fetch);
+        }
+
+        $render = new RenderEngine('string');
+        $render->clearOutput = false;
+        $render->useMasterLayout = false;
+        $template = $render->PTEParser($htmlFactory, $coreData);
+
+        $this->dompdf->setPaper($this->paper);
+        $this->dompdf->loadHtml($template);
+        $this->dompdf->render();
+
+        if ($this->outputmode == 'Inline') {
+            $this->dompdf->stream($this->reportname, array("Attachment" => 0));
+        }
+        if ($this->outputmode == 'Download') {
+            $this->dompdf->stream($this->reportname, array("Attachment" => 1));
+        }
+    }
+
+    public function Limitations()
     {
 
     }

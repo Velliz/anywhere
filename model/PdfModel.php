@@ -12,18 +12,8 @@ class PdfModel extends DBI
             ->GetData($userID);
     }
 
-    public static function NewPdfPage($userID, $filename)
+    public static function NewPdfPage($arrayData)
     {
-        $arrayData = array(
-            'userID' => $userID,
-            'reportname' => 'PDF-' . $filename . '.pdf',
-            'html' => 'HTML-PDF-' . $filename . '.html',
-            'css' => 'CSS-PDF-' . $filename . '.css',
-            'outputmode' => 'Inline',
-            'paper' => 'A4',
-            'requesttype' => 'POST',
-        );
-
         return DBI::Prepare('pdf')->Save($arrayData);
     }
 

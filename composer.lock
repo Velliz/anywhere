@@ -447,12 +447,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "133ce2896cdfea206b193b9e5df6ea33872d1cb6"
+                "reference": "b209b5aa3e23037dc4cc59dd7409875654a9947e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/133ce2896cdfea206b193b9e5df6ea33872d1cb6",
-                "reference": "133ce2896cdfea206b193b9e5df6ea33872d1cb6",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/b209b5aa3e23037dc4cc59dd7409875654a9947e",
+                "reference": "b209b5aa3e23037dc4cc59dd7409875654a9947e",
                 "shasum": ""
             },
             "require-dev": {
@@ -475,7 +475,7 @@
                 }
             ],
             "description": "PSR 4 modular based MVC Puko Framework",
-            "time": "2016-11-11 01:18:31"
+            "time": "2016-11-15 08:49:12"
         },
         {
             "name": "zendframework/zend-escaper",

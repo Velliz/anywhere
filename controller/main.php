@@ -13,6 +13,10 @@ class main extends View implements Auth
 
     public function main()
     {
+        $user = @Session::Get($this)->GetLoginData();
+        if(isset($user['ID'])) {
+            $this->RedirectTo("beranda");
+        }
     }
 
     /**
