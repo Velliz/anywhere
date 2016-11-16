@@ -85,7 +85,8 @@ class main extends View implements Auth
     public function Login($username, $password)
     {
         $loginResult = UserModel::GetUser($username, md5($password));
-        return $loginResult[0]['ID'];
+        if(isset($loginResult[0]['ID'])) return $loginResult[0]['ID'];
+        return false;
     }
 
     public function Logout()
