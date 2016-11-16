@@ -37,7 +37,7 @@ class MailModel extends DBI
     public static function GetMailRender($apikey, $pdfID)
     {
         return DBI::Prepare('SELECT * FROM mail m LEFT JOIN users u ON (m.userID = u.ID)
-        WHERE u.apikey = @1 AND m.EMAILID = @2 LIMIT 1;')
+        WHERE (u.apikey = @1) AND (m.MAILID = @2) LIMIT 1;')
             ->GetData($apikey, $pdfID);
     }
 }

@@ -7,6 +7,7 @@ use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
+use pukoframework\pte\RenderEngine;
 use pukoframework\pte\View;
 use pukoframework\Request;
 
@@ -20,61 +21,57 @@ use pukoframework\Request;
 class mail extends View implements Auth
 {
 
+    private $mailName;
+    private $mailAddress;
+    private $mailPassword;
+    private $host;
+    private $port;
+    private $smtpauth;
+    private $smtpsecure;
+    private $requesttype;
+    private $requesturl;
+    private $requestsample;
+
+    private $html;
+    private $css;
+
+    /**
+     * @var PHPMailer
+     */
     private $mail;
+
+    private $head = <<<HEAD
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Mail Output - Anywhere</title>
+            <style type="text/css">
+HEAD;
+    private $middle = <<<MIDDLE
+            </style>
+        </head>
+        <body>
+MIDDLE;
+    private $tail = <<<TAIL
+        </body>
+        </html>
+TAIL;
 
     public function __construct()
     {
         $this->mail = new PHPMailer;
         $this->mail->isSMTP();
+        $this->mail->isHTML(true);
+
+        //$this->mail->SMTPDebug = 2;
+        //$this->mail->Debugoutput = 'html';
+
         $this->mail->SMTPOptions = ['ssl' => [
             'verify_peer' => false,
             'verify_peer_name' => false,
             'allow_self_signed' => true
         ]];
-    }
-
-    /**
-     * #Template html false
-     */
-    public function Testing()
-    {
-        // Specify main and backup SMTP servers
-        $this->mail->Host = '';
-        // Enable SMTP authentication
-        $this->mail->SMTPAuth = true;
-        // SMTP username
-        $this->mail->Username = '';
-        // SMTP password
-        $this->mail->Password = '';
-        // Enable TLS encryption, `ssl` also accepted
-        $this->mail->SMTPSecure = 'tls';
-        // TCP port to connect to
-        $this->mail->Port = 587;
-
-        $this->mail->setFrom('system@example.com', 'Mail Systems');
-        // Add a recipient
-        $this->mail->addAddress('diditvelliz@example.com');
-        // Name is optional
-        //$this->mail->addReplyTo('info@example.com', 'Information');
-        //$this->mail->addBCC('bcc@example.com');
-
-        // Add attachments
-        //$this->mail->addAttachment('/var/tmp/file.tar.gz');
-        // Optional name
-        //$this->mail->addAttachment('/tmp/image.jpg', 'new.jpg');
-        // Set email format to HTML
-        $this->mail->isHTML(true);
-
-        $this->mail->Subject = 'Here is the TES Mail';
-        $this->mail->Body = 'This is the TEST message body <b>in bold!</b> send automatic by systems';
-        $this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-        if (!$this->mail->send()) {
-            echo 'Message could not be sent.';
-            echo 'Mailer Error: ' . $this->mail->ErrorInfo;
-        } else {
-            echo 'Message has been sent';
-        }
     }
 
     /**
@@ -126,8 +123,8 @@ class mail extends View implements Auth
             $mailid = Request::Post('mailid', null);
             $mailName = Request::Post('mailname', null);
 
-            $emailAddess = Request::Post('mailaddress', null);
-            $emailPassword = Request::Post('mailpassword', null);
+            $mailAddress = Request::Post('mailaddress', null);
+            $mailPassword = Request::Post('mailpassword', null);
 
             $host = Request::Post('host', null);
             $port = Request::Post('port', null);
@@ -137,9 +134,26 @@ class mail extends View implements Auth
 
             $requesttype = Request::Post('requesttype', null);
             $requesturl = Request::Post('requesturl', null);
+
             $requestsample = Request::Post('requestsample', null);
 
-            //TODO: save data
+            $resultUpdate = MailModel::UpdateMailPage(
+                array('MAILID' => $mailid),
+                array(
+                    'mailname' => $mailName,
+                    'mailaddress' => $mailAddress,
+                    'mailpassword' => $mailPassword,
+                    'host' => $host,
+                    'port' => $port,
+                    'smtpauth' => $smtpauth,
+                    'smtpsecure' => $smtpsecure,
+                    'requesttype' => $requesttype,
+                    'requesturl' => $requesturl,
+                    'requestsample' => $requestsample,
+                ));
+
+            if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
+            $this->RedirectTo(BASE_URL . 'sorry');
         }
         $dataMAIL = $session;
         $dataMAIL['mail'] = MailModel::GetMailPage($id);
@@ -159,20 +173,167 @@ class mail extends View implements Auth
         return $dataMAIL;
     }
 
-    public function Html()
+    public function Html($id_mail)
     {
+        $session = Session::Get($this)->GetLoginData();
+        $file = $session;
+        if (isset($_POST['code'])) {
+            $arrayID = array('MAILID' => $id_mail);
+            MailModel::UpdateMailPage($arrayID, array(
+                'html' => $_POST['code']
+            ));
+        }
+
+        $file['mail'] = MailModel::GetMailPage($id_mail);
+        $file['html'] = $file['mail'][0]['html'];
+
+        return $file;
     }
 
-    public function Style()
+    public function Style($id_mail)
     {
+        $session = Session::Get($this)->GetLoginData();
+        $file = $session;
+        if (isset($_POST['code'])) {
+            $arrayID = array('MAILID' => $id_mail);
+            MailModel::UpdateMailPage($arrayID, array(
+                'html' => $_POST['code']
+            ));
+        }
+
+        $file['mail'] = MailModel::GetMailPage($id_mail);
+        $file['css'] = $file['mail'][0]['css'];
+
+        return $file;
     }
 
-    public function CodeRender()
+    /**
+     * @param $api_key
+     * @param $mailId
+     * @throws Exception
+     * @throws \Exception
+     *
+     * #Template html false
+     */
+    public function CodeRender($api_key, $mailId)
     {
+        $session = Session::Get($this)->GetLoginData();
+
+        if (!isset($session['ID'])) throw new Exception("Session Expired");
+
+        $mailRender = MailModel::GetMailRender($api_key, $mailId)[0];
+
+        $this->mailName = $mailRender['mailname'];
+        $this->mailAddress = $mailRender['mailaddress'];
+        $this->mailPassword = $mailRender['mailpassword'];
+
+        $this->html = $mailRender['html'];
+        $this->css = $mailRender['css'];
+
+        $this->host = $mailRender['host'];
+        $this->port = $mailRender['port'];
+
+        $this->smtpauth = $mailRender['smtpauth'];
+        $this->smtpsecure = $mailRender['smtpsecure'];
+        $this->requesttype = $mailRender['requesttype'];
+        $this->requesturl = $mailRender['requesturl'];
+        $this->requestsample = $mailRender['requestsample'];
+
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
+
+        $render = new RenderEngine('string');
+        $render->clearOutput = false;
+        $render->useMasterLayout = false;
+        $template = $render->PTEParser($htmlFactory, json_decode($mailRender['requestsample']));
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+
+        echo $template;
     }
 
-    public function Render()
+    /**
+     * @param $api_key
+     * @param $mailId
+     * @throws Exception
+     * @throws \Exception
+     *
+     * #Template html false
+     */
+    public function Render($api_key, $mailId)
     {
+        $session = Session::Get($this)->GetLoginData();
+
+        if (!isset($session['ID'])) throw new Exception("Session Expired");
+
+        $mailRender = MailModel::GetMailRender($api_key, $mailId)[0];
+
+        $this->mailName = $mailRender['mailname'];
+        $this->mailAddress = $mailRender['mailaddress'];
+        $this->mailPassword = $mailRender['mailpassword'];
+
+        $this->html = $mailRender['html'];
+        $this->css = $mailRender['css'];
+
+        $this->host = $mailRender['host'];
+        $this->port = $mailRender['port'];
+
+        $this->smtpauth = $mailRender['smtpauth'];
+        $this->smtpsecure = $mailRender['smtpsecure'];
+        $this->requesttype = $mailRender['requesttype'];
+        $this->requesturl = $mailRender['requesturl'];
+        $this->requestsample = $mailRender['requestsample'];
+
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
+
+        $render = new RenderEngine('string');
+        $render->clearOutput = false;
+        $render->useMasterLayout = false;
+        $template = $render->PTEParser($htmlFactory, (array) json_decode($mailRender['requestsample']));
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/json');
+
+        $this->mail->Host = $this->host;
+        $this->mail->SMTPAuth = ($this->smtpauth == 'true') ? true : false;
+        $this->mail->Username = $this->mailAddress;
+        $this->mail->Password = $this->mailPassword;
+        $this->mail->SMTPSecure = $this->smtpsecure;
+        $this->mail->Port = (int) $this->port;
+
+        $data = (array) json_decode($mailRender['requestsample']);
+
+        // sender
+        $this->mail->setFrom($this->mailAddress, $this->mailName);
+        // Add a recipient
+        $this->mail->addAddress($data['to']);
+
+        //$this->mail->addReplyTo('info@example.com', 'Information');
+        //$this->mail->addCC('bcc@example.com');
+        //$this->mail->addBCC('bcc@example.com');
+
+        // Add attachments
+        //$this->mail->addAttachment('/var/tmp/file.tar.gz');
+        //$this->mail->addAttachment('/tmp/image.jpg', 'new.jpg');
+
+        $this->mail->Subject = $data['subject'];
+        $this->mail->Body = $template;
+        $this->mail->AltBody = $template;
+
+        $response = array();
+        if (!$this->mail->send()) {
+            $response['IsSuccess'] = false;
+            $response['Message'] = 'Message could not be sent';
+            $response['ErrorMessage'] = $this->mail->ErrorInfo;
+        } else {
+            $response['IsSuccess'] = true;
+            $response['Message'] = 'Message sent';
+        }
+
+        echo json_encode($response);
     }
 
     public function Limitations()

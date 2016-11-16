@@ -190,7 +190,7 @@ TAIL;
     {
         $session = Session::Get($this)->GetLoginData();
 
-        if(!isset($session['ID'])) throw new Exception("Session Expired");
+        if (!isset($session['ID'])) throw new Exception("Session Expired");
 
         $pdfRender = PdfModel::GetPdfRender($api_key, $pdfId)[0];
 
@@ -207,7 +207,7 @@ TAIL;
         $render = new RenderEngine('string');
         $render->clearOutput = false;
         $render->useMasterLayout = false;
-        $template = $render->PTEParser($htmlFactory, json_decode($pdfRender['requestsample']));
+        $template = $render->PTEParser($htmlFactory, (array)json_decode($pdfRender['requestsample']));
 
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
@@ -232,7 +232,7 @@ TAIL;
     {
         $session = Session::Get($this)->GetLoginData();
 
-        if(!isset($session['ID'])) throw new Exception("Session Expired");
+        if (!isset($session['ID'])) throw new Exception("Session Expired");
 
         $pdfRender = PdfModel::GetPdfRender($api_key, $pdfID)[0];
 
@@ -247,7 +247,7 @@ TAIL;
 
         $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
 
-        $coreData = json_decode($pdfRender['requestsample']);
+        $coreData = (array)json_decode($pdfRender['requestsample']);
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
@@ -261,7 +261,7 @@ TAIL;
                 $data['reason'] = 'post data [jsondata] is not defined.';
                 die(json_encode($data));
             }
-            $coreData = json_decode($_POST['jsondata']);
+            $coreData = (array)json_decode($_POST['jsondata']);
         }
 
         if ($this->requesttype == 'URL') {
@@ -278,7 +278,7 @@ TAIL;
                 die(json_encode($data));
             }
 
-            $coreData = json_decode($fetch);
+            $coreData = (array)json_decode($fetch);
         }
 
         $render = new RenderEngine('string');

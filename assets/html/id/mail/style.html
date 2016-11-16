@@ -48,13 +48,13 @@
         <div class="row full-height">
             <div class="col-lg-6 nopadding" style="height: 100%;">
                 <form class="full-height" name="save" id="save" action="" method="post">
-                    <textarea id="code" name="code">{!html}</textarea>
+                    <textarea id="code" name="code">{!css}</textarea>
                 </form>
             </div>
             <div class="col-lg-6" style="height: 100%;">
-                <!--{!pdf}-->
-                <embed src="{URL}pdf/coderender/{!apikey}/{!PDFID}" type="application/pdf" style="overflow:hidden;height:99%;width:100%">
-                <!--{/pdf}-->
+                <!--{!mail}-->
+                <embed src="{URL}mail/coderender/{!apikey}/{!MAILID}" type="application/html" style="overflow:hidden;height:99%;width:100%">
+                    <!--{/mail}-->
             </div>
         </div>
     </div>
@@ -83,3 +83,5 @@
         });
     });
 </script>
+
+</body>
