@@ -9,6 +9,13 @@ use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
 
+/**
+ * Class users
+ * @package controller
+ *
+ * #Auth true
+ * #ClearOutput false
+ */
 class users extends View implements Auth
 {
 

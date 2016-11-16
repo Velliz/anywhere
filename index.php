@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 define('ROOT', __DIR__);
 define('FILE', dirname(__FILE__));
 define('BASE_URL', "http://" . $_SERVER['SERVER_NAME'] . "/anywhere/");
