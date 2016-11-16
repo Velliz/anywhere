@@ -2,6 +2,7 @@
 namespace controller;
 
 use model\DBAnywhere;
+use model\MailModel;
 use model\PdfModel;
 use model\UserModel;
 use pukoframework\auth\Auth;
@@ -15,6 +16,7 @@ class users extends View implements Auth
     {
         $vars = Session::Get($this)->GetLoginData();
         $vars['PDFLists'] = PdfModel::GetPdfLists($vars['ID']);
+        $vars['MAILLists'] = MailModel::GetMailLists($vars['ID']);
         return $vars;
     }
 

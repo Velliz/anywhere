@@ -95,22 +95,25 @@ class mail extends View implements Auth
             if ((int)$result['result'] >= 2) $this->RedirectTo('limitations');
         }
 
+
         $snap_shoot = date('d-m-Y-His');
 
         $arrayData = array(
             'userID' => $session['ID'],
-            'reportname' => 'MAIL-' . $snap_shoot . '.html',
+            'mailname' => 'MAIL-' . $snap_shoot . '.html',
             'html' => '<div>Welcome to Anywhere!</div>',
             'css' => 'body {}',
-            'outputmode' => 'Inline',
-            'paper' => 'A4',
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'smtpauth' => 'true',
+            'smtpsecure' => 'tls',
             'requesttype' => 'POST',
         );
 
-        $pdfID = MailModel::NewMailPage($arrayData);
-        $dataPDF = MailModel::NewMailPage($pdfID)[0];
+        $mailID = MailModel::NewMailPage($arrayData);
+        $dataMAIL = MailModel::GetMailPage($mailID)[0];
 
-        $this->RedirectTo('update/' . $dataPDF['MAILID']);
+        $this->RedirectTo('update/' . $dataMAIL['MAILID']);
     }
 
     public function Update($id)
@@ -120,10 +123,11 @@ class mail extends View implements Auth
         $session = Session::Get($this)->GetLoginData();
 
         if (Request::IsPost()) {
-            $emailName = Request::Post('emailname', null);
+            $mailid = Request::Post('mailid', null);
+            $mailName = Request::Post('mailname', null);
 
-            $emailAddess = Request::Post('emailaddress', null);
-            $emailPassword = Request::Post('emailpassword', null);
+            $emailAddess = Request::Post('mailaddress', null);
+            $emailPassword = Request::Post('mailpassword', null);
 
             $host = Request::Post('host', null);
             $port = Request::Post('port', null);
@@ -139,6 +143,18 @@ class mail extends View implements Auth
         }
         $dataMAIL = $session;
         $dataMAIL['mail'] = MailModel::GetMailPage($id);
+
+        foreach ($dataMAIL['mail'] as $key => $value) {
+            switch ($value['requesttype']) {
+                case 'POST':
+                    $dataMAIL['mail'][$key]['POST'] = 'checked';
+                    break;
+                case 'URL':
+                    $dataMAIL['mail'][$key]['URL'] = 'checked';
+                    break;
+            }
+
+        }
 
         return $dataMAIL;
     }

@@ -8,7 +8,7 @@ class MailModel extends DBI
 
     public static function CountMailUser($userID)
     {
-        return DBI::Prepare('SELECT count(*) AS result FROM mail WHERE userID = @1 LIMIT 1;')
+        return DBI::Prepare('SELECT count(*) AS result FROM mail WHERE (userID = @1) LIMIT 1;')
             ->GetData($userID);
     }
 
@@ -24,7 +24,7 @@ class MailModel extends DBI
 
     public static function GetMailPage($pdfID)
     {
-        return DBI::Prepare('SELECT * FROM mail WHERE (EMAILID = @1) LIMIT 1;')
+        return DBI::Prepare('SELECT * FROM mail WHERE (MAILID = @1) LIMIT 1;')
             ->GetData($pdfID);
     }
 
