@@ -14,7 +14,7 @@ class main extends View implements Auth
     public function main()
     {
         $user = @Session::Get($this)->GetLoginData();
-        if(isset($user['ID'])) {
+        if (isset($user['ID'])) {
             $this->RedirectTo("beranda");
         }
     }
@@ -52,15 +52,23 @@ class main extends View implements Auth
 
     /**
      * #Template master false
+     * #Value PageTitle Login
      */
     public function userlogin()
     {
         if (Request::IsPost()) {
             $username = Request::Post('username', null);
+            if ($username == null) throw new \Exception('Username must filled');
             $password = Request::Post('password', null);
-            $loginData = Session::Get($this)->Login($username, $password, Auth::EXPIRED_1_WEEK);
-            if (!$loginData) throw new Exception("username atau password anda salah");
-            $this->RedirectTo("beranda");
+            if ($password == null) throw new \Exception('Password must filled');
+
+            if (Session::Get($this)->Login($username, md5($password), Auth::EXPIRED_1_MONTH)) {
+                $this->RedirectTo(BASE_URL . 'beranda');
+                return;
+            }
+
+            throw new Exception("username atau password anda salah");
+
         }
     }
 
@@ -84,9 +92,8 @@ class main extends View implements Auth
     #region auth
     public function Login($username, $password)
     {
-        $loginResult = UserModel::GetUser($username, md5($password));
-        if(isset($loginResult[0]['ID'])) return $loginResult[0]['ID'];
-        return false;
+        $loginResult = UserModel::GetUser($username, $password);
+        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
     }
 
     public function Logout()
