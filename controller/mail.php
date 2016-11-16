@@ -197,7 +197,7 @@ TAIL;
         if (isset($_POST['code'])) {
             $arrayID = array('MAILID' => $id_mail);
             MailModel::UpdateMailPage($arrayID, array(
-                'html' => $_POST['code']
+                'css' => $_POST['code']
             ));
         }
 
@@ -210,6 +210,7 @@ TAIL;
     /**
      * @param $api_key
      * @param $mailId
+     *
      * @throws Exception
      * @throws \Exception
      *
@@ -251,6 +252,7 @@ TAIL;
         header("Author: Anywhere 0.1");
 
         echo $template;
+        exit();
     }
 
     /**
@@ -334,6 +336,7 @@ TAIL;
         }
 
         echo json_encode($response);
+        exit();
     }
 
     public function Limitations()
