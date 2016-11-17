@@ -385,8 +385,11 @@ TAIL;
     {
     }
 
+    #region auth
     public function Login($username, $password)
     {
+        $loginResult = UserModel::GetUser($username, $password);
+        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
     }
 
     public function Logout()
@@ -397,4 +400,5 @@ TAIL;
     {
         return UserModel::GetUserById($id)[0];
     }
+    #end region auth
 }

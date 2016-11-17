@@ -303,11 +303,11 @@ TAIL;
 
     }
 
-    #region auth
+#region auth
     public function Login($username, $password)
     {
-        $loginResult = UserModel::GetUser($username, md5($password));
-        return $loginResult[0]['ID'];
+        $loginResult = UserModel::GetUser($username, $password);
+        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
     }
 
     public function Logout()

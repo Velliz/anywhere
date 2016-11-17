@@ -1,0 +1,77 @@
+<nav class="navbar navbar-blue navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                    class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a data-toggle="tooltip" title="Back" href="{URL}beranda"><i class="fa fa-arrow-left"></i></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-gear"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Api Key</li>
+                        <li class="dropdown-header">{!apikey}</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">{!name}</li>
+                        <li class="dropdown-header">{!status}</li>
+                        <li><a href="{URL}logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="design-page">
+    <div class="form">
+        <form class="login-form" method="POST">
+            <p>Untuk membuat sebuah kode QR. Anda hanya perlu mengirim data dalam bentuk teks ke API URL yang sudah disediakan.</p>
+            <p id="apiurl">
+                API URL <br>
+                <a target="_blank" href="{URL}qr/render?data=your_data_to_qr">{URL}qr/render?data=[data]</a>
+            </p>
+            <p>
+                Contoh <br>
+                <a target="_blank" href="{URL}qr/render?data=admin@example.co.id">{URL}qr/render?data=admin@example.co.id</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<script src="{URL}assets/global/js/jquery.js"></script>
+<script src="{URL}assets/global/js/bootstrap.min.js"></script>
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
+        lineNumbers: true,
+        theme: "night",
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+        }
+    });
+</script>
