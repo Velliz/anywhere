@@ -292,7 +292,9 @@ TAIL;
         $render = new RenderEngine('string');
         $render->clearOutput = false;
         $render->useMasterLayout = false;
-        $template = $render->PTEParser($htmlFactory, (array) json_decode($mailRender['requestsample']));
+        $template = $render->PTEParser($htmlFactory, (array)json_decode($mailRender['requestsample']));
+
+        $coreData = (array)json_decode($mailRender['requestsample']);
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
@@ -304,14 +306,50 @@ TAIL;
         $this->mail->Username = $this->mailAddress;
         $this->mail->Password = $this->mailPassword;
         $this->mail->SMTPSecure = $this->smtpsecure;
-        $this->mail->Port = (int) $this->port;
+        $this->mail->Port = (int)$this->port;
 
-        $data = (array) json_decode($mailRender['requestsample']);
+        if ($this->requesttype == 'POST') {
+            $data['status'] = 'success';
+            if (!isset($_POST['jsondata'])) {
+                $data['status'] = 'failed';
+                $data['reason'] = 'post data [jsondata] is not defined.';
+                die(json_encode($data));
+            }
+            $coreData = (array)json_decode($_POST['jsondata']);
+        }
+
+        if ($this->requesttype == 'URL') {
+            $data['status'] = 'success';
+            if ($this->requesturl == '') {
+                $data['status'] = 'failed';
+                $data['reason'] = 'request URL not defined.';
+                die(json_encode($data));
+            }
+            $fetch = file_get_contents($this->requesturl);
+            if (!$fetch) {
+                $data['status'] = 'failed';
+                $data['reason'] = 'url return zero data.';
+                die(json_encode($data));
+            }
+            $coreData = (array)json_decode($fetch);
+        }
+
+        if (!isset($coreData['to'])) {
+            $data['status'] = 'failed';
+            $data['reason'] = 'mail destination not defined.';
+            die(json_encode($data));
+        }
+
+        if (!isset($coreData['subject'])) {
+            $data['status'] = 'failed';
+            $data['reason'] = 'mail subject not defined.';
+            die(json_encode($data));
+        }
 
         // sender
         $this->mail->setFrom($this->mailAddress, $this->mailName);
         // Add a recipient
-        $this->mail->addAddress($data['to']);
+        $this->mail->addAddress($coreData['to']);
 
         //$this->mail->addReplyTo('info@example.com', 'Information');
         //$this->mail->addCC('bcc@example.com');
@@ -321,7 +359,7 @@ TAIL;
         //$this->mail->addAttachment('/var/tmp/file.tar.gz');
         //$this->mail->addAttachment('/tmp/image.jpg', 'new.jpg');
 
-        $this->mail->Subject = $data['subject'];
+        $this->mail->Subject = $coreData['subject'];
         $this->mail->Body = $template;
         $this->mail->AltBody = $template;
 
