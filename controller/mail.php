@@ -105,6 +105,10 @@ TAIL;
             'smtpauth' => 'true',
             'smtpsecure' => 'tls',
             'requesttype' => 'POST',
+            'requestsample' => json_encode(array(
+                'to' => 'example@anywhere.com',
+                'subject' => 'Test Email',
+            )),
         );
 
         $mailID = MailModel::NewMailPage($arrayData);
