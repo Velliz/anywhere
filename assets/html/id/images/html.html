@@ -1,0 +1,85 @@
+<nav class="navbar navbar-blue navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                    class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a data-toggle="tooltip" title="Save and Reload" name="save-btn"><i class="fa fa-save"></i></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-gear"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Api Key</li>
+                        <li class="dropdown-header">{!apikey}</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">{!name}</li>
+                        <li class="dropdown-header">{!status}</li>
+                        <li><a href="{URL}logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="editor-view full-height">
+    <div class="container-fluid full-height">
+        <div class="row full-height">
+            <div class="col-lg-6 nopadding" style="height: 100%;">
+                <form class="full-height" name="save" id="save" action="" method="post">
+                    <textarea id="code" name="code">{!html}</textarea>
+                </form>
+            </div>
+            <div class="col-lg-6" style="height: 100%;">
+                <!--{!mail}-->
+                <embed src="{URL}mail/coderender/{!apikey}/{!MAILID}" type="application/html" style="overflow:hidden;height:99%;width:100%">
+                <!--{/mail}-->
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="{URL}assets/global/js/jquery.js"></script>
+<script src="{URL}assets/global/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        theme: "night",
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        $('a[name=save-btn]').on('click', function () {
+            $('form[name=save]').submit();
+        });
+    });
+</script>

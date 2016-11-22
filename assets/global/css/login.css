@@ -16,7 +16,7 @@
 }
 
 .form input {
-    font-family: "Roboto", sans-serif;
+    font-family: sans-serif;
     outline: 0;
     background: #f2f2f2;
     width: 100%;
@@ -28,7 +28,7 @@
 }
 
 .form button {
-    font-family: "Roboto", sans-serif;
+    font-family: sans-serif;
     text-transform: uppercase;
     outline: 0;
     background: #3379b7;
@@ -62,12 +62,7 @@
 }
 
 body {
-    background: #3379b7; /* fallback for old browsers */
-    background: -webkit-linear-gradient(right, #3379b7, #3379b7);
-    background: -moz-linear-gradient(right, #3379b7, #3379b7);
-    background: -o-linear-gradient(right, #3379b7, #3379b7);
-    background: linear-gradient(to left, #3379b7, #3379b7);
-    font-family: "Roboto", sans-serif;
+    font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

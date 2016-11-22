@@ -11,6 +11,10 @@ use pukoframework\Request;
 class main extends View implements Auth
 {
 
+    /**
+     * #Template master true
+     * #Value PageTitle Home
+     */
     public function main()
     {
         $user = @Session::Get($this)->GetLoginData();
@@ -20,7 +24,8 @@ class main extends View implements Auth
     }
 
     /**
-     * #Template master false
+     * #Template master true
+     * #Value PageTitle Register
      */
     public function register()
     {
@@ -51,7 +56,7 @@ class main extends View implements Auth
     }
 
     /**
-     * #Template master false
+     * #Template master true
      * #Value PageTitle Login
      */
     public function userlogin()

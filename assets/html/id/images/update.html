@@ -1,0 +1,141 @@
+<nav class="navbar navbar-blue navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                    class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a data-toggle="tooltip" title="Back" href="{URL}beranda"><i class="fa fa-arrow-left"></i></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-gear"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Api Key</li>
+                        <li class="dropdown-header">{!apikey}</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">{!name}</li>
+                        <li class="dropdown-header">{!status}</li>
+                        <li><a href="{URL}logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="design-page">
+    <div class="form">
+        <form class="login-form" method="POST">
+            <!--{!mail}-->
+            <input type="hidden" name="mailid" value="{!MAILID}">
+            <input type="hidden" name="token" value="{!token}">
+            <input type="text" name="mailname" placeholder="mail name" value="{!mailname}"/>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="text" name="host" placeholder="email host" value="{!host}"/>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" name="port" placeholder="email port" value="{!port}"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="text" name="mailaddress" placeholder="email username" value="{!mailaddress}"/>
+                </div>
+                <div class="col-sm-6">
+                    <input type="password" name="mailpassword" placeholder="email password" value="{!mailpassword}"/>
+                </div>
+            </div>
+
+            <center>
+                <label><input type="radio" name="requesttype" value="POST" {!POST}>POST</label>
+                <label><input type="radio" name="requesttype" value="URL" {!URL}>URL</label>
+            </center>
+
+            <input type="text" name="requesturl" placeholder="url data source here" value="{!requesturl}"/>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>SMTP Auth</p>
+                    <select name="smtpauth" id="smtpauth" class="form-control" data-item="{!smtpauth}">
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <p>SMTP Secure</p>
+                    <select name="smtpsecure" id="smtpsecure" class="form-control" data-item="{!smtpsecure}">
+                        <option value="tls">TLS</option>
+                        <option value="ssl">SSL</option>
+                    </select>
+                </div>
+            </div>
+
+            <br>
+
+            <p>JSON Data Sample</p>
+            <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8">{!requestsample}</textarea>
+            <br>
+            <br>
+            <p id="apiurl">API URL <a target="_blank" href="{URL}mail/render/{!apikey}/{!MAILID}">{URL}mail/render/{!apikey}/{!MAILID}</a></p>
+
+            <a target="_blank" href="{URL}mail/html/{!MAILID}" class="btn btn-dark">.html designer</a>
+            <a target="_blank" href="{URL}mail/style/{!MAILID}" class="btn btn-dark">.css designer</a>
+            <!--<a href="javascript:;" class="btn btn-dark">request sample</a>-->
+
+            <br>
+            <br>
+            <button name="_submit" type="submit">save configuration</button>
+            <!--{/mail}-->
+        </form>
+    </div>
+</div>
+
+<script src="{URL}assets/global/js/jquery.js"></script>
+<script src="{URL}assets/global/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var smtpauth = $('select[name=smtpauth]');
+        if(smtpauth.attr('data-item') != null) $(smtpauth).val(smtpauth.attr('data-item'));
+
+        var smtpsecure = $('select[name=smtpsecure]');
+        if(smtpsecure.attr('data-item') != null) $(smtpsecure).val(smtpsecure.attr('data-item'));
+    });
+
+    var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
+        lineNumbers: true,
+        theme: "night",
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+        }
+    });
+
+
+</script>
