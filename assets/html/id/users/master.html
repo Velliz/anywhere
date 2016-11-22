@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-blue navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
@@ -31,11 +31,19 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a data-toggle="tooltip" title="Create new PDF Tempaltes" href="{URL}beranda">Anywhere Console</a></li>
+                <li>
+                    <a href="{URL}beranda">
+                        Dashboard Console
+                    </a>
+                </li>
+
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
-
+                <li>
+                    <a data-toggle="tooltip" title="QR Code Service" href="{URL}qr">
+                        <i class="fa fa-qrcode" aria-hidden="true"></i>
+                    </a>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
@@ -69,8 +77,29 @@
     {CONTENT}
 </div>
 
-<footer class="text-center">
-    Anywhere Copyright &copy; 2016 - Powered by <a href="https://github.com/velliz/pukoframework">Puko Framework</a>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 text-center">
+                <h4><strong>Anywhere</strong> Dibangun Dengan <a href="https://github.com/Velliz/pukoframework">Puko Framework</a></h4>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:diditvelliz@gmail.com">diditvelliz@gmail.com</a>
+                    </li>
+                </ul>
+                <br>
+                <ul class="list-inline">
+                    <li>
+                        <a href="https://facebook.com/divelliz"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/Velliz/anywhere"><i class="fa fa-github fa-fw fa-3x"></i></a>
+                    </li>
+                </ul>
+                <hr class="medium">
+                <p class="text-muted">Copyright &copy; 2016 oleh Didit Velliz - @Bandung Indonesia</p>
+            </div>
+        </div>
+    </div>
 </footer>
 
 <script src="{URL}assets/global/js/jquery.js"></script>

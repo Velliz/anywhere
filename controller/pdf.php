@@ -178,13 +178,12 @@ TAIL;
     }
 
     /**
-     * #Template html false
-     *
      * @param $api_key
      * @param $pdfId
      * @throws \Exception
      *
      * #Auth true
+     * #Template html false
      */
     public function CodeRender($api_key, $pdfId)
     {
@@ -209,6 +208,8 @@ TAIL;
         $render->useMasterLayout = false;
         $template = $render->PTEParser($htmlFactory, (array)json_decode($pdfRender['requestsample']));
 
+        //echo $template;
+
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
@@ -219,6 +220,7 @@ TAIL;
         header('Content-Type: application/pdf');
 
         $this->dompdf->stream($this->reportname, array("Attachment" => 0));
+
     }
 
     /**
