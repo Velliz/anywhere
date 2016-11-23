@@ -1,4 +1,4 @@
-<nav class="navbar navbar-blue navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
@@ -52,9 +52,11 @@
                 </form>
             </div>
             <div class="col-lg-6" style="height: 100%;">
-                <!--{!pdf}-->
-                <embed src="{URL}pdf/coderender/{!apikey}/{!PDFID}" type="application/pdf" style="overflow:hidden;height:99%;width:100%">
+                <div class="form" style="margin-top: 30px; height: 85%">
+                    <!--{!pdf}-->
+                    <embed src="{URL}pdf/coderender/{!apikey}/{!PDFID}" type="application/pdf" style="overflow:hidden;height:99%;width:100%">
                     <!--{/pdf}-->
+                </embed>
             </div>
         </div>
     </div>

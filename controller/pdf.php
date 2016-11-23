@@ -208,8 +208,9 @@ TAIL;
         $render->useMasterLayout = false;
         $template = $render->PTEParser($htmlFactory, (array)json_decode($pdfRender['requestsample']));
 
-        //echo $template;
+        echo $template;
 
+        /*
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
@@ -220,6 +221,7 @@ TAIL;
         header('Content-Type: application/pdf');
 
         $this->dompdf->stream($this->reportname, array("Attachment" => 0));
+        */
 
     }
 
