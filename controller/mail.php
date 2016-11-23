@@ -89,7 +89,7 @@ TAIL;
 
         if ((int)$session['statusID'] == 1) {
             $result = MailModel::CountMailUser($session['ID'])[0];
-            if ((int)$result['result'] >= 2) $this->RedirectTo('limitations');
+            if ((int)$result['result'] >= LIMITATIONS) $this->RedirectTo('limitations');
         }
 
 

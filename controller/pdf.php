@@ -69,7 +69,7 @@ TAIL;
 
         if ((int)$session['statusID'] == 1) {
             $result = PdfModel::CountPDFUser($session['ID'])[0];
-            if ((int)$result['result'] >= 2) $this->RedirectTo('limitations');
+            if ((int)$result['result'] >= LIMITATIONS) $this->RedirectTo('limitations');
         }
 
         $snap_shoot = date('d-m-Y-His');
