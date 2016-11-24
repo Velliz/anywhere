@@ -16,15 +16,21 @@ class ImageModel extends DBI
         return DBI::Prepare('images')->Save($arrayData);
     }
 
-    public static function UpdateImagePage($pdfID, $dataUpdate)
+    public static function UpdateImagePage($imageID, $dataUpdate)
     {
-        return DBI::Prepare('images')->Update($pdfID, $dataUpdate);
+        return DBI::Prepare('images')->Update($imageID, $dataUpdate);
     }
 
-    public static function GetImagePage($pdfID)
+    public static function GetImagePage($imageID)
     {
         return DBI::Prepare('SELECT * FROM images WHERE (IMAGEID = @1) LIMIT 1;')
-            ->GetData($pdfID);
+            ->GetData($imageID);
+    }
+
+    public static function GetImageAttribute($imageID)
+    {
+        return DBI::Prepare('SELECT IMAGEID, userID, imagename, h, w, x, y FROM images WHERE (IMAGEID = @1) LIMIT 1;')
+            ->GetData($imageID);
     }
 
     public static function GetImageLists($userID)
@@ -33,10 +39,10 @@ class ImageModel extends DBI
             ->GetData($userID);
     }
 
-    public static function GetImageRender($apikey, $pdfID)
+    public static function GetImageRender($apikey, $imageID)
     {
         return DBI::Prepare('SELECT * FROM images i LEFT JOIN users u ON (i.userID = u.ID)
         WHERE (u.apikey = @1) AND (i.IMAGEID = @2) LIMIT 1;')
-            ->GetData($apikey, $pdfID);
+            ->GetData($apikey, $imageID);
     }
 }

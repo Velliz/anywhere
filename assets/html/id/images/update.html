@@ -1,3 +1,7 @@
+{!CSS}
+<link href="{URL}assets/global/js/jcrop/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css"/>
+{/CSS}
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -47,30 +51,37 @@
     <div class="form">
         <form class="login-form" method="POST" enctype="multipart/form-data">
             <!--{!image}-->
-            <input type="hidden" name="mailid" value="{!IMAGEID}">
+            <input type="hidden" name="imageid" value="{!IMAGEID}">
             <input type="hidden" name="token" value="{!token}">
             <input type="text" name="mailname" placeholder="mail name" value="{!imagename}"/>
 
             <div class="row">
                 <div class="col-lg-6">
                     <p>Pilih Wadah</p>
-                    <input type="file" name="attachment" value="Pilih Wadah">
+                    <input type="file" name="placeholderfile" value="Pilih Wadah">
                 </div>
                 <div class="col-lg-6">
                     <p>Pilih Sampel Gambar</p>
-                    <input type="file" name="requestsample" value="Pilih Wadah">
+                    <input type="file" name="samplefile" value="Pilih Wadah">
                 </div>
             </div>
 
 
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 placeholder_holder">
+                    <img value="{!IMAGEID}" id="imagetarget" src="api/getplaceholder/{!IMAGEID}/placeholder" alt="placeholder picture not selected" width="100%">
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 sample_holder">
+                    <img value="{!IMAGEID}" src="api/getplaceholder/{!IMAGEID}/sample" alt="sample picture not selected" width="100%">
                 </div>
             </div>
 
-            <p id="apiurl">API URL <a target="_blank" href="{URL}images/render/{!apikey}/{!IMAGEID}">{URL}images/render/{!apikey}/{!IMAGEID}</a></p>
+            <br/>
+            <br/>
+
+            <p id="apiurl">API URL <a target="_blank" href="{URL}images/render/{!apikey}/{!IMAGEID}">{URL}images/render/{!apikey}/{!IMAGEID}</a>
+            </p>
+            <a href="javascript:;">save configuration</a>
             <button name="_submit" type="submit">save configuration</button>
             <!--{/image}-->
         </form>
@@ -79,3 +90,11 @@
 
 <script src="{URL}assets/global/js/jquery.js"></script>
 <script src="{URL}assets/global/js/bootstrap.min.js"></script>
+
+{!JS}
+<script src="{URL}assets/global/js/jcrop/js/jquery.color.js" type="text/javascript"></script>
+<script src="{URL}assets/global/js/jcrop/js/jquery.Jcrop.min.js" type="text/javascript"></script>
+<script src="{URL}assets/global/js/bootstrap-waitingfor/build/bootstrap-waitingfor.min.js"
+        type="text/javascript"></script>
+<script src="{URL}assets/script/images/update.js"></script>
+{/JS}
