@@ -355,13 +355,21 @@ TAIL;
         // Add a recipient
         $this->mail->addAddress($coreData['to']);
 
-        //$this->mail->addReplyTo('info@example.com', 'Information');
-        //$this->mail->addCC('bcc@example.com');
-        //$this->mail->addBCC('bcc@example.com');
+        if(isset($coreData['replyto']) && isset($coreData['replyname']))
+            $this->mail->addReplyTo($coreData['replyto'], $coreData['replyname']);
 
-        // Add attachments
-        //$this->mail->addAttachment('/var/tmp/file.tar.gz');
-        //$this->mail->addAttachment('/tmp/image.jpg', 'new.jpg');
+        if(isset($coreData['cc'])) $this->mail->addCC($coreData['cc']);
+        if(isset($coreData['bcc'])) $this->mail->addBCC($coreData['bcc']);
+
+        if ($_FILES['attachment']) {
+            $file_ary = $this->reArrayFiles($_FILES['attachment']);
+            foreach ($file_ary as $file) {
+                $file_name = $file['name'];
+                $file_temp = $file['tmp_name'];
+                // Add attachments
+                $this->mail->addAttachment($file_temp, $file_name);
+            }
+        }
 
         $this->mail->Subject = $coreData['subject'];
         $this->mail->Body = $template;
@@ -400,5 +408,22 @@ TAIL;
     {
         return UserModel::GetUserById($id)[0];
     }
+
     #end region auth
+
+    private function reArrayFiles(&$file_post)
+    {
+
+        $file_ary = array();
+        $file_count = count($file_post['name']);
+        $file_keys = array_keys($file_post);
+
+        for ($i = 0; $i < $file_count; $i++) {
+            foreach ($file_keys as $key) {
+                $file_ary[$i][$key] = $file_post[$key][$i];
+            }
+        }
+
+        return $file_ary;
+    }
 }

@@ -13,14 +13,10 @@ class main extends View implements Auth
 
     /**
      * #Template master true
-     * #Value PageTitle Home
+     * #Value PageTitle Welcome
      */
     public function main()
     {
-        $user = @Session::Get($this)->GetLoginData();
-        if (isset($user['ID'])) {
-            $this->RedirectTo("beranda");
-        }
     }
 
     /**
