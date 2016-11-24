@@ -2,6 +2,7 @@
 
 namespace controller;
 
+use Dompdf\Options;
 use Dompdf\Dompdf;
 use Dompdf\Exception;
 use model\PdfModel;
@@ -53,10 +54,12 @@ MIDDLE;
         </html>
 TAIL;
 
-
     public function __construct()
     {
-        $this->dompdf = new DOMPDF();
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $options->set('isHtml5ParserEnabled', true);
+        $this->dompdf = new DOMPDF($options);
     }
 
     /**
@@ -253,11 +256,6 @@ TAIL;
 
         $coreData = (array)json_decode($pdfRender['requestsample']);
 
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
-        header("Author: Anywhere 0.1");
-        header('Content-Type: application/pdf');
-
         if ($this->requesttype == 'POST') {
             $data['status'] = 'success';
             if (!isset($_POST['jsondata'])) {
@@ -290,6 +288,11 @@ TAIL;
         $render->useMasterLayout = false;
         $template = $render->PTEParser($htmlFactory, $coreData);
 
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/pdf');
+
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
@@ -300,6 +303,7 @@ TAIL;
         if ($this->outputmode == 'Download') {
             $this->dompdf->stream($this->reportname, array("Attachment" => 1));
         }
+        exit();
     }
 
     public function Limitations()

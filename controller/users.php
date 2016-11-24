@@ -2,6 +2,7 @@
 namespace controller;
 
 use model\DBAnywhere;
+use model\ImageModel;
 use model\MailModel;
 use model\PdfModel;
 use model\UserModel;
@@ -24,6 +25,7 @@ class users extends View implements Auth
         $vars = Session::Get($this)->GetLoginData();
         $vars['PDFLists'] = PdfModel::GetPdfLists($vars['ID']);
         $vars['MAILLists'] = MailModel::GetMailLists($vars['ID']);
+        $vars['IMAGELists'] = ImageModel::GetImageLists($vars['ID']);
         return $vars;
     }
 
