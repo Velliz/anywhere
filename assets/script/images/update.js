@@ -66,17 +66,26 @@ $(document).ready(function () {
         });
     });
 
+    var x = $('#crop_x').val();
+    var y = $('#crop_y').val();
+    var x2 = $('#crop_x2').val();
+    var y2 = $('#crop_y2').val();
+    var w = $('#crop_w').val();
+    var h = $('#crop_h').val();
+
     $('#imagetarget').Jcrop({
         onSelect: showCoords,
+        setSelect: [x, y, x2, y2],
         bgColor: 'black',
-        bgOpacity: .3,
+        bgOpacity: .3
     });
-
 });
 
 function showCoords(c) {
     $('#crop_x').val(c.x);
     $('#crop_y').val(c.y);
+    $('#crop_x2').val(c.x2);
+    $('#crop_y2').val(c.y2);
     $('#crop_w').val(c.w);
     $('#crop_h').val(c.h);
 }

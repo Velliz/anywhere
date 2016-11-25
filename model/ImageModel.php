@@ -29,7 +29,7 @@ class ImageModel extends DBI
 
     public static function GetImageAttribute($imageID)
     {
-        return DBI::Prepare('SELECT IMAGEID, userID, imagename, h, w, x, y FROM images WHERE (IMAGEID = @1) LIMIT 1;')
+        return DBI::Prepare('SELECT IMAGEID, userID, imagename, h, w, x, y, x2, y2 FROM images WHERE (IMAGEID = @1) LIMIT 1;')
             ->GetData($imageID);
     }
 

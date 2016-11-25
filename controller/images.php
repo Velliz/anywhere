@@ -19,9 +19,6 @@ use pukoframework\Request;
 class images extends View implements Auth
 {
 
-    private $html;
-    private $css;
-
     /**
      * images constructor.
      *
@@ -63,13 +60,27 @@ class images extends View implements Auth
         $session = Session::Get($this)->GetLoginData();
 
         if (Request::IsPost()) {
+
             $imageid = Request::Post('imageid', null);
             $imageName = Request::Post('imagename', null);
+
+            $x = Request::Post('x', null);
+            $x2 = Request::Post('x2', null);
+            $y = Request::Post('y', null);
+            $y2 = Request::Post('y2', null);
+            $w = Request::Post('w', null);
+            $h = Request::Post('h', null);
 
             $resultUpdate = ImageModel::UpdateImagePage(
                 array('IMAGEID' => $imageid),
                 array(
                     'imagename' => $imageName,
+                    'x' => $x,
+                    'x2' => $x2,
+                    'y' => $y,
+                    'y2' => $y2,
+                    'w' => $w,
+                    'h' => $h,
                 ));
 
             if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
@@ -103,15 +114,91 @@ class images extends View implements Auth
 
     /**
      * @param $api_key
-     * @param $mailId
+     * @param $imageId
      *
      * @throws Exception
      * @throws \Exception
      *
      * #Template html false
      */
-    public function CodeRender($api_key, $mailId)
+    public function CodeRender($api_key, $imageId)
     {
+        $session = Session::Get($this)->GetLoginData();
+        if (!isset($session['ID'])) throw new Exception("Session Expired");
+
+        $mailRender = ImageModel::GetImageRender($api_key, $imageId)[0];
+
+        $imageName = $mailRender['imagename'];
+
+        $placeholderName = $mailRender['placeholdername'];
+        $placeholderFile = $mailRender['placeholderfile'];
+
+        $requestsampleName = $mailRender['requestsamplename'];
+        $requestsampleFile = $mailRender['requestsamplefile'];
+
+        $x = $mailRender['x'];
+        $y = $mailRender['y'];
+
+        $x2 = $mailRender['x2'];
+        $y2 = $mailRender['y2'];
+
+        $w = $mailRender['w'];
+        $h = $mailRender['h'];
+
+        $palceholder = imagecreatefromstring($placeholderFile);
+        $sample = imagecreatefromstring($requestsampleFile);
+
+        $px = imagesx($palceholder);
+        $py = imagesy($palceholder);
+
+        $sx = imagesx($sample);
+        $sy = imagesy($sample);
+
+        //$sampleResized = imagecreatetruecolor($x2, $y2);
+        //imagecopyresized($sampleResized, $sample, 0, 0, 0, 0, $x2, $y2, $sx, $sy);
+
+        // $dst_image, $placeholder
+        // $src_image, $sample
+
+        // $dst_x, x-coordinate of destination point.
+        // $dst_y, y-coordinate of destination point.
+
+        // $src_x, x-coordinate of source point.
+        // $src_y, y-coordinate of source point.
+
+        // $dst_w, Destination width.
+        // $dst_h, Destination height.
+
+        // $src_w, Source width.
+        // $src_h, Source height.
+
+        //imagecopyresized($placeholder, $qr, 0, $start, 0, 0, $pWidth, $pWidth, $sx, $sy);
+        
+        imagecopyresized(
+            $palceholder,
+            $sample,
+            $x, //x-coordinate of destination point.
+            $y, //y-coordinate of destination point.
+            0, //x-coordinate of source point.
+            0, //y-coordinate of source point.
+            $x2, //Destination width.
+            $y2, //Destination height.
+            $x2, //Source width.
+            $y2 //Source height.
+        );
+
+        Request::OutputBufferStart();
+        imagepng($palceholder);
+        $image = Request::OutputBufferFinish();
+        imagedestroy($palceholder);
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: image/png');
+        header('Content-Disposition: inline; filename="' . $imageName . '.png"');
+
+        echo $image;
     }
 
     public function Limitations()

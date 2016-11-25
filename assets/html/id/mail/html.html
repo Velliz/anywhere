@@ -1,4 +1,4 @@
-<nav class="navbar navbar-blue navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
@@ -53,7 +53,7 @@
             </div>
             <div class="col-lg-6" style="height: 100%;">
                 <!--{!mail}-->
-                <embed src="{URL}mail/coderender/{!apikey}/{!MAILID}" type="application/html" style="overflow:hidden;height:99%;width:100%">
+                <iframe src="{URL}mail/coderender/{!apikey}/{!MAILID}" frameborder="0" style="overflow:hidden;height:99%;width:100%"></iframe>
                 <!--{/mail}-->
             </div>
         </div>
