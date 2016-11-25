@@ -7,8 +7,10 @@ The main feature of Anywhere is:
 * PDF Service
 * MAIL Service
 * QR Code Service
+* Image Placeholder Service (beta)
 
-Using HTML and CSS for layout, Data source in JSON. Anywhere is generating the .pdf output for you.
+Using HTML and CSS for layout, Data source in JSON. 
+Anywhere is generating the output for you.
 
 Anywhere is powered by [Puko Framework](https://github.com/Velliz/pukoframework)
 
