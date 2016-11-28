@@ -150,12 +150,11 @@ class images extends View implements Auth
 
         $px = imagesx($palceholder);
         $py = imagesy($palceholder);
-
         $sx = imagesx($sample);
         $sy = imagesy($sample);
 
-        //$sampleResized = imagecreatetruecolor($x2, $y2);
-        //imagecopyresized($sampleResized, $sample, 0, 0, 0, 0, $x2, $y2, $sx, $sy);
+        $sampleResized = imagecreatetruecolor($x2, $y2);
+        imagecopyresized($sampleResized, $sample, 0, 0, 0, 0, $x2, $y2, $sx, $sy);
 
         // $dst_image, $placeholder
         // $src_image, $sample
@@ -173,10 +172,11 @@ class images extends View implements Auth
         // $src_h, Source height.
 
         //imagecopyresized($placeholder, $qr, 0, $start, 0, 0, $pWidth, $pWidth, $sx, $sy);
-        
+        //imagecopyresized($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h)
+
         imagecopyresized(
-            $palceholder,
-            $sample,
+            $palceholder, //$dst_image.
+            $sampleResized, //$src_image.
             $x, //x-coordinate of destination point.
             $y, //y-coordinate of destination point.
             0, //x-coordinate of source point.

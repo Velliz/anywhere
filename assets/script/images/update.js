@@ -77,7 +77,7 @@ $(document).ready(function () {
         onSelect: showCoords,
         setSelect: [x, y, x2, y2],
         bgColor: 'black',
-        bgOpacity: .3
+        bgOpacity: .3,
     });
 });
 
