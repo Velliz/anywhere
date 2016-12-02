@@ -26,6 +26,7 @@ class mail extends View implements Auth
     private $mailPassword;
     private $host;
     private $port;
+    
     private $smtpauth;
     private $smtpsecure;
     private $requesttype;
@@ -63,15 +64,13 @@ TAIL;
         $this->mail = new PHPMailer;
         $this->mail->isSMTP();
         $this->mail->isHTML(true);
-
-        $this->mail->SMTPDebug = 1;
-        $this->mail->Debugoutput = 'html';
-
         $this->mail->SMTPOptions = ['ssl' => [
             'verify_peer' => false,
             'verify_peer_name' => false,
             'allow_self_signed' => true
         ]];
+        //$this->mail->SMTPDebug = 1;
+        //$this->mail->Debugoutput = 'html';
     }
 
     /**
@@ -293,12 +292,7 @@ TAIL;
 
         $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
 
-        $render = new RenderEngine('string');
-        $render->clearOutput = false;
-        $render->useMasterLayout = false;
-        $template = $render->PTEParser($htmlFactory, (array)json_decode($mailRender['requestsample']));
-
-        $coreData = (array)json_decode($mailRender['requestsample']);
+        $coreData = array();
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
@@ -350,9 +344,7 @@ TAIL;
             die(json_encode($data));
         }
 
-        // sender
         $this->mail->setFrom($this->mailAddress, $this->mailName);
-        // Add a recipient
         $this->mail->addAddress($coreData['to']);
 
         if(isset($coreData['replyto']) && isset($coreData['replyname']))
@@ -361,15 +353,21 @@ TAIL;
         if(isset($coreData['cc'])) $this->mail->addCC($coreData['cc']);
         if(isset($coreData['bcc'])) $this->mail->addBCC($coreData['bcc']);
 
-        if ($_FILES['attachment']) {
+        if(isset($_FILES['file_upload']) || $_FILES['file_upload']['error'] != UPLOAD_ERR_NO_FILE) {
             $file_ary = $this->reArrayFiles($_FILES['attachment']);
             foreach ($file_ary as $file) {
+
                 $file_name = $file['name'];
                 $file_temp = $file['tmp_name'];
-                // Add attachments
+
                 $this->mail->addAttachment($file_temp, $file_name);
             }
         }
+
+        $render = new RenderEngine('string');
+        $render->clearOutput = false;
+        $render->useMasterLayout = false;
+        $template = $render->PTEParser($htmlFactory, (array)json_decode($mailRender['requestsample']));
 
         $this->mail->Subject = $coreData['subject'];
         $this->mail->Body = $template;
