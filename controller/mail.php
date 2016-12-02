@@ -353,7 +353,7 @@ TAIL;
         if(isset($coreData['cc'])) $this->mail->addCC($coreData['cc']);
         if(isset($coreData['bcc'])) $this->mail->addBCC($coreData['bcc']);
 
-        if(isset($_FILES['file_upload']) || $_FILES['file_upload']['error'] != UPLOAD_ERR_NO_FILE) {
+        if(isset($_FILES['attachment']) || $_FILES['attachment']['error'] != UPLOAD_ERR_NO_FILE) {
             $file_ary = $this->reArrayFiles($_FILES['attachment']);
             foreach ($file_ary as $file) {
 
