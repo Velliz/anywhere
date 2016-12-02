@@ -10,10 +10,48 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-11-16 16:30:17
+Date: 2016-12-02 09:30:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for feedback
+-- ----------------------------
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE `feedback` (
+  `feedbackID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `signature` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `feedback` text NOT NULL,
+  `isapproved` tinyint(1) DEFAULT NULL,
+  `approveddate` datetime DEFAULT NULL,
+  `feedbackresponds` text,
+  PRIMARY KEY (`feedbackID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Table structure for images
+-- ----------------------------
+DROP TABLE IF EXISTS `images`;
+CREATE TABLE `images` (
+  `IMAGEID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `imagename` varchar(255) DEFAULT NULL,
+  `placeholdername` varchar(255) DEFAULT NULL,
+  `placeholderfile` longblob,
+  `x` double(255,0) DEFAULT NULL,
+  `y` double(255,0) DEFAULT NULL,
+  `x2` double DEFAULT NULL,
+  `y2` double DEFAULT NULL,
+  `w` double(255,0) DEFAULT NULL,
+  `h` double(255,0) DEFAULT NULL,
+  `requestsamplename` varchar(255) DEFAULT NULL,
+  `requestsamplefile` longblob,
+  PRIMARY KEY (`IMAGEID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for mail
@@ -38,7 +76,7 @@ CREATE TABLE `mail` (
   `requesturl` varchar(155) NOT NULL,
   `requestsample` text,
   PRIMARY KEY (`MAILID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for pdf
@@ -56,7 +94,7 @@ CREATE TABLE `pdf` (
   `requesturl` varchar(255) NOT NULL,
   `requestsample` text,
   PRIMARY KEY (`PDFID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for status
@@ -67,6 +105,22 @@ CREATE TABLE `status` (
   `status` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Table structure for testimonial
+-- ----------------------------
+DROP TABLE IF EXISTS `testimonial`;
+CREATE TABLE `testimonial` (
+  `testimonialID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `signature` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `testimonial` text NOT NULL,
+  `isvalid` tinyint(4) DEFAULT NULL,
+  `validationdate` datetime DEFAULT NULL,
+  PRIMARY KEY (`testimonialID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for users
