@@ -64,8 +64,8 @@ TAIL;
         $this->mail->isSMTP();
         $this->mail->isHTML(true);
 
-        //$this->mail->SMTPDebug = 2;
-        //$this->mail->Debugoutput = 'html';
+        $this->mail->SMTPDebug = 1;
+        $this->mail->Debugoutput = 'html';
 
         $this->mail->SMTPOptions = ['ssl' => [
             'verify_peer' => false,
