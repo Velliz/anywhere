@@ -367,7 +367,7 @@ TAIL;
         $render = new RenderEngine('string');
         $render->clearOutput = false;
         $render->useMasterLayout = false;
-        $template = $render->PTEParser($htmlFactory, (array)json_decode($mailRender['requestsample']));
+        $template = $render->PTEParser($htmlFactory, (array)json_decode($coreData));
 
         $this->mail->Subject = $coreData['subject'];
         $this->mail->Body = $template;
