@@ -107,6 +107,16 @@ TAIL;
             'requestsample' => json_encode(array(
                 'to' => 'example@anywhere.com',
                 'subject' => 'Test Email',
+                'attachment' => array(
+                    array(
+                        'name' => 'attachment1',
+                        'url' => 'http://localhost/anywhere/qr/render?data=1234567890'
+                    ),
+                    array(
+                        'name' => 'attachment2',
+                        'url' => 'http://localhost/anywhere/qr/render?data=abcdefghijklmnopqrstuvwxyz'
+                    ),
+                )
             )),
         );
 
@@ -353,6 +363,9 @@ TAIL;
         if(isset($coreData['cc'])) $this->mail->addCC($coreData['cc']);
         if(isset($coreData['bcc'])) $this->mail->addBCC($coreData['bcc']);
 
+        /*
+        // attachment via POST multipart form data.
+
         if(isset($_FILES['attachment']) || $_FILES['attachment']['error'] != UPLOAD_ERR_NO_FILE) {
             $file_ary = $this->reArrayFiles($_FILES['attachment']);
             foreach ($file_ary as $file) {
@@ -363,6 +376,7 @@ TAIL;
                 $this->mail->addAttachment($file_temp, $file_name);
             }
         }
+        */
 
         $render = new RenderEngine('string');
         $render->clearOutput = false;
