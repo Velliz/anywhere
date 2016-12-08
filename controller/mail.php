@@ -26,7 +26,7 @@ class mail extends View implements Auth
     private $mailPassword;
     private $host;
     private $port;
-    
+
     private $smtpauth;
     private $smtpsecure;
     private $requesttype;
@@ -69,8 +69,8 @@ TAIL;
             'verify_peer_name' => false,
             'allow_self_signed' => true
         ]];
-        //$this->mail->SMTPDebug = 1;
-        //$this->mail->Debugoutput = 'html';
+        $this->mail->SMTPDebug = 1;
+        $this->mail->Debugoutput = 'html';
     }
 
     /**
@@ -357,11 +357,17 @@ TAIL;
         $this->mail->setFrom($this->mailAddress, $this->mailName);
         $this->mail->addAddress($coreData['to']);
 
-        if(isset($coreData['replyto']) && isset($coreData['replyname']))
+        if (isset($coreData['replyto']) && isset($coreData['replyname']))
             $this->mail->addReplyTo($coreData['replyto'], $coreData['replyname']);
 
-        if(isset($coreData['cc'])) $this->mail->addCC($coreData['cc']);
-        if(isset($coreData['bcc'])) $this->mail->addBCC($coreData['bcc']);
+        if (isset($coreData['cc'])) $this->mail->addCC($coreData['cc']);
+        if (isset($coreData['bcc'])) $this->mail->addBCC($coreData['bcc']);
+
+        if (isset($coreData['attachment']) && is_array($coreData['attachment'])) {
+            foreach ($coreData['attachment'] as $key => $val) {
+                $this->mail->addStringAttachment(file_get_contents($val->url), $val->name);
+            }
+        }
 
         /*
         // attachment via POST multipart form data.

@@ -7,7 +7,7 @@ The main feature of Anywhere is:
 * PDF Service
 * MAIL Service
 * QR Code Service
-* Image Placeholder Service (beta)
+* Image Placeholder Service
 
 Using HTML and CSS for layout, Data source in JSON. 
 Anywhere is generating the output for you.
@@ -20,7 +20,6 @@ Usage and Tutorial [here](http://velliz.github.io/anywhere/)
 
 * Word service
 * Excel service
-* Image (JPG/PNG) placeholder
 
 ### About
 
