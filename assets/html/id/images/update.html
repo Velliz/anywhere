@@ -55,6 +55,15 @@
             <input type="hidden" name="token" value="{!token}">
             <input type="text" name="imagename" placeholder="image name" value="{!imagename}"/>
 
+            <center>
+                <!--<label><input type="radio" name="requesttype" value="POST" {!POST}>POST</label>-->
+                <label><input type="radio" name="requesttype" value="URL" {!URL}>URL</label>
+            </center>
+
+            <input type="text" name="requesturl" placeholder="url data source here" value="{!requesturl}"/>
+
+            <br/>
+
             <div class="row">
                 <div class="col-lg-6">
                     <p>Pilih Wadah</p>
@@ -77,7 +86,7 @@
                     <img value="{!IMAGEID}" id="imagetarget" src="api/getplaceholder/{!IMAGEID}/placeholder" alt="placeholder picture not selected">
                 </div>
                 <div class="col-lg-6 sample_holder">
-                    <img value="{!IMAGEID}" src="api/getplaceholder/{!IMAGEID}/sample" alt="sample picture not selected" style="opacity: 0.5">
+                    <img value="{!IMAGEID}" src="api/getplaceholder/{!IMAGEID}/sample" alt="sample picture not selected">
                 </div>
             </div>
 

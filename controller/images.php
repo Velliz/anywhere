@@ -46,6 +46,7 @@ class images extends View implements Auth
         $arrayData = array(
             'userID' => $session['ID'],
             'imagename' => 'IMAGE-' . $snap_shoot . '.jpg',
+            'requesttype' => 'URL',
         );
         $imageID = ImageModel::NewImagePage($arrayData);
         $dataIMAGE = ImageModel::GetImagePage($imageID)[0];
@@ -70,6 +71,8 @@ class images extends View implements Auth
             $y2 = Request::Post('y2', null);
             $w = Request::Post('w', null);
             $h = Request::Post('h', null);
+            $requesttype = Request::Post('requesttype', null);
+            $requesturl = Request::Post('requesturl', null);
 
             $resultUpdate = ImageModel::UpdateImagePage(
                 array('IMAGEID' => $imageid),
@@ -81,6 +84,8 @@ class images extends View implements Auth
                     'y2' => $y2,
                     'w' => $w,
                     'h' => $h,
+                    'requesttype' => $requesttype,
+                    'requesturl' => $requesturl,
                 ));
 
             if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
@@ -88,6 +93,16 @@ class images extends View implements Auth
         }
         $dataIMAGE = $session;
         $dataIMAGE['image'] = ImageModel::GetImagePage($id);
+        foreach ($dataIMAGE['image'] as $key => $value) {
+            switch ($value['requesttype']) {
+                case 'POST':
+                    $dataIMAGE['image'][$key]['POST'] = 'checked';
+                    break;
+                case 'URL':
+                    $dataIMAGE['image'][$key]['URL'] = 'checked';
+                    break;
+            }
+        }
 
         return $dataIMAGE;
     }
@@ -102,14 +117,59 @@ class images extends View implements Auth
 
     /**
      * @param $api_key
-     * @param $mailId
+     * @param $imageId
      * @throws Exception
-     * @throws \Exception
      *
      * #Template html false
      */
-    public function Render($api_key, $mailId)
+    public function Render($api_key, $imageId)
     {
+        $session = Session::Get($this)->GetLoginData();
+        if (!isset($session['ID'])) throw new Exception("Session Expired");
+
+        $mailRender = ImageModel::GetImageRender($api_key, $imageId)[0];
+
+        $imageName = $mailRender['imagename'];
+        $placeholderFile = $mailRender['placeholderfile'];
+        $requestFile = null;
+
+        if ($mailRender['requesttype'] == 'POST') {
+
+        }
+
+        if ($mailRender['requesttype'] == 'URL') {
+            $requestFile = file_get_contents($mailRender['requesturl'], 'rb');
+        }
+
+        $x = $mailRender['x'];
+        $y = $mailRender['y'];
+        $w = $mailRender['w'];
+        $h = $mailRender['h'];
+
+        $placeHolder = imagecreatefromstring($placeholderFile);
+        $sample = imagecreatefromstring($requestFile);
+
+        $sx = imagesx($sample);
+        $sy = imagesy($sample);
+
+        $sampleCrop = imagecreatetruecolor($w, $h);
+
+        imagecopyresized($sampleCrop, $sample, 0, 0, 0, 0, $w, $h, $sx, $sy);
+        imagecopyresized($placeHolder, $sampleCrop, $x, $y, 0, 0, $w, $h, $w, $h);
+
+        Request::OutputBufferStart();
+        imagepng($placeHolder);
+        $image = Request::OutputBufferFinish();
+        imagedestroy($placeHolder);
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: image/png');
+        header('Content-Disposition: inline; filename="' . $imageName . '.png"');
+
+        echo $image;
+        die();
     }
 
     /**
@@ -129,68 +189,35 @@ class images extends View implements Auth
         $mailRender = ImageModel::GetImageRender($api_key, $imageId)[0];
 
         $imageName = $mailRender['imagename'];
-
-        $placeholderName = $mailRender['placeholdername'];
+        //$placeholderName = $mailRender['placeholdername'];
         $placeholderFile = $mailRender['placeholderfile'];
-
-        $requestsampleName = $mailRender['requestsamplename'];
-        $requestsampleFile = $mailRender['requestsamplefile'];
+        //$requestSampleName = $mailRender['requestsamplename'];
+        $requestSampleFile = $mailRender['requestsamplefile'];
 
         $x = $mailRender['x'];
         $y = $mailRender['y'];
-
-        $x2 = $mailRender['x2'];
-        $y2 = $mailRender['y2'];
-
+        //$x2 = $mailRender['x2'];
+        //$y2 = $mailRender['y2'];
         $w = $mailRender['w'];
         $h = $mailRender['h'];
 
-        $palceholder = imagecreatefromstring($placeholderFile);
-        $sample = imagecreatefromstring($requestsampleFile);
+        $placeHolder = imagecreatefromstring($placeholderFile);
+        $sample = imagecreatefromstring($requestSampleFile);
 
-        $px = imagesx($palceholder);
-        $py = imagesy($palceholder);
+        //$px = imagesx($placeHolder);
+        //$py = imagesy($placeHolder);
         $sx = imagesx($sample);
         $sy = imagesy($sample);
 
-        $sampleResized = imagecreatetruecolor($x2, $y2);
-        imagecopyresized($sampleResized, $sample, 0, 0, 0, 0, $x2, $y2, $sx, $sy);
+        $sampleCrop = imagecreatetruecolor($w, $h);
 
-        // $dst_image, $placeholder
-        // $src_image, $sample
-
-        // $dst_x, x-coordinate of destination point.
-        // $dst_y, y-coordinate of destination point.
-
-        // $src_x, x-coordinate of source point.
-        // $src_y, y-coordinate of source point.
-
-        // $dst_w, Destination width.
-        // $dst_h, Destination height.
-
-        // $src_w, Source width.
-        // $src_h, Source height.
-
-        //imagecopyresized($placeholder, $qr, 0, $start, 0, 0, $pWidth, $pWidth, $sx, $sy);
-        //imagecopyresized($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h)
-
-        imagecopyresized(
-            $palceholder, //$dst_image.
-            $sampleResized, //$src_image.
-            $x, //x-coordinate of destination point.
-            $y, //y-coordinate of destination point.
-            0, //x-coordinate of source point.
-            0, //y-coordinate of source point.
-            $x2, //Destination width.
-            $y2, //Destination height.
-            $x2, //Source width.
-            $y2 //Source height.
-        );
+        imagecopyresized($sampleCrop, $sample, 0, 0, 0, 0, $w, $h, $sx, $sy);
+        imagecopyresized($placeHolder, $sampleCrop, $x, $y, 0, 0, $w, $h, $w, $h);
 
         Request::OutputBufferStart();
-        imagepng($palceholder);
+        imagepng($placeHolder);
         $image = Request::OutputBufferFinish();
-        imagedestroy($palceholder);
+        imagedestroy($placeHolder);
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
@@ -199,6 +226,7 @@ class images extends View implements Auth
         header('Content-Disposition: inline; filename="' . $imageName . '.png"');
 
         echo $image;
+        die();
     }
 
     public function Limitations()
