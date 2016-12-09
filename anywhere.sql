@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-12-02 09:30:53
+Date: 2016-12-09 17:13:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,15 +39,17 @@ DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `IMAGEID` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
-  `imagename` varchar(255) DEFAULT NULL,
-  `placeholdername` varchar(255) DEFAULT NULL,
+  `imagename` varchar(180) DEFAULT NULL,
+  `placeholdername` varchar(180) DEFAULT NULL,
   `placeholderfile` longblob,
-  `x` double(255,0) DEFAULT NULL,
-  `y` double(255,0) DEFAULT NULL,
+  `x` double DEFAULT NULL,
+  `y` double DEFAULT NULL,
   `x2` double DEFAULT NULL,
   `y2` double DEFAULT NULL,
-  `w` double(255,0) DEFAULT NULL,
-  `h` double(255,0) DEFAULT NULL,
+  `w` double DEFAULT NULL,
+  `h` double DEFAULT NULL,
+  `requesttype` varchar(30) DEFAULT NULL,
+  `requesturl` text,
   `requestsamplename` varchar(255) DEFAULT NULL,
   `requestsamplefile` longblob,
   PRIMARY KEY (`IMAGEID`)
@@ -76,7 +78,7 @@ CREATE TABLE `mail` (
   `requesturl` varchar(155) NOT NULL,
   `requestsample` text,
   PRIMARY KEY (`MAILID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for pdf
@@ -85,7 +87,7 @@ DROP TABLE IF EXISTS `pdf`;
 CREATE TABLE `pdf` (
   `PDFID` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
-  `reportname` varchar(255) NOT NULL,
+  `reportname` varchar(180) NOT NULL,
   `html` text,
   `css` text,
   `outputmode` varchar(255) NOT NULL,

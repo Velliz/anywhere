@@ -21,7 +21,6 @@ class images extends View implements Auth
 
     /**
      * images constructor.
-     *
      */
     public function __construct()
     {
