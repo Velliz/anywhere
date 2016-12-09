@@ -47,6 +47,11 @@ class images extends View implements Auth
             'userID' => $session['ID'],
             'imagename' => 'IMAGE-' . $snap_shoot . '.jpg',
             'requesttype' => 'URL',
+            'requestsample' => json_encode(
+                array(
+                    'url' => BASE_URL . 'qr/render?data=developer@example.com',
+                )
+            )
         );
         $imageID = ImageModel::NewImagePage($arrayData);
         $dataIMAGE = ImageModel::GetImagePage($imageID)[0];
@@ -134,7 +139,14 @@ class images extends View implements Auth
         $requestFile = null;
 
         if ($mailRender['requesttype'] == 'POST') {
-
+            $data['status'] = 'success';
+            if (!isset($_POST['jsondata'])) {
+                $data['status'] = 'failed';
+                $data['reason'] = 'post data [jsondata] is not defined.';
+                die(json_encode($data));
+            }
+            $coreData = (array)json_decode($_POST['jsondata']);
+            $requestFile = file_get_contents($coreData['url'], 'rb');
         }
 
         if ($mailRender['requesttype'] == 'URL') {
