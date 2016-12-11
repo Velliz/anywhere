@@ -1,6 +1,7 @@
 <?php
 namespace controller;
 
+use Exception;
 use model\ImageModel;
 use model\UserModel;
 
@@ -188,7 +189,6 @@ class images extends View implements Auth
      * @param $imageId
      *
      * @throws Exception
-     * @throws \Exception
      *
      * #Template html false
      */
