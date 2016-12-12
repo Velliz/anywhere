@@ -106,6 +106,9 @@ class images extends View implements Auth
                 case 'URL':
                     $dataIMAGE['image'][$key]['URL'] = 'checked';
                     break;
+                case 'GET':
+                    $dataIMAGE['image'][$key]['GET'] = 'checked';
+                    break;
             }
         }
 
@@ -151,6 +154,16 @@ class images extends View implements Auth
 
         if ($mailRender['requesttype'] == 'URL') {
             $requestFile = file_get_contents($mailRender['requesturl'], 'rb');
+        }
+
+        if ($mailRender['requesttype'] == 'GET') {
+            $url = Request::Get('requesturl', null);
+            if($url == null) {
+                $data['status'] = 'failed';
+                $data['reason'] = 'post data [jsondata] is not defined.';
+                die(json_encode($data));
+            }
+            $requestFile = file_get_contents($url, 'rb');
         }
 
         $x = $mailRender['x'];

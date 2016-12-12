@@ -58,6 +58,7 @@
             <center>
                 <label><input type="radio" name="requesttype" value="POST" {!POST}>POST</label>
                 <label><input type="radio" name="requesttype" value="URL" {!URL}>URL</label>
+                <label><input type="radio" name="requesttype" value="GET" {!GET}>GET</label>
             </center>
 
             <input type="text" name="requesturl" placeholder="url data source here" value="{!requesturl}"/>
@@ -94,7 +95,7 @@
 
             <p id="apiurl">
                 API URL
-                <a target="_blank" href="{URL}images/render/{!apikey}/{!IMAGEID}">{URL}images/render/{!apikey}/{!IMAGEID}</a>
+                <a target="_blank" href="{URL}images/render/{!apikey}/{!IMAGEID}?requesturl=http://example.com/image.jpg">{URL}images/render/{!apikey}/{!IMAGEID}?requesturl=http://example.com/image.jpg</a>
             </p>
 
             <a target="_blank" href="{URL}images/coderender/{!apikey}/{!IMAGEID}" class="btn btn-success">Preview Result</a>
