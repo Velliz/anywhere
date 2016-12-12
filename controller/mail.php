@@ -15,7 +15,6 @@ use pukoframework\Request;
  * Class mail
  * @package controller
  *
- * #Auth true
  * #ClearOutput false
  */
 class mail extends View implements Auth
@@ -278,10 +277,6 @@ TAIL;
      */
     public function Render($api_key, $mailId)
     {
-        $session = Session::Get($this)->GetLoginData();
-
-        if (!isset($session['ID'])) throw new Exception("Session Expired");
-
         $mailRender = MailModel::GetMailRender($api_key, $mailId)[0];
 
         $this->mailName = $mailRender['mailname'];
@@ -428,20 +423,4 @@ TAIL;
     }
 
     #end region auth
-
-    private function reArrayFiles(&$file_post)
-    {
-
-        $file_ary = array();
-        $file_count = count($file_post['name']);
-        $file_keys = array_keys($file_post);
-
-        for ($i = 0; $i < $file_count; $i++) {
-            foreach ($file_keys as $key) {
-                $file_ary[$i][$key] = $file_post[$key][$i];
-            }
-        }
-
-        return $file_ary;
-    }
 }

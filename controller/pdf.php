@@ -17,7 +17,6 @@ use pukoframework\pte\View;
  * @package controller
  *
  * #ClearOutput false
- * #Auth true
  */
 class pdf extends View implements Auth
 {

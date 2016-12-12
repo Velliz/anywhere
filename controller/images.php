@@ -15,7 +15,6 @@ use pukoframework\Request;
  * @package controller
  *
  * #ClearOutput false
- * #Auth true
  */
 class images extends View implements Auth
 {
@@ -132,9 +131,6 @@ class images extends View implements Auth
      */
     public function Render($api_key, $imageId)
     {
-        $session = Session::Get($this)->GetLoginData();
-        if (!isset($session['ID'])) throw new Exception("Session Expired");
-
         $mailRender = ImageModel::GetImageRender($api_key, $imageId)[0];
 
         $imageName = $mailRender['imagename'];
