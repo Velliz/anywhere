@@ -68,8 +68,8 @@ TAIL;
             'verify_peer_name' => false,
             'allow_self_signed' => true
         ]];
-        $this->mail->SMTPDebug = 1;
-        $this->mail->Debugoutput = 'html';
+        //$this->mail->SMTPDebug = 1;
+        //$this->mail->Debugoutput = 'html';
     }
 
     /**
