@@ -1,5 +1,20 @@
 <?php
-
+/**
+ * Anywhere
+ *
+ * Anywhere is output-as-a-service (OAAS) platform.
+ *
+ * This content is released under the Apache License Version 2.0, January 2004
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Copyright (c) 2016, Didit Velliz
+ *
+ * @package	velliz/anywhere
+ * @author	Didit Velliz
+ * @link	https://github.com/velliz/anywhere
+ * @since	Version 1.0.0
+ *
+ */
 namespace controller;
 
 use Dompdf\Exception;
@@ -18,15 +33,7 @@ class api extends Service
 
         $type = Request::Post('type', null);
         if ($type == null) throw new Exception('type not defined.');
-
         if (!$_FILES) throw new Exception('attachment file not defined.');
-
-        /*
-        $name = $_FILES['placeholderfile']['name'];
-        $type = $_FILES['attachment']['type'];
-        $error = $_FILES['attachment']['error'];
-        $size = $_FILES['attachment']['size'];
-        */
 
         if ($type == 'placeholder') {
 
@@ -65,12 +72,9 @@ class api extends Service
     public function getplaceholder($id, $type)
     {
         $avatar = ImageModel::GetImagePage($id)[0];
-        
         header('Content-Type: image/jpeg');
-        
         if ($type == 'placeholder') echo $avatar['placeholderfile'];
         if ($type == 'sample') echo $avatar['requestsamplefile'];
-        
         die();
     }
     #end region image service

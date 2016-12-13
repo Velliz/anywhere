@@ -1,4 +1,20 @@
 <?php
+/**
+ * Anywhere
+ *
+ * Anywhere is output-as-a-service (OAAS) platform.
+ *
+ * This content is released under the Apache License Version 2.0, January 2004
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Copyright (c) 2016, Didit Velliz
+ *
+ * @package	velliz/anywhere
+ * @author	Didit Velliz
+ * @link	https://github.com/velliz/anywhere
+ * @since	Version 1.0.0
+ *
+ */
 namespace controller;
 
 use Exception;
@@ -20,17 +36,8 @@ class images extends View implements Auth
 {
 
     /**
-     * images constructor.
-     */
-    public function __construct()
-    {
-
-    }
-
-    /**
      * #Template html false
      * #Auth true
-     * #ClearOutput false
      */
     public function Main()
     {
@@ -58,6 +65,13 @@ class images extends View implements Auth
         $this->RedirectTo('update/' . $dataIMAGE['IMAGEID']);
     }
 
+    /**
+     * @param $id
+     * @return bool
+     * @throws Exception
+     *
+     * #Auth true
+     */
     public function Update($id)
     {
         if (!is_numeric($id)) throw new Exception("ID not defined");
@@ -112,14 +126,6 @@ class images extends View implements Auth
         }
 
         return $dataIMAGE;
-    }
-
-    public function Html($id_mail)
-    {
-    }
-
-    public function Style($id_mail)
-    {
     }
 
     /**
@@ -199,6 +205,7 @@ class images extends View implements Auth
      *
      * @throws Exception
      *
+     * #Auth true
      * #Template html false
      */
     public function CodeRender($api_key, $imageId)
@@ -209,23 +216,17 @@ class images extends View implements Auth
         $mailRender = ImageModel::GetImageRender($api_key, $imageId)[0];
 
         $imageName = $mailRender['imagename'];
-        //$placeholderName = $mailRender['placeholdername'];
         $placeholderFile = $mailRender['placeholderfile'];
-        //$requestSampleName = $mailRender['requestsamplename'];
         $requestSampleFile = $mailRender['requestsamplefile'];
 
         $x = $mailRender['x'];
         $y = $mailRender['y'];
-        //$x2 = $mailRender['x2'];
-        //$y2 = $mailRender['y2'];
         $w = $mailRender['w'];
         $h = $mailRender['h'];
 
         $placeHolder = imagecreatefromstring($placeholderFile);
         $sample = imagecreatefromstring($requestSampleFile);
 
-        //$px = imagesx($placeHolder);
-        //$py = imagesy($placeHolder);
         $sx = imagesx($sample);
         $sy = imagesy($sample);
 
