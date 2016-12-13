@@ -2,51 +2,229 @@
 
 {/CSS}
 
-<section id="portfolio" class="portfolio">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1 text-center">
-                <h2>Panduan Anywhere</h2>
-                <hr class="small">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                            <a href="#">
-                                <img class="img-portfolio img-responsive" src="{URL}assets/global/img/portfolio-1.jpg">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                            <a href="#">
-                                <img class="img-portfolio img-responsive" src="{URL}assets/global/img/portfolio-2.jpg">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                            <a href="#">
-                                <img class="img-portfolio img-responsive" src="{URL}assets/global/img/portfolio-3.jpg">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                            <a href="#">
-                                <img class="img-portfolio img-responsive" src="{URL}assets/global/img/portfolio-4.jpg">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.col-lg-10 -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container -->
-</section>
-
 <div class="container" style="padding-top: 50px;">
+    <hr>
+    <h1 class="PDF text-center">Panduan PDF Template</h1>
+    <hr>
+    <h4><b>Konfigurasi Dasar</b></h4>
+    <p>
+        Untuk mengenerate sebuah halaman PDF buatlah sebuah template dengan melakukan klik <label>New PDF</label>
+        Kemudian lakukan konfigurasi sesuai kebutuhan pada halaman template. Berikut ini beberapa konfigurasi template
+        untuk PDF.
+    </p>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>Field</th>
+            <th>Tipe</th>
+            <th>Isian</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>report name</td>
+            <td>string</td>
+            <td>Sesuaikan dengan nama laporan yang dibuat</td>
+        </tr>
+        <tr>
+            <td>paper type</td>
+            <td>radio button</td>
+            <td>F4, A4, B5</td>
+        </tr>
+        <tr>
+            <td>data source type</td>
+            <td>radio button</td>
+            <td>
+                POST - untuk mengirim data ke Anywhere. Dapat mengunakan <label>AnywhereWrapper</label>
+                <br>
+                URL -  Anywhere akan membuka url untuk mendapatkan data
+            </td>
+        </tr>
+        <tr>
+            <td>url data source here</td>
+            <td>url</td>
+            <td>
+                Alamat untuk mengunduh data. Isi jika memilih data source type URL
+            </td>
+        </tr>
+        <tr>
+            <td>file output</td>
+            <td>radio button</td>
+            <td>
+                <label>Buka langsung di Browser</label> atau <label>Download</label>. Jika menggunakan <label>AnywhereWrapper</label> data otomatis di buka langsung di Browser
+            </td>
+        </tr>
+        <tr>
+            <td>API url</td>
+            <td>url</td>
+            <td>
+                Untuk melakukan request laporan PDF
+            </td>
+        </tr>
+        <tr>
+            <td>.html designer</td>
+            <td>file</td>
+            <td>
+                Designer template laporan PDF menggunakan HTML. Tidak perlu menuliskan ulang tag <label>html, head, body</label>. HTML designer menggunakan aturan Puko Template Engine (PTE) yang dapat kamu lihat
+                <a href="http://pukoframework.cf">di sini</a>
+            </td>
+        </tr>
+        <tr>
+            <td>.css designer</td>
+            <td>file</td>
+            <td>
+                Designer template laporan PDF menggunakan CSS. Otomatis terhubung dengan <label>.html designer</label>
+            </td>
+        </tr>
+        <tr>
+            <td>.json data sample</td>
+            <td>json file</td>
+            <td>
+                Menyediakan data contoh untuk pengembangan pada tahap design HTML dan CSS
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h4><b>Konfigurasi Kode Request</b></h4>
+    <p>
+        Untuk membuat request PDF download <a href="https://github.com/Velliz/anywhere/blob/master/wrapper/AnywhereWrapper.php">AnywhereWrapper</a>
+        Kemudian kamu bisa menuliskan kodenya seperti contoh berikut:
+    </p>
+    <pre><code>require 'AnywhereWrapper.php';
+$pdf = new AnywherePdf(AnywhereWrapper::POST);
+$pdf->setValue('Name', 'Someone');
+$pdf->setValue('Age', '22');
+$pdf->Send(API_URL);</code></pre>
+    <p>Jika request berhasil maka browser akan menampilkan file PDF sesuai dengan template dan data. </p>
+    <hr>
+
+    <h1 class="EMAIL text-center">Panduan E-MAIL Template</h1>
+    <hr>
+    <h4><b>Konfigurasi Dasar</b></h4>
+    <p>
+        Untuk mengirim e-mail buatlah sebuah template dengan melakukan klik <label>New MAIL</label>
+        Kemudian lakukan konfigurasi sesuai kebutuhan pada halaman template. Berikut ini beberapa konfigurasi template
+        untuk SMTP e-mail.
+    </p>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>Field</th>
+            <th>Tipe</th>
+            <th>Isian</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>email name</td>
+            <td>string</td>
+            <td>Nama email akan digunakan sebagai nama pengirim e-mail</td>
+        </tr>
+        <tr>
+            <td>email host</td>
+            <td>string</td>
+            <td>Hostname dari layanan penyedia akun e-mail</td>
+        </tr>
+        <tr>
+            <td>email port</td>
+            <td>string</td>
+            <td>nomor PORT SMTP dari layanan penyedia akun e-mail</td>
+        </tr>
+        <tr>
+            <td>email username</td>
+            <td>string</td>
+            <td>username akun e-mail</td>
+        </tr>
+        <tr>
+            <td>email password</td>
+            <td>string</td>
+            <td>password akun e-mail</td>
+        </tr>
+        <tr>
+            <td>data source type</td>
+            <td>radio button</td>
+            <td>
+                POST - untuk mengirim data ke Anywhere. Dapat mengunakan <label>AnywhereWrapper</label>
+                <br>
+                URL -  Anywhere akan membuka url untuk mendapatkan data
+            </td>
+        </tr>
+        <tr>
+            <td>url data source here</td>
+            <td>url</td>
+            <td>
+                Alamat untuk mengunduh data. Isi jika memilih data source type URL
+            </td>
+        </tr>
+        <tr>
+            <td>SMTP Auth</td>
+            <td>select</td>
+            <td><label>true</label> atau <label>false</label></td>
+        </tr>
+        <tr>
+            <td>SMTP Secure</td>
+            <td>select</td>
+            <td><label>TLS</label> atau <label>SSL</label></td>
+        </tr>
+        <tr>
+            <td>API url</td>
+            <td>url</td>
+            <td>
+                Untuk melakukan request pengiriman e-mail
+            </td>
+        </tr>
+        <tr>
+            <td>.html designer</td>
+            <td>file</td>
+            <td>
+                Designer template tampilan e-mail menggunakan HTML. Tidak perlu menuliskan ulang tag <label>html, head, body</label>. HTML designer menggunakan aturan Puko Template Engine (PTE) yang dapat kamu lihat
+                <a href="http://pukoframework.cf">di sini</a>
+            </td>
+        </tr>
+        <tr>
+            <td>.css designer</td>
+            <td>file</td>
+            <td>
+                Designer template tampilan e-mail menggunakan CSS. Otomatis terhubung dengan <label>.html designer</label>
+            </td>
+        </tr>
+        <tr>
+            <td>.json data sample</td>
+            <td>json file</td>
+            <td>
+                Menyediakan data contoh untuk pengembangan pada tahap design HTML dan CSS
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h4><b>Konfigurasi Kode Request</b></h4>
+    <p>
+        Untuk mengirim e-mail download <a href="https://github.com/Velliz/anywhere/blob/master/wrapper/AnywhereWrapper.php">AnywhereWrapper</a>
+        Kemudian kamu bisa mengirim e-mail dengan kode seperti contoh berikut:
+    </p>
+    <pre><code>require 'AnywhereWrapper.php';
+
+
+$mail = new AnywhereMail(AnywhereWrapper::POST);
+$mail->setTo('example@gmail.com');
+$mail->setCc('example@outlook.com');
+$mail->setBcc('example@yahoo.co.id');
+$mail->setSubject('Anywhere Wrapper');
+$mail->setValue('Name', 'Anywhere');
+$mail->setValue('Age', '22');
+$mail->setAttachment('qrcode.png', 'http://oaas-divelliz.rhcloud.com/qr/render?data=admin@example.co.id');
+$mail->setAttachment('qrcode1.png', 'http://oaas-divelliz.rhcloud.com/qr/render?data=developer@example.co.id');
+$mail->Send(API_URL);</code></pre>
+    <p class="text-danger">Perhatian: biasanya e-mail memerlukan waktu beberapa menit agar dapat sampai ke alamat tujuan.</p>
+    <p>Jika request berhasil maka email akan terkirim ke alamat yang dimasukan pada bagian <label>setTo()</label>.</p>
+    <hr>
+
+    <h1 class="EMAIL text-center">Panduan IMAGE Template</h1>
+    <hr>
+    <p class="text-center">coming soon</p>
+
 </div>
 
 {!JS}
