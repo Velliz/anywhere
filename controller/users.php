@@ -31,7 +31,8 @@ class users extends View implements Auth
     
     public function profil()
     {
-        
+        $vars = Session::Get($this)->GetLoginData();
+        return $vars;
     }
 
     public function limitations()
