@@ -182,17 +182,12 @@ TAIL;
     /**
      * @param $api_key
      * @param $pdfId
-     * @throws \Exception
+     * @throws Exception
      *
-     * #Auth true
      * #Template html false
      */
     public function CodeRender($api_key, $pdfId)
     {
-        $session = Session::Get($this)->GetLoginData();
-
-        if (!isset($session['ID'])) throw new Exception("Session Expired");
-
         $pdfRender = PdfModel::GetPdfRender($api_key, $pdfId)[0];
 
         $this->outputmode = $pdfRender['outputmode'];
@@ -232,14 +227,10 @@ TAIL;
      *
      * @param $api_key
      * @param $pdfID
-     * @throws \Exception
+     * @throws Exception
      */
     public function Render($api_key, $pdfID)
     {
-        $session = Session::Get($this)->GetLoginData();
-
-        if (!isset($session['ID'])) throw new Exception("Session Expired");
-
         $pdfRender = PdfModel::GetPdfRender($api_key, $pdfID)[0];
 
         $this->outputmode = $pdfRender['outputmode'];
@@ -310,7 +301,7 @@ TAIL;
 
     }
 
-#region auth
+    #region auth
     public function Login($username, $password)
     {
         $loginResult = UserModel::GetUser($username, $password);
