@@ -12,6 +12,11 @@
                 <strong>Login error!</strong> {!ExceptionMessage}
             </div>
             <!--{/Exception}-->
+            <!--{!!RegisterBlock}-->
+            <div class="alert alert-success">
+                <strong>Pendaftaran berhasil.<br>Silahkan login untuk melanjutkan.</strong>
+            </div>
+            <!--{/RegisterBlock}-->
             <input type="hidden" name="token" value="{!token}">
             <input type="text" name="username" placeholder="username" required/>
             <input type="password" name="password" placeholder="password" required/>

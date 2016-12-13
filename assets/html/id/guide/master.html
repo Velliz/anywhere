@@ -15,9 +15,6 @@
     <link href="{URL}assets/global/css/custom.css" rel="stylesheet">
     <link href="{URL}assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-    {!CSS}
-
 </head>
 
 <body>
@@ -35,17 +32,52 @@
             <ul class="nav navbar-nav">
                 <li><a href="{URL}">Anywhere</a></li>
             </ul>
+            <!--{!!IsLoginBlock}-->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{URL}login">Login</a></li>
                 <li><a href="{URL}register">Register</a></li>
             </ul>
+            <!--{/IsLoginBlock}-->
+
+            <!--{!!IsSessionBlock}-->
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a data-toggle="tooltip" title="QR Code Service" href="{URL}qr">
+                        <i class="fa fa-qrcode" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-gear"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Api Key</li>
+                        <li class="dropdown-header">{!apikey}</li>
+                        <li><a href="{URL}guide">Panduan Penggunaan</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">{!name}</li>
+                        <li class="dropdown-header">{!status}</li>
+                        <li><a href="{URL}profil">Profil</a></li>
+                        <li><a href="{URL}logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!--{/IsSessionBlock}-->
         </div>
     </div>
 </nav>
 
 {CONTENT}
 
-<!-- Footer -->
 <footer>
     <div class="container">
         <div class="row">
@@ -73,7 +105,6 @@
 
 <script src="{URL}assets/global/js/jquery.js"></script>
 <script src="{URL}assets/global/js/bootstrap.min.js"></script>
-{!JS}
 
 </body>
 </html>

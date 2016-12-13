@@ -15,5 +15,7 @@ $framework->RouteMapping(array(
     'home' => 'main/home',
     'sorry' => 'main/sorry',
     'beranda' => 'users/beranda',
+    'profil' => 'users/profil',
+    'guide' => 'guide/main',
 ));
 $framework->Start();

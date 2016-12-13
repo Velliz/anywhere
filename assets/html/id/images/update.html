@@ -19,7 +19,11 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-
+                <li>
+                    <a data-toggle="tooltip" title="QR Code Service" href="{URL}qr">
+                        <i class="fa fa-qrcode" aria-hidden="true"></i>
+                    </a>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
@@ -28,6 +32,7 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">Api Key</li>
                         <li class="dropdown-header">{!apikey}</li>
+                        <li><a href="{URL}guide">Panduan Penggunaan</a></li>
                     </ul>
                 </li>
 
@@ -39,6 +44,7 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">{!name}</li>
                         <li class="dropdown-header">{!status}</li>
+                        <li><a href="{URL}profil">Profil</a></li>
                         <li><a href="{URL}logout">Logout</a></li>
                     </ul>
                 </li>

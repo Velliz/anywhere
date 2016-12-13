@@ -28,6 +28,11 @@ class users extends View implements Auth
         $vars['IMAGELists'] = ImageModel::GetImageLists($vars['ID']);
         return $vars;
     }
+    
+    public function profil()
+    {
+        
+    }
 
     public function limitations()
     {
@@ -37,7 +42,7 @@ class users extends View implements Auth
     public function Login($username, $password)
     {
         $loginResult = UserModel::GetUser($username, md5($password));
-        return $loginResult[0]['ID'];
+        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
     }
 
     public function Logout()

@@ -17,6 +17,13 @@ class main extends View implements Auth
      */
     public function main()
     {
+        if (Session::IsSession()) {
+            $session = Session::Get($this)->GetLoginData();
+            $session['IsLoginBlock'] = true;
+            $session['IsSessionBlock'] = false;
+            return $session;
+        }
+        return array('IsLoginBlock' => false, 'IsSessionBlock' => true);
     }
 
     /**
@@ -25,16 +32,20 @@ class main extends View implements Auth
      */
     public function register()
     {
+        if (Session::IsSession()) $this->RedirectTo('beranda');
+
         if (Request::IsPost()) {
             $name = Request::Post('name', null);
             $email = Request::Post('email', null);
             $username = Request::Post('username', null);
             $password = Request::Post('password', null);
+            $repeat_password = Request::Post('repeat_password', null);
 
             if ($name == null) throw new Exception("Nama harus diisi");
             if ($email == null) throw new Exception("Email harus diisi");
             if ($username == null) throw new Exception("Panjang username minimal 4 huruf");
             if ($password == null) throw new Exception("Panjang password minimal 6 huruf");
+            if ($password != $repeat_password) throw new Exception("Ulangi password tidak sama");
 
             $userData = array(
                 'username' => $username,
@@ -46,9 +57,17 @@ class main extends View implements Auth
             );
 
             $result = UserModel::NewUser($userData);
-            if ($result) $this->RedirectTo('login');
+            if ($result) $this->RedirectTo('login?register=success');
             else $this->RedirectTo('sorry');
         }
+
+        if (Session::IsSession()) {
+            $session = Session::Get($this)->GetLoginData();
+            $session['IsLoginBlock'] = true;
+            $session['IsSessionBlock'] = false;
+            return $session;
+        }
+        return array('IsLoginBlock' => false, 'IsSessionBlock' => true);
     }
 
     /**
@@ -65,12 +84,26 @@ class main extends View implements Auth
 
             if (Session::Get($this)->Login($username, md5($password), Auth::EXPIRED_1_MONTH)) {
                 $this->RedirectTo(BASE_URL . 'beranda');
-                return;
+                return array('RegisterBlock' => true);
             }
 
             throw new Exception("username atau password anda salah");
-
         }
+
+        if (Session::IsSession()) $this->RedirectTo('beranda');
+
+        $register = Request::Get('register', null);
+        if ($register == 'success') $block = false;
+        else $block = true;
+
+        if (Session::IsSession()) {
+            $session = Session::Get($this)->GetLoginData();
+            $session['IsLoginBlock'] = true;
+            $session['IsSessionBlock'] = false;
+            $session['RegisterBlock'] = $block;
+            return $session;
+        }
+        return array('IsLoginBlock' => false, 'IsSessionBlock' => true, 'RegisterBlock' => $block);
     }
 
     /**
@@ -79,7 +112,7 @@ class main extends View implements Auth
     public function userlogout()
     {
         Session::Get($this)->Logout();
-        $this->RedirectTo("main/main");
+        $this->RedirectTo(BASE_URL);
     }
 
     public function about()

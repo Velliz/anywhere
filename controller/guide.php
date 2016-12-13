@@ -1,9 +1,13 @@
 <?php
 namespace controller;
 
+use pukoframework\auth\Auth;
+use pukoframework\auth\Session;
 use pukoframework\pte\View;
 
-class guide extends View
+use model\UserModel;
+
+class guide extends View implements Auth
 {
 
     /**
@@ -11,33 +15,29 @@ class guide extends View
      */
     public function main()
     {
+        if (Session::IsSession()) {
+            $session = Session::Get($this)->GetLoginData();
+            $session['IsLoginBlock'] = true;
+            $session['IsSessionBlock'] = false;
+            return $session;
+        }
+        return array('IsLoginBlock' => false, 'IsSessionBlock' => true);
     }
 
-    /**
-     * #Value PageTitle PDF Manual
-     */
-    public function pdf()
+    #region auth
+    public function Login($username, $password)
+    {
+        $loginResult = UserModel::GetUser($username, $password);
+        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
+    }
+
+    public function Logout()
     {
     }
 
-    /**
-     * #Value PageTitle Email Manual
-     */
-    public function mail()
+    public function GetLoginData($id)
     {
+        return UserModel::GetUserById($id)[0];
     }
-
-    /**
-     * #Value PageTitle QR Manual
-     */
-    public function qr()
-    {
-    }
-
-    /**
-     * #Value PageTitle Image Manual
-     */
-    public function image()
-    {
-    }
+    #end region auth
 }
