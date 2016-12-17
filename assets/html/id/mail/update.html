@@ -98,9 +98,10 @@
                     </select>
                 </div>
             </div>
-
             <br>
-
+            <b>Add CSS from CDN</b>
+            <textarea style="resize: none; width: 100%;" id="cssexternal" name="cssexternal" rows="8">{!cssexternal}</textarea>
+            <br>
             <p>JSON Data Sample</p>
             <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8">{!requestsample}</textarea>
             <br>
@@ -129,7 +130,6 @@
         var smtpsecure = $('select[name=smtpsecure]');
         if(smtpsecure.attr('data-item') != null) $(smtpsecure).val(smtpsecure.attr('data-item'));
     });
-
     var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
         lineNumbers: true,
         theme: "night",
@@ -142,6 +142,16 @@
             }
         }
     });
-
-
+    var external = CodeMirror.fromTextArea(document.getElementById("cssexternal"), {
+        lineNumbers: true,
+        theme: "night",
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+        }
+    });
 </script>

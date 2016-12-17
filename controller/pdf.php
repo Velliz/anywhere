@@ -9,10 +9,10 @@
  *
  * Copyright (c) 2016, Didit Velliz
  *
- * @package	velliz/anywhere
- * @author	Didit Velliz
- * @link	https://github.com/velliz/anywhere
- * @since	Version 1.0.0
+ * @package    velliz/anywhere
+ * @author    Didit Velliz
+ * @link    https://github.com/velliz/anywhere
+ * @since    Version 1.0.0
  *
  */
 namespace controller;
@@ -44,6 +44,7 @@ class pdf extends View implements Auth
     private $requesttype;
     private $requesturl;
     private $requestsample;
+    private $cssexternal;
 
     /**
      * @var Dompdf
@@ -56,6 +57,7 @@ class pdf extends View implements Auth
         <head>
             <meta charset="UTF-8">
             <title>PDF Output - Anywhere</title>
+            {CSS}
             <style type="text/css">
 HEAD;
     private $middle = <<<MIDDLE
@@ -120,6 +122,7 @@ TAIL;
                 'requesttype' => $_POST['requesttype'],
                 'requesturl' => $_POST['requesturl'],
                 'requestsample' => $_POST['requestsample'],
+                'cssexternal' => $_POST['cssexternal'],
             );
             $resultUpdate = PdfModel::UpdatePdfPage($arrayID, $arrayData);
 
@@ -212,8 +215,9 @@ TAIL;
         $this->reportname = $pdfRender['reportname'];
         $this->requesttype = $pdfRender['requesttype'];
         $this->requestsample = $pdfRender['requestsample'];
+        $this->cssexternal = $pdfRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
 
         $render = new RenderEngine('string');
         $render->clearOutput = false;
@@ -255,9 +259,10 @@ TAIL;
         $this->reportname = $pdfRender['reportname'];
         $this->requesttype = $pdfRender['requesttype'];
         $this->requestsample = $pdfRender['requestsample'];
+        $this->cssexternal = $pdfRender['cssexternal'];
         $this->requesturl = $pdfRender['requesturl'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
 
         $coreData = (array)json_decode($pdfRender['requestsample']);
 

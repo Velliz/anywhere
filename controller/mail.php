@@ -47,6 +47,7 @@ class mail extends View implements Auth
     private $requesttype;
     private $requesturl;
     private $requestsample;
+    private $cssexternal;
 
     private $html;
     private $css;
@@ -62,6 +63,7 @@ class mail extends View implements Auth
         <head>
             <meta charset="UTF-8">
             <title>Mail Output - Anywhere</title>
+            {CSS}
             <style type="text/css">
 HEAD;
     private $middle = <<<MIDDLE
@@ -178,6 +180,7 @@ TAIL;
                     'requesttype' => $requesttype,
                     'requesturl' => $requesturl,
                     'requestsample' => $requestsample,
+                    'cssexternal' => $_POST['cssexternal'],
                 ));
 
             if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
@@ -267,8 +270,9 @@ TAIL;
         $this->requesttype = $mailRender['requesttype'];
         $this->requesturl = $mailRender['requesturl'];
         $this->requestsample = $mailRender['requestsample'];
+        $this->cssexternal = $mailRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
 
         $render = new RenderEngine('string');
         $render->clearOutput = false;
@@ -310,8 +314,9 @@ TAIL;
         $this->requesttype = $mailRender['requesttype'];
         $this->requesturl = $mailRender['requesturl'];
         $this->requestsample = $mailRender['requestsample'];
+        $this->cssexternal = $mailRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
 
         $coreData = array();
 

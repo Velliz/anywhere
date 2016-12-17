@@ -29,10 +29,10 @@
             </button>
         </div>
         <div class="navbar-collapse collapse" id="navbar">
+            <!--{!!IsLoginBlock}-->
             <ul class="nav navbar-nav">
                 <li><a href="{URL}">Anywhere</a></li>
             </ul>
-            <!--{!!IsLoginBlock}-->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{URL}login">Login</a></li>
                 <li><a href="{URL}register">Register</a></li>
@@ -40,6 +40,13 @@
             <!--{/IsLoginBlock}-->
 
             <!--{!!IsSessionBlock}-->
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{URL}beranda">
+                        Dashboard Console
+                    </a>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a data-toggle="tooltip" title="QR Code Service" href="{URL}qr">

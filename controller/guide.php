@@ -40,6 +40,14 @@ class guide extends View implements Auth
         return array('IsLoginBlock' => false, 'IsSessionBlock' => true);
     }
 
+    /**
+     * #Value PageTitle Puko Template Engine
+     */
+    public function pte()
+    {
+
+    }
+
     #region auth
     public function Login($username, $password)
     {

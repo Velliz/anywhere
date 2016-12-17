@@ -78,7 +78,9 @@
                 <label><input type="radio" name="outputmode" value="Download" {!Download}>Download File</label>
             </center>
             <br>
-
+            <b>Add CSS from CDN</b>
+            <textarea style="resize: none; width: 100%;" id="cssexternal" name="cssexternal" rows="8">{!cssexternal}</textarea>
+            <br>
             <b>.json data sample</b>
             <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8">{!requestsample}</textarea>
             <br>
@@ -101,6 +103,18 @@
 <script src="{URL}assets/global/js/bootstrap.min.js"></script>
 <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
+        lineNumbers: true,
+        theme: "night",
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+        }
+    });
+    var external = CodeMirror.fromTextArea(document.getElementById("cssexternal"), {
         lineNumbers: true,
         theme: "night",
         extraKeys: {
