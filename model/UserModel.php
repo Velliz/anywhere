@@ -24,4 +24,15 @@ class UserModel extends DBI
         return DBI::Prepare("users")->Save($arrayData);
     }
 
+    public static function IsEmailExists($email)
+    {
+        $data = DBI::Prepare("SELECT * FROM users WHERE (email = @1);")->GetData($email);
+        return (count($data) > 0);
+    }
+
+    public static function IsUsernameExists($username)
+    {
+        $data = DBI::Prepare("SELECT * FROM users WHERE (username = @1);")->GetData($username);
+        return (count($data) > 0);
+    }
 }

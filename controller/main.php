@@ -63,6 +63,9 @@ class main extends View implements Auth
             if ($password == null) throw new Exception("Panjang password minimal 6 huruf");
             if ($password != $repeat_password) throw new Exception("Ulangi password tidak sama");
 
+            if (UserModel::IsEmailExists($email)) throw new Exception("Maaf, Email telah terdaftar");
+            if (UserModel::IsUsernameExists($username)) throw new Exception("Maaf, Username telah terdaftar");
+
             $userData = array(
                 'username' => $username,
                 'password' => md5($password),

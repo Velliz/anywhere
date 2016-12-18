@@ -1,8 +1,8 @@
-## Anywhere
+## Anywhere [BETA]
 
 Anywhere is Output as-a Service (OAAS) Platform to simplify output data in coding. 
-Reduce use of libraries and speed up software development process.
-The main feature of Anywhere is:
+Reduce use of libraries in projects and speed up software development process.
+The main feature of **Anywhere** is:
 
 * PDF Service
 * MAIL Service
@@ -12,9 +12,9 @@ The main feature of Anywhere is:
 Using HTML and CSS for layout, Data source in JSON. 
 Anywhere is generating the output for you.
 
-Anywhere is powered by [Puko Framework](https://github.com/Velliz/pukoframework)
+Anywhere is powered by [pukoframework](https://github.com/Velliz/pukoframework)
 
-Usage and Tutorial [here](http://velliz.github.io/anywhere/)
+Checkout [BETA release](https://anywhere.cf) and [User Guide](https://anywhere.cf/guide)
 
 ### TODO
 
