@@ -38,6 +38,13 @@
             </td>
         </tr>
         <tr>
+            <td>CSS from CDN</td>
+            <td>url</td>
+            <td>
+                Alamat cdn CSS misal: &lt;link href="http://example.com/assets/global/css/bootstrap.css" rel="stylesheet"&gt;
+            </td>
+        </tr>
+        <tr>
             <td>url data source here</td>
             <td>url</td>
             <td>
@@ -84,11 +91,11 @@
     </table>
     <h4><b>Konfigurasi Kode Request</b></h4>
     <p>
-        Untuk membuat request PDF download <a href="https://github.com/Velliz/anywhere/blob/master/wrapper/AnywhereWrapper.php">AnywhereWrapper</a>
+        Untuk membuat request PDF download <a href="https://github.com/Velliz/anywrapper/archive/master.zip">AnywhereWrapper</a>
         Kemudian kamu bisa menuliskan kodenya seperti contoh berikut:
     </p>
-    <pre><code>require 'AnywhereWrapper.php';
-$pdf = new AnywherePdf(AnywhereWrapper::POST);
+    <pre><code>require 'Wrapper.php';
+$pdf = new AnywherePdf(Wrapper::POST);
 $pdf->setValue('Name', 'Someone');
 $pdf->setValue('Age', '22');
 $pdf->Send(API_URL);</code></pre>
@@ -137,6 +144,13 @@ $pdf->Send(API_URL);</code></pre>
             <td>email password</td>
             <td>string</td>
             <td>password akun e-mail</td>
+        </tr>
+        <tr>
+            <td>CSS from CDN</td>
+            <td>url</td>
+            <td>
+                Alamat cdn CSS misal: &lt;link href="http://example.com/assets/global/css/bootstrap.css" rel="stylesheet"&gt;
+            </td>
         </tr>
         <tr>
             <td>data source type</td>
@@ -197,11 +211,11 @@ $pdf->Send(API_URL);</code></pre>
     </table>
     <h4><b>Konfigurasi Kode Request</b></h4>
     <p>
-        Untuk mengirim e-mail download <a href="https://github.com/Velliz/anywhere/blob/master/wrapper/AnywhereWrapper.php">AnywhereWrapper</a>
+        Untuk mengirim e-mail download <a href="https://github.com/Velliz/anywrapper/archive/master.zip">AnywhereWrapper</a>
         Kemudian kamu bisa mengirim e-mail dengan kode seperti contoh berikut:
     </p>
-    <pre><code>require 'AnywhereWrapper.php';
-$mail = new AnywhereMail(AnywhereWrapper::POST);
+    <pre><code>require 'Wrapper.php';
+$mail = new AnywhereMail(Wrapper::POST);
 $mail->setTo('example@gmail.com');
 $mail->setCc('example@outlook.com');
 $mail->setBcc('example@yahoo.co.id');
@@ -218,5 +232,4 @@ $mail->Send(API_URL);</code></pre>
     <h1 class="EMAIL text-center">Panduan IMAGE Template</h1>
     <hr>
     <p class="text-center">coming soon</p>
-
 </div>
