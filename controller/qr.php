@@ -26,6 +26,11 @@ use QRcode;
 class qr extends View implements Auth
 {
 
+    /**
+     * @return bool
+     *
+     * #Auth true
+     */
     public function main()
     {
         $session = Session::Get($this)->GetLoginData();
@@ -34,6 +39,9 @@ class qr extends View implements Auth
         return $dataQR;
     }
 
+    /**
+     * #Auth false
+     */
     public function render()
     {
         if(!isset($_GET['data'])) {

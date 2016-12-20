@@ -32,6 +32,7 @@ use pukoframework\Request;
  * @package controller
  *
  * #ClearOutput false
+ * #Auth true
  */
 class mail extends View implements Auth
 {
@@ -246,6 +247,7 @@ TAIL;
      * @throws \Exception
      *
      * #Template html false
+     * #Auth false
      */
     public function CodeRender($api_key, $mailId)
     {
@@ -294,6 +296,7 @@ TAIL;
      * @throws \Exception
      *
      * #Template html false
+     * $Auth false
      */
     public function Render($api_key, $mailId)
     {

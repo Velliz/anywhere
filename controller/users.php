@@ -35,7 +35,6 @@ use pukoframework\pte\View;
  */
 class users extends View implements Auth
 {
-
     public function beranda()
     {
         $vars = Session::Get($this)->GetLoginData();

@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 define('ROOT', __DIR__);
 define('FILE', dirname(__FILE__));
 define('BASE_URL', "http://" . $_SERVER['SERVER_NAME'] . "/anywhere/");
-define('LIMITATIONS', 4);
+define('LIMITATIONS', 8);
 require __DIR__ . '/vendor/autoload.php';
 $framework = new \pukoframework\Framework();
 $framework->RouteMapping(array(
@@ -18,5 +18,6 @@ $framework->RouteMapping(array(
     'profil' => 'users/profil',
     'guide/pte' => 'guide/pte',
     'guide' => 'guide/main',
+    'refresh' => 'main/refresh',
 ));
 $framework->Start();

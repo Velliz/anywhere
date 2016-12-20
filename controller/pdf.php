@@ -32,6 +32,7 @@ use pukoframework\pte\View;
  * @package controller
  *
  * #ClearOutput false
+ * #Auth true
  */
 class pdf extends View implements Auth
 {
@@ -203,6 +204,7 @@ TAIL;
      * @throws Exception
      *
      * #Template html false
+     * #Auth false
      */
     public function CodeRender($api_key, $pdfId)
     {
@@ -243,6 +245,7 @@ TAIL;
 
     /**
      * #Template master false
+     * #Auth false
      *
      * @param $api_key
      * @param $pdfID

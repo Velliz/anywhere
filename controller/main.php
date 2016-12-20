@@ -9,10 +9,10 @@
  *
  * Copyright (c) 2016, Didit Velliz
  *
- * @package	velliz/anywhere
- * @author	Didit Velliz
- * @link	https://github.com/velliz/anywhere
- * @since	Version 1.0.0
+ * @package    velliz/anywhere
+ * @author    Didit Velliz
+ * @link    https://github.com/velliz/anywhere
+ * @since    Version 1.0.0
  *
  */
 namespace controller;
@@ -21,6 +21,7 @@ use Dompdf\Exception;
 use model\UserModel;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
+use pukoframework\peh\ValueException;
 use pukoframework\pte\View;
 use pukoframework\Request;
 
@@ -51,20 +52,59 @@ class main extends View implements Auth
         if (Session::IsSession()) $this->RedirectTo('beranda');
 
         if (Request::IsPost()) {
+            $exception = new ValueException();
+
             $name = Request::Post('name', null);
             $email = Request::Post('email', null);
             $username = Request::Post('username', null);
             $password = Request::Post('password', null);
             $repeat_password = Request::Post('repeat_password', null);
 
-            if ($name == null) throw new Exception("Nama harus diisi");
-            if ($email == null) throw new Exception("Email harus diisi");
-            if ($username == null) throw new Exception("Panjang username minimal 4 huruf");
-            if ($password == null) throw new Exception("Panjang password minimal 6 huruf");
-            if ($password != $repeat_password) throw new Exception("Ulangi password tidak sama");
+            if ($name == null) $exception->Prepare('name', 'Nama harus di isi');
+            if ($email == null) $exception->Prepare('email', 'Email harus di isi');
+            if ($username == null) $exception->Prepare('username', 'Username harus di isi');
+            if ($password == null) $exception->Prepare('password', 'Password harus di isi');
+            if ($password != $repeat_password) {
+                $exception->Prepare('repeat_password', 'Ulangi password tidak sama');
+                $exception->Throws(
+                    array(
+                        'name' => $name,
+                        'email' => $email,
+                        'username' => $username,
+                        'IsLoginBlock' => false,
+                        'IsSessionBlock' => true
+                    ),
+                    'Ulangi password tidak sama'
+                );
+            }
 
-            if (UserModel::IsEmailExists($email)) throw new Exception("Maaf, Email telah terdaftar");
-            if (UserModel::IsUsernameExists($username)) throw new Exception("Maaf, Username telah terdaftar");
+            if (UserModel::IsEmailExists($email)) {
+                $exception->Prepare('email', 'Maaf, Email telah terdaftar.');
+                $exception->Throws(
+                    array(
+                        'name' => $name,
+                        'email' => $email,
+                        'username' => $username,
+                        'IsLoginBlock' => false,
+                        'IsSessionBlock' => true
+                    ),
+                    'Maaf, Email telah terdaftar.'
+                );
+            }
+
+            if (UserModel::IsUsernameExists($username)) {
+                $exception->Prepare('username', 'Maaf, Username telah terdaftar.');
+                $exception->Throws(
+                    array(
+                        'name' => $name,
+                        'email' => $email,
+                        'username' => $username,
+                        'IsLoginBlock' => false,
+                        'IsSessionBlock' => true
+                    ),
+                    'Maaf, Username telah terdaftar.'
+                );
+            }
 
             $userData = array(
                 'username' => $username,
@@ -96,17 +136,26 @@ class main extends View implements Auth
     public function userlogin()
     {
         if (Request::IsPost()) {
+            $exception = new ValueException();
             $username = Request::Post('username', null);
-            if ($username == null) throw new \Exception('Username must filled');
+            if ($username == null) $exception->Prepare('username', 'Username harus di isi');
             $password = Request::Post('password', null);
-            if ($password == null) throw new \Exception('Password must filled');
+            if ($password == null) $exception->Prepare('password', 'Password harus di isi');
 
             if (Session::Get($this)->Login($username, md5($password), Auth::EXPIRED_1_MONTH)) {
                 $this->RedirectTo(BASE_URL . 'beranda');
                 return array('RegisterBlock' => true);
             }
+            $exception->Prepare('global', 'Username atau password anda salah.');
 
-            throw new Exception("username atau password anda salah");
+            $exception->Throws(array(
+                'IsLoginBlock' => false,
+                'IsSessionBlock' => true,
+                'RegisterBlock' => true,
+                'username' => $username,
+                'password' => 'Ulangi password',
+            ),
+                'Username atau password anda salah.');
         }
 
         if (Session::IsSession()) $this->RedirectTo('beranda');
@@ -127,11 +176,17 @@ class main extends View implements Auth
 
     /**
      * #Template html false
+     * #Auth true
      */
     public function userlogout()
     {
         Session::Get($this)->Logout();
-        $this->RedirectTo(BASE_URL);
+        $this->RedirectTo(BASE_URL . 'refresh');
+    }
+
+    public function refresh()
+    {
+
     }
 
     public function about()

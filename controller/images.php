@@ -31,6 +31,7 @@ use pukoframework\Request;
  * @package controller
  *
  * #ClearOutput false
+ * #Auth true
  */
 class images extends View implements Auth
 {
@@ -134,6 +135,7 @@ class images extends View implements Auth
      * @throws Exception
      *
      * #Template html false
+     * $Auth false
      */
     public function Render($api_key, $imageId)
     {
@@ -205,7 +207,7 @@ class images extends View implements Auth
      *
      * @throws Exception
      *
-     * #Auth true
+     * #Auth false
      * #Template html false
      */
     public function CodeRender($api_key, $imageId)
