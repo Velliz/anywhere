@@ -181,12 +181,7 @@ class main extends View implements Auth
     public function userlogout()
     {
         Session::Get($this)->Logout();
-        $this->RedirectTo(BASE_URL . 'refresh');
-    }
-
-    public function refresh()
-    {
-
+        $this->RedirectTo(BASE_URL);
     }
 
     public function about()
