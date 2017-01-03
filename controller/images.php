@@ -135,7 +135,7 @@ class images extends View implements Auth
      * @throws Exception
      *
      * #Template html false
-     * $Auth false
+     * #Auth false
      */
     public function Render($api_key, $imageId)
     {
