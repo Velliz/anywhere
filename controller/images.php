@@ -31,7 +31,6 @@ use pukoframework\Request;
  * @package controller
  *
  * #ClearOutput false
- * #Auth true
  */
 class images extends View implements Auth
 {
@@ -198,7 +197,7 @@ class images extends View implements Auth
         header('Content-Disposition: inline; filename="' . $imageName . '.png"');
 
         echo $image;
-        die();
+        exit();
     }
 
     /**
@@ -249,7 +248,7 @@ class images extends View implements Auth
         header('Content-Disposition: inline; filename="' . $imageName . '.png"');
 
         echo $image;
-        die();
+        exit();
     }
 
     public function Limitations()

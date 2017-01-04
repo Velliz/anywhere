@@ -64,6 +64,7 @@ class qr extends View implements Auth
         header('Content-Type: image/png');
 
         QRcode::png($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
+        exit();
     }
 
     #region auth

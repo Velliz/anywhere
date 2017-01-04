@@ -32,7 +32,6 @@ use pukoframework\pte\View;
  * @package controller
  *
  * #ClearOutput false
- * #Auth true
  */
 class pdf extends View implements Auth
 {
@@ -240,7 +239,7 @@ TAIL;
 
         $this->dompdf->stream($this->reportname, array("Attachment" => 0));
         */
-
+        exit();
     }
 
     /**
