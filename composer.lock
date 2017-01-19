@@ -448,12 +448,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "e40ec140e44bf91aad3197b03ed9a0b2fca8c2b3"
+                "reference": "f8fbb64b1f99fa0f402e76f7ce45fb7621940dc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/e40ec140e44bf91aad3197b03ed9a0b2fca8c2b3",
-                "reference": "e40ec140e44bf91aad3197b03ed9a0b2fca8c2b3",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/f8fbb64b1f99fa0f402e76f7ce45fb7621940dc9",
+                "reference": "f8fbb64b1f99fa0f402e76f7ce45fb7621940dc9",
                 "shasum": ""
             },
             "require-dev": {
@@ -476,11 +476,11 @@
                 }
             ],
             "description": "PSR 4 modular based MVC Puko Framework",
-            "time": "2016-12-20 13:49:13"
+            "time": "2017-01-18 08:12:45"
         },
         {
             "name": "zendframework/zend-escaper",
-            "version": "2.4.10",
+            "version": "2.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-escaper.git",
@@ -525,7 +525,7 @@
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "2.4.10",
+            "version": "2.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stdlib.git",
@@ -580,7 +580,7 @@
         },
         {
             "name": "zendframework/zend-validator",
-            "version": "2.4.10",
+            "version": "2.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-validator.git",

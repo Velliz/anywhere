@@ -3,7 +3,7 @@ namespace model;
 
 use pukoframework\pda\DBI;
 
-class MailModel extends DBI
+class MailModel
 {
 
     public static function CountMailUser($userID)
@@ -34,10 +34,10 @@ class MailModel extends DBI
             ->GetData($userID);
     }
 
-    public static function GetMailRender($apikey, $pdfID)
+    public static function GetMailRender($apikey, $mailID)
     {
         return DBI::Prepare('SELECT * FROM mail m LEFT JOIN users u ON (m.userID = u.ID)
         WHERE (u.apikey = @1) AND (m.MAILID = @2) LIMIT 1;')
-            ->GetData($apikey, $pdfID);
+            ->GetData($apikey, $mailID);
     }
 }

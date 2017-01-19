@@ -3,7 +3,7 @@ namespace model;
 
 use pukoframework\pda\DBI;
 
-class ImageModel extends DBI
+class ImageModel
 {
     public static function CountImageUser($userID)
     {

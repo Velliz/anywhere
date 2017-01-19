@@ -4,7 +4,7 @@ namespace model;
 
 use pukoframework\pda\DBI;
 
-class UserModel extends DBI
+class UserModel
 {
 
     public static function GetUser($username, $password)
@@ -34,5 +34,14 @@ class UserModel extends DBI
     {
         $data = DBI::Prepare("SELECT * FROM users WHERE (username = @1);")->GetData($username);
         return (count($data) > 0);
+    }
+
+    public static function UserIdByApiKey($apiKey)
+    {
+        $data = DBI::Prepare("SELECT * FROM users WHERE (apikey = @1);")->GetData($apiKey);
+        if (count($data) === 0) {
+            return 0;
+        }
+        return $data[0]['ID'];
     }
 }

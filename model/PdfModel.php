@@ -4,7 +4,7 @@ namespace model;
 
 use pukoframework\pda\DBI;
 
-class PdfModel extends DBI
+class PdfModel
 {
     public static function CountPDFUser($userID)
     {

@@ -18,6 +18,7 @@
 namespace controller;
 
 use Dompdf\Exception;
+use model\LogMail;
 use model\MailModel;
 use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -86,14 +87,13 @@ TAIL;
             'verify_peer_name' => false,
             'allow_self_signed' => true
         ]];
-        //$this->mail->SMTPDebug = 1;
-        //$this->mail->Debugoutput = 'html';
+        $this->mail->SMTPDebug = 1;
+        $this->mail->Debugoutput = 'html';
     }
 
     /**
      * #Template html false
      * #Auth true
-     * #ClearOutput false
      *
      * initialize a new email template
      * then redirect to configure
@@ -143,6 +143,13 @@ TAIL;
         $this->RedirectTo('update/' . $dataMAIL['MAILID']);
     }
 
+    /**
+     * @param $id
+     * @return bool
+     * @throws Exception
+     *
+     * #Auth true
+     */
     public function Update($id)
     {
         if (!is_numeric($id)) throw new Exception("ID not defined");
@@ -204,6 +211,12 @@ TAIL;
         return $dataMAIL;
     }
 
+    /**
+     * @param $id_mail
+     * @return bool
+     *
+     * #Auth true
+     */
     public function Html($id_mail)
     {
         $session = Session::Get($this)->GetLoginData();
@@ -221,6 +234,12 @@ TAIL;
         return $file;
     }
 
+    /**
+     * @param $id_mail
+     * @return bool
+     *
+     * #Auth true
+     */
     public function Style($id_mail)
     {
         $session = Session::Get($this)->GetLoginData();
@@ -241,12 +260,10 @@ TAIL;
     /**
      * @param $api_key
      * @param $mailId
-     *
      * @throws Exception
-     * @throws \Exception
      *
      * #Template html false
-     * #Auth false
+     * #Auth true
      */
     public function CodeRender($api_key, $mailId)
     {
@@ -292,10 +309,8 @@ TAIL;
      * @param $api_key
      * @param $mailId
      * @throws Exception
-     * @throws \Exception
      *
      * #Template html false
-     * #Auth false
      */
     public function Render($api_key, $mailId)
     {
@@ -411,6 +426,8 @@ TAIL;
         $this->mail->Body = $template;
         $this->mail->AltBody = $template;
 
+        Request::OutputBufferStart();
+
         $response = array();
         if (!$this->mail->send()) {
             $response['IsSuccess'] = false;
@@ -420,6 +437,14 @@ TAIL;
             $response['IsSuccess'] = true;
             $response['Message'] = 'Message sent';
         }
+
+        LogMail::Create(array(
+            'MAILID' => $mailId,
+            'userid' => UserModel::UserIdByApiKey($api_key),
+            'jsondata' => json_encode(Request::Post('jsondata', array())),
+            'resultdata' => json_encode($response),
+            'debuginfo' => Request::OutputBufferFinish(),
+        ));
 
         echo json_encode($response);
         exit();
