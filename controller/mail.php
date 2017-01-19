@@ -24,6 +24,7 @@ use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
+use pukoframework\pda\DBI;
 use pukoframework\pte\RenderEngine;
 use pukoframework\pte\View;
 use pukoframework\Request;
@@ -441,9 +442,11 @@ TAIL;
         LogMail::Create(array(
             'MAILID' => $mailId,
             'userid' => UserModel::UserIdByApiKey($api_key),
-            'jsondata' => json_encode(Request::Post('jsondata', array())),
+            'sentat' => DBI::NOW(),
+            'jsondata' => json_encode($coreData),
             'resultdata' => json_encode($response),
             'debuginfo' => Request::OutputBufferFinish(),
+            'processingtime' => microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"],
         ));
 
         echo json_encode($response);
