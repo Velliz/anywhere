@@ -32,7 +32,6 @@ use pukoframework\Request;
  * @package controller
  *
  * #ClearOutput false
- * #Auth true
  */
 class mail extends View implements Auth
 {
