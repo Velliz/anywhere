@@ -9,10 +9,10 @@
  *
  * Copyright (c) 2016, Didit Velliz
  *
- * @package	velliz/anywhere
- * @author	Didit Velliz
- * @link	https://github.com/velliz/anywhere
- * @since	Version 1.0.0
+ * @package    velliz/anywhere
+ * @author    Didit Velliz
+ * @link    https://github.com/velliz/anywhere
+ * @since    Version 1.0.0
  *
  */
 namespace controller;
@@ -88,7 +88,7 @@ TAIL;
             'verify_peer_name' => false,
             'allow_self_signed' => true
         ]];
-        $this->mail->SMTPDebug = 1;
+        $this->mail->SMTPDebug = 2;
         $this->mail->Debugoutput = 'html';
     }
 
@@ -338,10 +338,7 @@ TAIL;
 
         $coreData = array();
 
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
         header("Author: Anywhere 0.1");
-        header('Content-Type: application/json');
 
         $this->mail->Host = $this->host;
         $this->mail->SMTPAuth = ($this->smtpauth == 'true') ? true : false;
@@ -399,24 +396,16 @@ TAIL;
 
         if (isset($coreData['attachment']) && is_array($coreData['attachment'])) {
             foreach ($coreData['attachment'] as $key => $val) {
-                $this->mail->addStringAttachment(file_get_contents($val->url), $val->name);
+                $fileData = apc_fetch($val->name, $cacheResult);
+                if ($cacheResult) {
+                    $this->mail->addStringAttachment($fileData, $val->name);
+                } else {
+                    $fileData = file_get_contents($val->url);
+                    apc_store($val->name, $fileData, Auth::EXPIRED_1_HOUR);
+                    $this->mail->addStringAttachment($fileData, $val->name);
+                }
             }
         }
-
-        /*
-        // attachment via POST multipart form data.
-
-        if(isset($_FILES['attachment']) || $_FILES['attachment']['error'] != UPLOAD_ERR_NO_FILE) {
-            $file_ary = $this->reArrayFiles($_FILES['attachment']);
-            foreach ($file_ary as $file) {
-
-                $file_name = $file['name'];
-                $file_temp = $file['tmp_name'];
-
-                $this->mail->addAttachment($file_temp, $file_name);
-            }
-        }
-        */
 
         $render = new RenderEngine('string');
         $render->clearOutput = false;
