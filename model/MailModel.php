@@ -22,10 +22,10 @@ class MailModel
         return DBI::Prepare('mail')->Update($pdfID, $dataUpdate);
     }
 
-    public static function GetMailPage($pdfID)
+    public static function GetMailPage($mailID)
     {
         return DBI::Prepare('SELECT * FROM mail WHERE (MAILID = @1) LIMIT 1;')
-            ->GetData($pdfID);
+            ->GetData($mailID);
     }
 
     public static function GetMailLists($userID)
