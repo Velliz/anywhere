@@ -396,6 +396,7 @@ TAIL;
 
         if (isset($coreData['attachment']) && is_array($coreData['attachment'])) {
             foreach ($coreData['attachment'] as $key => $val) {
+				/*
                 $fileData = apc_fetch($val->name, $cacheResult);
                 if ($cacheResult) {
                     $this->mail->addStringAttachment($fileData, $val->name);
@@ -404,6 +405,8 @@ TAIL;
                     apc_store($val->name, $fileData, Auth::EXPIRED_1_HOUR);
                     $this->mail->addStringAttachment($fileData, $val->name);
                 }
+				*/
+				$this->mail->addStringAttachment(file_get_contents($val->url), $val->name);
             }
         }
 
