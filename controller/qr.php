@@ -69,12 +69,17 @@ class qr extends View implements Auth
             header('Content-Type: image/' . $output);
             QRcode::png($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
         }
+        if ($output === 'svg') {
+            header('Content-Type: image/' . $output);
+            QRcode::svg($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
+        }
         if ($output === 'jpg' || $output === 'jpeg') {
             header('Content-Type: image/' . $output);
             Request::OutputBufferStart();
             QRcode::png($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
             $ImagePng = Request::OutputBufferFlush();
-            $ImageObject = imagecreatefrompng($ImagePng);
+
+            $ImageObject = imagecreatefromstring($ImagePng);
 
             Request::OutputBufferStart();
             imagejpeg($ImageObject, "qr" . $output, 75);
@@ -84,7 +89,7 @@ class qr extends View implements Auth
             echo $ImageResult;
         }
 
-        exit();
+        die();
     }
 
     #region auth
