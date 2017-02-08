@@ -10,9 +10,9 @@ class LogMail
         return DBI::Prepare('logmail')->Save($arrayData);
     }
 
-    public static function Update($pdfID, $dataUpdate)
+    public static function Update($mailID, $dataUpdate)
     {
-        return DBI::Prepare('logmail')->Update($pdfID, $dataUpdate);
+        return DBI::Prepare('logmail')->Update($mailID, $dataUpdate);
     }
 
     public static function GetLogMail($mailID)

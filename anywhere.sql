@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-12-17 08:15:52
+Date: 2017-02-03 23:10:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,6 +55,22 @@ CREATE TABLE `images` (
   `requestsamplefile` longblob,
   PRIMARY KEY (`IMAGEID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Table structure for logmail
+-- ----------------------------
+DROP TABLE IF EXISTS `logmail`;
+CREATE TABLE `logmail` (
+  `logid` int(11) NOT NULL AUTO_INCREMENT,
+  `MAILID` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `sentat` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `jsondata` text NOT NULL,
+  `resultdata` text,
+  `debuginfo` text,
+  `processingtime` double DEFAULT NULL,
+  PRIMARY KEY (`logid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for mail
@@ -140,4 +156,4 @@ CREATE TABLE `users` (
   `apikey` varchar(255) NOT NULL,
   `statusID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;

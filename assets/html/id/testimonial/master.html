@@ -8,51 +8,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Web Console - Anywhere</title>
+    <title>Testimonial - Anywhere</title>
 
     <link href="{URL}assets/global/css/bootstrap.css" rel="stylesheet">
     <link href="{URL}assets/global/css/stylish-portfolio.css" rel="stylesheet">
     <link href="{URL}assets/global/css/custom.css" rel="stylesheet">
     <link href="{URL}assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
-          rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="{URL}assets/global/css/codemirror.css">
-    <link rel="stylesheet" href="{URL}assets/global/addon/display/fullscreen.css">
-    <link rel="stylesheet" href="{URL}assets/global/theme/night.css">
-
-    <script src="{URL}assets/global/js/codemirror.js"></script>
-    <script src="{URL}assets/global/addon/display/fullscreen.js"></script>
-
-    <style>
-        .CodeMirror {
-            border: 1px solid #eee;
-            height: 100%;
-        }
-
-        a:hover {
-            cursor: pointer;
-        }
-
-        .editor-view {
-            padding-top: 50px;
-        }
-
-        .nopadding {
-            padding: 0 0 0 0 !important;
-            margin: 0 0 0 0 !important;
-        }
-
-        .fullwh {
-            width: 100%;
-            height: 100%;
-        }
-
-        .full-height {
-            height: 100%;
-            min-height: 100%;
-        }
-    </style>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -77,14 +39,10 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-list"></i>
+                <li>
+                    <a data-toggle="tooltip" title="QR Code Service" href="{URL}qr">
+                        <i class="fa fa-qrcode" aria-hidden="true"></i>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{URL}qr">QR Code Service</a></li>
-                    </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -143,6 +101,9 @@
         </div>
     </div>
 </footer>
+
+<script src="{URL}assets/global/js/jquery.js"></script>
+<script src="{URL}assets/global/js/bootstrap.min.js"></script>
 
 </body>
 </html>
