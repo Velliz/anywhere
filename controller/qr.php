@@ -9,10 +9,10 @@
  *
  * Copyright (c) 2016, Didit Velliz
  *
- * @package	velliz/anywhere
- * @author	Didit Velliz
- * @link	https://github.com/velliz/anywhere
- * @since	Version 1.0.0
+ * @package    velliz/anywhere
+ * @author    Didit Velliz
+ * @link    https://github.com/velliz/anywhere
+ * @since    Version 1.0.0
  *
  */
 namespace controller;
@@ -21,6 +21,7 @@ use model\UserModel;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
+use pukoframework\Request;
 use QRcode;
 
 class qr extends View implements Auth
@@ -44,7 +45,7 @@ class qr extends View implements Auth
      */
     public function render()
     {
-        if(!isset($_GET['data'])) {
+        if (!isset($_GET['data'])) {
             $data['status'] = 'failed';
             $data['reason'] = 'get data [data] is not defined.';
             die(json_encode($data));
@@ -52,18 +53,37 @@ class qr extends View implements Auth
 
         $size = 10;
         $margin = 2;
+        $output = 'png';
 
-        if(isset($_GET['size'])) $size = $_GET['size'];
-        if(isset($_GET['margin'])) $size = $_GET['margin'];
+        if (isset($_GET['size'])) $size = $_GET['size'];
+        if (isset($_GET['margin'])) $size = $_GET['margin'];
+        if (isset($_GET['output'])) $output = $_GET['output'];
 
         include(ROOT . '/libraries/phpqrcode/qrlib.php');
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
         header("Author: Anywhere 0.1");
-        header('Content-Type: image/png');
 
-        QRcode::png($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
+        if ($output === 'png') {
+            header('Content-Type: image/' . $output);
+            QRcode::png($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
+        }
+        if ($output === 'jpg' || $output === 'jpeg') {
+            header('Content-Type: image/' . $output);
+            Request::OutputBufferStart();
+            QRcode::png($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
+            $ImagePng = Request::OutputBufferFlush();
+            $ImageObject = imagecreatefrompng($ImagePng);
+
+            Request::OutputBufferStart();
+            imagejpeg($ImageObject, "qr" . $output, 75);
+            $ImageResult = Request::OutputBufferFlush();
+            imagedestroy($ImageObject);
+
+            echo $ImageResult;
+        }
+
         exit();
     }
 

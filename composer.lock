@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "2eaf8fe0f1c95ab76e7a428a39a54dd240e2b2ec"
+                "reference": "875eade40b0a7fe9d85cdf7e16686deffce83f45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/2eaf8fe0f1c95ab76e7a428a39a54dd240e2b2ec",
-                "reference": "2eaf8fe0f1c95ab76e7a428a39a54dd240e2b2ec",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/875eade40b0a7fe9d85cdf7e16686deffce83f45",
+                "reference": "875eade40b0a7fe9d85cdf7e16686deffce83f45",
                 "shasum": ""
             },
             "require": {
@@ -26,11 +26,11 @@
                 "ext-gd": "*",
                 "ext-mbstring": "*",
                 "phenx/php-font-lib": "0.4.*",
-                "phenx/php-svg-lib": "0.1.*",
+                "phenx/php-svg-lib": "0.2.*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*",
+                "phpunit/phpunit": "4.8.*",
                 "squizlabs/php_codesniffer": "2.*"
             },
             "type": "library",
@@ -67,7 +67,7 @@
             ],
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2016-12-11 01:46:31"
+            "time": "2017-01-25 03:14:47"
         },
         {
             "name": "pclzip/pclzip",
@@ -142,17 +142,20 @@
         },
         {
             "name": "phenx/php-svg-lib",
-            "version": "0.1",
+            "version": "v0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PhenX/php-svg-lib.git",
-                "reference": "b419766515b3426c6da74b0e29e93d71c4f17099"
+                "reference": "de291bec8449b89acfe85691b5c71434797959dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PhenX/php-svg-lib/zipball/b419766515b3426c6da74b0e29e93d71c4f17099",
-                "reference": "b419766515b3426c6da74b0e29e93d71c4f17099",
+                "url": "https://api.github.com/repos/PhenX/php-svg-lib/zipball/de291bec8449b89acfe85691b5c71434797959dc",
+                "reference": "de291bec8449b89acfe85691b5c71434797959dc",
                 "shasum": ""
+            },
+            "require": {
+                "sabberworm/php-css-parser": "6.0.*"
             },
             "type": "library",
             "autoload": {
@@ -172,7 +175,7 @@
             ],
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
-            "time": "2015-05-06 18:49:49"
+            "time": "2016-12-13 20:25:45"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -448,12 +451,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "f8fbb64b1f99fa0f402e76f7ce45fb7621940dc9"
+                "reference": "dafd3dcc2f1c15c7d5e58458ebb970316c8c4325"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/f8fbb64b1f99fa0f402e76f7ce45fb7621940dc9",
-                "reference": "f8fbb64b1f99fa0f402e76f7ce45fb7621940dc9",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/dafd3dcc2f1c15c7d5e58458ebb970316c8c4325",
+                "reference": "dafd3dcc2f1c15c7d5e58458ebb970316c8c4325",
                 "shasum": ""
             },
             "require-dev": {
@@ -476,7 +479,48 @@
                 }
             ],
             "description": "PSR 4 modular based MVC Puko Framework",
-            "time": "2017-01-18 08:12:45"
+            "time": "2017-02-08 02:21:39"
+        },
+        {
+            "name": "sabberworm/php-css-parser",
+            "version": "6.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
+                "reference": "9ea4b00c569b19f731d0c2e0e802055877ff40c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/9ea4b00c569b19f731d0c2e0e802055877ff40c2",
+                "reference": "9ea4b00c569b19f731d0c2e0e802055877ff40c2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Sabberworm\\CSS": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raphael Schweikert"
+                }
+            ],
+            "description": "Parser for CSS Files written in PHP",
+            "homepage": "http://www.sabberworm.com/blog/2010/6/10/php-css-parser",
+            "keywords": [
+                "css",
+                "parser",
+                "stylesheet"
+            ],
+            "time": "2015-08-24 08:48:52"
         },
         {
             "name": "zendframework/zend-escaper",
