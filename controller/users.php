@@ -70,4 +70,8 @@ class users extends View implements Auth
         return UserModel::GetUserById($id)[0];
     }
     #end region auth
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
+    }
 }

@@ -13,19 +13,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "875eade40b0a7fe9d85cdf7e16686deffce83f45"
+                "reference": "0f418c6b58fdeafc2a0e80eb1fa5e644e185089c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/875eade40b0a7fe9d85cdf7e16686deffce83f45",
-                "reference": "875eade40b0a7fe9d85cdf7e16686deffce83f45",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/0f418c6b58fdeafc2a0e80eb1fa5e644e185089c",
+                "reference": "0f418c6b58fdeafc2a0e80eb1fa5e644e185089c",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-gd": "*",
                 "ext-mbstring": "*",
-                "phenx/php-font-lib": "0.4.*",
+                "phenx/php-font-lib": "0.5.*",
                 "phenx/php-svg-lib": "0.2.*",
                 "php": ">=5.3.0"
             },
@@ -67,7 +67,7 @@
             ],
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2017-01-25 03:14:47"
+            "time": "2017-02-16 02:40:40"
         },
         {
             "name": "pclzip/pclzip",
@@ -108,22 +108,25 @@
         },
         {
             "name": "phenx/php-font-lib",
-            "version": "0.4",
+            "version": "0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PhenX/php-font-lib.git",
-                "reference": "b8af0cacdc3cbf1e41a586fcb78f506f4121a088"
+                "reference": "19ad2bebc35be028fcc0221025fcbf3d436a3962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PhenX/php-font-lib/zipball/b8af0cacdc3cbf1e41a586fcb78f506f4121a088",
-                "reference": "b8af0cacdc3cbf1e41a586fcb78f506f4121a088",
+                "url": "https://api.github.com/repos/PhenX/php-font-lib/zipball/19ad2bebc35be028fcc0221025fcbf3d436a3962",
+                "reference": "19ad2bebc35be028fcc0221025fcbf3d436a3962",
                 "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "FontLib\\": "src/"
+                "psr-4": {
+                    "FontLib\\": "src/FontLib"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -138,7 +141,7 @@
             ],
             "description": "A library to read, parse, export and make subsets of different types of font files.",
             "homepage": "https://github.com/PhenX/php-font-lib",
-            "time": "2015-05-06 20:02:39"
+            "time": "2017-02-11 10:58:43"
         },
         {
             "name": "phenx/php-svg-lib",
@@ -451,12 +454,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "dafd3dcc2f1c15c7d5e58458ebb970316c8c4325"
+                "reference": "6673b0ba9bcfae9432d34a0847d989d039abe8f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/dafd3dcc2f1c15c7d5e58458ebb970316c8c4325",
-                "reference": "dafd3dcc2f1c15c7d5e58458ebb970316c8c4325",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/6673b0ba9bcfae9432d34a0847d989d039abe8f9",
+                "reference": "6673b0ba9bcfae9432d34a0847d989d039abe8f9",
                 "shasum": ""
             },
             "require-dev": {
@@ -479,7 +482,7 @@
                 }
             ],
             "description": "PSR 4 modular based MVC Puko Framework",
-            "time": "2017-02-08 02:21:39"
+            "time": "2017-03-21 00:54:42"
         },
         {
             "name": "sabberworm/php-css-parser",

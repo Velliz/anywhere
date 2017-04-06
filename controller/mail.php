@@ -466,4 +466,9 @@ TAIL;
     }
 
     #end region auth
+
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
+    }
 }
