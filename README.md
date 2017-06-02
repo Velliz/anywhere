@@ -1,29 +1,21 @@
 ## Anywhere [BETA]
 
-Anywhere is Output as-a Service (OAAS) Platform to simplify output data in coding. 
-Reduce use of libraries in projects and speed up software development process.
-The main feature of **Anywhere** is:
+> Anywhere is prepared for BETA CYCLE 2 on July 2017
 
-* PDF Service
-* MAIL Service
-* QR Code Service
-* Image Placeholder Service
+Anywhere is Output as-a Service (OAAS) platform to simplify your output and reduce your effort in coding. 
+Anywhere basic concept is by using HTML and CSS for layouting the output and you supply it later with JSON to display data and Anywhere generating the output for you.
+Until the BETA version, supported feature of **Anywhere** is:
 
-Using HTML and CSS for layout, Data source in JSON. 
-Anywhere is generating the output for you.
-
-Anywhere is powered by [pukoframework](https://github.com/Velliz/pukoframework)
+* PDF output
+* MAIL output
+* QR code output
+* Image processing output
 
 Checkout [BETA release](https://anywhere.cf) and [User Guide](https://anywhere.cf/guide)
 
-### TODO
-
-* Word service
-* Excel service
-
 ### About
 
-Made with <3 from **Bandung** Indonesia.
+Anywhere is build on top [pukoframework 1.0.3](https://github.com/Velliz/pukoframework)
 
 ### Contributing
 

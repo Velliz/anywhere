@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "659ff3bc5811802a0b17182927ffcb81",
-    "content-hash": "38116359cde2ae83fd6bb187ea32ecbd",
+    "content-hash": "fbd58021054fcc9e400b9f450400cf76",
     "packages": [
         {
             "name": "dompdf/dompdf",
@@ -13,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "0f418c6b58fdeafc2a0e80eb1fa5e644e185089c"
+                "reference": "98d59700444f2f7eee30375577cc6747fd98ee57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/0f418c6b58fdeafc2a0e80eb1fa5e644e185089c",
-                "reference": "0f418c6b58fdeafc2a0e80eb1fa5e644e185089c",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/98d59700444f2f7eee30375577cc6747fd98ee57",
+                "reference": "98d59700444f2f7eee30375577cc6747fd98ee57",
                 "shasum": ""
             },
             "require": {
@@ -67,7 +66,7 @@
             ],
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2017-02-16 02:40:40"
+            "time": "2017-05-31 23:17:49"
         },
         {
             "name": "pclzip/pclzip",
@@ -104,7 +103,7 @@
                 "php",
                 "zip"
             ],
-            "time": "2014-06-05 11:42:24"
+            "time": "2014-06-05T11:42:24+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -141,7 +140,7 @@
             ],
             "description": "A library to read, parse, export and make subsets of different types of font files.",
             "homepage": "https://github.com/PhenX/php-font-lib",
-            "time": "2017-02-11 10:58:43"
+            "time": "2017-02-11T10:58:43+00:00"
         },
         {
             "name": "phenx/php-svg-lib",
@@ -178,7 +177,7 @@
             ],
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
-            "time": "2016-12-13 20:25:45"
+            "time": "2016-12-13T20:25:45+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -234,7 +233,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2016-05-10 22:00:21"
+            "time": "2016-05-10T22:00:21+00:00"
         },
         {
             "name": "phpoffice/common",
@@ -289,7 +288,7 @@
                 "office",
                 "php"
             ],
-            "time": "2016-07-07 17:26:55"
+            "time": "2016-07-07T17:26:55+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -446,26 +445,26 @@
                 "word",
                 "writer"
             ],
-            "time": "2016-07-31 08:53:39"
+            "time": "2016-07-31T08:53:39+00:00"
         },
         {
             "name": "puko/framework",
-            "version": "dev-master",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "6673b0ba9bcfae9432d34a0847d989d039abe8f9"
+                "reference": "3647612a11051b8f97e8598d249530e309c1097d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/6673b0ba9bcfae9432d34a0847d989d039abe8f9",
-                "reference": "6673b0ba9bcfae9432d34a0847d989d039abe8f9",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/3647612a11051b8f97e8598d249530e309c1097d",
+                "reference": "3647612a11051b8f97e8598d249530e309c1097d",
                 "shasum": ""
             },
             "require-dev": {
                 "phpunit/phpunit": "5.5.*"
             },
-            "type": "library",
+            "type": "framework",
             "autoload": {
                 "psr-4": {
                     "pukoframework\\": "src/"
@@ -473,16 +472,18 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "GPL-3.0+"
             ],
             "authors": [
                 {
                     "name": "velliz",
-                    "email": "diditvelliz@outlook.com"
+                    "email": "diditvelliz@outlook.com",
+                    "homepage": "http://velliz.github.io",
+                    "role": "Lead Developer"
                 }
             ],
-            "description": "PSR 4 modular based MVC Puko Framework",
-            "time": "2017-03-21 00:54:42"
+            "description": "MVC framework for quick and fast PHP application development",
+            "time": "2017-05-10T07:41:31+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -523,7 +524,7 @@
                 "parser",
                 "stylesheet"
             ],
-            "time": "2015-08-24 08:48:52"
+            "time": "2015-08-24T08:48:52+00:00"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -568,7 +569,7 @@
                 "escaper",
                 "zf2"
             ],
-            "time": "2015-05-07 14:55:31"
+            "time": "2015-05-07T14:55:31+00:00"
         },
         {
             "name": "zendframework/zend-stdlib",
@@ -623,7 +624,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2015-07-21 13:55:46"
+            "time": "2015-07-21T13:55:46+00:00"
         },
         {
             "name": "zendframework/zend-validator",
@@ -688,14 +689,13 @@
                 "validator",
                 "zf2"
             ],
-            "time": "2015-09-08 21:04:17"
+            "time": "2015-09-08T21:04:17+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "puko/framework": 20,
         "dompdf/dompdf": 20,
         "phpoffice/phpexcel": 20,
         "phpoffice/phpword": 20

@@ -11,14 +11,14 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "puko/framework": "dev-master",
+        "puko/framework": "1.0.3",
         "dompdf/dompdf": "dev-master",
         "phpoffice/phpexcel": "dev-master",
         "phpoffice/phpword": "dev-master",
         "phpmailer/phpmailer": "v6.0.0rc2"
     },
     "require-dev": {
-        "puko/framework": "dev-master",
+        "puko/framework": "1.0.3",
         "dompdf/dompdf": "dev-master",
         "phpoffice/phpexcel": "dev-master",
         "phpoffice/phpword": "dev-master",
