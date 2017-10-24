@@ -24,6 +24,12 @@ use pukoframework\pte\View;
 use pukoframework\Request;
 use QRcode;
 
+/**
+ * Class qr
+ * @package controller
+ *
+ * #Master master-qr.html
+ */
 class qr extends View implements Auth
 {
 

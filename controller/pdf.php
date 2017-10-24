@@ -26,12 +26,14 @@ use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\RenderEngine;
 use pukoframework\pte\View;
+use pukoframework\Response;
 
 /**
  * Class pdf
  * @package controller
  *
  * #ClearOutput false
+ * #Master master-pdf.html
  */
 class pdf extends View implements Auth
 {
@@ -72,6 +74,7 @@ TAIL;
 
     public function __construct()
     {
+        parent::__construct();
         $options = new Options();
         $options->set('isRemoteEnabled', true);
         $options->set('isHtml5ParserEnabled', true);
@@ -164,6 +167,14 @@ TAIL;
         return $dataPDF;
     }
 
+    /**
+     * @param $id_pdf
+     * @return bool
+     *
+     * #ClearOutput value false
+     * #ClearOutput block false
+     * #ClearOutput comment false
+     */
     public function Html($id_pdf)
     {
         $session = Session::Get($this)->GetLoginData();
@@ -181,6 +192,14 @@ TAIL;
         return $file;
     }
 
+    /**
+     * @param $id_pdf
+     * @return bool
+     *
+     * #ClearOutput value false
+     * #ClearOutput block false
+     * #ClearOutput comment false
+     */
     public function Style($id_pdf)
     {
         $session = Session::Get($this)->GetLoginData();
@@ -220,13 +239,18 @@ TAIL;
 
         $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
 
-        $render = new RenderEngine('string');
-        $render->clearOutput = false;
-        $render->useMasterLayout = false;
+        $response = new Response();
+        $response->clearBlocks = false;
+        $response->clearValues = false;
+        $response->clearComments = false;
+        $response->useMasterLayout = false;
+
+        $render = new RenderEngine($response, 'string');
         $template = $render->PTEParser($htmlFactory, (array)json_decode($pdfRender['requestsample']));
 
         echo $template;
 
+        //todo: make url .pdf ready files
         /*
         $this->dompdf->setPaper($this->paper);
         $this->dompdf->loadHtml($template);
@@ -295,9 +319,11 @@ TAIL;
             $coreData = (array)json_decode($fetch);
         }
 
-        $render = new RenderEngine('string');
-        $render->clearOutput = false;
-        $render->useMasterLayout = false;
+        $response = new Response();
+        $response->clearOutput = false;
+        $response->useMasterLayout = false;
+
+        $render = new RenderEngine($response, 'string');
         $template = $render->PTEParser($htmlFactory, $coreData);
 
         header("Cache-Control: no-cache");

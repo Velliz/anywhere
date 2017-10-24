@@ -25,6 +25,12 @@ use pukoframework\peh\ValueException;
 use pukoframework\pte\View;
 use pukoframework\Request;
 
+/**
+ * Class main
+ * @package controller
+ *
+ * #Master master-main.html
+ */
 class main extends View implements Auth
 {
 
@@ -132,6 +138,7 @@ class main extends View implements Auth
     /**
      * #Template master true
      * #Value PageTitle Login
+     * #ClearOutput value true
      */
     public function userlogin()
     {
@@ -176,7 +183,7 @@ class main extends View implements Auth
 
     /**
      * #Template html false
-     * #Auth true
+     * #Auth true +
      */
     public function userlogout()
     {
@@ -208,9 +215,4 @@ class main extends View implements Auth
         return UserModel::GetUserById($id)[0];
     }
     #end region auth
-
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
-    }
 }

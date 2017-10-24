@@ -28,12 +28,14 @@ use pukoframework\pda\DBI;
 use pukoframework\pte\RenderEngine;
 use pukoframework\pte\View;
 use pukoframework\Request;
+use pukoframework\Response;
 
 /**
  * Class mail
  * @package controller
  *
  * #ClearOutput false
+ * #Master master-mail.html
  */
 class mail extends View implements Auth
 {
@@ -80,6 +82,7 @@ TAIL;
 
     public function __construct()
     {
+        parent::__construct();
         $this->mail = new PHPMailer;
         $this->mail->isSMTP();
         $this->mail->isHTML(true);
@@ -94,7 +97,7 @@ TAIL;
 
     /**
      * #Template html false
-     * #Auth true
+     * #Auth true +
      *
      * initialize a new email template
      * then redirect to configure
@@ -149,7 +152,7 @@ TAIL;
      * @return bool
      * @throws Exception
      *
-     * #Auth true
+     * #Auth true +
      */
     public function Update($id)
     {
@@ -216,7 +219,7 @@ TAIL;
      * @param $id_mail
      * @return bool
      *
-     * #Auth true
+     * #Auth true +
      */
     public function Html($id_mail)
     {
@@ -239,7 +242,7 @@ TAIL;
      * @param $id_mail
      * @return bool
      *
-     * #Auth true
+     * #Auth true +
      */
     public function Style($id_mail)
     {
@@ -264,7 +267,7 @@ TAIL;
      * @throws Exception
      *
      * #Template html false
-     * #Auth true
+     * #Auth true +
      */
     public function CodeRender($api_key, $mailId)
     {
@@ -293,9 +296,11 @@ TAIL;
 
         $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
 
-        $render = new RenderEngine('string');
-        $render->clearOutput = false;
-        $render->useMasterLayout = false;
+        $response = new Response();
+        $response->clearOutput = false;
+        $response->useMasterLayout = false;
+
+        $render = new RenderEngine($response, 'string');
         $template = $render->PTEParser($htmlFactory, json_decode($mailRender['requestsample']));
 
         header("Cache-Control: no-cache");
@@ -410,9 +415,11 @@ TAIL;
             }
         }
 
-        $render = new RenderEngine('string');
-        $render->clearOutput = false;
-        $render->useMasterLayout = false;
+        $response = new Response();
+        $response->clearOutput = false;
+        $response->useMasterLayout = false;
+
+        $render = new RenderEngine($response, 'string');
         $template = $render->PTEParser($htmlFactory, $coreData);
 
         $this->mail->Subject = $coreData['subject'];
@@ -434,10 +441,10 @@ TAIL;
         LogMail::Create(array(
             'MAILID' => $mailId,
             'userid' => UserModel::UserIdByApiKey($api_key),
-            'sentat' => DBI::NOW(),
+            'sentat' => $this->GetServerDateTime(),
             'jsondata' => json_encode($coreData),
             'resultdata' => json_encode($response),
-            'debuginfo' => Request::OutputBufferFinish(),
+            'debuginfo' => Request::OutputBufferClean(),
             'processingtime' => microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"],
         ));
 

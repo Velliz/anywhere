@@ -31,13 +31,14 @@ use pukoframework\Request;
  * @package controller
  *
  * #ClearOutput false
+ * #Master master-images.html
  */
 class images extends View implements Auth
 {
 
     /**
      * #Template html false
-     * #Auth true
+     * #Auth true +
      */
     public function Main()
     {
@@ -70,7 +71,7 @@ class images extends View implements Auth
      * @return bool
      * @throws Exception
      *
-     * #Auth true
+     * #Auth true +
      */
     public function Update($id)
     {
@@ -187,7 +188,7 @@ class images extends View implements Auth
 
         Request::OutputBufferStart();
         imagepng($placeHolder);
-        $image = Request::OutputBufferFinish();
+        $image = Request::OutputBufferClean();
         imagedestroy($placeHolder);
 
         header("Cache-Control: no-cache");
@@ -238,7 +239,7 @@ class images extends View implements Auth
 
         Request::OutputBufferStart();
         imagepng($placeHolder);
-        $image = Request::OutputBufferFinish();
+        $image = Request::OutputBufferClean();
         imagedestroy($placeHolder);
 
         header("Cache-Control: no-cache");

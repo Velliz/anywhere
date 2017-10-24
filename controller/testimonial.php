@@ -20,6 +20,12 @@ namespace controller;
 use pukoframework\auth\Auth;
 use pukoframework\pte\View;
 
+/**
+ * Class testimonial
+ * @package controller
+ *
+ * #Master master-testi.html
+ */
 class testimonial extends View implements Auth
 {
     public function main()
@@ -42,8 +48,4 @@ class testimonial extends View implements Auth
         // TODO: Implement GetLoginData() method.
     }
 
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
-    }
 }

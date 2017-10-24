@@ -23,6 +23,12 @@ use pukoframework\pte\Service;
 use pukoframework\pte\View;
 use pukoframework\Request;
 
+/**
+ * Class excel
+ * @package controller
+ *
+ * #Master master-main.html
+ */
 class excel extends View implements Auth
 {
 
@@ -46,8 +52,4 @@ class excel extends View implements Auth
         // TODO: Implement GetLoginData() method.
     }
 
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
-    }
 }

@@ -43,8 +43,4 @@ class word extends View implements Auth
         // TODO: Implement GetLoginData() method.
     }
 
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
-    }
 }

@@ -43,7 +43,7 @@ define('ROOT', __DIR__);
  * This variable used to calculate the framework performance.
  */
 define('START', microtime(true));
-
+define('LIMITATIONS', 8);
 //Initialize framework object
 $framework = new Framework();
 //Start framework

@@ -79,8 +79,4 @@ class api extends Service
     }
     #end region image service
 
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
-    }
 }

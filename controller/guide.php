@@ -23,6 +23,12 @@ use pukoframework\pte\View;
 
 use model\UserModel;
 
+/**
+ * Class guide
+ * @package controller
+ *
+ * #Master master-guide.html
+ */
 class guide extends View implements Auth
 {
 

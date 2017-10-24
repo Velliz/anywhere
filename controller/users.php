@@ -17,7 +17,6 @@
  */
 namespace controller;
 
-use model\DBAnywhere;
 use model\ImageModel;
 use model\MailModel;
 use model\PdfModel;
@@ -30,8 +29,9 @@ use pukoframework\pte\View;
  * Class users
  * @package controller
  *
- * #Auth true
+ * #Auth true +
  * #ClearOutput false
+ * #Master master-user.html
  */
 class users extends View implements Auth
 {
@@ -70,8 +70,4 @@ class users extends View implements Auth
         return UserModel::GetUserById($id)[0];
     }
     #end region auth
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
-    }
 }

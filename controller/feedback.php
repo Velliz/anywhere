@@ -20,6 +20,12 @@ namespace controller;
 use pukoframework\auth\Auth;
 use pukoframework\pte\View;
 
+/**
+ * Class feedback
+ * @package controller
+ *
+ * #Master master-feedback.html
+ */
 class feedback extends View implements Auth
 {
     public function main()
@@ -40,10 +46,5 @@ class feedback extends View implements Auth
     public function GetLoginData($id)
     {
         // TODO: Implement GetLoginData() method.
-    }
-
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
     }
 }
