@@ -1,23 +1,50 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-define('ROOT', __DIR__);
-define('FILE', dirname(__FILE__));
-define('BASE_URL', "http://" . $_SERVER['SERVER_NAME'] . "/anywhere/");
-define('LIMITATIONS', 8);
+/*
+ *---------------------------------------------------------------
+ * PUKO FRAMEWORK
+ *---------------------------------------------------------------
+ *
+ */
+
+use pukoframework\Framework;
+
 require __DIR__ . '/vendor/autoload.php';
-$framework = new \pukoframework\Framework();
-$framework->RouteMapping(array(
-    'register' => 'main/register',
-    'login' => 'main/userlogin',
-    'logout' => 'main/userlogout',
-    'about' => 'main/about',
-    'home' => 'main/home',
-    'sorry' => 'main/sorry',
-    'beranda' => 'users/beranda',
-    'profil' => 'users/profil',
-    'guide/pte' => 'guide/pte',
-    'guide' => 'guide/main',
-    'refresh' => 'main/refresh',
-));
+
+$protocol = 'http';
+if (isset($_SERVER['HTTPS'])) {
+    $protocol = 'https';
+} else if (isset($_SERVER['HTTP_X_SCHEME'])) {
+    $protocol = strtolower($_SERVER['HTTP_X_SCHEME']);
+} else if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+    $protocol = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']);
+} else if (isset($_SERVER['SERVER_PORT'])) {
+    $serverPort = (int)$_SERVER['SERVER_PORT'];
+    if ($serverPort == 80) {
+        $protocol = 'http';
+    } else if ($serverPort == 443) {
+        $protocol = 'https';
+    }
+}
+
+define('BASE_URL', ($protocol . "://" . $_SERVER['HTTP_HOST'] . "/"));
+
+/*
+ *---------------------------------------------------------------
+ * APP ROOT
+ *---------------------------------------------------------------
+ *
+ */
+define('ROOT', __DIR__);
+/*
+ *---------------------------------------------------------------
+ * APP START
+ *---------------------------------------------------------------
+ *
+ * This variable used to calculate the framework performance.
+ */
+define('START', microtime(true));
+
+//Initialize framework object
+$framework = new Framework();
+//Start framework
 $framework->Start();
