@@ -15,8 +15,10 @@
  * @since    Version 1.0.0
  *
  */
+
 namespace controller;
 
+use controller\auth\Authenticator;
 use Dompdf\Options;
 use Dompdf\Dompdf;
 use Dompdf\Exception;
@@ -35,7 +37,7 @@ use pukoframework\Response;
  * #ClearOutput false
  * #Master master-pdf.html
  */
-class pdf extends View implements Auth
+class pdf extends View
 {
 
     private $outputmode;
@@ -86,7 +88,7 @@ TAIL;
      */
     public function Main()
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         if (!isset($session['ID'])) $this->RedirectTo(BASE_URL);
 
         if ((int)$session['statusID'] == 1) {
@@ -114,7 +116,7 @@ TAIL;
 
     public function Update($id)
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         if (isset($_POST['pdfid']) && isset($_POST['paper']) && isset($_POST['requesttype'])) {
             $arrayID = array('PDFID' => $_POST['pdfid']);
             $arrayData = array(
@@ -177,7 +179,7 @@ TAIL;
      */
     public function Html($id_pdf)
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         $file = $session;
         if (isset($_POST['code'])) {
             $arrayID = array('PDFID' => $id_pdf);
@@ -202,7 +204,7 @@ TAIL;
      */
     public function Style($id_pdf)
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         $file = $session;
         if (isset($_POST['code'])) {
             $arrayID = array('PDFID' => $id_pdf);
@@ -320,7 +322,9 @@ TAIL;
         }
 
         $response = new Response();
-        $response->clearOutput = false;
+        $response->clearValues = false;
+        $response->clearBlocks = false;
+        $response->clearComments = false;
         $response->useMasterLayout = false;
 
         $render = new RenderEngine($response, 'string');
@@ -349,25 +353,4 @@ TAIL;
 
     }
 
-    #region auth
-    public function Login($username, $password)
-    {
-        $loginResult = UserModel::GetUser($username, $password);
-        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        return UserModel::GetUserById($id)[0];
-    }
-    #end region auth
-
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
-    }
 }

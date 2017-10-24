@@ -17,30 +17,14 @@
  */
 namespace controller;
 
-use pukoframework\auth\Auth;
 use pukoframework\pte\View;
 
-class word extends View implements Auth
+class word extends View
 {
 
     public function main()
     {
         //coming soon
-    }
-
-    public function Login($username, $password)
-    {
-        // TODO: Implement Login() method.
-    }
-
-    public function Logout()
-    {
-        // TODO: Implement Logout() method.
-    }
-
-    public function GetLoginData($id)
-    {
-        // TODO: Implement GetLoginData() method.
     }
 
 }

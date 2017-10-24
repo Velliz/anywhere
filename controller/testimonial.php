@@ -26,26 +26,11 @@ use pukoframework\pte\View;
  *
  * #Master master-testi.html
  */
-class testimonial extends View implements Auth
+class testimonial extends View
 {
     public function main()
     {
         //coming soon
-    }
-
-    public function Login($username, $password)
-    {
-        // TODO: Implement Login() method.
-    }
-
-    public function Logout()
-    {
-        // TODO: Implement Logout() method.
-    }
-
-    public function GetLoginData($id)
-    {
-        // TODO: Implement GetLoginData() method.
     }
 
 }

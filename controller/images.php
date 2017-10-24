@@ -17,11 +17,9 @@
  */
 namespace controller;
 
+use controller\auth\Authenticator;
 use Exception;
 use model\ImageModel;
-use model\UserModel;
-
-use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
 use pukoframework\Request;
@@ -33,7 +31,7 @@ use pukoframework\Request;
  * #ClearOutput false
  * #Master master-images.html
  */
-class images extends View implements Auth
+class images extends View
 {
 
     /**
@@ -42,7 +40,7 @@ class images extends View implements Auth
      */
     public function Main()
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         if (!isset($session['ID'])) $this->RedirectTo(BASE_URL);
 
         if ((int)$session['statusID'] == 1) {
@@ -77,7 +75,7 @@ class images extends View implements Auth
     {
         if (!is_numeric($id)) throw new Exception("ID not defined");
 
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
 
         if (Request::IsPost()) {
 
@@ -212,7 +210,7 @@ class images extends View implements Auth
      */
     public function CodeRender($api_key, $imageId)
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         if (!isset($session['ID'])) throw new Exception("Session Expired");
 
         $mailRender = ImageModel::GetImageRender($api_key, $imageId)[0];
@@ -254,27 +252,5 @@ class images extends View implements Auth
 
     public function Limitations()
     {
-    }
-
-    #region auth
-    public function Login($username, $password)
-    {
-        $loginResult = UserModel::GetUser($username, $password);
-        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        return UserModel::GetUserById($id)[0];
-    }
-    #end region auth
-
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
     }
 }

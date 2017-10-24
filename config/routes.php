@@ -8,6 +8,22 @@
                 "POST"
             ]
         ],
+        "qr" => [
+            "controller" => "qr",
+            "function" => "main",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "qr/render/{?}" => [
+            "controller" => "qr",
+            "function" => "render",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "login" => [
             "controller" => "main",
             "function" => "userlogin",

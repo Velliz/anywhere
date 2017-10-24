@@ -17,11 +17,9 @@
  */
 namespace controller;
 
-use pukoframework\auth\Auth;
+use controller\auth\Authenticator;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
-
-use model\UserModel;
 
 /**
  * Class guide
@@ -29,7 +27,7 @@ use model\UserModel;
  *
  * #Master master-guide.html
  */
-class guide extends View implements Auth
+class guide extends View
 {
 
     /**
@@ -38,7 +36,7 @@ class guide extends View implements Auth
     public function main()
     {
         if (Session::IsSession()) {
-            $session = Session::Get($this)->GetLoginData();
+            $session = Session::Get(Authenticator::Instance())->GetLoginData();
             $session['IsLoginBlock'] = true;
             $session['IsSessionBlock'] = false;
             return $session;
@@ -51,28 +49,5 @@ class guide extends View implements Auth
      */
     public function pte()
     {
-
-    }
-
-    #region auth
-    public function Login($username, $password)
-    {
-        $loginResult = UserModel::GetUser($username, $password);
-        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        return UserModel::GetUserById($id)[0];
-    }
-    #end region auth
-
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
     }
 }

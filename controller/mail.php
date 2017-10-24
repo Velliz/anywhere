@@ -17,14 +17,13 @@
  */
 namespace controller;
 
+use controller\auth\Authenticator;
 use Dompdf\Exception;
 use model\LogMail;
 use model\MailModel;
 use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
-use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
-use pukoframework\pda\DBI;
 use pukoframework\pte\RenderEngine;
 use pukoframework\pte\View;
 use pukoframework\Request;
@@ -37,7 +36,7 @@ use pukoframework\Response;
  * #ClearOutput false
  * #Master master-mail.html
  */
-class mail extends View implements Auth
+class mail extends View
 {
 
     private $mailName;
@@ -104,7 +103,7 @@ TAIL;
      */
     public function Main()
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         if (!isset($session['ID'])) $this->RedirectTo(BASE_URL);
 
         if ((int)$session['statusID'] == 1) {
@@ -158,7 +157,7 @@ TAIL;
     {
         if (!is_numeric($id)) throw new Exception("ID not defined");
 
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
 
         if (Request::IsPost()) {
             $mailid = Request::Post('mailid', null);
@@ -223,7 +222,7 @@ TAIL;
      */
     public function Html($id_mail)
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         $file = $session;
         if (isset($_POST['code'])) {
             $arrayID = array('MAILID' => $id_mail);
@@ -246,7 +245,7 @@ TAIL;
      */
     public function Style($id_mail)
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         $file = $session;
         if (isset($_POST['code'])) {
             $arrayID = array('MAILID' => $id_mail);
@@ -271,7 +270,7 @@ TAIL;
      */
     public function CodeRender($api_key, $mailId)
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
 
         if (!isset($session['ID'])) throw new Exception("Session Expired");
 
@@ -297,7 +296,9 @@ TAIL;
         $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
 
         $response = new Response();
-        $response->clearOutput = false;
+        $response->clearValues = false;
+        $response->clearBlocks = false;
+        $response->clearComments = false;
         $response->useMasterLayout = false;
 
         $render = new RenderEngine($response, 'string');
@@ -416,7 +417,9 @@ TAIL;
         }
 
         $response = new Response();
-        $response->clearOutput = false;
+        $response->clearValues = false;
+        $response->clearBlocks = false;
+        $response->clearComments = false;
         $response->useMasterLayout = false;
 
         $render = new RenderEngine($response, 'string');
@@ -454,28 +457,5 @@ TAIL;
 
     public function Limitations()
     {
-    }
-
-    #region auth
-    public function Login($username, $password)
-    {
-        $loginResult = UserModel::GetUser($username, $password);
-        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        return UserModel::GetUserById($id)[0];
-    }
-
-    #end region auth
-
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
     }
 }

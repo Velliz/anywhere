@@ -17,11 +17,7 @@
  */
 namespace controller;
 
-use Dompdf\Exception;
-use pukoframework\auth\Auth;
-use pukoframework\pte\Service;
 use pukoframework\pte\View;
-use pukoframework\Request;
 
 /**
  * Class excel
@@ -29,27 +25,12 @@ use pukoframework\Request;
  *
  * #Master master-main.html
  */
-class excel extends View implements Auth
+class excel extends View
 {
 
     public function main()
     {
         //coming soon
-    }
-
-    public function Login($username, $password)
-    {
-        // TODO: Implement Login() method.
-    }
-
-    public function Logout()
-    {
-        // TODO: Implement Logout() method.
-    }
-
-    public function GetLoginData($id)
-    {
-        // TODO: Implement GetLoginData() method.
     }
 
 }

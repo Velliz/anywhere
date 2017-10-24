@@ -17,8 +17,7 @@
  */
 namespace controller;
 
-use model\UserModel;
-use pukoframework\auth\Auth;
+use controller\auth\Authenticator;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
 use pukoframework\Request;
@@ -30,7 +29,7 @@ use QRcode;
  *
  * #Master master-qr.html
  */
-class qr extends View implements Auth
+class qr extends View
 {
 
     /**
@@ -40,7 +39,7 @@ class qr extends View implements Auth
      */
     public function main()
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(Authenticator::Instance())->GetLoginData();
         $dataQR = $session;
 
         return $dataQR;
@@ -96,27 +95,5 @@ class qr extends View implements Auth
         }
 
         die();
-    }
-
-    #region auth
-    public function Login($username, $password)
-    {
-        $loginResult = UserModel::GetUser($username, $password);
-        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        return UserModel::GetUserById($id)[0];
-    }
-    #end region auth
-
-    public function OnInitialize()
-    {
-        // TODO: Implement OnInitialize() method.
     }
 }

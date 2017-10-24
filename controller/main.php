@@ -17,7 +17,7 @@
  */
 namespace controller;
 
-use Dompdf\Exception;
+use controller\auth\Authenticator;
 use model\UserModel;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
@@ -31,7 +31,7 @@ use pukoframework\Request;
  *
  * #Master master-main.html
  */
-class main extends View implements Auth
+class main extends View
 {
 
     /**
@@ -41,7 +41,7 @@ class main extends View implements Auth
     public function main()
     {
         if (Session::IsSession()) {
-            $session = Session::Get($this)->GetLoginData();
+            $session = Session::Get(Authenticator::Instance())->GetLoginData();
             $session['IsLoginBlock'] = true;
             $session['IsSessionBlock'] = false;
             return $session;
@@ -127,7 +127,7 @@ class main extends View implements Auth
         }
 
         if (Session::IsSession()) {
-            $session = Session::Get($this)->GetLoginData();
+            $session = Session::Get(Authenticator::Instance())->GetLoginData();
             $session['IsLoginBlock'] = true;
             $session['IsSessionBlock'] = false;
             return $session;
@@ -149,7 +149,7 @@ class main extends View implements Auth
             $password = Request::Post('password', null);
             if ($password == null) $exception->Prepare('password', 'Password harus di isi');
 
-            if (Session::Get($this)->Login($username, md5($password), Auth::EXPIRED_1_MONTH)) {
+            if (Session::Get(Authenticator::Instance())->Login($username, md5($password), Auth::EXPIRED_1_MONTH)) {
                 $this->RedirectTo(BASE_URL . 'beranda');
                 return array('RegisterBlock' => true);
             }
@@ -172,7 +172,7 @@ class main extends View implements Auth
         else $block = true;
 
         if (Session::IsSession()) {
-            $session = Session::Get($this)->GetLoginData();
+            $session = Session::Get(Authenticator::Instance())->GetLoginData();
             $session['IsLoginBlock'] = true;
             $session['IsSessionBlock'] = false;
             $session['RegisterBlock'] = $block;
@@ -187,7 +187,7 @@ class main extends View implements Auth
      */
     public function userlogout()
     {
-        Session::Get($this)->Logout();
+        Session::Get(Authenticator::Instance())->Logout();
         $this->RedirectTo(BASE_URL);
     }
 
@@ -198,21 +198,4 @@ class main extends View implements Auth
     public function sorry()
     {
     }
-
-    #region auth
-    public function Login($username, $password)
-    {
-        $loginResult = UserModel::GetUser($username, $password);
-        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        return UserModel::GetUserById($id)[0];
-    }
-    #end region auth
 }

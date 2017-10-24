@@ -17,11 +17,10 @@
  */
 namespace controller;
 
+use controller\auth\Authenticator;
 use model\ImageModel;
 use model\MailModel;
 use model\PdfModel;
-use model\UserModel;
-use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
 
@@ -33,11 +32,11 @@ use pukoframework\pte\View;
  * #ClearOutput false
  * #Master master-user.html
  */
-class users extends View implements Auth
+class users extends View
 {
     public function beranda()
     {
-        $vars = Session::Get($this)->GetLoginData();
+        $vars = Session::Get(Authenticator::Instance())->GetLoginData();
         $vars['PDFLists'] = PdfModel::GetPdfLists($vars['ID']);
         $vars['MAILLists'] = MailModel::GetMailLists($vars['ID']);
         $vars['IMAGELists'] = ImageModel::GetImageLists($vars['ID']);
@@ -46,28 +45,11 @@ class users extends View implements Auth
     
     public function profil()
     {
-        $vars = Session::Get($this)->GetLoginData();
+        $vars = Session::Get(Authenticator::Instance())->GetLoginData();
         return $vars;
     }
 
     public function limitations()
     {
     }
-
-    #region auth
-    public function Login($username, $password)
-    {
-        $loginResult = UserModel::GetUser($username, $password);
-        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        return UserModel::GetUserById($id)[0];
-    }
-    #end region auth
 }

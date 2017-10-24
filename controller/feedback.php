@@ -17,7 +17,6 @@
  */
 namespace controller;
 
-use pukoframework\auth\Auth;
 use pukoframework\pte\View;
 
 /**
@@ -26,25 +25,11 @@ use pukoframework\pte\View;
  *
  * #Master master-feedback.html
  */
-class feedback extends View implements Auth
+class feedback extends View
 {
     public function main()
     {
         //coming soon
     }
 
-    public function Login($username, $password)
-    {
-        // TODO: Implement Login() method.
-    }
-
-    public function Logout()
-    {
-        // TODO: Implement Logout() method.
-    }
-
-    public function GetLoginData($id)
-    {
-        // TODO: Implement GetLoginData() method.
-    }
 }
