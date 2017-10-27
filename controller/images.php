@@ -9,12 +9,13 @@
  *
  * Copyright (c) 2016, Didit Velliz
  *
- * @package	velliz/anywhere
- * @author	Didit Velliz
- * @link	https://github.com/velliz/anywhere
- * @since	Version 1.0.0
+ * @package    velliz/anywhere
+ * @author    Didit Velliz
+ * @link    https://github.com/velliz/anywhere
+ * @since    Version 1.0.0
  *
  */
+
 namespace controller;
 
 use controller\auth\Authenticator;
@@ -160,7 +161,7 @@ class images extends View
 
         if ($mailRender['requesttype'] == 'GET') {
             $url = Request::Get('requesturl', null);
-            if($url == null) {
+            if ($url == null) {
                 $data['status'] = 'failed';
                 $data['reason'] = 'post data [jsondata] is not defined.';
                 die(json_encode($data));
@@ -180,6 +181,8 @@ class images extends View
         $sy = imagesy($sample);
 
         $sampleCrop = imagecreatetruecolor($w, $h);
+        imagealphablending($sampleCrop, false);
+        imagesavealpha($sampleCrop, true);
 
         imagecopyresized($sampleCrop, $sample, 0, 0, 0, 0, $w, $h, $sx, $sy);
         imagecopyresized($placeHolder, $sampleCrop, $x, $y, 0, 0, $w, $h, $w, $h);
@@ -231,6 +234,8 @@ class images extends View
         $sy = imagesy($sample);
 
         $sampleCrop = imagecreatetruecolor($w, $h);
+        imagealphablending($sampleCrop, false);
+        imagesavealpha($sampleCrop, true);
 
         imagecopyresized($sampleCrop, $sample, 0, 0, 0, 0, $w, $h, $sx, $sy);
         imagecopyresized($placeHolder, $sampleCrop, $x, $y, 0, 0, $w, $h, $w, $h);
