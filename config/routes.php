@@ -16,6 +16,14 @@
                 "POST"
             ]
         ],
+        "qr/render" => [
+            "controller" => "qr",
+            "function" => "render",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "qr/render/{?}" => [
             "controller" => "qr",
             "function" => "render",
