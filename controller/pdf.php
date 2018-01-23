@@ -42,6 +42,7 @@ class pdf extends View
 
     private $outputmode;
     private $paper;
+    private $orientation;
     private $html;
     private $css;
     private $reportname;
@@ -124,6 +125,7 @@ TAIL;
                 'reportname' => $_POST['reportname'],
                 'outputmode' => $_POST['outputmode'],
                 'paper' => $_POST['paper'],
+                'orientation' => $_POST['orientation'],
                 'requesttype' => $_POST['requesttype'],
                 'requesturl' => $_POST['requesturl'],
                 'requestsample' => $_POST['requestsample'],
@@ -163,6 +165,14 @@ TAIL;
                     break;
                 case 'Download':
                     $dataPDF['pdf'][$key]['Download'] = 'checked';
+                    break;
+            }
+            switch ($value['orientation']) {
+                case 'PORTRAIT':
+                    $dataPDF['pdf'][$key]['PORTRAIT'] = 'checked';
+                    break;
+                case 'LANDSCAPE':
+                    $dataPDF['pdf'][$key]['LANDSCAPE'] = 'checked';
                     break;
             }
         }
@@ -282,6 +292,7 @@ TAIL;
 
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];
+        $this->orientation = $pdfRender['orientation'];
         $this->html = $pdfRender['html'];
         $this->css = $pdfRender['css'];
         $this->reportname = $pdfRender['reportname'];
@@ -335,7 +346,7 @@ TAIL;
         header("Author: Anywhere 0.1");
         header('Content-Type: application/pdf');
 
-        $this->dompdf->setPaper($this->paper);
+        $this->dompdf->setPaper($this->paper, $this->orientation);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
 
