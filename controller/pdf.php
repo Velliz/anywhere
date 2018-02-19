@@ -168,11 +168,11 @@ TAIL;
                     break;
             }
             switch ($value['orientation']) {
-                case 'PORTRAIT':
-                    $dataPDF['pdf'][$key]['PORTRAIT'] = 'checked';
+                case 'portrait':
+                    $dataPDF['pdf'][$key]['portrait'] = 'checked';
                     break;
-                case 'LANDSCAPE':
-                    $dataPDF['pdf'][$key]['LANDSCAPE'] = 'checked';
+                case 'landscape':
+                    $dataPDF['pdf'][$key]['landscape'] = 'checked';
                     break;
             }
         }

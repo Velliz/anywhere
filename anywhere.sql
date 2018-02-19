@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Local Database
+Source Server         : [DEV] Localhost
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : anywhere
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-02-03 23:10:07
+Date: 2018-01-23 13:44:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,7 +54,7 @@ CREATE TABLE `images` (
   `requestsamplename` varchar(255) DEFAULT NULL,
   `requestsamplefile` longblob,
   PRIMARY KEY (`IMAGEID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for logmail
@@ -70,7 +70,7 @@ CREATE TABLE `logmail` (
   `debuginfo` text,
   `processingtime` double DEFAULT NULL,
   PRIMARY KEY (`logid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for mail
@@ -96,7 +96,7 @@ CREATE TABLE `mail` (
   `requestsample` text,
   `cssexternal` text,
   PRIMARY KEY (`MAILID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for pdf
@@ -110,12 +110,13 @@ CREATE TABLE `pdf` (
   `css` longblob,
   `outputmode` varchar(255) NOT NULL,
   `paper` varchar(255) NOT NULL,
+  `orientation` varchar(30) NOT NULL,
   `requesttype` varchar(255) NOT NULL,
   `requesturl` varchar(255) NOT NULL,
   `requestsample` text NOT NULL,
   `cssexternal` text,
   PRIMARY KEY (`PDFID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for status
@@ -125,7 +126,7 @@ CREATE TABLE `status` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for testimonial
@@ -156,4 +157,4 @@ CREATE TABLE `users` (
   `apikey` varchar(255) NOT NULL,
   `statusID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
