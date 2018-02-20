@@ -15,7 +15,7 @@ Checkout [BETA release](https://anywhere.cf) and [User Guide](https://anywhere.c
 
 ### About
 
-Anywhere is build on top [pukoframework 1.0.3](https://github.com/Velliz/pukoframework)
+Anywhere is build on top [pukoframework 1.1.1](https://github.com/Velliz/pukoframework)
 
 ### Contributing
 

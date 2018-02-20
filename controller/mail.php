@@ -426,8 +426,8 @@ TAIL;
         $template = $render->PTEParser($htmlFactory, $coreData);
 
         $this->mail->Subject = $coreData['subject'];
-        $this->mail->Body = $template;
-        $this->mail->AltBody = $template;
+        $this->mail->msgHTML($template);
+        $this->mail->AltBody = $this->formatHtml2Text($template);
 
         Request::OutputBufferStart();
 
@@ -457,5 +457,20 @@ TAIL;
 
     public function Limitations()
     {
+    }
+
+    /**
+     * Strips extra whitespace, breaklines.
+     *
+     * This is a workaround to format correctly plain text body messages.
+     * if we use the function AltBody to auto format our html from the
+     * template the text message can get multiple break lines and spaces.
+     *
+     * @param string $str
+     * @return string
+     */
+    private function formatHtml2Text($str) {
+
+        return preg_replace('/\s{2,}/u',  "\n\r", $str) ;
     }
 }
