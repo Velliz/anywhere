@@ -34,6 +34,7 @@ use pukoframework\Response;
  * @package controller
  *
  * #ClearOutput false
+ * #ClearOutput value false
  * #Master master-mail.html
  */
 class mail extends View
