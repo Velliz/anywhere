@@ -30,7 +30,7 @@ class Authenticator implements Auth
     {
     }
 
-    public function GetLoginData($id)
+    public function GetLoginData($id, $permission)
     {
         return UserModel::GetUserById($id)[0];
     }

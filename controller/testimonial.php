@@ -17,8 +17,7 @@
  */
 namespace controller;
 
-use pukoframework\auth\Auth;
-use pukoframework\pte\View;
+use pukoframework\middleware\View;
 
 /**
  * Class testimonial

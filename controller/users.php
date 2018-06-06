@@ -22,7 +22,7 @@ use model\ImageModel;
 use model\MailModel;
 use model\PdfModel;
 use pukoframework\auth\Session;
-use pukoframework\pte\View;
+use pukoframework\middleware\View;
 
 /**
  * Class users

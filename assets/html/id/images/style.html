@@ -21,7 +21,7 @@
                         <i class="fa fa-list"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{URL}qr">QR Code Service</a></li>
+                        <li><a href="{!url()}qr">QR Code Service</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -32,7 +32,7 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">Api Key</li>
                         <li class="dropdown-header">{!apikey}</li>
-                        <li><a href="{URL}guide">Panduan Penggunaan</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                     </ul>
                 </li>
 
@@ -44,8 +44,8 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">{!name}</li>
                         <li class="dropdown-header">{!status}</li>
-                        <li><a href="{URL}profil">Profil</a></li>
-                        <li><a href="{URL}logout">Logout</a></li>
+                        <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -63,15 +63,15 @@
             </div>
             <div class="col-lg-6" style="height: 100%;">
                 <!--{!mail}-->
-                <embed src="{URL}mail/coderender/{!apikey}/{!MAILID}" type="application/html" style="overflow:hidden;height:99%;width:100%">
+                <embed src="{!url()}mail/coderender/{!apikey}/{!MAILID}" type="application/html" style="overflow:hidden;height:99%;width:100%">
                     <!--{/mail}-->
             </div>
         </div>
     </div>
 </section>
 
-<script src="{URL}assets/global/js/jquery.js"></script>
-<script src="{URL}assets/global/js/bootstrap.min.js"></script>
+<script src="{!url()}assets/global/js/jquery.js"></script>
+<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {

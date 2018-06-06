@@ -19,13 +19,21 @@ namespace controller;
 
 use Dompdf\Exception;
 use model\ImageModel;
-use pukoframework\pte\Service;
+use pukoframework\middleware\Service;
 use pukoframework\Request;
 
+/**
+ * Class api
+ * @package controller
+ */
 class api extends Service
 {
 
     #region image service
+    /**
+     * @return mixed
+     * @throws Exception
+     */
     public function placeholder()
     {
         $id = Request::Post('id', null);

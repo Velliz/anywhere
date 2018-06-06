@@ -22,7 +22,7 @@ use controller\auth\Authenticator;
 use Exception;
 use model\ImageModel;
 use pukoframework\auth\Session;
-use pukoframework\pte\View;
+use pukoframework\middleware\View;
 use pukoframework\Request;
 
 /**

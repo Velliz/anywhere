@@ -3,4 +3,5 @@
     'key'        => '1234567890',
     'identifier' => 'pukoframework',
     'cookies'    => 'anywhere',
+    'session'    => 'anywhere',
 ];

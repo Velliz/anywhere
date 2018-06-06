@@ -19,7 +19,7 @@ namespace controller;
 
 use controller\auth\Authenticator;
 use pukoframework\auth\Session;
-use pukoframework\pte\View;
+use pukoframework\middleware\View;
 
 /**
  * Class guide
@@ -35,7 +35,7 @@ class guide extends View
      */
     public function main()
     {
-        if (Session::IsSession()) {
+        if (Session::Is()) {
             $session = Session::Get(Authenticator::Instance())->GetLoginData();
             $session['IsLoginBlock'] = true;
             $session['IsSessionBlock'] = false;

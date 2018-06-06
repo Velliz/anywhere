@@ -2,7 +2,7 @@
 
 namespace controller;
 
-use pukoframework\pte\View;
+use pukoframework\middleware\View;
 
 /**
  * Class error

@@ -10,19 +10,19 @@
 
     <title>Web Console - Anywhere</title>
 
-    <link href="{URL}assets/global/css/bootstrap.css" rel="stylesheet">
-    <link href="{URL}assets/global/css/stylish-portfolio.css" rel="stylesheet">
-    <link href="{URL}assets/global/css/custom.css" rel="stylesheet">
-    <link href="{URL}assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{!url()}assets/global/css/bootstrap.css" rel="stylesheet">
+    <link href="{!url()}assets/global/css/stylish-portfolio.css" rel="stylesheet">
+    <link href="{!url()}assets/global/css/custom.css" rel="stylesheet">
+    <link href="{!url()}assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
           rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="{URL}assets/global/css/codemirror.css">
-    <link rel="stylesheet" href="{URL}assets/global/addon/display/fullscreen.css">
-    <link rel="stylesheet" href="{URL}assets/global/theme/night.css">
+    <link rel="stylesheet" href="{!url()}assets/global/css/codemirror.css">
+    <link rel="stylesheet" href="{!url()}assets/global/addon/display/fullscreen.css">
+    <link rel="stylesheet" href="{!url()}assets/global/theme/night.css">
 
-    <script src="{URL}assets/global/js/codemirror.js"></script>
-    <script src="{URL}assets/global/addon/display/fullscreen.js"></script>
+    <script src="{!url()}assets/global/js/codemirror.js"></script>
+    <script src="{!url()}assets/global/addon/display/fullscreen.js"></script>
 
     <style>
         .CodeMirror {
@@ -70,7 +70,7 @@
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="{URL}beranda">
+                    <a href="{!url()}beranda">
                         Dashboard Console
                     </a>
                 </li>
@@ -83,7 +83,7 @@
                         <i class="fa fa-list"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{URL}qr">QR Code Service</a></li>
+                        <li><a href="{!url()}qr">QR Code Service</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -94,7 +94,7 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">Api Key</li>
                         <li class="dropdown-header">{!apikey}</li>
-                        <li><a href="{URL}guide">Panduan Penggunaan</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                     </ul>
                 </li>
 
@@ -106,8 +106,8 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">{!name}</li>
                         <li class="dropdown-header">{!status}</li>
-                        <li><a href="{URL}profil">Profil</a></li>
-                        <li><a href="{URL}logout">Logout</a></li>
+                        <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>

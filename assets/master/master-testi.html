@@ -10,10 +10,10 @@
 
     <title>Testimonial - Anywhere</title>
 
-    <link href="{URL}assets/global/css/bootstrap.css" rel="stylesheet">
-    <link href="{URL}assets/global/css/stylish-portfolio.css" rel="stylesheet">
-    <link href="{URL}assets/global/css/custom.css" rel="stylesheet">
-    <link href="{URL}assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{!url()}assets/global/css/bootstrap.css" rel="stylesheet">
+    <link href="{!url()}assets/global/css/stylish-portfolio.css" rel="stylesheet">
+    <link href="{!url()}assets/global/css/custom.css" rel="stylesheet">
+    <link href="{!url()}assets/global/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -32,7 +32,7 @@
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="{URL}beranda">
+                    <a href="{!url()}beranda">
                         Dashboard Console
                     </a>
                 </li>
@@ -40,7 +40,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a data-toggle="tooltip" title="QR Code Service" href="{URL}qr">
+                    <a data-toggle="tooltip" title="QR Code Service" href="{!url()}qr">
                         <i class="fa fa-qrcode" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -52,7 +52,7 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">Api Key</li>
                         <li class="dropdown-header">{!apikey}</li>
-                        <li><a href="{URL}guide">Panduan Penggunaan</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                     </ul>
                 </li>
 
@@ -64,8 +64,8 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">{!name}</li>
                         <li class="dropdown-header">{!status}</li>
-                        <li><a href="{URL}profil">Profil</a></li>
-                        <li><a href="{URL}logout">Logout</a></li>
+                        <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -102,8 +102,8 @@
     </div>
 </footer>
 
-<script src="{URL}assets/global/js/jquery.js"></script>
-<script src="{URL}assets/global/js/bootstrap.min.js"></script>
+<script src="{!url()}assets/global/js/jquery.js"></script>
+<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
 
 </body>
 </html>

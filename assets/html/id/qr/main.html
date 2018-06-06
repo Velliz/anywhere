@@ -10,11 +10,11 @@
                         <p>Untuk membuat sebuah kode QR. Anda hanya perlu mengirim data dalam bentuk teks ke API URL yang sudah disediakan.</p>
                         <p id="apiurl">
                             API URL <br>
-                            <a target="_blank" href="{URL}qr/render?data=your_data_to_qr">{URL}qr/render?data=[data]</a>
+                            <a target="_blank" href="{!url()}qr/render?data=your_data_to_qr">{!url()}qr/render?data=[data]</a>
                         </p>
                         <p>
                             Contoh <br>
-                            <a target="_blank" href="{URL}qr/render?data=admin@example.co.id">{URL}qr/render?data=admin@example.co.id</a>
+                            <a target="_blank" href="{!url()}qr/render?data=admin@example.co.id">{!url()}qr/render?data=admin@example.co.id</a>
                         </p>
                     </form>
                 </div>
@@ -57,5 +57,5 @@
     </div>
 </div>
 
-<script src="{URL}assets/global/js/jquery.js"></script>
-<script src="{URL}assets/global/js/bootstrap.min.js"></script>
+<script src="{!url()}assets/global/js/jquery.js"></script>
+<script src="{!url()}assets/global/js/bootstrap.min.js"></script>

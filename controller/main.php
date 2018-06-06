@@ -22,7 +22,7 @@ use model\UserModel;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\peh\ValueException;
-use pukoframework\pte\View;
+use pukoframework\middleware\View;
 use pukoframework\Request;
 
 /**
@@ -40,7 +40,7 @@ class main extends View
      */
     public function main()
     {
-        if (Session::IsSession()) {
+        if (Session::Is()) {
             $session = Session::Get(Authenticator::Instance())->GetLoginData();
             $session['IsLoginBlock'] = true;
             $session['IsSessionBlock'] = false;
@@ -52,10 +52,11 @@ class main extends View
     /**
      * #Template master true
      * #Value PageTitle Register
+     * @throws \Exception
      */
     public function register()
     {
-        if (Session::IsSession()) $this->RedirectTo('beranda');
+        if (Session::Is()) $this->RedirectTo('beranda');
 
         if (Request::IsPost()) {
             $exception = new ValueException();
@@ -126,7 +127,7 @@ class main extends View
             else $this->RedirectTo('sorry');
         }
 
-        if (Session::IsSession()) {
+        if (Session::Is()) {
             $session = Session::Get(Authenticator::Instance())->GetLoginData();
             $session['IsLoginBlock'] = true;
             $session['IsSessionBlock'] = false;
@@ -139,6 +140,7 @@ class main extends View
      * #Template master true
      * #Value PageTitle Login
      * #ClearOutput value true
+     * @throws \Exception
      */
     public function userlogin()
     {
@@ -149,7 +151,7 @@ class main extends View
             $password = Request::Post('password', null);
             if ($password == null) $exception->Prepare('password', 'Password harus di isi');
 
-            if (Session::Get(Authenticator::Instance())->Login($username, md5($password), Auth::EXPIRED_1_MONTH)) {
+            if (Session::Get(Authenticator::Instance())->Login($username, md5($password))) {
                 $this->RedirectTo(BASE_URL . 'beranda');
                 return array('RegisterBlock' => true);
             }
@@ -165,13 +167,13 @@ class main extends View
                 'Username atau password anda salah.');
         }
 
-        if (Session::IsSession()) $this->RedirectTo('beranda');
+        if (Session::Is()) $this->RedirectTo('beranda');
 
         $register = Request::Get('register', null);
         if ($register == 'success') $block = false;
         else $block = true;
 
-        if (Session::IsSession()) {
+        if (Session::Is()) {
             $session = Session::Get(Authenticator::Instance())->GetLoginData();
             $session['IsLoginBlock'] = true;
             $session['IsSessionBlock'] = false;

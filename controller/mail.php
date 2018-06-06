@@ -23,9 +23,9 @@ use model\LogMail;
 use model\MailModel;
 use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
+use pte\Pte;
 use pukoframework\auth\Session;
-use pukoframework\pte\RenderEngine;
-use pukoframework\pte\View;
+use pukoframework\middleware\View;
 use pukoframework\Request;
 use pukoframework\Response;
 
@@ -150,9 +150,9 @@ TAIL;
     /**
      * @param $id
      * @return bool
-     * @throws Exception
      *
      * #Auth true +
+     * @throws \Exception
      */
     public function Update($id)
     {
@@ -268,6 +268,7 @@ TAIL;
      *
      * #Template html false
      * #Auth true +
+     * @throws \pte\exception\PteException
      */
     public function CodeRender($api_key, $mailId)
     {
@@ -302,8 +303,13 @@ TAIL;
         $response->clearComments = false;
         $response->useMasterLayout = false;
 
-        $render = new RenderEngine($response, 'string');
-        $template = $render->PTEParser($htmlFactory, json_decode($mailRender['requestsample']));
+        $render = new Pte(false);
+        if ($response->useMasterLayout) {
+            $render->SetMaster($response->htmlMaster);
+        }
+        $render->SetValue(json_decode($mailRender['requestsample']));
+        $render->SetHtml($htmlFactory);
+        $template = $render->Output($this, Pte::VIEW_HTML);
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
@@ -316,9 +322,8 @@ TAIL;
     /**
      * @param $api_key
      * @param $mailId
-     * @throws Exception
-     *
-     * #Template html false
+     * @throws \PHPMailer\PHPMailer\Exception
+     * @throws \pte\exception\PteException
      */
     public function Render($api_key, $mailId)
     {
@@ -423,8 +428,13 @@ TAIL;
         $response->clearComments = false;
         $response->useMasterLayout = false;
 
-        $render = new RenderEngine($response, 'string');
-        $template = $render->PTEParser($htmlFactory, $coreData);
+        $render = new Pte(false);
+        if ($response->useMasterLayout) {
+            $render->SetMaster($response->htmlMaster);
+        }
+        $render->SetValue($coreData);
+        $render->SetHtml($htmlFactory);
+        $template = $render->Output($this, Pte::VIEW_HTML);
 
         $this->mail->Subject = $coreData['subject'];
         $this->mail->msgHTML($template);

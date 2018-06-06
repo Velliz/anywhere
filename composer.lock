@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b3e62e85c67e6ab08d38ed24e68958d",
+    "content-hash": "a0256cf9b133acc7a05939e9a42ae34c",
     "packages": [
         {
             "name": "dompdf/dompdf",
@@ -144,16 +144,16 @@
         },
         {
             "name": "phenx/php-svg-lib",
-            "version": "v0.3",
+            "version": "v0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PhenX/php-svg-lib.git",
-                "reference": "a85f7fe9fe08d093a4a8583cdd306b553ff918aa"
+                "reference": "ccc46ef6340d4b8a4a68047e68d8501ea961442c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PhenX/php-svg-lib/zipball/a85f7fe9fe08d093a4a8583cdd306b553ff918aa",
-                "reference": "a85f7fe9fe08d093a4a8583cdd306b553ff918aa",
+                "url": "https://api.github.com/repos/PhenX/php-svg-lib/zipball/ccc46ef6340d4b8a4a68047e68d8501ea961442c",
+                "reference": "ccc46ef6340d4b8a4a68047e68d8501ea961442c",
                 "shasum": ""
             },
             "require": {
@@ -180,20 +180,20 @@
             ],
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
-            "time": "2017-05-24T10:07:27+00:00"
+            "time": "2018-06-03T10:10:03+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.0.3",
+            "version": "v6.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "44d49bab5ab1fef721d3ee07e75dc0865ddf4cc6"
+                "reference": "cb3ea134d4d3729e7857737d5f320cce9caf4d32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/44d49bab5ab1fef721d3ee07e75dc0865ddf4cc6",
-                "reference": "44d49bab5ab1fef721d3ee07e75dc0865ddf4cc6",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/cb3ea134d4d3729e7857737d5f320cce9caf4d32",
+                "reference": "cb3ea134d4d3729e7857737d5f320cce9caf4d32",
                 "shasum": ""
             },
             "require": {
@@ -246,7 +246,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2018-01-05T13:19:58+00:00"
+            "time": "2018-03-27T13:49:45+00:00"
         },
         {
             "name": "phpoffice/common",
@@ -463,20 +463,20 @@
         },
         {
             "name": "puko/framework",
-            "version": "1.1.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "51c62fcc3d04deb4bb6e786b4ad6f244baa2eb99"
+                "reference": "df2df217d4cb9c0dcce4453462ab18ed6346064e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/51c62fcc3d04deb4bb6e786b4ad6f244baa2eb99",
-                "reference": "51c62fcc3d04deb4bb6e786b4ad6f244baa2eb99",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/df2df217d4cb9c0dcce4453462ab18ed6346064e",
+                "reference": "df2df217d4cb9c0dcce4453462ab18ed6346064e",
                 "shasum": ""
             },
-            "require-dev": {
-                "phpunit/phpunit": "5.5.*"
+            "require": {
+                "velliz/pte": "0.1.3"
             },
             "type": "framework",
             "autoload": {
@@ -497,7 +497,7 @@
                 }
             ],
             "description": "MVC framework for quick and fast PHP application development",
-            "time": "2017-11-25T07:22:52+00:00"
+            "time": "2018-05-31T21:28:16+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -542,6 +542,39 @@
                 "stylesheet"
             ],
             "time": "2016-07-19T19:14:21+00:00"
+        },
+        {
+            "name": "velliz/pte",
+            "version": "0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Velliz/pte.git",
+                "reference": "fc26d501e59a90af9e88663b35e1d4e8df90fdb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Velliz/pte/zipball/fc26d501e59a90af9e88663b35e1d4e8df90fdb6",
+                "reference": "fc26d501e59a90af9e88663b35e1d4e8df90fdb6",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "pte\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "didit velliz",
+                    "email": "diditvelliz@gmail.com"
+                }
+            ],
+            "description": "puko template engine",
+            "time": "2018-02-10T04:35:24+00:00"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -712,7 +745,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "RC",
-    "stability-flags": [],
+    "stability-flags": {
+        "puko/framework": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

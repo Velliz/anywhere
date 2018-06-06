@@ -1,6 +1,4 @@
-{!CSS}
-<link href="{URL}assets/global/js/jcrop/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css"/>
-{/CSS}
+<link href="{!url()}assets/global/js/jcrop/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css"/>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -15,7 +13,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a data-toggle="tooltip" title="Back" href="{URL}beranda"><i class="fa fa-arrow-left"></i></a></li>
+                <li><a data-toggle="tooltip" title="Back" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -25,7 +23,7 @@
                         <i class="fa fa-list"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{URL}qr">QR Code Service</a></li>
+                        <li><a href="{!url()}qr">QR Code Service</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -36,7 +34,7 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">Api Key</li>
                         <li class="dropdown-header">{!apikey}</li>
-                        <li><a href="{URL}guide">Panduan Penggunaan</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                     </ul>
                 </li>
 
@@ -48,8 +46,8 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">{!name}</li>
                         <li class="dropdown-header">{!status}</li>
-                        <li><a href="{URL}profil">Profil</a></li>
-                        <li><a href="{URL}logout">Logout</a></li>
+                        <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -105,10 +103,10 @@
 
             <p id="apiurl">
                 API URL
-                <a target="_blank" href="{URL}images/render/{!apikey}/{!IMAGEID}?requesturl=http://example.com/image.jpg">{URL}images/render/{!apikey}/{!IMAGEID}?requesturl=http://example.com/image.jpg</a>
+                <a target="_blank" href="{!url()}images/render/{!apikey}/{!IMAGEID}?requesturl=http://example.com/image.jpg">{!url()}images/render/{!apikey}/{!IMAGEID}?requesturl=http://example.com/image.jpg</a>
             </p>
 
-            <a target="_blank" href="{URL}images/coderender/{!apikey}/{!IMAGEID}" class="btn btn-success">Preview Result</a>
+            <a target="_blank" href="{!url()}images/coderender/{!apikey}/{!IMAGEID}" class="btn btn-success">Preview Result</a>
             <br><br>
             <button name="_submit" type="submit">save configuration</button>
             <!--{/image}-->
@@ -116,13 +114,10 @@
     </div>
 </div>
 
-<script src="{URL}assets/global/js/jquery.js"></script>
-<script src="{URL}assets/global/js/bootstrap.min.js"></script>
+<script src="{!url()}assets/global/js/jquery.js"></script>
+<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
 
-{!JS}
-<script src="{URL}assets/global/js/jcrop/js/jquery.color.js" type="text/javascript"></script>
-<script src="{URL}assets/global/js/jcrop/js/jquery.Jcrop.min.js" type="text/javascript"></script>
-<script src="{URL}assets/global/js/bootstrap-waitingfor/build/bootstrap-waitingfor.min.js" type="text/javascript"></script>
-<script src="{URL}assets/script/images/update.js"></script>
-
-{/JS}
+<script src="{!url()}assets/global/js/jcrop/js/jquery.color.js" type="text/javascript"></script>
+<script src="{!url()}assets/global/js/jcrop/js/jquery.Jcrop.min.js" type="text/javascript"></script>
+<script src="{!url()}assets/global/js/bootstrap-waitingfor/build/bootstrap-waitingfor.min.js" type="text/javascript"></script>
+<script src="{!url()}assets/script/images/update.js"></script>

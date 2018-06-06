@@ -19,7 +19,7 @@ namespace controller;
 
 use controller\auth\Authenticator;
 use pukoframework\auth\Session;
-use pukoframework\pte\View;
+use pukoframework\middleware\View;
 use pukoframework\Request;
 use QRcode;
 

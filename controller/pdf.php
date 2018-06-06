@@ -23,11 +23,9 @@ use Dompdf\Options;
 use Dompdf\Dompdf;
 use Dompdf\Exception;
 use model\PdfModel;
-use model\UserModel;
-use pukoframework\auth\Auth;
+use pte\Pte;
 use pukoframework\auth\Session;
-use pukoframework\pte\RenderEngine;
-use pukoframework\pte\View;
+use pukoframework\middleware\View;
 use pukoframework\Response;
 
 /**
@@ -231,10 +229,7 @@ TAIL;
     /**
      * @param $api_key
      * @param $pdfId
-     * @throws Exception
-     *
-     * #Template html false
-     * #Auth false
+     * @throws \pte\exception\PteException
      */
     public function CodeRender($api_key, $pdfId)
     {
@@ -257,8 +252,13 @@ TAIL;
         $response->clearComments = false;
         $response->useMasterLayout = false;
 
-        $render = new RenderEngine($response, 'string');
-        $template = $render->PTEParser($htmlFactory, (array)json_decode($pdfRender['requestsample']));
+        $render = new Pte(false);
+        if ($response->useMasterLayout) {
+            $render->SetMaster($response->htmlMaster);
+        }
+        $render->SetValue(json_decode($pdfRender['requestsample']));
+        $render->SetHtml($htmlFactory);
+        $template = $render->Output($this, Pte::VIEW_HTML);
 
         echo $template;
 
@@ -284,7 +284,7 @@ TAIL;
      *
      * @param $api_key
      * @param $pdfID
-     * @throws Exception
+     * @throws \pte\exception\PteException
      */
     public function Render($api_key, $pdfID)
     {
@@ -338,8 +338,13 @@ TAIL;
         $response->clearComments = false;
         $response->useMasterLayout = false;
 
-        $render = new RenderEngine($response, 'string');
-        $template = $render->PTEParser($htmlFactory, $coreData);
+        $render = new Pte(false);
+        if ($response->useMasterLayout) {
+            $render->SetMaster($response->htmlMaster);
+        }
+        $render->SetValue($coreData);
+        $render->SetHtml($htmlFactory);
+        $template = $render->Output($this, Pte::VIEW_HTML);
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
