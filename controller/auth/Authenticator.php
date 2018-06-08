@@ -1,8 +1,10 @@
 <?php
+
 namespace controller\auth;
 
 use model\UserModel;
 use pukoframework\auth\Auth;
+use pukoframework\auth\PukoAuth;
 
 class Authenticator implements Auth
 {
@@ -23,7 +25,9 @@ class Authenticator implements Auth
     public function Login($username, $password)
     {
         $loginResult = UserModel::GetUser($username, $password);
-        return (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : false;
+        $uid = (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : null;
+
+        return new PukoAuth($uid, array());
     }
 
     public function Logout()

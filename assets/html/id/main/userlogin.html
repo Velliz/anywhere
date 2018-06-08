@@ -1,6 +1,4 @@
-{!CSS}
-<link href="{!url()}assets/global/css/login.css" rel="stylesheet">
-{/CSS}
+{!css(<link href="assets/global/css/login.css" rel="stylesheet">)}
 
 <div class="login-page">
     <div class="form">
@@ -8,13 +6,13 @@
         <hr>
         <form class="login-form" method="POST">
 
-            <!--{!!Exception}-->
+            <!--{!Exception}-->
             <div class="alert alert-danger">
                 <strong>Login error!</strong> {!ExceptionMessage}
             </div>
             <!--{/Exception}-->
 
-            <!--{!!RegisterBlock}-->
+            <!--{!RegisterBlock}-->
             <div class="alert alert-success">
                 <strong>Pendaftaran berhasil.<br>Silahkan login untuk melanjutkan.</strong>
             </div>
@@ -22,9 +20,7 @@
 
             <input type="hidden" name="token" value="{!token}">
             <input type="text" name="username" placeholder="username" value="{!username}" required/>
-            <span class="help-inline">{!#username}</span>
             <input type="password" name="password" placeholder="password" required/>
-            <span class="help-inline">{!#password}</span>
             <br/>
             <button type="submit" name="_submit">Login</button>
             <p class="message">Belum terdaftar? <a href="{!url()}register">Buat akun baru</a></p>

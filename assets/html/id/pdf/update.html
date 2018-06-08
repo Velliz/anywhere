@@ -11,17 +11,17 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a data-toggle="tooltip" title="Back" href="{URL}beranda"><i class="fa fa-arrow-left"></i></a></li>
-                <!--<li><a href="javascript:;">Configure Templates</a></li>-->
+                <li><a data-toggle="tooltip" title="Back" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        <i clas{!url()}
+                        <i class="fa fa-qrcode"></i>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{URL}qr">QR Code Service</a></li>
+                        <li><a href="{!url()}qr">QR Code Service</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -32,7 +32,7 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">Api Key</li>
                         <li class="dropdown-header">{!apikey}</li>
-                        <li><a href="{URL}guide">Panduan Penggunaan</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                     </ul>
                 </li>
 
@@ -44,8 +44,8 @@
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">{!name}</li>
                         <li class="dropdown-header">{!status}</li>
-                        <li><a href="{URL}profil">Profil</a></li>
-                        <li><a href="{URL}logout">Logout</a></li>
+                        <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -95,11 +95,10 @@
             <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8">{!requestsample}</textarea>
             <br>
             <br>
-            <p id="apiurl">API URL <a target="_blank" href="{URL}pdf/render/{!apikey}/{!PDFID}">{URL}pdf/render/{!apikey}/{!PDFID}</a></p>
+            <p id="apiurl">API URL <a target="_blank" href="{!url()}pdf/render/{!apikey}/{!PDFID}">{!url()}pdf/render/{!apikey}/{!PDFID}</a></p>
 
-            <a target="_blank" href="{URL}pdf/html/{!PDFID}" class="btn btn-dark">.html designer</a>
-            <a target="_blank" href="{URL}pdf/style/{!PDFID}" class="btn btn-dark">.css designer</a>
-            <!--<a href="javascript:;" class="btn btn-dark">request sample</a>-->
+            <a target="_blank" href="{!url()}pdf/html/{!PDFID}" class="btn btn-dark">.html designer</a>
+            <a target="_blank" href="{!url()}pdf/style/{!PDFID}" class="btn btn-dark">.css designer</a>
 
             <br>
             <br>
@@ -109,8 +108,8 @@
     </div>
 </div>
 
-<script src="{URL}assets/global/js/jquery.js"></script>
-<script src="{URL}assets/global/js/bootstrap.min.js"></script>
+<script src="{!url()}assets/global/js/jquery.js"></script>
+<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
 <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
         lineNumbers: true,

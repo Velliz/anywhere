@@ -9,12 +9,13 @@
  *
  * Copyright (c) 2016, Didit Velliz
  *
- * @package	velliz/anywhere
- * @author	Didit Velliz
- * @link	https://github.com/velliz/anywhere
- * @since	Version 1.0.1
+ * @package    velliz/anywhere
+ * @author    Didit Velliz
+ * @link    https://github.com/velliz/anywhere
+ * @since    Version 1.0.1
  *
  */
+
 namespace controller;
 
 use pukoframework\middleware\View;
@@ -22,11 +23,11 @@ use pukoframework\middleware\View;
 /**
  * Class testimonial
  * @package controller
- *
  * #Master master-testi.html
  */
 class testimonial extends View
 {
+
     public function main()
     {
         //coming soon

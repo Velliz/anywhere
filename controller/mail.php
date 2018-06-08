@@ -67,7 +67,6 @@ class mail extends View
         <head>
             <meta charset="UTF-8">
             <title>Mail Output - Anywhere</title>
-            {CSS}
             <style type="text/css">
 HEAD;
     private $middle = <<<MIDDLE
@@ -76,6 +75,7 @@ HEAD;
         <body>
 MIDDLE;
     private $tail = <<<TAIL
+        {!part(css)}
         </body>
         </html>
 TAIL;
@@ -97,7 +97,7 @@ TAIL;
 
     /**
      * #Template html false
-     * #Auth true +
+     * #Auth session true
      *
      * initialize a new email template
      * then redirect to configure
@@ -151,7 +151,7 @@ TAIL;
      * @param $id
      * @return bool
      *
-     * #Auth true +
+     * #Auth session true
      * @throws \Exception
      */
     public function Update($id)
@@ -219,7 +219,7 @@ TAIL;
      * @param $id_mail
      * @return bool
      *
-     * #Auth true +
+     * #Auth session true
      */
     public function Html($id_mail)
     {
@@ -242,7 +242,7 @@ TAIL;
      * @param $id_mail
      * @return bool
      *
-     * #Auth true +
+     * #Auth session true
      */
     public function Style($id_mail)
     {
@@ -267,7 +267,7 @@ TAIL;
      * @throws Exception
      *
      * #Template html false
-     * #Auth true +
+     * #Auth session true
      * @throws \pte\exception\PteException
      */
     public function CodeRender($api_key, $mailId)
@@ -295,7 +295,7 @@ TAIL;
         $this->requestsample = $mailRender['requestsample'];
         $this->cssexternal = $mailRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
 
         $response = new Response();
         $response->clearValues = false;
@@ -346,7 +346,7 @@ TAIL;
         $this->requestsample = $mailRender['requestsample'];
         $this->cssexternal = $mailRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
 
         $coreData = array();
 

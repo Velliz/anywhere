@@ -9,7 +9,7 @@
             "email": "diditvelliz@gmail.com"
         }
     ],
-    "minimum-stability": "RC",
+    "minimum-stability": "dev",
     "require": {
         "puko/framework": "dev-master",
         "dompdf/dompdf": "v0.8.1",

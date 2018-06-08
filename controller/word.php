@@ -19,12 +19,17 @@ namespace controller;
 
 use pukoframework\middleware\View;
 
+/**
+ * Class word
+ * @package controller
+ * #Auth session true
+ */
 class word extends View
 {
 
     public function main()
     {
-        //coming soon
+        //todo: coming soon
     }
 
 }

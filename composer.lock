@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0256cf9b133acc7a05939e9a42ae34c",
+    "content-hash": "b576a72fd19e465a8c09d207b9cbea91",
     "packages": [
         {
             "name": "dompdf/dompdf",
@@ -184,28 +184,26 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.0.5",
+            "version": "6.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "cb3ea134d4d3729e7857737d5f320cce9caf4d32"
+                "reference": "ea25dc122d22966b7dd4ca1083c63afeeb50dfcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/cb3ea134d4d3729e7857737d5f320cce9caf4d32",
-                "reference": "cb3ea134d4d3729e7857737d5f320cce9caf4d32",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/ea25dc122d22966b7dd4ca1083c63afeeb50dfcd",
+                "reference": "ea25dc122d22966b7dd4ca1083c63afeeb50dfcd",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
-                "ext-filter": "*",
                 "php": ">=5.5.0"
             },
             "require-dev": {
                 "doctrine/annotations": "1.2.*",
-                "friendsofphp/php-cs-fixer": "^2.2",
                 "phpdocumentor/phpdocumentor": "2.*",
-                "phpunit/phpunit": "^4.8 || ^5.7",
+                "phpunit/phpunit": "4.*",
                 "zendframework/zend-eventmanager": "3.0.*",
                 "zendframework/zend-i18n": "2.7.3",
                 "zendframework/zend-serializer": "2.7.*"
@@ -246,7 +244,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2018-03-27T13:49:45+00:00"
+            "time": "2017-08-28T11:42:41+00:00"
         },
         {
             "name": "phpoffice/common",
@@ -467,16 +465,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "df2df217d4cb9c0dcce4453462ab18ed6346064e"
+                "reference": "0403c30c6b855771b5a14918941b010095f5833d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/df2df217d4cb9c0dcce4453462ab18ed6346064e",
-                "reference": "df2df217d4cb9c0dcce4453462ab18ed6346064e",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/0403c30c6b855771b5a14918941b010095f5833d",
+                "reference": "0403c30c6b855771b5a14918941b010095f5833d",
                 "shasum": ""
             },
             "require": {
-                "velliz/pte": "0.1.3"
+                "velliz/pte": "dev-master"
             },
             "type": "framework",
             "autoload": {
@@ -497,7 +495,7 @@
                 }
             ],
             "description": "MVC framework for quick and fast PHP application development",
-            "time": "2018-05-31T21:28:16+00:00"
+            "time": "2018-06-08T06:23:20+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -545,16 +543,16 @@
         },
         {
             "name": "velliz/pte",
-            "version": "0.1.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pte.git",
-                "reference": "fc26d501e59a90af9e88663b35e1d4e8df90fdb6"
+                "reference": "718a1333f4e1646ffb94e1ca0da30a9e09a746ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pte/zipball/fc26d501e59a90af9e88663b35e1d4e8df90fdb6",
-                "reference": "fc26d501e59a90af9e88663b35e1d4e8df90fdb6",
+                "url": "https://api.github.com/repos/Velliz/pte/zipball/718a1333f4e1646ffb94e1ca0da30a9e09a746ae",
+                "reference": "718a1333f4e1646ffb94e1ca0da30a9e09a746ae",
                 "shasum": ""
             },
             "type": "library",
@@ -574,7 +572,7 @@
                 }
             ],
             "description": "puko template engine",
-            "time": "2018-02-10T04:35:24+00:00"
+            "time": "2018-06-08T03:36:23+00:00"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -744,7 +742,7 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "RC",
+    "minimum-stability": "dev",
     "stability-flags": {
         "puko/framework": 20
     },

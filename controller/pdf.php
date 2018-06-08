@@ -21,7 +21,6 @@ namespace controller;
 use controller\auth\Authenticator;
 use Dompdf\Options;
 use Dompdf\Dompdf;
-use Dompdf\Exception;
 use model\PdfModel;
 use pte\Pte;
 use pukoframework\auth\Session;
@@ -60,7 +59,7 @@ class pdf extends View
         <head>
             <meta charset="UTF-8">
             <title>PDF Output - Anywhere</title>
-            {CSS}
+            
             <style type="text/css">
 HEAD;
     private $middle = <<<MIDDLE
@@ -69,6 +68,7 @@ HEAD;
         <body>
 MIDDLE;
     private $tail = <<<TAIL
+        {!part(css)}
         </body>
         </html>
 TAIL;
@@ -84,6 +84,7 @@ TAIL;
 
     /**
      * #Template html false
+     * #Auth session true
      */
     public function Main()
     {
@@ -113,6 +114,11 @@ TAIL;
         $this->RedirectTo('update/' . $dataPDF['PDFID']);
     }
 
+    /**
+     * @param $id
+     * @return bool
+     * #Auth session true
+     */
     public function Update($id)
     {
         $session = Session::Get(Authenticator::Instance())->GetLoginData();
@@ -136,8 +142,10 @@ TAIL;
         }
 
         $dataPDF = $session;
+
         $dataPDF['pdf'] = PdfModel::GetPdfPage($id);
         foreach ($dataPDF['pdf'] as $key => $value) {
+            $dataPDF['pdf'][$key]['apikey'] = $session['apikey'];
             switch ($value['paper']) {
                 case 'A4':
                     $dataPDF['pdf'][$key]['A4'] = 'checked';
@@ -174,6 +182,7 @@ TAIL;
                     break;
             }
         }
+
         return $dataPDF;
     }
 
@@ -184,6 +193,7 @@ TAIL;
      * #ClearOutput value false
      * #ClearOutput block false
      * #ClearOutput comment false
+     * #Auth session true
      */
     public function Html($id_pdf)
     {
@@ -197,6 +207,10 @@ TAIL;
         }
 
         $file['pdf'] = PdfModel::GetPdfPage($id_pdf);
+        foreach ($file['pdf'] as $key => $val) {
+            $val['apikey'] = $session['apikey'];
+            $file['pdf'][$key] = $val;
+        }
         $file['html'] = $file['pdf'][0]['html'];
 
         return $file;
@@ -209,6 +223,7 @@ TAIL;
      * #ClearOutput value false
      * #ClearOutput block false
      * #ClearOutput comment false
+     * #Auth session true
      */
     public function Style($id_pdf)
     {
@@ -222,6 +237,10 @@ TAIL;
         }
 
         $file['pdf'] = PdfModel::GetPdfPage($id_pdf);
+        foreach ($file['pdf'] as $key => $val) {
+            $val['apikey'] = $session['apikey'];
+            $file['pdf'][$key] = $val;
+        }
         $file['css'] = $file['pdf'][0]['css'];
         return $file;
     }
@@ -235,6 +254,7 @@ TAIL;
     {
         $pdfRender = PdfModel::GetPdfRender($api_key, $pdfId)[0];
 
+
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];
         $this->html = $pdfRender['html'];
@@ -244,7 +264,7 @@ TAIL;
         $this->requestsample = $pdfRender['requestsample'];
         $this->cssexternal = $pdfRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
 
         $response = new Response();
         $response->clearBlocks = false;
@@ -256,9 +276,10 @@ TAIL;
         if ($response->useMasterLayout) {
             $render->SetMaster($response->htmlMaster);
         }
-        $render->SetValue(json_decode($pdfRender['requestsample']));
-        $render->SetHtml($htmlFactory);
-        $template = $render->Output($this, Pte::VIEW_HTML);
+
+        $render->SetValue(json_decode($pdfRender['requestsample'], true));
+        $render->SetHtml($htmlFactory, true);
+        $template = $render->Output(null, Pte::VIEW_HTML);
 
         echo $template;
 
@@ -301,7 +322,7 @@ TAIL;
         $this->cssexternal = $pdfRender['cssexternal'];
         $this->requesturl = $pdfRender['requesturl'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . '{!CSS}' . $this->cssexternal . '{/CSS}' . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
 
         $coreData = (array)json_decode($pdfRender['requestsample']);
 
@@ -343,8 +364,8 @@ TAIL;
             $render->SetMaster($response->htmlMaster);
         }
         $render->SetValue($coreData);
-        $render->SetHtml($htmlFactory);
-        $template = $render->Output($this, Pte::VIEW_HTML);
+        $render->SetHtml($htmlFactory, true);
+        $template = $render->Output(null, Pte::VIEW_HTML);
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");

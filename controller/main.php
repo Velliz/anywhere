@@ -18,6 +18,7 @@
 namespace controller;
 
 use controller\auth\Authenticator;
+use Exception;
 use model\UserModel;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
@@ -28,7 +29,6 @@ use pukoframework\Request;
 /**
  * Class main
  * @package controller
- *
  * #Master master-main.html
  */
 class main extends View
@@ -52,7 +52,7 @@ class main extends View
     /**
      * #Template master true
      * #Value PageTitle Register
-     * @throws \Exception
+     * @throws Exception
      */
     public function register()
     {
@@ -140,52 +140,61 @@ class main extends View
      * #Template master true
      * #Value PageTitle Login
      * #ClearOutput value true
-     * @throws \Exception
+     * @throws Exception
      */
     public function userlogin()
     {
         if (Request::IsPost()) {
             $exception = new ValueException();
             $username = Request::Post('username', null);
-            if ($username == null) $exception->Prepare('username', 'Username harus di isi');
+            if ($username == null) {
+                $exception->Prepare('username', 'Username harus di isi');
+            }
             $password = Request::Post('password', null);
-            if ($password == null) $exception->Prepare('password', 'Password harus di isi');
+            if ($password == null) {
+                $exception->Prepare('password', 'Password harus di isi');
+            }
 
             if (Session::Get(Authenticator::Instance())->Login($username, md5($password))) {
                 $this->RedirectTo(BASE_URL . 'beranda');
-                return array('RegisterBlock' => true);
+                return array('RegisterBlock' => false);
             }
             $exception->Prepare('global', 'Username atau password anda salah.');
 
             $exception->Throws(array(
-                'IsLoginBlock' => false,
-                'IsSessionBlock' => true,
-                'RegisterBlock' => true,
+                'IsLoginBlock' => true,
+                'IsSessionBlock' => false,
+                'RegisterBlock' => false,
                 'username' => $username,
                 'password' => 'Ulangi password',
             ),
                 'Username atau password anda salah.');
         }
 
-        if (Session::Is()) $this->RedirectTo('beranda');
+        if (Session::Is()) {
+            $this->RedirectTo('beranda');
+        }
 
         $register = Request::Get('register', null);
-        if ($register == 'success') $block = false;
-        else $block = true;
+        if ($register == 'success') {
+            $block = true;
+        } else {
+            $block = false;
+        }
 
         if (Session::Is()) {
             $session = Session::Get(Authenticator::Instance())->GetLoginData();
-            $session['IsLoginBlock'] = true;
-            $session['IsSessionBlock'] = false;
+            $session['IsLoginBlock'] = false;
+            $session['IsSessionBlock'] = true;
             $session['RegisterBlock'] = $block;
             return $session;
         }
-        return array('IsLoginBlock' => false, 'IsSessionBlock' => true, 'RegisterBlock' => $block);
+        return array('IsLoginBlock' => true, 'IsSessionBlock' => false, 'RegisterBlock' => $block);
     }
 
     /**
      * #Template html false
-     * #Auth true +
+     * #Auth session true
      */
     public function userlogout()
     {

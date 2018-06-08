@@ -9,12 +9,13 @@
  *
  * Copyright (c) 2016, Didit Velliz
  *
- * @package	velliz/anywhere
- * @author	Didit Velliz
- * @link	https://github.com/velliz/anywhere
- * @since	Version 1.0.0
+ * @package    velliz/anywhere
+ * @author    Didit Velliz
+ * @link    https://github.com/velliz/anywhere
+ * @since    Version 1.0.0
  *
  */
+
 namespace controller;
 
 use controller\auth\Authenticator;
@@ -27,13 +28,15 @@ use pukoframework\middleware\View;
 /**
  * Class users
  * @package controller
- *
- * #Auth true +
- * #ClearOutput false
  * #Master master-user.html
  */
 class users extends View
 {
+
+    /**
+     * @return bool
+     * #Auth session true
+     */
     public function beranda()
     {
         $vars = Session::Get(Authenticator::Instance())->GetLoginData();
@@ -42,7 +45,11 @@ class users extends View
         $vars['IMAGELists'] = ImageModel::GetImageLists($vars['ID']);
         return $vars;
     }
-    
+
+    /**
+     * @return bool
+     * #Auth session true
+     */
     public function profil()
     {
         $vars = Session::Get(Authenticator::Instance())->GetLoginData();

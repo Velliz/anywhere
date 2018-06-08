@@ -15,6 +15,7 @@
  * @since    Version 1.0.0
  *
  */
+
 namespace controller;
 
 use controller\auth\Authenticator;
@@ -26,7 +27,6 @@ use QRcode;
 /**
  * Class qr
  * @package controller
- *
  * #Master master-qr.html
  */
 class qr extends View
@@ -34,8 +34,7 @@ class qr extends View
 
     /**
      * @return bool
-     *
-     * #Auth true
+     * #Auth session true
      */
     public function main()
     {
@@ -45,9 +44,6 @@ class qr extends View
         return $dataQR;
     }
 
-    /**
-     * #Auth false
-     */
     public function render()
     {
         if (!isset($_GET['data'])) {
