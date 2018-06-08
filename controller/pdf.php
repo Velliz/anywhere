@@ -301,8 +301,6 @@ TAIL;
 
     /**
      * #Template master false
-     * #Auth false
-     *
      * @param $api_key
      * @param $pdfID
      * @throws \pte\exception\PteException
@@ -331,6 +329,7 @@ TAIL;
             if (!isset($_POST['jsondata'])) {
                 $data['status'] = 'failed';
                 $data['reason'] = 'post data [jsondata] is not defined.';
+                header('Content-Type: application/json');
                 die(json_encode($data));
             }
             $coreData = (array)json_decode($_POST['jsondata']);
@@ -341,12 +340,14 @@ TAIL;
             if ($this->requesturl == '') {
                 $data['status'] = 'failed';
                 $data['reason'] = 'request URL not defined.';
+                header('Content-Type: application/json');
                 die(json_encode($data));
             }
             $fetch = file_get_contents($this->requesturl);
             if (!$fetch) {
                 $data['status'] = 'failed';
                 $data['reason'] = 'url return zero data.';
+                header('Content-Type: application/json');
                 die(json_encode($data));
             }
 
