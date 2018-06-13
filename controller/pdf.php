@@ -332,7 +332,7 @@ TAIL;
                 header('Content-Type: application/json');
                 die(json_encode($data));
             }
-            $coreData = (array)json_decode($_POST['jsondata']);
+            $coreData = (array)json_decode($_POST['jsondata'], true);
         }
 
         if ($this->requesttype == 'URL') {
@@ -351,7 +351,7 @@ TAIL;
                 die(json_encode($data));
             }
 
-            $coreData = (array)json_decode($fetch);
+            $coreData = (array)json_decode($fetch, true);
         }
 
         $response = new Response();
