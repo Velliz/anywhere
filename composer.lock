@@ -465,12 +465,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "0403c30c6b855771b5a14918941b010095f5833d"
+                "reference": "297b18fb187438e9c9722b5ccc867944e5a560cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/0403c30c6b855771b5a14918941b010095f5833d",
-                "reference": "0403c30c6b855771b5a14918941b010095f5833d",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/297b18fb187438e9c9722b5ccc867944e5a560cd",
+                "reference": "297b18fb187438e9c9722b5ccc867944e5a560cd",
                 "shasum": ""
             },
             "require": {
@@ -495,7 +495,7 @@
                 }
             ],
             "description": "MVC framework for quick and fast PHP application development",
-            "time": "2018-06-08T06:23:20+00:00"
+            "time": "2018-07-02T10:50:40+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

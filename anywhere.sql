@@ -54,7 +54,7 @@ CREATE TABLE `images` (
   `requestsamplename` varchar(255) DEFAULT NULL,
   `requestsamplefile` longblob,
   PRIMARY KEY (`IMAGEID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for logmail
@@ -96,7 +96,7 @@ CREATE TABLE `mail` (
   `requestsample` text,
   `cssexternal` text,
   PRIMARY KEY (`MAILID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for pdf
@@ -116,7 +116,7 @@ CREATE TABLE `pdf` (
   `requestsample` text NOT NULL,
   `cssexternal` text,
   PRIMARY KEY (`PDFID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for status
@@ -157,4 +157,4 @@ CREATE TABLE `users` (
   `apikey` varchar(255) NOT NULL,
   `statusID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;

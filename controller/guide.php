@@ -36,12 +36,13 @@ class guide extends View
     public function main()
     {
         if (Session::Is()) {
-            $session = Session::Get(Authenticator::Instance())->GetLoginData();
-            $session['IsLoginBlock'] = true;
-            $session['IsSessionBlock'] = false;
-            return $session;
+            $data['IsSessionBlock'] = Session::Get(Authenticator::Instance())->GetLoginData();
+        } else {
+            $data['IsLoginBlock'] = array(
+                'login' => false
+            );
         }
-        return array('IsLoginBlock' => false, 'IsSessionBlock' => true);
+        return $data;
     }
 
     /**
