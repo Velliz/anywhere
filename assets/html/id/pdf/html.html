@@ -61,12 +61,10 @@
                     <textarea id="code" name="code">{!html}</textarea>
                 </form>
             </div>
-            <div class="col-lg-6" style="height: 100%;">
-                <div class="form" style="margin-top: 30px; height: 85%">
-                    <!--{!pdf}-->
-                    <iframe src="{!url()}pdf/coderender/{!apikey}/{!PDFID}" frameborder="0" style="overflow:hidden;height:99%;width:100%"></iframe>
-                    <!--{/pdf}-->
-                </div>
+            <div class="col-lg-6" style="height: 100%;padding-right: 0px; padding-left: 0px;">
+                <!--{!pdf}-->
+                <iframe src="{!url()}pdf/coderender/{!apikey}/{!PDFID}" frameborder="0" style="overflow:hidden;height:100%;width:100%"></iframe>
+                <!--{/pdf}-->
             </div>
         </div>
     </div>

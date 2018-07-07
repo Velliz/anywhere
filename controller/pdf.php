@@ -257,6 +257,7 @@ TAIL;
 
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];
+        $this->orientation = $pdfRender['orientation'];
         $this->html = $pdfRender['html'];
         $this->css = $pdfRender['css'];
         $this->reportname = $pdfRender['reportname'];
@@ -281,11 +282,7 @@ TAIL;
         $render->SetHtml($htmlFactory, true);
         $template = $render->Output(null, Pte::VIEW_HTML);
 
-        echo $template;
-
-        //todo: make url .pdf ready files
-        /*
-        $this->dompdf->setPaper($this->paper);
+        $this->dompdf->setPaper($this->paper, $this->orientation);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
 
@@ -295,7 +292,6 @@ TAIL;
         header('Content-Type: application/pdf');
 
         $this->dompdf->stream($this->reportname, array("Attachment" => 0));
-        */
         exit();
     }
 
