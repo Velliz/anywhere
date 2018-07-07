@@ -68,11 +68,13 @@ class mail extends View
             <meta charset="UTF-8">
             <title>Mail Output - Anywhere</title>
             <style type="text/css">
+                .preheader { display:none !important; visibility:hidden; opacity:0; color:transparent; height:0; width:0; }
 HEAD;
     private $middle = <<<MIDDLE
             </style>
         </head>
         <body>
+            <span class="preheader" style="display: none !important; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;">{!preheader}</span>
 MIDDLE;
     private $tail = <<<TAIL
         {!part(css)}
@@ -160,7 +162,7 @@ TAIL;
 
         $session = Session::Get(Authenticator::Instance())->GetLoginData();
 
-        if (Request::IsPost()) {
+        if (isset($_POST['mailid'])) {
             $mailid = Request::Post('mailid', null);
             $mailName = Request::Post('mailname', null);
 
@@ -201,6 +203,7 @@ TAIL;
         $dataMAIL['mail'] = MailModel::GetMailPage($id);
 
         foreach ($dataMAIL['mail'] as $key => $value) {
+            $dataMAIL['mail'][$key]['apikey'] = $session['apikey'];
             switch ($value['requesttype']) {
                 case 'POST':
                     $dataMAIL['mail'][$key]['POST'] = 'checked';
@@ -233,6 +236,10 @@ TAIL;
         }
 
         $file['mail'] = MailModel::GetMailPage($id_mail);
+        foreach ($file['mail'] as $key => $val) {
+            $val['apikey'] = $session['apikey'];
+            $file['mail'][$key] = $val;
+        }
         $file['html'] = $file['mail'][0]['html'];
 
         return $file;
@@ -256,6 +263,10 @@ TAIL;
         }
 
         $file['mail'] = MailModel::GetMailPage($id_mail);
+        foreach ($file['mail'] as $key => $val) {
+            $val['apikey'] = $session['apikey'];
+            $file['mail'][$key] = $val;
+        }
         $file['css'] = $file['mail'][0]['css'];
 
         return $file;
@@ -307,9 +318,9 @@ TAIL;
         if ($response->useMasterLayout) {
             $render->SetMaster($response->htmlMaster);
         }
-        $render->SetValue(json_decode($mailRender['requestsample']));
-        $render->SetHtml($htmlFactory);
-        $template = $render->Output($this, Pte::VIEW_HTML);
+        $render->SetValue(json_decode($mailRender['requestsample'], true));
+        $render->SetHtml($htmlFactory, true);
+        $template = $render->Output(null, Pte::VIEW_HTML);
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
@@ -366,7 +377,7 @@ TAIL;
                 $data['reason'] = 'post data [jsondata] is not defined.';
                 die(json_encode($data));
             }
-            $coreData = (array)json_decode($_POST['jsondata']);
+            $coreData = (array)json_decode($_POST['jsondata'], true);
         }
 
         if ($this->requesttype == 'URL') {
@@ -382,7 +393,7 @@ TAIL;
                 $data['reason'] = 'url return zero data.';
                 die(json_encode($data));
             }
-            $coreData = (array)json_decode($fetch);
+            $coreData = (array)json_decode($fetch, true);
         }
 
         if (!isset($coreData['to'])) {
@@ -433,8 +444,8 @@ TAIL;
             $render->SetMaster($response->htmlMaster);
         }
         $render->SetValue($coreData);
-        $render->SetHtml($htmlFactory);
-        $template = $render->Output($this, Pte::VIEW_HTML);
+        $render->SetHtml($htmlFactory,true);
+        $template = $render->Output(null, Pte::VIEW_HTML);
 
         $this->mail->Subject = $coreData['subject'];
         $this->mail->msgHTML($template);

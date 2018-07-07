@@ -104,6 +104,7 @@ TAIL;
             'html' => '<div>Welcome to Anywhere!</div>',
             'css' => 'body {}',
             'outputmode' => 'Inline',
+            'orientation' => 'landscape',
             'paper' => 'A4',
             'requesttype' => 'POST',
         );
@@ -122,7 +123,7 @@ TAIL;
     public function Update($id)
     {
         $session = Session::Get(Authenticator::Instance())->GetLoginData();
-        if (isset($_POST['pdfid']) && isset($_POST['paper']) && isset($_POST['requesttype'])) {
+        if (isset($_POST['pdfid'])) {
             $arrayID = array('PDFID' => $_POST['pdfid']);
             $arrayData = array(
                 'PDFID' => $_POST['pdfid'],

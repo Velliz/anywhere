@@ -37,7 +37,7 @@ class images extends View
 
     /**
      * #Template html false
-     * #Auth true +
+     * #Auth session true
      */
     public function Main()
     {
@@ -70,7 +70,7 @@ class images extends View
      * @return bool
      * @throws Exception
      *
-     * #Auth true +
+     * #Auth session true
      */
     public function Update($id)
     {
@@ -78,8 +78,7 @@ class images extends View
 
         $session = Session::Get(Authenticator::Instance())->GetLoginData();
 
-        if (Request::IsPost()) {
-
+        if (isset($_POST['imageid'])) {
             $imageid = Request::Post('imageid', null);
             $imageName = Request::Post('imagename', null);
 
@@ -112,6 +111,7 @@ class images extends View
         $dataIMAGE = $session;
         $dataIMAGE['image'] = ImageModel::GetImagePage($id);
         foreach ($dataIMAGE['image'] as $key => $value) {
+            $dataIMAGE['image'][$key]['apikey'] = $session['apikey'];
             switch ($value['requesttype']) {
                 case 'POST':
                     $dataIMAGE['image'][$key]['POST'] = 'checked';
@@ -134,7 +134,6 @@ class images extends View
      * @throws Exception
      *
      * #Template html false
-     * #Auth false
      */
     public function Render($api_key, $imageId)
     {
@@ -208,7 +207,6 @@ class images extends View
      *
      * @throws Exception
      *
-     * #Auth false
      * #Template html false
      */
     public function CodeRender($api_key, $imageId)
