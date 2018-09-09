@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1884fbf75c8ba424966b189168a63e8",
+    "content-hash": "b576a72fd19e465a8c09d207b9cbea91",
     "packages": [
         {
             "name": "dompdf/dompdf",
-            "version": "v0.8.2",
+            "version": "v0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "5113accd9ae5d466077cce5208dcf3fb871bf8f6"
+                "reference": "9ea852c4bdc74fac5def165e6cd52353f7ca3b3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/5113accd9ae5d466077cce5208dcf3fb871bf8f6",
-                "reference": "5113accd9ae5d466077cce5208dcf3fb871bf8f6",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/9ea852c4bdc74fac5def165e6cd52353f7ca3b3f",
+                "reference": "9ea852c4bdc74fac5def165e6cd52353f7ca3b3f",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
                 "ext-mbstring": "*",
                 "phenx/php-font-lib": "0.5.*",
                 "phenx/php-svg-lib": "0.3.*",
-                "php": ">=5.4.0"
+                "php": ">=5.3.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "4.8.*",
@@ -66,7 +66,7 @@
             ],
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2017-11-26T14:49:08+00:00"
+            "time": "2017-09-14T01:36:24+00:00"
         },
         {
             "name": "pclzip/pclzip",
@@ -248,16 +248,16 @@
         },
         {
             "name": "phpoffice/common",
-            "version": "0.2.7",
+            "version": "0.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/Common.git",
-                "reference": "d5992c95f199842fa8ba6329bb15d02716265d5b"
+                "reference": "edb5d32b1e3400a35a5c91e2539ed6f6ce925e4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/Common/zipball/d5992c95f199842fa8ba6329bb15d02716265d5b",
-                "reference": "d5992c95f199842fa8ba6329bb15d02716265d5b",
+                "url": "https://api.github.com/repos/PHPOffice/Common/zipball/edb5d32b1e3400a35a5c91e2539ed6f6ce925e4d",
+                "reference": "edb5d32b1e3400a35a5c91e2539ed6f6ce925e4d",
                 "shasum": ""
             },
             "require": {
@@ -268,7 +268,7 @@
                 "phpdocumentor/phpdocumentor": "2.*",
                 "phploc/phploc": "2.*",
                 "phpmd/phpmd": "2.*",
-                "phpunit/phpunit": "3.7.*",
+                "phpunit/phpunit": "^4.8.36 || ^7.0",
                 "sebastian/phpcpd": "2.*",
                 "squizlabs/php_codesniffer": "2.*"
             },
@@ -299,7 +299,7 @@
                 "office",
                 "php"
             ],
-            "time": "2017-11-23T14:13:25+00:00"
+            "time": "2018-07-13T14:12:34+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -465,16 +465,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pukoframework.git",
-                "reference": "297b18fb187438e9c9722b5ccc867944e5a560cd"
+                "reference": "94032f6e8bec1a006c34c4ed74bd40cf856ee5c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/297b18fb187438e9c9722b5ccc867944e5a560cd",
-                "reference": "297b18fb187438e9c9722b5ccc867944e5a560cd",
+                "url": "https://api.github.com/repos/Velliz/pukoframework/zipball/94032f6e8bec1a006c34c4ed74bd40cf856ee5c6",
+                "reference": "94032f6e8bec1a006c34c4ed74bd40cf856ee5c6",
                 "shasum": ""
             },
             "require": {
-                "velliz/pte": "dev-master"
+                "velliz/pte": "0.1.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7"
             },
             "type": "framework",
             "autoload": {
@@ -495,7 +498,7 @@
                 }
             ],
             "description": "MVC framework for quick and fast PHP application development",
-            "time": "2018-07-02T10:50:40+00:00"
+            "time": "2018-09-04T23:04:13+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -543,16 +546,16 @@
         },
         {
             "name": "velliz/pte",
-            "version": "dev-master",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Velliz/pte.git",
-                "reference": "718a1333f4e1646ffb94e1ca0da30a9e09a746ae"
+                "reference": "7a6b920709002e60868cbfe87c68d27e497c82a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Velliz/pte/zipball/718a1333f4e1646ffb94e1ca0da30a9e09a746ae",
-                "reference": "718a1333f4e1646ffb94e1ca0da30a9e09a746ae",
+                "url": "https://api.github.com/repos/Velliz/pte/zipball/7a6b920709002e60868cbfe87c68d27e497c82a5",
+                "reference": "7a6b920709002e60868cbfe87c68d27e497c82a5",
                 "shasum": ""
             },
             "type": "library",
@@ -572,7 +575,7 @@
                 }
             ],
             "description": "puko template engine",
-            "time": "2018-06-08T03:36:23+00:00"
+            "time": "2018-08-15T16:59:21+00:00"
         },
         {
             "name": "zendframework/zend-escaper",

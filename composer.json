@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "puko/framework": "dev-master",
-        "dompdf/dompdf": "v0.8.2",
+        "dompdf/dompdf": "v0.8.1",
         "phpoffice/phpexcel": "1.8.1",
         "phpoffice/phpword": "v0.13.0",
         "phpmailer/phpmailer": "~6.0"
