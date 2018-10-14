@@ -11,6 +11,9 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
+                <!--{!pdf}-->
+                <li><a data-toggle="tooltip" title="Back" href="{!url()}pdf/update/{!PDFID}"><i class="fa fa-arrow-left"></i></a></li>
+                <!--{/pdf}-->
                 <li><a data-toggle="tooltip" title="Save and Reload" name="save-btn"><i class="fa fa-save"></i></a></li>
             </ul>
 
@@ -18,7 +21,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        <i class="fa fa-qrcode"></i>
+                        <i class="fa fa-list"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{!url()}qr">QR Code Service</a></li>
