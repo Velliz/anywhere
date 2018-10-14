@@ -53,25 +53,9 @@ class pdf extends View
      */
     private $dompdf;
 
-    private $head = <<<HEAD
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>PDF Output - Anywhere</title>
-            
-            <style type="text/css">
-HEAD;
-    private $middle = <<<MIDDLE
-            </style>
-        </head>
-        <body>
-MIDDLE;
-    private $tail = <<<TAIL
-        {!part(css)}
-        </body>
-        </html>
-TAIL;
+    private $head = "<html><body><style type='text/css'>";
+    private $middle = "</style>";
+    private $tail = "{!part(css)}</body></html>";
 
     public function __construct()
     {
