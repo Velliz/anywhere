@@ -14,8 +14,6 @@
         "puko/framework": "dev-master",
         "puko/console": "dev-master",
         "dompdf/dompdf": "v0.8.1",
-        "phpoffice/phpexcel": "1.8.1",
-        "phpoffice/phpword": "v0.13.0",
         "phpmailer/phpmailer": "~6.0"
     },
     "autoload": {
