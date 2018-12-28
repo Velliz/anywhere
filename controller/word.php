@@ -17,14 +17,14 @@
  */
 namespace controller;
 
-use pukoframework\middleware\View;
+use plugins\controller\AnywhereView;
 
 /**
  * Class word
  * @package controller
  * #Auth session true
  */
-class word extends View
+class word extends AnywhereView
 {
 
     public function main()

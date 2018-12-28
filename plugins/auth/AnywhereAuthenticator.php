@@ -1,23 +1,23 @@
 <?php
 
-namespace controller\auth;
+namespace plugins\auth;
 
 use model\UserModel;
 use pukoframework\auth\Auth;
 use pukoframework\auth\PukoAuth;
 
-class Authenticator implements Auth
+class AnywhereAuthenticator implements Auth
 {
 
     /**
-     * @var authenticator
+     * @var AnywhereAuthenticator
      */
     static $authenticator;
 
     public static function Instance()
     {
-        if (!self::$authenticator instanceof Authenticator) {
-            self::$authenticator = new Authenticator();
+        if (!self::$authenticator instanceof AnywhereAuthenticator) {
+            self::$authenticator = new AnywhereAuthenticator();
         }
         return self::$authenticator;
     }
@@ -32,6 +32,7 @@ class Authenticator implements Auth
 
     public function Logout()
     {
+        session_destroy();
     }
 
     public function GetLoginData($id, $permission)

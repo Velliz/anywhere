@@ -1,8 +1,8 @@
 {
     "name": "velliz/anywhere",
     "description": "Pukoframework based Web Console that simplify data object transition state",
-    "type": "toolkit",
-    "license": "Apache License 2.0",
+    "type": "web console",
+    "license": "MIT",
     "authors": [
         {
             "name": "Didit Velliz",
@@ -12,6 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "puko/framework": "dev-master",
+        "puko/console": "dev-master",
         "dompdf/dompdf": "v0.8.1",
         "phpoffice/phpexcel": "1.8.1",
         "phpoffice/phpword": "v0.13.0",
@@ -21,7 +22,7 @@
         "psr-4": {
             "controller\\": "controller/",
             "model\\": "model/",
-            "config\\": "config/"
+            "plugins\\": "plugins/"
         }
     }
 }

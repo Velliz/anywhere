@@ -17,15 +17,16 @@
  */
 namespace controller;
 
-use controller\auth\Authenticator;
+use plugins\auth\AnywhereAuthenticator;
 use Dompdf\Exception;
 use model\LogMail;
 use model\MailModel;
 use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
+use plugins\controller\AnywhereView;
 use pte\Pte;
 use pukoframework\auth\Session;
-use pukoframework\middleware\View;
+use pukoframework\Framework;
 use pukoframework\Request;
 use pukoframework\Response;
 
@@ -37,7 +38,7 @@ use pukoframework\Response;
  * #ClearOutput value false
  * #Master master-mail.html
  */
-class mail extends View
+class mail extends AnywhereView
 {
 
     private $mailName;
@@ -103,15 +104,16 @@ TAIL;
      *
      * initialize a new email template
      * then redirect to configure
+     * @throws \Exception
      */
     public function Main()
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
-        if (!isset($session['ID'])) $this->RedirectTo(BASE_URL);
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
+        if (!isset($session['ID'])) $this->RedirectTo(Framework::$factory->getBase());
 
         if ((int)$session['statusID'] == 1) {
             $result = MailModel::CountMailUser($session['ID'])[0];
-            if ((int)$result['result'] >= LIMITATIONS) $this->RedirectTo('limitations');
+            if ((int)$result['result'] >= $this->GetAppConstant('LIMITATIONS')) $this->RedirectTo('limitations');
         }
 
 
@@ -160,7 +162,7 @@ TAIL;
     {
         if (!is_numeric($id)) throw new Exception("ID not defined");
 
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
 
         if (isset($_POST['mailid'])) {
             $mailid = Request::Post('mailid', null);
@@ -196,8 +198,8 @@ TAIL;
                     'cssexternal' => $_POST['cssexternal'],
                 ));
 
-            if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
-            $this->RedirectTo(BASE_URL . 'sorry');
+            if ($resultUpdate) $this->RedirectTo(Framework::$factory->getBase() . 'beranda');
+            $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
         }
         $dataMAIL = $session;
         $dataMAIL['mail'] = MailModel::GetMailPage($id);
@@ -223,10 +225,11 @@ TAIL;
      * @return bool
      *
      * #Auth session true
+     * @throws \Exception
      */
     public function Html($id_mail)
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         $file = $session;
         if (isset($_POST['code'])) {
             $arrayID = array('MAILID' => $id_mail);
@@ -250,10 +253,11 @@ TAIL;
      * @return bool
      *
      * #Auth session true
+     * @throws \Exception
      */
     public function Style($id_mail)
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         $file = $session;
         if (isset($_POST['code'])) {
             $arrayID = array('MAILID' => $id_mail);
@@ -280,10 +284,11 @@ TAIL;
      * #Template html false
      * #Auth session true
      * @throws \pte\exception\PteException
+     * @throws \Exception
      */
     public function CodeRender($api_key, $mailId)
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
 
         if (!isset($session['ID'])) throw new Exception("Session Expired");
 

@@ -18,13 +18,14 @@
 
 namespace controller;
 
-use controller\auth\Authenticator;
+use plugins\auth\AnywhereAuthenticator;
 use Dompdf\Options;
 use Dompdf\Dompdf;
 use model\PdfModel;
+use plugins\controller\AnywhereView;
 use pte\Pte;
 use pukoframework\auth\Session;
-use pukoframework\middleware\View;
+use pukoframework\Framework;
 use pukoframework\Response;
 
 /**
@@ -34,7 +35,7 @@ use pukoframework\Response;
  * #ClearOutput false
  * #Master master-pdf.html
  */
-class pdf extends View
+class pdf extends AnywhereView
 {
 
     private $outputmode;
@@ -69,15 +70,16 @@ class pdf extends View
     /**
      * #Template html false
      * #Auth session true
+     * @throws \Exception
      */
     public function Main()
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
-        if (!isset($session['ID'])) $this->RedirectTo(BASE_URL);
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
+        if (!isset($session['ID'])) $this->RedirectTo(Framework::$factory->getBase());
 
         if ((int)$session['statusID'] == 1) {
             $result = PdfModel::CountPDFUser($session['ID'])[0];
-            if ((int)$result['result'] >= LIMITATIONS) $this->RedirectTo('limitations');
+            if ((int)$result['result'] >= $this->GetAppConstant('LIMITATIONS')) $this->RedirectTo('limitations');
         }
 
         $snap_shoot = date('d-m-Y-His');
@@ -103,10 +105,11 @@ class pdf extends View
      * @param $id
      * @return bool
      * #Auth session true
+     * @throws \Exception
      */
     public function Update($id)
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         if (isset($_POST['pdfid'])) {
             $arrayID = array('PDFID' => $_POST['pdfid']);
             $arrayData = array(
@@ -122,8 +125,8 @@ class pdf extends View
             );
             $resultUpdate = PdfModel::UpdatePdfPage($arrayID, $arrayData);
 
-            if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
-            $this->RedirectTo(BASE_URL . 'sorry');
+            if ($resultUpdate) $this->RedirectTo(Framework::$factory->getBase() . 'beranda');
+            $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
         }
 
         $dataPDF = $session;
@@ -179,10 +182,11 @@ class pdf extends View
      * #ClearOutput block false
      * #ClearOutput comment false
      * #Auth session true
+     * @throws \Exception
      */
     public function Html($id_pdf)
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         $file = $session;
         if (isset($_POST['code'])) {
             $arrayID = array('PDFID' => $id_pdf);
@@ -209,10 +213,11 @@ class pdf extends View
      * #ClearOutput block false
      * #ClearOutput comment false
      * #Auth session true
+     * @throws \Exception
      */
     public function Style($id_pdf)
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         $file = $session;
         if (isset($_POST['code'])) {
             $arrayID = array('PDFID' => $id_pdf);

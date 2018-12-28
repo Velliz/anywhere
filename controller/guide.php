@@ -17,9 +17,9 @@
  */
 namespace controller;
 
-use controller\auth\Authenticator;
+use plugins\auth\AnywhereAuthenticator;
+use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
-use pukoframework\middleware\View;
 
 /**
  * Class guide
@@ -27,16 +27,17 @@ use pukoframework\middleware\View;
  *
  * #Master master-guide.html
  */
-class guide extends View
+class guide extends AnywhereView
 {
 
     /**
      * #Value PageTitle Manual
+     * @throws \Exception
      */
     public function main()
     {
         if (Session::Is()) {
-            $data['IsSessionBlock'] = Session::Get(Authenticator::Instance())->GetLoginData();
+            $data['IsSessionBlock'] = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         } else {
             $data['IsLoginBlock'] = array(
                 'login' => false

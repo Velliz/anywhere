@@ -1,13 +1,26 @@
 <?php return [
-    'const' => array(
-        'OWNER' => 'anywhere',
-    ),
-    'logs' => array(
-        'active' => false,
-        'driver' => 'slack',
-        'url' => '',
-        'username' => 'puko',
-        'emoji' => ':boom:',
-        'level' => 'critical'
-    )
+    'const' => [
+        'LIMITATIONS' => 10,
+        'API' => '',
+    ],
+    'cache' => [
+        'kind' => 'MEMCACHED',
+        'expired' => 100,
+        'host' => 'localhost',
+        'port' => 11211,
+    ],
+    'logs' => [
+        'slack' => [
+            'url' => '',
+            'secure' => '',
+            'username' => 'puko-log',
+            'active' => false
+        ],
+        'hook' => [
+            'url' => '',
+            'secure' => '',
+            'username' => 'puko-log',
+            'active' => false
+        ]
+    ]
 ];

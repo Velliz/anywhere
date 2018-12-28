@@ -1,14 +1,9 @@
 <?php
-/*
- *---------------------------------------------------------------
- * PUKO FRAMEWORK
- *---------------------------------------------------------------
- *
- */
 
 use pukoframework\Framework;
+use pukoframework\config\Factory;
 
-require __DIR__ . '/vendor/autoload.php';
+require 'vendor/autoload.php';
 
 $protocol = 'http';
 if (isset($_SERVER['HTTPS'])) {
@@ -26,25 +21,12 @@ if (isset($_SERVER['HTTPS'])) {
     }
 }
 
-define('BASE_URL', ($protocol . "://" . $_SERVER['HTTP_HOST'] . "/"));
+$factory = array(
+    'base' => ($protocol . "://" . $_SERVER['HTTP_HOST'] . "/"),
+    'root' => __DIR__,
+    'start' => microtime(true)
+);
+$fo = new Factory($factory);
 
-/*
- *---------------------------------------------------------------
- * APP ROOT
- *---------------------------------------------------------------
- *
- */
-define('ROOT', __DIR__);
-/*
- *---------------------------------------------------------------
- * APP START
- *---------------------------------------------------------------
- *
- * This variable used to calculate the framework performance.
- */
-define('START', microtime(true));
-define('LIMITATIONS', 8);
-//Initialize framework object
-$framework = new Framework();
-//Start framework
+$framework = new Framework($fo);
 $framework->Start();

@@ -2,7 +2,7 @@
 
 namespace controller;
 
-use pukoframework\middleware\View;
+use plugins\controller\AnywhereView;
 
 /**
  * Class error
@@ -10,7 +10,7 @@ use pukoframework\middleware\View;
  *
  * #Master master-images.html
  */
-class error extends View
+class error extends AnywhereView
 {
 
     public function display()

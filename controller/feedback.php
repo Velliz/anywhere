@@ -17,7 +17,7 @@
  */
 namespace controller;
 
-use pukoframework\middleware\View;
+use plugins\controller\AnywhereView;
 
 /**
  * Class feedback
@@ -25,7 +25,7 @@ use pukoframework\middleware\View;
  *
  * #Master master-feedback.html
  */
-class feedback extends View
+class feedback extends AnywhereView
 {
     public function main()
     {

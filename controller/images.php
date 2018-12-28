@@ -18,11 +18,12 @@
 
 namespace controller;
 
-use controller\auth\Authenticator;
+use plugins\auth\AnywhereAuthenticator;
 use Exception;
 use model\ImageModel;
+use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
-use pukoframework\middleware\View;
+use pukoframework\Framework;
 use pukoframework\Request;
 
 /**
@@ -32,21 +33,22 @@ use pukoframework\Request;
  * #ClearOutput false
  * #Master master-images.html
  */
-class images extends View
+class images extends AnywhereView
 {
 
     /**
      * #Template html false
      * #Auth session true
+     * @throws Exception
      */
     public function Main()
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
-        if (!isset($session['ID'])) $this->RedirectTo(BASE_URL);
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
+        if (!isset($session['ID'])) $this->RedirectTo(Framework::$factory->getBase());
 
         if ((int)$session['statusID'] == 1) {
             $result = ImageModel::CountImageUser($session['ID'])[0];
-            if ((int)$result['result'] >= LIMITATIONS) $this->RedirectTo('limitations');
+            if ((int)$result['result'] >= $this->GetAppConstant('LIMITATIONS')) $this->RedirectTo('limitations');
         }
         $snap_shoot = date('d-m-Y-His');
         $arrayData = array(
@@ -55,7 +57,7 @@ class images extends View
             'requesttype' => 'URL',
             'requestsample' => json_encode(
                 array(
-                    'url' => BASE_URL . 'qr/render?data=developer@example.com',
+                    'url' => Framework::$factory->getBase() . 'qr/render?data=developer@example.com',
                 )
             )
         );
@@ -76,7 +78,7 @@ class images extends View
     {
         if (!is_numeric($id)) throw new Exception("ID not defined");
 
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
 
         if (isset($_POST['imageid'])) {
             $imageid = Request::Post('imageid', null);
@@ -105,8 +107,8 @@ class images extends View
                     'requesturl' => $requesturl,
                 ));
 
-            if ($resultUpdate) $this->RedirectTo(BASE_URL . 'beranda');
-            $this->RedirectTo(BASE_URL . 'sorry');
+            if ($resultUpdate) $this->RedirectTo(Framework::$factory->getBase() . 'beranda');
+            $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
         }
         $dataIMAGE = $session;
         $dataIMAGE['image'] = ImageModel::GetImagePage($id);
@@ -211,7 +213,7 @@ class images extends View
      */
     public function CodeRender($api_key, $imageId)
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         if (!isset($session['ID'])) throw new Exception("Session Expired");
 
         $mailRender = ImageModel::GetImageRender($api_key, $imageId)[0];

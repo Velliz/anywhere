@@ -18,14 +18,14 @@
 
 namespace controller;
 
-use pukoframework\middleware\View;
+use plugins\controller\AnywhereView;
 
 /**
  * Class testimonial
  * @package controller
  * #Master master-testi.html
  */
-class testimonial extends View
+class testimonial extends AnywhereView
 {
 
     public function main()

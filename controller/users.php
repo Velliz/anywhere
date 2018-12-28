@@ -18,28 +18,29 @@
 
 namespace controller;
 
-use controller\auth\Authenticator;
+use plugins\auth\AnywhereAuthenticator;
 use model\ImageModel;
 use model\MailModel;
 use model\PdfModel;
+use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
-use pukoframework\middleware\View;
 
 /**
  * Class users
  * @package controller
  * #Master master-user.html
  */
-class users extends View
+class users extends AnywhereView
 {
 
     /**
      * @return bool
      * #Auth session true
+     * @throws \Exception
      */
     public function beranda()
     {
-        $vars = Session::Get(Authenticator::Instance())->GetLoginData();
+        $vars = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         $vars['PDFLists'] = PdfModel::GetPdfLists($vars['ID']);
         $vars['MAILLists'] = MailModel::GetMailLists($vars['ID']);
         $vars['IMAGELists'] = ImageModel::GetImageLists($vars['ID']);
@@ -49,10 +50,11 @@ class users extends View
     /**
      * @return bool
      * #Auth session true
+     * @throws \Exception
      */
     public function profil()
     {
-        $vars = Session::Get(Authenticator::Instance())->GetLoginData();
+        $vars = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         return $vars;
     }
 

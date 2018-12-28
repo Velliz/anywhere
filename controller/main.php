@@ -17,13 +17,13 @@
  */
 namespace controller;
 
-use controller\auth\Authenticator;
+use plugins\auth\AnywhereAuthenticator;
 use Exception;
 use model\UserModel;
-use pukoframework\auth\Auth;
+use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
+use pukoframework\Framework;
 use pukoframework\peh\ValueException;
-use pukoframework\middleware\View;
 use pukoframework\Request;
 
 /**
@@ -31,17 +31,18 @@ use pukoframework\Request;
  * @package controller
  * #Master master-main.html
  */
-class main extends View
+class main extends AnywhereView
 {
 
     /**
      * #Template master true
      * #Value PageTitle Welcome
+     * @throws Exception
      */
     public function main()
     {
         if (Session::Is()) {
-            $data['IsSessionBlock'] = Session::Get(Authenticator::Instance())->GetLoginData();
+            $data['IsSessionBlock'] = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         } else {
             $data['IsLoginBlock'] = array(
                 'login' => false
@@ -59,7 +60,7 @@ class main extends View
     {
         if (Session::Is()) $this->RedirectTo('beranda');
 
-        if (Request::IsPost()) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $exception = new ValueException();
 
             $name = Request::Post('name', null);
@@ -129,7 +130,7 @@ class main extends View
         }
 
         if (Session::Is()) {
-            $data['IsSessionBlock'] = Session::Get(Authenticator::Instance())->GetLoginData();
+            $data['IsSessionBlock'] = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         } else {
             $data['IsLoginBlock'] = array(
                 'login' => false
@@ -146,7 +147,7 @@ class main extends View
      */
     public function userlogin()
     {
-        if (Request::IsPost()) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $exception = new ValueException();
             $username = Request::Post('username', null);
             if ($username == null) {
@@ -157,8 +158,8 @@ class main extends View
                 $exception->Prepare('password', 'Password harus di isi');
             }
 
-            if (Session::Get(Authenticator::Instance())->Login($username, md5($password))) {
-                $this->RedirectTo(BASE_URL . 'beranda');
+            if (Session::Get(AnywhereAuthenticator::Instance())->Login($username, md5($password))) {
+                $this->RedirectTo(Framework::$factory->getBase() . 'beranda');
                 return array('RegisterBlock' => false);
             }
             $exception->Prepare('global', 'Username atau password anda salah.');
@@ -185,7 +186,7 @@ class main extends View
         }
 
         if (Session::Is()) {
-            $session = Session::Get(Authenticator::Instance())->GetLoginData();
+            $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
             $session['IsLoginBlock'] = false;
             $session['IsSessionBlock'] = true;
             $session['RegisterBlock'] = $block;
@@ -197,11 +198,12 @@ class main extends View
     /**
      * #Template html false
      * #Auth session true
+     * @throws Exception
      */
     public function userlogout()
     {
-        Session::Get(Authenticator::Instance())->Logout();
-        $this->RedirectTo(BASE_URL);
+        Session::Get(AnywhereAuthenticator::Instance())->Logout();
+        $this->RedirectTo(Framework::$factory->getBase());
     }
 
     public function about()

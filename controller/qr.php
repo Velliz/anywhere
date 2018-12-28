@@ -18,9 +18,10 @@
 
 namespace controller;
 
-use controller\auth\Authenticator;
+use plugins\auth\AnywhereAuthenticator;
+use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
-use pukoframework\middleware\View;
+use pukoframework\Framework;
 use pukoframework\Request;
 use QRcode;
 
@@ -29,16 +30,17 @@ use QRcode;
  * @package controller
  * #Master master-qr.html
  */
-class qr extends View
+class qr extends AnywhereView
 {
 
     /**
      * @return bool
      * #Auth session true
+     * @throws \Exception
      */
     public function main()
     {
-        $session = Session::Get(Authenticator::Instance())->GetLoginData();
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         $dataQR = $session;
 
         return $dataQR;
@@ -60,7 +62,7 @@ class qr extends View
         if (isset($_GET['margin'])) $size = $_GET['margin'];
         if (isset($_GET['output'])) $output = $_GET['output'];
 
-        include(ROOT . '/libraries/phpqrcode/qrlib.php');
+        include(Framework::$factory->getRoot() . '/libraries/phpqrcode/qrlib.php');
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");

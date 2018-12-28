@@ -17,7 +17,7 @@
  */
 namespace controller;
 
-use pukoframework\middleware\View;
+use plugins\controller\AnywhereView;
 
 /**
  * Class excel
@@ -25,7 +25,7 @@ use pukoframework\middleware\View;
  *
  * #Master master-main.html
  */
-class excel extends View
+class excel extends AnywhereView
 {
 
     public function main()
