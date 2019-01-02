@@ -1,7 +1,7 @@
 <?php return [
     'const' => [
+        'INSTALLED' => false,
         'LIMITATIONS' => 10,
-        'API' => '',
     ],
     'cache' => [
         'kind' => 'MEMCACHED',
@@ -13,13 +13,13 @@
         'slack' => [
             'url' => '',
             'secure' => '',
-            'username' => 'puko-log',
+            'username' => 'anywhere-log',
             'active' => false
         ],
         'hook' => [
             'url' => '',
             'secure' => '',
-            'username' => 'puko-log',
+            'username' => 'anywhere-log',
             'active' => false
         ]
     ]
