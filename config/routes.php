@@ -112,14 +112,6 @@
                 "POST"
             ]
         ],
-        "refresh" => [
-            "controller" => "main",
-            "function" => "refresh",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
         "pdf/main" => [
             "controller" => "pdf",
             "function" => "main",

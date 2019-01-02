@@ -258,9 +258,6 @@ class pdf extends AnywhereView
         $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
 
         $response = new Response();
-        $response->clearBlocks = false;
-        $response->clearValues = false;
-        $response->clearComments = false;
         $response->useMasterLayout = false;
 
         $render = new Pte(false);
@@ -341,9 +338,6 @@ class pdf extends AnywhereView
         }
 
         $response = new Response();
-        $response->clearValues = false;
-        $response->clearBlocks = false;
-        $response->clearComments = false;
         $response->useMasterLayout = false;
 
         $render = new Pte(false);

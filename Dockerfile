@@ -30,4 +30,4 @@ RUN composer install
 
 EXPOSE 80 443
 
-CMD ["mysqld_safe", "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

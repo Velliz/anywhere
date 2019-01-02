@@ -18,12 +18,11 @@
 
 namespace controller;
 
+use PHPQRCode\QRcode;
 use plugins\auth\AnywhereAuthenticator;
 use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
-use pukoframework\Framework;
 use pukoframework\Request;
-use QRcode;
 
 /**
  * Class qr
@@ -62,24 +61,18 @@ class qr extends AnywhereView
         if (isset($_GET['margin'])) $size = $_GET['margin'];
         if (isset($_GET['output'])) $output = $_GET['output'];
 
-        include(Framework::$factory->getRoot() . '/libraries/phpqrcode/qrlib.php');
-
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
         header("Author: Anywhere 0.1");
 
         if ($output === 'png') {
             header('Content-Type: image/' . $output);
-            QRcode::png($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
-        }
-        if ($output === 'svg') {
-            header('Content-Type: image/' . $output);
-            QRcode::svg($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
+            QRcode::png($_GET['data'], false, 'L', $size, $margin);
         }
         if ($output === 'jpg' || $output === 'jpeg') {
             header('Content-Type: image/' . $output);
             Request::OutputBufferStart();
-            QRcode::png($_GET['data'], false, QR_ECLEVEL_L, $size, $margin);
+            QRcode::png($_GET['data'], false, 'L', $size, $margin);
             $ImagePng = Request::OutputBufferFlush();
 
             $ImageObject = imagecreatefromstring($ImagePng);

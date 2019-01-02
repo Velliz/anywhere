@@ -314,9 +314,6 @@ TAIL;
         $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
 
         $response = new Response();
-        $response->clearValues = false;
-        $response->clearBlocks = false;
-        $response->clearComments = false;
         $response->useMasterLayout = false;
 
         $render = new Pte(false);
@@ -439,9 +436,6 @@ TAIL;
         }
 
         $response = new Response();
-        $response->clearValues = false;
-        $response->clearBlocks = false;
-        $response->clearComments = false;
         $response->useMasterLayout = false;
 
         $render = new Pte(false);

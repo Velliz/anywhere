@@ -27,6 +27,7 @@ use plugins\controller\AnywhereView;
  */
 class feedback extends AnywhereView
 {
+
     public function main()
     {
         //coming soon
