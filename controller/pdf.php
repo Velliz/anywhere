@@ -54,9 +54,9 @@ class pdf extends AnywhereView
      */
     private $dompdf;
 
-    private $head = "<html><body><style type='text/css'>";
+    private $head = "<!DOCTYPE html><html><body><style type='text/css'>";
     private $middle = "</style>";
-    private $tail = "{!part(css)}</body></html>";
+    private $tail = "</body></html>";
 
     public function __construct()
     {
@@ -261,7 +261,7 @@ class pdf extends AnywhereView
         $this->requestsample = $pdfRender['requestsample'];
         $this->cssexternal = $pdfRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->cssexternal . $this->html . $this->tail;
 
         $response = new Response();
         $response->useMasterLayout = false;
@@ -309,7 +309,7 @@ class pdf extends AnywhereView
         $this->cssexternal = $pdfRender['cssexternal'];
         $this->requesturl = $pdfRender['requesturl'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->cssexternal . $this->html . $this->tail;
 
         $coreData = (array)json_decode($pdfRender['requestsample']);
 

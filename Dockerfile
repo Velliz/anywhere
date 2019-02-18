@@ -24,8 +24,11 @@ RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 COPY . /var/www/html/
 
+# Dir permissions
+RUN chmod -R 777 /var/www/html
+
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 # RUN composer install
 
 # Fix iconv

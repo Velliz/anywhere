@@ -311,7 +311,7 @@ TAIL;
         $this->requestsample = $mailRender['requestsample'];
         $this->cssexternal = $mailRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle .$this->cssexternal . $this->html . $this->tail;
 
         $response = new Response();
         $response->useMasterLayout = false;
@@ -359,7 +359,7 @@ TAIL;
         $this->requestsample = $mailRender['requestsample'];
         $this->cssexternal = $mailRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . '{!css(' . $this->cssexternal . ')}' . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->cssexternal . $this->html . $this->tail;
 
         $coreData = array();
 
