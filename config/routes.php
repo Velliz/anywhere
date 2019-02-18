@@ -160,6 +160,38 @@
                 "POST"
             ]
         ],
+        "excel/main" => [
+            "controller" => "excel",
+            "function" => "main",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "excel/update/{?}" => [
+            "controller" => "excel",
+            "function" => "update",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "excel/render/{?}/{?}" => [
+            "controller" => "excel",
+            "function" => "render",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "excel/coderender/{?}/{?}" => [
+            "controller" => "excel",
+            "function" => "coderender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "mail/main" => [
             "controller" => "mail",
             "function" => "main",

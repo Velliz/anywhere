@@ -2,7 +2,7 @@
     'dbType' => 'mysql',
     'host'   => 'localhost',
     'user'   => 'root',
-    'pass'   => 'root',
+    'pass'   => '',
     'dbName' => 'anywhere',
     'port'   => 3306,
     'cache'   => false,

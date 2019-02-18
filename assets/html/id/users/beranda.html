@@ -1,5 +1,6 @@
 <div class="container" style="padding-top: 100px;">
     <div class="row">
+        <h3 class="text-center">Document Templates</h3>
         <div class="col-md-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">PDF Templates</div>
@@ -21,23 +22,41 @@
         </div>
         <div class="col-md-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">Mail Templates</div>
+                <div class="panel-heading">Excel Templates</div>
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group text-center">
-                            <!--{!MAILLists}-->
+                            <!--{!EXCELLists}-->
                             <li class="list-group-item">
-                                <a style="width: 100%;" href="{!url()}mail/update/{!MAILID}" class="btn btn-danger">{!mailname}</a>
+                                <a style="width: 100%;" href="{!url()}excel/update/{!EXCELID}" class="btn btn-danger">{!excelname}</a>
                             </li>
-                            <!--{/MAILLists}-->
+                            <!--{/EXCELLists}-->
                             <li class="list-group-item">
-                                <a href="{!url()}mail/main" class="btn btn-success">NEW MAIL</a>
+                                <a href="{!url()}excel/main" class="btn btn-success">NEW EXCEL</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Word Templates</div>
+                <div class="panel-body">
+                    <div class="panel-primary">
+                        <ul class="list-group text-center">
+                            <li class="list-group-item">
+                                <a href="#" class="btn btn-primary">Comming Soon</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <h3 class="text-center">Image Templates</h3>
         <div class="col-md-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">Images Templates</div>
@@ -57,35 +76,28 @@
                 </div>
             </div>
         </div>
-        <!--
+    </div>
+    <hr>
+    <div class="row">
+        <h3 class="text-center">Notification Templates</h3>
         <div class="col-md-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">Word Templates</div>
+                <div class="panel-heading">Mail Templates</div>
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group text-center">
+                            <!--{!MAILLists}-->
                             <li class="list-group-item">
-                                <a href="#" class="btn btn-primary">Comming Soon</a>
+                                <a style="width: 100%;" href="{!url()}mail/update/{!MAILID}" class="btn btn-danger">{!mailname}</a>
+                            </li>
+                            <!--{/MAILLists}-->
+                            <li class="list-group-item">
+                                <a href="{!url()}mail/main" class="btn btn-success">NEW MAIL</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Excel Templates</div>
-                <div class="panel-body">
-                    <div class="panel-primary">
-                        <ul class="list-group text-center">
-                            <li class="list-group-item">
-                                <a href="#" class="btn btn-primary">Comming Soon</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
     </div>
 </div>

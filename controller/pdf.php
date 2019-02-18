@@ -93,6 +93,13 @@ class pdf extends AnywhereView
             'orientation' => 'landscape',
             'paper' => 'A4',
             'requesttype' => 'POST',
+            'requestsample' => json_encode(array(
+                array("nama" => "Nama", "width" => 15),
+                array("umur" => "Umur", "width" => 15),
+                array("dob" => "Tempat, Tanggal Lahir", "width" => 15),
+                array("hobi" => "Hobi", "width" => 15),
+                array("alamat" => "Alamat", "width" => 15)
+            ), JSON_PRETTY_PRINT),
         );
 
         $pdfID = PdfModel::NewPdfPage($arrayData);
@@ -244,7 +251,6 @@ class pdf extends AnywhereView
     {
         $pdfRender = PdfModel::GetPdfRender($api_key, $pdfId)[0];
 
-
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];
         $this->orientation = $pdfRender['orientation'];
@@ -278,7 +284,7 @@ class pdf extends AnywhereView
         header("Author: Anywhere 0.1");
         header('Content-Type: application/pdf');
 
-        $this->dompdf->stream($this->reportname, array("Attachment" => 0));
+        $this->dompdf->stream($this->reportname . '.pdf', array("Attachment" => 0));
         exit();
     }
 
@@ -358,10 +364,10 @@ class pdf extends AnywhereView
         $this->dompdf->render();
 
         if ($this->outputmode == 'Inline') {
-            $this->dompdf->stream($this->reportname, array("Attachment" => 0));
+            $this->dompdf->stream($this->reportname . '.pdf', array("Attachment" => 0));
         }
         if ($this->outputmode == 'Download') {
-            $this->dompdf->stream($this->reportname, array("Attachment" => 1));
+            $this->dompdf->stream($this->reportname . '.pdf', array("Attachment" => 1));
         }
         exit();
     }

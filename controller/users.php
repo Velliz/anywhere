@@ -18,6 +18,7 @@
 
 namespace controller;
 
+use model\ExcelModel;
 use plugins\auth\AnywhereAuthenticator;
 use model\ImageModel;
 use model\MailModel;
@@ -44,6 +45,7 @@ class users extends AnywhereView
         $vars['PDFLists'] = PdfModel::GetPdfLists($vars['ID']);
         $vars['MAILLists'] = MailModel::GetMailLists($vars['ID']);
         $vars['IMAGELists'] = ImageModel::GetImageLists($vars['ID']);
+        $vars['EXCELLists'] = ExcelModel::GetExcelLists($vars['ID']);
         return $vars;
     }
 

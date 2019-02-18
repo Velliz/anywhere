@@ -142,7 +142,7 @@ TAIL;
                         'url' => 'http://localhost/anywhere/qr/render?data=abcdefghijklmnopqrstuvwxyz'
                     ),
                 )
-            )),
+            ), JSON_PRETTY_PRINT),
         );
 
         $mailID = MailModel::NewMailPage($arrayData);
