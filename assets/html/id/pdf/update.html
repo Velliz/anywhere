@@ -114,6 +114,8 @@
     var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
         lineNumbers: true,
         theme: "night",
+        name: "htmlmixed",
+        mode: "htmlmixed",
         extraKeys: {
             "F11": function (cm) {
                 cm.setOption("fullScreen", !cm.getOption("fullScreen"));
@@ -126,6 +128,8 @@
     var external = CodeMirror.fromTextArea(document.getElementById("cssexternal"), {
         lineNumbers: true,
         theme: "night",
+        name: "htmlmixed",
+        mode: "htmlmixed",
         extraKeys: {
             "F11": function (cm) {
                 cm.setOption("fullScreen", !cm.getOption("fullScreen"));

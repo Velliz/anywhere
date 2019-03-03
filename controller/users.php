@@ -30,6 +30,7 @@ use pukoframework\auth\Session;
  * Class users
  * @package controller
  * #Master master.html
+ * #Value PageTitle Profil
  */
 class users extends AnywhereView
 {

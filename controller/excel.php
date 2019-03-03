@@ -33,6 +33,7 @@ use pukoframework\Framework;
  *
  * #ClearOutput false
  * #Master master.html
+ * #Value PageTitle Excel Template
  */
 class excel extends AnywhereView
 {
@@ -98,6 +99,7 @@ class excel extends AnywhereView
      * @return bool
      * @throws \Exception
      * #Auth session true
+     * #Master master-codes.html
      */
     public function update($id)
     {

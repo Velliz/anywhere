@@ -32,6 +32,7 @@ use pukoframework\Request;
  *
  * #ClearOutput false
  * #Master master.html
+ * #Value PageTitle Image Template
  */
 class images extends AnywhereView
 {
@@ -73,6 +74,7 @@ class images extends AnywhereView
      * @throws Exception
      *
      * #Auth session true
+     * #Master master-codes.html
      */
     public function Update($id)
     {

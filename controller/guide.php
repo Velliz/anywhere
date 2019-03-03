@@ -26,6 +26,7 @@ use pukoframework\auth\Session;
  * @package controller
  *
  * #Master master.html
+ * #Value PageTitle Guide
  */
 class guide extends AnywhereView
 {

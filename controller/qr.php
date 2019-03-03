@@ -28,6 +28,7 @@ use pukoframework\Request;
  * Class qr
  * @package controller
  * #Master master.html
+ * #Value PageTitle QR Codes
  */
 class qr extends AnywhereView
 {

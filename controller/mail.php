@@ -37,6 +37,7 @@ use pukoframework\Response;
  * #ClearOutput false
  * #ClearOutput value false
  * #Master master.html
+ * #Value PageTitle Email Template
  */
 class mail extends AnywhereView
 {

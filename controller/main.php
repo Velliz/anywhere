@@ -30,6 +30,7 @@ use pukoframework\Request;
  * Class main
  * @package controller
  * #Master master.html
+ * #Value PageTitle Welcome
  */
 class main extends AnywhereView
 {
@@ -41,14 +42,7 @@ class main extends AnywhereView
      */
     public function main()
     {
-        if (Session::Is()) {
-            $data['IsSessionBlock'] = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-        } else {
-            $data['IsLoginBlock'] = array(
-                'login' => false
-            );
-        }
-        return $data;
+
     }
 
     /**

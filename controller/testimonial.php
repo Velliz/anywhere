@@ -24,6 +24,7 @@ use plugins\controller\AnywhereView;
  * Class testimonial
  * @package controller
  * #Master master.html
+ * #Value PageTitle Testimoni
  */
 class testimonial extends AnywhereView
 {

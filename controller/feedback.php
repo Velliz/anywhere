@@ -24,6 +24,7 @@ use plugins\controller\AnywhereView;
  * @package controller
  *
  * #Master master.html
+ * #Value PageTitle Feedbacks
  */
 class feedback extends AnywhereView
 {

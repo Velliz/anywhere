@@ -53,7 +53,7 @@ class api extends Service
                 'placeholderfile' => $tmp_name
             );
 
-            $id = ImageModel::UpdateImagePage(array('IMAGEID' => $id), $input);
+            $id = ImageModel::UpdateImagePage(array('IMAGEID' => $id), $input, false);
             $data['Image'] = ImageModel::GetImageAttribute($id);
 
             return $data;
@@ -68,7 +68,7 @@ class api extends Service
                 'requestsamplefile' => $tmp_name
             );
 
-            $id = ImageModel::UpdateImagePage(array('IMAGEID' => $id), $input);
+            $id = ImageModel::UpdateImagePage(array('IMAGEID' => $id), $input, false);
             $data['Image'] = ImageModel::GetImageAttribute($id);
 
             return $data;

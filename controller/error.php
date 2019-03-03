@@ -9,6 +9,7 @@ use plugins\controller\AnywhereView;
  * @package controller
  *
  * #Master master.html
+ * #Value PageTitle Error
  */
 class error extends AnywhereView
 {

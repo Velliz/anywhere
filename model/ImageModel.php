@@ -1,4 +1,5 @@
 <?php
+
 namespace model;
 
 use pukoframework\pda\DBI;
@@ -11,14 +12,14 @@ class ImageModel
             ->GetData($userID);
     }
 
-    public static function NewImagePage($arrayData)
+    public static function NewImagePage($arrayData, $binary = false)
     {
-        return DBI::Prepare('images')->Save($arrayData);
+        return DBI::Prepare('images')->Save($arrayData, $binary);
     }
 
-    public static function UpdateImagePage($imageID, $dataUpdate)
+    public static function UpdateImagePage($imageID, $dataUpdate, $binary = false)
     {
-        return DBI::Prepare('images')->Update($imageID, $dataUpdate);
+        return DBI::Prepare('images')->Update($imageID, $dataUpdate, $binary);
     }
 
     public static function GetImagePage($imageID)

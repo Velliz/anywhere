@@ -24,6 +24,7 @@ use plugins\controller\AnywhereView;
  * @package controller
  * #Auth session true
  * #Master master.html
+ * #Value PageTitle Word Template
  */
 class word extends AnywhereView
 {

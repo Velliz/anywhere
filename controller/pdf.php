@@ -34,6 +34,7 @@ use pukoframework\Response;
  *
  * #ClearOutput false
  * #Master master.html
+ * #Value PageTitle PDF Templates
  */
 class pdf extends AnywhereView
 {
