@@ -23,6 +23,7 @@ use plugins\controller\AnywhereView;
  * Class word
  * @package controller
  * #Auth session true
+ * #Master master.html
  */
 class word extends AnywhereView
 {

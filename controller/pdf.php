@@ -33,7 +33,7 @@ use pukoframework\Response;
  * @package controller
  *
  * #ClearOutput false
- * #Master master-pdf.html
+ * #Master master.html
  */
 class pdf extends AnywhereView
 {
@@ -113,6 +113,7 @@ class pdf extends AnywhereView
      * @return bool
      * #Auth session true
      * @throws \Exception
+     * #Master master-codes.html
      */
     public function Update($id)
     {
@@ -190,6 +191,7 @@ class pdf extends AnywhereView
      * #ClearOutput comment false
      * #Auth session true
      * @throws \Exception
+     * #Master master-codes.html
      */
     public function Html($id_pdf)
     {
@@ -221,6 +223,7 @@ class pdf extends AnywhereView
      * #ClearOutput comment false
      * #Auth session true
      * @throws \Exception
+     * #Master master-codes.html
      */
     public function Style($id_pdf)
     {

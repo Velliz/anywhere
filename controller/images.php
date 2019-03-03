@@ -31,7 +31,7 @@ use pukoframework\Request;
  * @package controller
  *
  * #ClearOutput false
- * #Master master-images.html
+ * #Master master.html
  */
 class images extends AnywhereView
 {

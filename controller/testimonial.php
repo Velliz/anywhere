@@ -23,7 +23,7 @@ use plugins\controller\AnywhereView;
 /**
  * Class testimonial
  * @package controller
- * #Master master-testi.html
+ * #Master master.html
  */
 class testimonial extends AnywhereView
 {

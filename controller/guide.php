@@ -25,7 +25,7 @@ use pukoframework\auth\Session;
  * Class guide
  * @package controller
  *
- * #Master master-guide.html
+ * #Master master.html
  */
 class guide extends AnywhereView
 {

@@ -273,7 +273,7 @@
             ]
         ],
         "api/placeholder" => [
-            "controller" => "api",
+            "controller" => "api\\api",
             "function" => "placeholder",
             "accept" => [
                 "GET",
@@ -281,7 +281,7 @@
             ]
         ],
         "api/getplaceholder/{?}/{?}" => [
-            "controller" => "api",
+            "controller" => "api\\api",
             "function" => "getplaceholder",
             "accept" => [
                 "GET",

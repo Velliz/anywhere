@@ -29,7 +29,7 @@ use pukoframework\Request;
 /**
  * Class main
  * @package controller
- * #Master master-main.html
+ * #Master master.html
  */
 class main extends AnywhereView
 {

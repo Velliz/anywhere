@@ -32,7 +32,7 @@ use pukoframework\Framework;
  * @package controller
  *
  * #ClearOutput false
- * #Master master-excel.html
+ * #Master master.html
  */
 class excel extends AnywhereView
 {

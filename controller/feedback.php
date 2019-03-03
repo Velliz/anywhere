@@ -23,7 +23,7 @@ use plugins\controller\AnywhereView;
  * Class feedback
  * @package controller
  *
- * #Master master-feedback.html
+ * #Master master.html
  */
 class feedback extends AnywhereView
 {

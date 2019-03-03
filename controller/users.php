@@ -29,7 +29,7 @@ use pukoframework\auth\Session;
 /**
  * Class users
  * @package controller
- * #Master master-user.html
+ * #Master master.html
  */
 class users extends AnywhereView
 {

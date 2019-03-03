@@ -8,7 +8,7 @@ use plugins\controller\AnywhereView;
  * Class error
  * @package controller
  *
- * #Master master-images.html
+ * #Master master.html
  */
 class error extends AnywhereView
 {

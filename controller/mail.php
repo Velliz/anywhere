@@ -36,7 +36,7 @@ use pukoframework\Response;
  *
  * #ClearOutput false
  * #ClearOutput value false
- * #Master master-mail.html
+ * #Master master.html
  */
 class mail extends AnywhereView
 {
@@ -157,6 +157,7 @@ TAIL;
      *
      * #Auth session true
      * @throws \Exception
+     * #Master master-codes.html
      */
     public function Update($id)
     {
@@ -226,6 +227,7 @@ TAIL;
      *
      * #Auth session true
      * @throws \Exception
+     * #Master master-codes.html
      */
     public function Html($id_mail)
     {
@@ -254,6 +256,7 @@ TAIL;
      *
      * #Auth session true
      * @throws \Exception
+     * #Master master-codes.html
      */
     public function Style($id_mail)
     {

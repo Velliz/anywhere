@@ -27,7 +27,7 @@ use pukoframework\Request;
 /**
  * Class qr
  * @package controller
- * #Master master-qr.html
+ * #Master master.html
  */
 class qr extends AnywhereView
 {
