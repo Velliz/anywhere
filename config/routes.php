@@ -192,6 +192,38 @@
                 "POST"
             ]
         ],
+        "word/main" => [
+            "controller" => "word",
+            "function" => "main",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/update/{?}" => [
+            "controller" => "word",
+            "function" => "update",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/render/{?}/{?}" => [
+            "controller" => "word",
+            "function" => "render",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/coderender/{?}/{?}" => [
+            "controller" => "word",
+            "function" => "coderender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "mail/main" => [
             "controller" => "mail",
             "function" => "main",
@@ -273,7 +305,7 @@
             ]
         ],
         "api/placeholder" => [
-            "controller" => "api\\api",
+            "controller" => "api\\image",
             "function" => "placeholder",
             "accept" => [
                 "GET",
@@ -281,8 +313,24 @@
             ]
         ],
         "api/getplaceholder/{?}/{?}" => [
-            "controller" => "api\\api",
+            "controller" => "api\\image",
             "function" => "getplaceholder",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "api/upload/wordtemplate" => [
+            "controller" => "api\\word",
+            "function" => "wordtemplate",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "api/upload/wordplaceholder/{?}" => [
+            "controller" => "api\\word",
+            "function" => "placeholder",
             "accept" => [
                 "GET",
                 "POST"

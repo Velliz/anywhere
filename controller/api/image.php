@@ -26,7 +26,7 @@ use pukoframework\Request;
  * Class api
  * @package controller
  */
-class api extends Service
+class image extends Service
 {
 
     #region image service

@@ -38,9 +38,24 @@ use pukoframework\Framework;
 class excel extends AnywhereView
 {
 
+    /**
+     * @var string
+     */
     var $excelname = "";
+
+    /**
+     * @var array
+     */
     var $columnspecs = array();
+
+    /**
+     * @var array
+     */
     var $dataspecs = array();
+
+    /**
+     * @var string
+     */
     var $requesttype = "POST";
 
     /**
@@ -88,8 +103,8 @@ class excel extends AnywhereView
             'requesttype' => 'POST',
         );
 
-        $pdfID = ExcelModel::NewExcelPage($arrayData);
-        $dataEXCEL = ExcelModel::GetExcelPage($pdfID)[0];
+        $excelID = ExcelModel::NewExcelPage($arrayData);
+        $dataEXCEL = ExcelModel::GetExcelPage($excelID)[0];
 
         $this->RedirectTo('update/' . $dataEXCEL['EXCELID']);
     }
