@@ -19,6 +19,8 @@
 namespace controller;
 
 use model\WordModel;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
 use plugins\auth\AnywhereAuthenticator;
 use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
@@ -131,14 +133,43 @@ class word extends AnywhereView
         return $dataWORD;
     }
 
+    /**
+     * @param $api_key
+     * @param $excelId
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     */
     public function render($api_key, $excelId)
     {
+        $wordRender = WordModel::GetWordRender($api_key, $excelId)[0];
 
+        $this->wordname = $wordRender['wordname'];
+        $this->columnspecs = json_decode($wordRender['columnspecs'], true);
+        $this->dataspecs = json_decode($wordRender['dataspecs'], true);
+        $this->requesttype = $wordRender['requesttype'];
+
+        $phpWord = new PhpWord();
+
+        //todo: generate word files
+
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save($this->wordname . '.docx');
     }
 
     public function coderender($api_key, $excelId)
     {
+        $wordRender = WordModel::GetWordRender($api_key, $excelId)[0];
 
+        $this->wordname = $wordRender['wordname'];
+        $this->columnspecs = json_decode($wordRender['columnspecs'], true);
+        $this->dataspecs = json_decode($wordRender['dataspecs'], true);
+        $this->requesttype = $wordRender['requesttype'];
+
+        $phpWord = new PhpWord();
+
+        //todo: generate test word files
+
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save($this->wordname . '.docx');
     }
 
 }
