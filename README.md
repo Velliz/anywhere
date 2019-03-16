@@ -3,7 +3,8 @@
 Anywhere is Output as-a Service (OAAS) platform to simplify your output and reduce your effort in coding. 
 Anywhere basic concept is by using HTML and CSS for layouting the output and you supply it later with JSON 
 to display data and Anywhere generating the output for you.
-Until the BETA version, supported feature of **Anywhere** is:
+
+### Features
 
 * PDF output
 * MAIL output
@@ -23,12 +24,12 @@ And another feature on going listed on `TODO.md` files.
 * Run it:
 
 ```text
-php puko serve 9000
+php puko serve <port_number>
 ```
 
 ### Documentation
 
-Visit `gh-pages` to see [the docs](http://velliz.github.io/anywhere/)
+Visit [the docs](https://velliz.github.io/anydocs/)
 
 ### About
 
