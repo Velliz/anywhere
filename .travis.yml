@@ -11,7 +11,7 @@ deploy:
   script:
     - export IMAGE_NAME=diditvelliz/anywhere:$TRAVIS_TAG
     - docker build -t $IMAGE_NAME .
-    - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+    - echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin
     - docker push $IMAGE_NAME
   on:
     tags: true
