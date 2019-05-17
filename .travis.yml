@@ -8,15 +8,11 @@ before_install:
 
 deploy:
   provider: script
-  script:
-    - export IMAGE_NAME=diditvelliz/anywhere
-    - docker build -t $IMAGE_NAME .
-    - echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin
-    - docker push $IMAGE_NAME
+  script: bash docker_push
   on:
     tags: true
 
 notifications:
   email: "diditvelliz@gmail.com"
   on_success: never
-  on_failure: always
+on_failure: always
