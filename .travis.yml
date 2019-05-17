@@ -8,7 +8,7 @@ before_install:
 
 deploy:
   provider: script
-  script: bash docker_push
+  script: bash docker_push production $TRAVIS_TAG
   on:
     branch: master
     tags: true
