@@ -15,8 +15,7 @@
         "dompdf/dompdf": "v0.8.1",
         "aferrandini/phpqrcode": "1.0.1",
         "phpmailer/phpmailer": "~6.0",
-        "phpoffice/phpspreadsheet": "v1.6.*",
-        "phpoffice/phpword": "v0.16.*"
+        "phpoffice/phpspreadsheet": "dev-master"
     },
     "require-dev": {
         "puko/console": "dev-master",
