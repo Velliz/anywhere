@@ -8,7 +8,11 @@ before_install:
 
 deploy:
   provider: script
-  script: bash docker_push production $TRAVIS_TAG
+  script:
+    - export IMAGE_NAME=diditvelliz/anywhere:$TRAVIS_TAG
+    - docker build -t $IMAGE_NAME .
+    - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+    - docker push $IMAGE_NAME
   on:
     branch: master
     tags: true
