@@ -27,6 +27,34 @@ And another feature on going listed on `TODO.md` files.
 php puko serve <port_number>
 ```
 
+### Docker-compose
+
+```xaml
+anywhere:
+    build: ./anywhere
+    container_name: anywhere
+    ports:
+        - '80:80'
+        - '4000:443'
+    environment:
+        SECRET_KEY: RANDOM_STRING_HERE
+        HOOK: http://10.15.104.99/notify/gateway
+        SLACK: https://hooks.slack.com/services/T029KSKLQ/BDQJL0JS1/000000000
+        DB_TYPE: mysql
+        DB_HOST: 172.17.0.1
+        DB_USER: root
+        DB_PASS: root
+        DB_NAME: master
+        DB_PORT: 3306
+        DB_CACHE: 'false'
+        INSTALLED: false
+        LIMITATIONS: 100
+    volumes:
+        - /home/anywhere:/var/www/html
+    networks:
+        - services
+```
+
 ### Documentation
 
 Visit [the docs](https://velliz.github.io/anydocs/)

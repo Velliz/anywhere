@@ -1,6 +1,0 @@
-<?php
-
-require 'vendor/autoload.php';
-
-$console = new \pukoconsole\Console(__DIR__, $_SERVER['argv']);
-echo $console->Execute();
