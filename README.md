@@ -13,32 +13,38 @@ to display data and Anywhere generating the output for you.
 
 And another feature on going listed on `TODO.md` files.
 
+### Requirement
+
+* PHP >= 7.0
+* MariaDB
+* gnu-libiconv (extensions)
+* gd (extensions)
+* mbstring (extensions)
+
 ### Install
 
-* Clone this repository
+**source code**
 
-* Setup the mysql/mariadb database from `bootstrap/anywhere.sql`
-
-* Configure the database connection under `config/database.php`
-
-* Run it:
-
-```text
-php puko serve <port_number>
+```bash
+git clone https://github.com/Velliz/anywhere.git
+cd anywhere
+php puko generate db
+php puko serve 4000
 ```
 
-### Docker-compose
+open your `http://localhost:4000/`
+
+**docker-compose**
 
 ```xaml
 anywhere:
-    build: ./anywhere
-    container_name: anywhere
+    image: diditvelliz/anywhere
     ports:
         - '80:80'
         - '4000:443'
     environment:
         SECRET_KEY: RANDOM_STRING_HERE
-        HOOK: http://10.15.104.99/notify/gateway
+        HOOK: http://10.15.104.99/notify/anywhere
         SLACK: https://hooks.slack.com/services/T029KSKLQ/BDQJL0JS1/000000000
         DB_TYPE: mysql
         DB_HOST: 172.17.0.1
@@ -49,8 +55,6 @@ anywhere:
         DB_CACHE: 'false'
         INSTALLED: false
         LIMITATIONS: 100
-    volumes:
-        - /home/anywhere:/var/www/html
     networks:
         - services
 ```
