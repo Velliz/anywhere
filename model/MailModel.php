@@ -1,9 +1,15 @@
 <?php
+
 namespace model;
 
+use plugins\model\mail;
 use pukoframework\pda\DBI;
 
-class MailModel
+/**
+ * Class MailModel
+ * @package model
+ */
+class MailModel extends mail
 {
 
     public static function CountMailUser($userID)

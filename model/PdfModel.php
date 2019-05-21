@@ -2,9 +2,14 @@
 
 namespace model;
 
+use plugins\model\pdf;
 use pukoframework\pda\DBI;
 
-class PdfModel
+/**
+ * Class PdfModel
+ * @package model
+ */
+class PdfModel extends pdf
 {
     public static function CountPDFUser($userID)
     {

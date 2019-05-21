@@ -2,10 +2,14 @@
 
 namespace model;
 
-
+use plugins\model\feedback;
 use pukoframework\pda\DBI;
 
-class FeedbackModel
+/**
+ * Class FeedbackModel
+ * @package model
+ */
+class FeedbackModel extends feedback
 {
 
     public static function Create($arrayData)

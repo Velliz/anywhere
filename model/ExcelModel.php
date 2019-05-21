@@ -2,13 +2,14 @@
 
 namespace model;
 
+use plugins\model\excel;
 use pukoframework\pda\DBI;
 
 /**
  * Class ExcelModel
  * @package model
  */
-class ExcelModel
+class ExcelModel extends excel
 {
 
     public static function CountExcelUser($userID)

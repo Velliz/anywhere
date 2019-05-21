@@ -1,13 +1,15 @@
 <?php
 
 namespace model;
+
+use controller\api\word;
 use pukoframework\pda\DBI;
 
 /**
  * Class WordModel
  * @package model
  */
-class WordModel
+class WordModel extends word
 {
 
     public static function CountWordUser($userID)

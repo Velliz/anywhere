@@ -1,9 +1,14 @@
 <?php
+
 namespace model;
 
 use pukoframework\pda\DBI;
 
-class LogMail
+/**
+ * Class LogMail
+ * @package model
+ */
+class LogMail extends \plugins\model\logmail
 {
     public static function Create($arrayData)
     {

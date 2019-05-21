@@ -2,9 +2,14 @@
 
 namespace model;
 
+use plugins\model\testimonial;
 use pukoframework\pda\DBI;
 
-class TestimonialModel
+/**
+ * Class TestimonialModel
+ * @package model
+ */
+class TestimonialModel extends testimonial
 {
     public static function Create($arrayData)
     {

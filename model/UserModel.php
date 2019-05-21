@@ -2,9 +2,14 @@
 
 namespace model;
 
+use plugins\model\users;
 use pukoframework\pda\DBI;
 
-class UserModel
+/**
+ * Class UserModel
+ * @package model
+ */
+class UserModel extends users
 {
 
     public static function GetUser($username, $password)

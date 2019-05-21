@@ -2,9 +2,14 @@
 
 namespace model;
 
+use plugins\model\images;
 use pukoframework\pda\DBI;
 
-class ImageModel
+/**
+ * Class ImageModel
+ * @package model
+ */
+class ImageModel extends images
 {
     public static function CountImageUser($userID)
     {
