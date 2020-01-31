@@ -277,7 +277,7 @@ class pdf extends AnywhereView
 
         $render->SetValue(json_decode($pdfRender['requestsample'], true));
         $render->SetHtml($htmlFactory, true);
-        $template = $render->Output(null, Pte::VIEW_HTML);
+        $template = $render->Output($this, Pte::VIEW_HTML);
 
         $this->dompdf->setPaper($this->paper, $this->orientation);
         $this->dompdf->loadHtml($template);
@@ -356,7 +356,7 @@ class pdf extends AnywhereView
         }
         $render->SetValue($coreData);
         $render->SetHtml($htmlFactory, true);
-        $template = $render->Output(null, Pte::VIEW_HTML);
+        $template = $render->Output($this, Pte::VIEW_HTML);
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");

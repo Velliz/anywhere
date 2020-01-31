@@ -138,3 +138,7 @@ fieldset[disabled] .navbar-blue .btn-link:hover,
 fieldset[disabled] .navbar-blue .btn-link:focus {
     color: #444;
 }
+
+.content-main {
+    margin-top: 50px;
+}

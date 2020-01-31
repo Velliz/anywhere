@@ -18,6 +18,7 @@
 
 namespace controller;
 
+use Exception;
 use PHPQRCode\QRcode;
 use plugins\auth\AnywhereAuthenticator;
 use plugins\controller\AnywhereView;
@@ -28,15 +29,14 @@ use pukoframework\Request;
  * Class qr
  * @package controller
  * #Master master.html
- * #Value PageTitle QR Codes
+ * #Value PageTitle QR Code
  */
 class qr extends AnywhereView
 {
 
     /**
-     * @return bool
-     * #Auth session true
-     * @throws \Exception
+     * @return mixed
+     * @throws Exception
      */
     public function main()
     {

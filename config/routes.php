@@ -335,6 +335,13 @@
                 "GET",
                 "POST"
             ]
+        ],
+        "constant" => [
+            "controller" => "constant",
+            "function" => "manage",
+            "accept" => [
+                "GET"
+            ]
         ]
     ],
     "error" => [

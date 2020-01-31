@@ -60,6 +60,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{!url()}qr">QR Code Service</a></li>
+                        <hr style="margin: 3px"/>
+                        <li><a href="{!url()}constant">Global Variable Service</a></li>
                     </ul>
                 </li>
 
@@ -93,7 +95,9 @@
     </div>
 </nav>
 
-{CONTENT}
+<div class="content-main">
+    {CONTENT}
+</div>
 
 <!-- Footer -->
 <footer>
@@ -123,6 +127,7 @@
 
 <script src="{!url()}assets/global/js/jquery.js"></script>
 <script src="{!url()}assets/global/js/bootstrap.min.js"></script>
+
 {!part(css)}
 {!part(js)}
 
