@@ -29,7 +29,7 @@ RUN chmod -R 777 /var/www/html
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-RUN composer install
+RUN composer install --ignore-platform-reqs
 
 # Fix iconv
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community gnu-libiconv
