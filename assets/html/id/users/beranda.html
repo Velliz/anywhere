@@ -3,13 +3,14 @@
         <h3 class="text-center">Document Templates</h3>
         <div class="col-md-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">PDF Templates</div>
+                <div class="panel-heading">PDF Templates ({!LengthPDF})</div>
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group text-center">
                             <!--{!PDFLists}-->
                             <li class="list-group-item">
-                                <a style="width: 100%;" href="{!url()}pdf/update/{!PDFID}" class="btn btn-danger">{!reportname}</a>
+                                <a href="{!url()}pdf/update/{!PDFID}" class="btn btn-default">{!reportname}</a>
+                                <a href="{!url()}pdf/html/{!PDFID}" target="_blank" class="btn btn-default"><i class="fa fa-external-link"></i></a>
                             </li>
                             <!--{/PDFLists}-->
                             <li class="list-group-item">
@@ -22,13 +23,13 @@
         </div>
         <div class="col-md-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">Excel Templates</div>
+                <div class="panel-heading">Excel Templates ({!LengthEXCEL})</div>
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group text-center">
                             <!--{!EXCELLists}-->
                             <li class="list-group-item">
-                                <a style="width: 100%;" href="{!url()}excel/update/{!EXCELID}" class="btn btn-danger">{!excelname}</a>
+                                <a href="{!url()}excel/update/{!EXCELID}" class="btn btn-default">{!excelname}</a>
                             </li>
                             <!--{/EXCELLists}-->
                             <li class="list-group-item">
@@ -41,12 +42,12 @@
         </div>
         <div class="col-md-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">Word Templates</div>
+                <div class="panel-heading">Word Templates ({!LengthWORD})</div>
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group text-center">
                             <li class="list-group-item">
-                                <a href="#" class="btn btn-primary">Comming Soon</a>
+                                <a href="#" class="btn btn-danger" disabled>Comming Soon</a>
                             </li>
                         </ul>
                     </div>
@@ -59,13 +60,13 @@
         <h3 class="text-center">Image Templates</h3>
         <div class="col-md-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">Images Templates</div>
+                <div class="panel-heading">Images Templates ({!LengthIMAGE})</div>
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group text-center">
                             <!--{!IMAGELists}-->
                             <li class="list-group-item">
-                                <a style="width: 100%;" href="{!url()}images/update/{!IMAGEID}" class="btn btn-danger">{!imagename}</a>
+                                <a style="width: 100%;" href="{!url()}images/update/{!IMAGEID}" class="btn btn-default">{!imagename}</a>
                             </li>
                             <!--{/IMAGELists}-->
                             <li class="list-group-item">
@@ -79,16 +80,17 @@
     </div>
     <hr>
     <div class="row">
-        <h3 class="text-center">Notification Templates</h3>
+        <h3 class="text-center">Messages Templates</h3>
         <div class="col-md-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">Mail Templates</div>
+                <div class="panel-heading">Mail Templates ({!LengthMAIL})</div>
                 <div class="panel-body">
                     <div class="panel-primary">
                         <ul class="list-group text-center">
                             <!--{!MAILLists}-->
                             <li class="list-group-item">
-                                <a style="width: 100%;" href="{!url()}mail/update/{!MAILID}" class="btn btn-danger">{!mailname}</a>
+                                <a href="{!url()}mail/update/{!MAILID}" class="btn btn-default">{!mailname}</a>
+                                <a href="{!url()}mail/html/{!MAILID}" target="_blank" class="btn btn-default"><i class="fa fa-external-link"></i></a>
                             </li>
                             <!--{/MAILLists}-->
                             <li class="list-group-item">

@@ -214,6 +214,11 @@ class pdf extends AnywhereView
         }
         $file['html'] = $file['pdf'][0]['html'];
 
+        $file['designer'] = [];
+        $file['style'] = [
+            'ID' => $id_pdf
+        ];
+
         return $file;
     }
 
@@ -245,6 +250,12 @@ class pdf extends AnywhereView
             $file['pdf'][$key] = $val;
         }
         $file['css'] = $file['pdf'][0]['css'];
+
+        $file['designer'] = [
+            'ID' => $id_pdf
+        ];
+        $file['style'] = [];
+
         return $file;
     }
 

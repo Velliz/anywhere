@@ -47,6 +47,13 @@ class users extends AnywhereView
         $vars['MAILLists'] = MailModel::GetMailLists($vars['ID']);
         $vars['IMAGELists'] = ImageModel::GetImageLists($vars['ID']);
         $vars['EXCELLists'] = ExcelModel::GetExcelLists($vars['ID']);
+
+        $vars['LengthPDF'] = sizeof($vars['PDFLists']);
+        $vars['LengthMAIL'] = sizeof($vars['MAILLists']);
+        $vars['LengthIMAGE'] = sizeof($vars['IMAGELists']);
+        $vars['LengthEXCEL'] = sizeof($vars['EXCELLists']);
+        $vars['LengthWORD'] = 0;
+
         return $vars;
     }
 
