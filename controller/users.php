@@ -30,7 +30,6 @@ use pukoframework\auth\Session;
  * Class users
  * @package controller
  * #Master master.html
- * #Value PageTitle Profil
  */
 class users extends AnywhereView
 {
@@ -39,6 +38,7 @@ class users extends AnywhereView
      * @return bool
      * #Auth session true
      * @throws \Exception
+     * #Value PageTitle Beranda
      */
     public function beranda()
     {
@@ -54,6 +54,7 @@ class users extends AnywhereView
      * @return bool
      * #Auth session true
      * @throws \Exception
+     * #Value PageTitle Profil
      */
     public function profil()
     {
@@ -61,6 +62,9 @@ class users extends AnywhereView
         return $vars;
     }
 
+    /**
+     * #Value PageTitle Batas Template
+     */
     public function limitations()
     {
     }

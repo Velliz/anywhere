@@ -340,7 +340,8 @@
             "controller" => "constant",
             "function" => "manage",
             "accept" => [
-                "GET"
+                "GET",
+                "POST"
             ]
         ]
     ],

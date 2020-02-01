@@ -134,8 +134,10 @@ class pdf extends AnywhereView
             );
             $resultUpdate = PdfModel::UpdatePdfPage($arrayID, $arrayData);
 
-            if ($resultUpdate) $this->RedirectTo(Framework::$factory->getBase() . 'beranda');
-            $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
+            //$this->RedirectTo(Framework::$factory->getBase() . 'beranda');
+            if (!$resultUpdate) {
+                $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
+            }
         }
 
         $dataPDF = $session;

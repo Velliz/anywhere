@@ -109,8 +109,10 @@ class images extends AnywhereView
                     'requesturl' => $requesturl,
                 ));
 
-            if ($resultUpdate) $this->RedirectTo(Framework::$factory->getBase() . 'beranda');
-            $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
+            //$this->RedirectTo(Framework::$factory->getBase() . 'beranda');
+            if (!$resultUpdate) {
+                $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
+            }
         }
         $dataIMAGE = $session;
         $dataIMAGE['image'] = ImageModel::GetImagePage($id);

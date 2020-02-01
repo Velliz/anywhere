@@ -130,8 +130,10 @@ class excel extends AnywhereView
             );
             $resultUpdate = ExcelModel::UpdateExcelPage($arrayID, $arrayData);
 
-            if ($resultUpdate) $this->RedirectTo(Framework::$factory->getBase() . 'beranda');
-            $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
+            //$this->RedirectTo(Framework::$factory->getBase() . 'beranda');
+            if (!$resultUpdate) {
+                $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
+            }
         }
 
         $dataEXCEL = $session;

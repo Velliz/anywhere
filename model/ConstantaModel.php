@@ -26,4 +26,11 @@ class ConstantaModel extends constanta
         return $result;
     }
 
+    public static function IsKeyExists($userID, $key)
+    {
+        $sql = "SELECT * FROM constanta WHERE userID = @1 AND `keys` = @2;";
+        $result = DBI::Prepare($sql)->GetData($userID, $key);
+        return count($result) > 0;
+    }
+
 }

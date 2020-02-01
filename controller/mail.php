@@ -200,8 +200,10 @@ TAIL;
                     'cssexternal' => $_POST['cssexternal'],
                 ));
 
-            if ($resultUpdate) $this->RedirectTo(Framework::$factory->getBase() . 'beranda');
-            $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
+            //$this->RedirectTo(Framework::$factory->getBase() . 'beranda');
+            if (!$resultUpdate) {
+                $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
+            }
         }
         $dataMAIL = $session;
         $dataMAIL['mail'] = MailModel::GetMailPage($id);
