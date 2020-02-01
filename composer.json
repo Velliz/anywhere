@@ -1,7 +1,6 @@
 {
   "name": "velliz/anywhere",
   "description": "Pukoframework based Web Console that simplify data object transition state",
-  "type": "web console",
   "license": "MIT",
   "version": "1.1.6",
   "authors": [
