@@ -34,10 +34,9 @@ class constant extends AnywhereView
         switch (strtoupper($_SERVER['REQUEST_METHOD'])) {
             case 'POST':
 
+                $id = Request::Post('constID', '');
                 $key = Request::Post('key', '');
-                if ($key === '') {
-                    throw new Exception('key required!');
-                }
+
                 $val = Request::Post('val', '');
                 if ($val === '') {
                     throw new Exception('val required!');
@@ -45,6 +44,9 @@ class constant extends AnywhereView
                 $action = Request::Post('action', '');
 
                 if ($action === 'Save') {
+                    if ($key === '') {
+                        throw new Exception('key required!');
+                    }
 
                     $exists = ConstantaModel::IsKeyExists($session['ID'], $key);
                     if ($exists) {
@@ -52,12 +54,20 @@ class constant extends AnywhereView
                     }
                     $constanta = new constanta();
                     $constanta->userID = $session['ID'];
-                    $constanta->keys = $key;
-                    $constanta->values = $val;
+                    $constanta->uniquekey = $key;
+                    $constanta->constantaval = $val;
                     $constanta->save();
                 }
                 if ($action === 'Update') {
+                    if ($id === '') {
+                        throw new Exception('id required!');
+                    }
 
+                    $constanta = new constanta($id);
+                    $constanta->userID = $session['ID'];
+                    $constanta->uniquekey = $key;
+                    $constanta->constantaval = $val;
+                    $constanta->modify();
                 }
                 if ($action === 'Delete') {
 

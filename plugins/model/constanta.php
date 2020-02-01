@@ -24,14 +24,14 @@ class constanta extends Model
     var $userID = 0;
 
     /**
-     * #Column keys varchar(250) not null 
+     * #Column uniquekey varchar(250) not null
      */
-    var $keys = '';
+    var $uniquekey = '';
 
     /**
-     * #Column values text not null 
+     * #Column constantaval text not null
      */
-    var $values = '';
+    var $constantaval = '';
 
 
     public static function Create($data)
