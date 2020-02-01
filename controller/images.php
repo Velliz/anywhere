@@ -116,6 +116,9 @@ class images extends AnywhereView
         }
         $dataIMAGE = $session;
         $dataIMAGE['image'] = ImageModel::GetImagePage($id);
+
+        $dataIMAGE['PageTitle'] = $dataIMAGE['image'][0]['imagename'];
+
         foreach ($dataIMAGE['image'] as $key => $value) {
             $dataIMAGE['image'][$key]['apikey'] = $session['apikey'];
             switch ($value['requesttype']) {

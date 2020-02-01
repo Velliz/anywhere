@@ -143,6 +143,9 @@ class pdf extends AnywhereView
         $dataPDF = $session;
 
         $dataPDF['pdf'] = PdfModel::GetPdfPage($id);
+
+        $dataPDF['PageTitle'] = $dataPDF['pdf'][0]['reportname'];
+
         foreach ($dataPDF['pdf'] as $key => $value) {
             $dataPDF['pdf'][$key]['apikey'] = $session['apikey'];
             switch ($value['paper']) {
@@ -208,6 +211,9 @@ class pdf extends AnywhereView
         }
 
         $file['pdf'] = PdfModel::GetPdfPage($id_pdf);
+
+        $file['PageTitle'] = "[HTML] " . $file['pdf'][0]['reportname'];
+
         foreach ($file['pdf'] as $key => $val) {
             $val['apikey'] = $session['apikey'];
             $file['pdf'][$key] = $val;
@@ -245,6 +251,9 @@ class pdf extends AnywhereView
         }
 
         $file['pdf'] = PdfModel::GetPdfPage($id_pdf);
+
+        $file['PageTitle'] = "[CSS] " . $file['pdf'][0]['reportname'];
+
         foreach ($file['pdf'] as $key => $val) {
             $val['apikey'] = $session['apikey'];
             $file['pdf'][$key] = $val;

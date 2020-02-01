@@ -15,6 +15,7 @@
  * @since    Version 1.0.0
  *
  */
+
 namespace controller;
 
 use plugins\auth\AnywhereAuthenticator;
@@ -208,6 +209,8 @@ TAIL;
         $dataMAIL = $session;
         $dataMAIL['mail'] = MailModel::GetMailPage($id);
 
+        $dataMAIL['PageTitle'] = $dataMAIL['mail'][0]['mailname'];
+
         foreach ($dataMAIL['mail'] as $key => $value) {
             $dataMAIL['mail'][$key]['apikey'] = $session['apikey'];
             switch ($value['requesttype']) {
@@ -244,11 +247,19 @@ TAIL;
         }
 
         $file['mail'] = MailModel::GetMailPage($id_mail);
+
+        $file['PageTitle'] = "[HTML] " . $file['mail'][0]['mailname'];
+
         foreach ($file['mail'] as $key => $val) {
             $val['apikey'] = $session['apikey'];
             $file['mail'][$key] = $val;
         }
         $file['html'] = $file['mail'][0]['html'];
+
+        $file['designer'] = [];
+        $file['style'] = [
+            'ID' => $id_mail
+        ];
 
         return $file;
     }
@@ -273,11 +284,19 @@ TAIL;
         }
 
         $file['mail'] = MailModel::GetMailPage($id_mail);
+
+        $file['PageTitle'] = "[CSS] " . $file['mail'][0]['mailname'];
+
         foreach ($file['mail'] as $key => $val) {
             $val['apikey'] = $session['apikey'];
             $file['mail'][$key] = $val;
         }
         $file['css'] = $file['mail'][0]['css'];
+
+        $file['designer'] = [
+            'ID' => $id_mail
+        ];
+        $file['style'] = [];
 
         return $file;
     }
@@ -317,7 +336,7 @@ TAIL;
         $this->requestsample = $mailRender['requestsample'];
         $this->cssexternal = $mailRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle .$this->cssexternal . $this->html . $this->tail;
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->cssexternal . $this->html . $this->tail;
 
         $response = new Response();
         $response->useMasterLayout = false;
@@ -427,7 +446,7 @@ TAIL;
 
         if (isset($coreData['attachment']) && is_array($coreData['attachment'])) {
             foreach ($coreData['attachment'] as $key => $val) {
-				/*
+                /*
                 $fileData = apc_fetch($val->name, $cacheResult);
                 if ($cacheResult) {
                     $this->mail->addStringAttachment($fileData, $val->name);
@@ -436,8 +455,8 @@ TAIL;
                     apc_store($val->name, $fileData, Auth::EXPIRED_1_HOUR);
                     $this->mail->addStringAttachment($fileData, $val->name);
                 }
-				*/
-				$this->mail->addStringAttachment(file_get_contents($val->url), $val->name);
+                */
+                $this->mail->addStringAttachment(file_get_contents($val->url), $val->name);
             }
         }
 
@@ -449,7 +468,7 @@ TAIL;
             $render->SetMaster($response->htmlMaster);
         }
         $render->SetValue($coreData);
-        $render->SetHtml($htmlFactory,true);
+        $render->SetHtml($htmlFactory, true);
         $template = $render->Output(null, Pte::VIEW_HTML);
 
         $this->mail->Subject = $coreData['subject'];
@@ -496,8 +515,9 @@ TAIL;
      * @param string $str
      * @return string
      */
-    private function formatHtml2Text($str) {
+    private function formatHtml2Text($str)
+    {
 
-        return preg_replace('/\s{2,}/u',  "\n\r", $str) ;
+        return preg_replace('/\s{2,}/u', "\n\r", $str);
     }
 }

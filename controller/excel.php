@@ -139,6 +139,9 @@ class excel extends AnywhereView
         $dataEXCEL = $session;
 
         $dataEXCEL['excel'] = ExcelModel::GetExcelPage($id);
+
+        $dataEXCEL['PageTitle'] = $dataEXCEL['excel'][0]['excelname'];
+
         foreach ($dataEXCEL['excel'] as $key => $value) {
             $dataEXCEL['excel'][$key]['apikey'] = $session['apikey'];
             switch ($value['requesttype']) {
