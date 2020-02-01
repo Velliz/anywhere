@@ -32,7 +32,6 @@ class AnywhereAuthenticator implements Auth
 
     public function Logout()
     {
-        session_destroy();
     }
 
     public function GetLoginData($id, $permission)

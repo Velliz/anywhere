@@ -191,7 +191,6 @@ class main extends AnywhereView
 
     /**
      * #Template html false
-     * #Auth session true
      * @throws Exception
      */
     public function userlogout()
