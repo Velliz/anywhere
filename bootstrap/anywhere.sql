@@ -18,6 +18,18 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for constanta
+-- ----------------------------
+DROP TABLE IF EXISTS `constanta`;
+CREATE TABLE `constanta`  (
+  `constID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `uniquekey` varchar(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `constantaval` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  PRIMARY KEY (`constID`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for excel
 -- ----------------------------
 DROP TABLE IF EXISTS `excel`;
@@ -29,7 +41,7 @@ CREATE TABLE `excel`  (
   `dataspecs` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `requesttype` varchar(60) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`EXCELID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for feedback
@@ -70,7 +82,7 @@ CREATE TABLE `images`  (
   `requestsamplename` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `requestsamplefile` longblob NULL,
   PRIMARY KEY (`IMAGEID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for logmail
@@ -86,7 +98,7 @@ CREATE TABLE `logmail`  (
   `debuginfo` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `processingtime` double NULL DEFAULT NULL,
   PRIMARY KEY (`logid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for mail
@@ -108,11 +120,11 @@ CREATE TABLE `mail`  (
   `smtpauth` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `smtpsecure` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `requesttype` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `requesturl` varchar(155) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `requesturl` varchar(155) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `requestsample` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `cssexternal` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   PRIMARY KEY (`MAILID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for pdf
@@ -126,13 +138,13 @@ CREATE TABLE `pdf`  (
   `css` longblob NULL,
   `outputmode` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `paper` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `orientation` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `requesttype` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `requesturl` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `requestsample` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `orientation` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `requesttype` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `requesturl` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `requestsample` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `cssexternal` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   PRIMARY KEY (`PDFID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for status
@@ -173,22 +185,6 @@ CREATE TABLE `users`  (
   `apikey` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `statusID` int(11) NOT NULL,
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Table structure for word
--- ----------------------------
-DROP TABLE IF EXISTS `word`;
-CREATE TABLE `word`  (
-  `WORDID` int(11) NOT NULL AUTO_INCREMENT,
-  `userID` int(11) NOT NULL,
-  `wordname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `columnspecs` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `dataspecs` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `requesttype` varchar(60) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `placeholdername` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `placeholderfile` longblob NULL,
-  PRIMARY KEY (`WORDID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 SET FOREIGN_KEY_CHECKS = 1;
