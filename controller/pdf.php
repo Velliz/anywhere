@@ -18,6 +18,8 @@
 
 namespace controller;
 
+use model\LogPdf;
+use model\UserModel;
 use plugins\auth\AnywhereAuthenticator;
 use Dompdf\Options;
 use Dompdf\Dompdf;
@@ -318,7 +320,7 @@ class pdf extends AnywhereView
      * #Template master false
      * @param $api_key
      * @param $pdfID
-     * @throws \pte\exception\PteException
+     * @throws \Exception
      */
     public function Render($api_key, $pdfID)
     {
@@ -388,6 +390,16 @@ class pdf extends AnywhereView
         $this->dompdf->setPaper($this->paper, $this->orientation);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
+
+        $user = UserModel::UserIdByApiKey($api_key);
+        LogPdf::Create([
+            'PDFID' => $pdfID,
+            'userid' => ((int)$user > 0) ? $user : 0,
+            'sentat' => $this->GetServerDateTime(),
+            'jsondata' => json_encode($coreData, true),
+            'creatorinfo' => isset($_POST['creator']) ? $_POST['creator'] : null,
+            'processingtime' => $render->GetElapsedTime(),
+        ]);
 
         if ($this->outputmode == 'Inline') {
             $this->dompdf->stream($this->reportname . '.pdf', array("Attachment" => 0));
