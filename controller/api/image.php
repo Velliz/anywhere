@@ -53,7 +53,7 @@ class image extends Service
                 'placeholderfile' => $tmp_name
             );
 
-            $id = ImageModel::UpdateImagePage(array('IMAGEID' => $id), $input, false);
+            $id = ImageModel::UpdateImagePage(array('IMAGEID' => $id), $input, true);
             $data['Image'] = ImageModel::GetImageAttribute($id);
 
             return $data;
@@ -68,7 +68,7 @@ class image extends Service
                 'requestsamplefile' => $tmp_name
             );
 
-            $id = ImageModel::UpdateImagePage(array('IMAGEID' => $id), $input, false);
+            $id = ImageModel::UpdateImagePage(array('IMAGEID' => $id), $input, true);
             $data['Image'] = ImageModel::GetImageAttribute($id);
 
             return $data;
