@@ -25,7 +25,7 @@ WORKDIR /var/www/html
 COPY . /var/www/html/
 
 # Dir permissions
-RUN chmod -R 777 /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
@@ -34,10 +34,6 @@ RUN composer install --ignore-platform-reqs
 # Fix iconv
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
-
-RUN chmod 755 /var/www/html/vendor/dompdf/dompdf/lib/fonts
-
-USER admin
 
 EXPOSE 80 443
 
