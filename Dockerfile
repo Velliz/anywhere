@@ -38,6 +38,8 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 # Copy custom addition fonts
 COPY bootstrap/fonts/. /var/www/html/vendor/dompdf/dompdf/lib/fonts
 
+RUN chmod 755 /var/www/html/vendor/dompdf/dompdf/lib
+
 EXPOSE 80 443
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
