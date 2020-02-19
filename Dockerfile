@@ -35,10 +35,9 @@ RUN composer install --ignore-platform-reqs
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
-# Copy custom addition fonts
-COPY bootstrap/fonts/. /var/www/html/vendor/dompdf/dompdf/lib/fonts
+RUN chmod 755 /var/www/html/vendor/dompdf/dompdf/lib/fonts
 
-RUN chmod 755 /var/www/html/vendor/dompdf/dompdf/lib
+USER admin
 
 EXPOSE 80 443
 
