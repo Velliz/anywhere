@@ -35,6 +35,9 @@ RUN composer install --ignore-platform-reqs
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
+# Copy custom addition fonts
+COPY bootstrap/fonts/. /var/www/html/vendor/dompdf/dompdf/lib/fonts
+
 EXPOSE 80 443
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
