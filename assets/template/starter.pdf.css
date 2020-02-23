@@ -1,0 +1,29 @@
+#any-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 30px;
+}
+
+#any-table, #any-table td, #any-table th {
+    border: 1px solid black;
+    text-align: left;
+}
+
+#table-info {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+}
+
+th, td {
+    padding: 5px;
+    font-size: 11px;
+}
+
+caption {
+    margin: 10px;
+}
+
+.helvetica {
+    font-family: "Helvetica", serif;
+}

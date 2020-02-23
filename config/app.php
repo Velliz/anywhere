@@ -1,7 +1,7 @@
 <?php return [
     'const' => [
-        'INSTALLED' => $_SERVER['INSTALLED'],
-        'LIMITATIONS' => $_SERVER['LIMITATIONS'],
+        'INSTALLED' => true,
+        'LIMITATIONS' => 9999,
     ],
     'cache' => [
         'kind' => 'MEMCACHED',
@@ -11,13 +11,13 @@
     ],
     'logs' => [
         'slack' => [
-            'url' => $_SERVER['SLACK'],
+            'url' => '',
             'secure' => '',
             'username' => 'anywhere',
             'active' => false
         ],
         'hook' => [
-            'url' => $_SERVER['HOOK'],
+            'url' => '',
             'secure' => '',
             'username' => 'anywhere',
             'active' => false

@@ -95,6 +95,9 @@
             <br>
             <b>.json data sample</b>
             <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8">{!requestsample}</textarea>
+            <br><br>
+            <b>Custom PHP script</b>
+            <textarea style="resize: none; width: 100%;" id="phpscript" name="phpscript" rows="8">{!phpscript}</textarea>
             <br>
             <br>
             <p id="apiurl">API URL <a target="_blank" href="{!url()}pdf/render/{!apikey}/{!PDFID}">{!url()}pdf/render/{!apikey}/{!PDFID}</a></p>
@@ -132,6 +135,20 @@
         theme: "night",
         name: "htmlmixed",
         mode: "htmlmixed",
+        extraKeys: {
+            "F11": function (cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function (cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+        }
+    });
+    var phpscript = CodeMirror.fromTextArea(document.getElementById("phpscript"), {
+        lineNumbers: true,
+        theme: "night",
+        name: "php",
+        mode: "php",
         extraKeys: {
             "F11": function (cm) {
                 cm.setOption("fullScreen", !cm.getOption("fullScreen"));

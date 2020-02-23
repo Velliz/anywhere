@@ -59,6 +59,8 @@ class pdf extends AnywhereView
 
     private $head = "<!DOCTYPE html><html><body><style type='text/css'>";
     private $middle = "</style>";
+    private $php_head = "<script type='text/php'>";
+    private $php_tail = "</script>";
     private $tail = "</body></html>";
 
     public function __construct()
@@ -67,6 +69,7 @@ class pdf extends AnywhereView
         $options = new Options();
         $options->set('isRemoteEnabled', true);
         $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
         $this->dompdf = new DOMPDF($options);
     }
 
@@ -90,19 +93,32 @@ class pdf extends AnywhereView
         $arrayData = array(
             'userID' => $session['ID'],
             'reportname' => 'PDF-' . $snap_shoot . '.pdf',
-            'html' => '<div>Welcome to Anywhere!</div>',
-            'css' => 'body {}',
+            'requesturl' => '',
+            'css' => file_get_contents(Framework::$factory->getRoot() . '/assets/template/starter.pdf.css'),
+            'html' => file_get_contents(Framework::$factory->getRoot() . '/assets/template/starter.pdf.html'),
+            'phpscript' => file_get_contents(Framework::$factory->getRoot() . '/assets/template/starter.pdf.php'),
             'outputmode' => 'Inline',
-            'orientation' => 'landscape',
+            'orientation' => 'portrait',
             'paper' => 'A4',
             'requesttype' => 'POST',
-            'requestsample' => json_encode(array(
-                array("nama" => "Nama", "width" => 15),
-                array("umur" => "Umur", "width" => 15),
-                array("dob" => "Tempat, Tanggal Lahir", "width" => 15),
-                array("hobi" => "Hobi", "width" => 15),
-                array("alamat" => "Alamat", "width" => 15)
-            ), JSON_PRETTY_PRINT),
+            'requestsample' => json_encode([
+                "biodata" => [
+                    [
+                        "nama" => "Demo User",
+                        "umur" => "22",
+                        "dob" => "Jakarta, 21 Maret 1999",
+                        "hobi" => "Programming",
+                        "alamat" => "-",
+                    ],
+                    [
+                        "nama" => "Anywhere User",
+                        "umur" => "21",
+                        "dob" => "Jakarta, 02 Maret 1998",
+                        "hobi" => "Programming",
+                        "alamat" => "-",
+                    ]
+                ]
+            ], JSON_PRETTY_PRINT),
         );
 
         $pdfID = PdfModel::NewPdfPage($arrayData);
@@ -133,10 +149,10 @@ class pdf extends AnywhereView
                 'requesturl' => $_POST['requesturl'],
                 'requestsample' => $_POST['requestsample'],
                 'cssexternal' => $_POST['cssexternal'],
+                'phpscript' => $_POST['phpscript'],
             );
             $resultUpdate = PdfModel::UpdatePdfPage($arrayID, $arrayData);
 
-            //$this->RedirectTo(Framework::$factory->getBase() . 'beranda');
             if (!$resultUpdate) {
                 $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
             }
@@ -289,7 +305,10 @@ class pdf extends AnywhereView
         $this->requestsample = $pdfRender['requestsample'];
         $this->cssexternal = $pdfRender['cssexternal'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . $this->cssexternal . $this->html . $this->tail;
+        $script = $pdfRender['phpscript'];
+        $php_script = $this->php_head . $script . $this->php_tail;
+
+        $htmlFactory = $this->head . $this->css . $this->middle . $php_script . $this->cssexternal . $this->html . $this->tail;
 
         $response = new Response();
         $response->useMasterLayout = false;
@@ -337,7 +356,10 @@ class pdf extends AnywhereView
         $this->cssexternal = $pdfRender['cssexternal'];
         $this->requesturl = $pdfRender['requesturl'];
 
-        $htmlFactory = $this->head . $this->css . $this->middle . $this->cssexternal . $this->html . $this->tail;
+        $script = $pdfRender['phpscript'];
+        $php_script = $this->php_head . $script . $this->php_tail;
+
+        $htmlFactory = $this->head . $this->css . $this->middle . $php_script . $this->cssexternal . $this->html . $this->tail;
 
         $coreData = (array)json_decode($pdfRender['requestsample']);
 

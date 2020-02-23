@@ -1,6 +1,6 @@
 <?php return [
     'method'     => 'AES-256-CBC',
-    'key'        => $_SERVER['SECRET_KEY'],
+    'key'        => 'dfdfsdf2131ewq',
     'identifier' => 'anywhere',
     'cookies'    => 'anywhere',
     'session'    => 'anywhere',
