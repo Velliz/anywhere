@@ -64,8 +64,8 @@ class AnywhereView extends View
         if ($this->fn === 'var') {
             if ($data !== null) {
                 foreach ($this->vars as $key => $val) {
-                    if ($val['keys'] === $data) {
-                        return $val['values'];
+                    if ($val['uniquekey'] === $data) {
+                        return $val['constantaval'];
                     }
                 }
             }
