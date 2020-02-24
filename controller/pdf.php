@@ -167,8 +167,17 @@ class pdf extends AnywhereView
         foreach ($dataPDF['pdf'] as $key => $value) {
             $dataPDF['pdf'][$key]['apikey'] = $session['apikey'];
             switch ($value['paper']) {
+                case 'A3':
+                    $dataPDF['pdf'][$key]['A3'] = 'checked';
+                    break;
                 case 'A4':
                     $dataPDF['pdf'][$key]['A4'] = 'checked';
+                    break;
+                case 'A5':
+                    $dataPDF['pdf'][$key]['A5'] = 'checked';
+                    break;
+                case 'A6':
+                    $dataPDF['pdf'][$key]['A6'] = 'checked';
                     break;
                 case 'B5':
                     $dataPDF['pdf'][$key]['B5'] = 'checked';
