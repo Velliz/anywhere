@@ -18,6 +18,7 @@
 
 namespace controller;
 
+use model\ConstantaModel;
 use plugins\auth\AnywhereAuthenticator;
 use Dompdf\Exception;
 use model\LogMail;
@@ -25,6 +26,7 @@ use model\MailModel;
 use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use plugins\controller\AnywhereView;
+use pte\exception\PteException;
 use pte\Pte;
 use pukoframework\auth\Session;
 use pukoframework\Framework;
@@ -308,7 +310,7 @@ TAIL;
      *
      * #Template html false
      * #Auth session true
-     * @throws \pte\exception\PteException
+     * @throws PteException
      * @throws \Exception
      */
     public function CodeRender($api_key, $mailId)
@@ -360,12 +362,16 @@ TAIL;
     /**
      * @param $api_key
      * @param $mailId
+     * @throws PteException
+     * @throws \Exception
      * @throws \PHPMailer\PHPMailer\Exception
-     * @throws \pte\exception\PteException
      */
     public function Render($api_key, $mailId)
     {
         $mailRender = MailModel::GetMailRender($api_key, $mailId)[0];
+
+        //because render executed outside vars need to be re-supplied
+        $this->vars = ConstantaModel::GetCollection($mailRender['userID']);
 
         $this->mailName = $mailRender['mailname'];
         $this->mailAddress = $mailRender['mailaddress'];
