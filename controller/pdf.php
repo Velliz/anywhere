@@ -18,6 +18,7 @@
 
 namespace controller;
 
+use model\ConstantaModel;
 use model\LogPdf;
 use model\UserModel;
 use plugins\auth\AnywhereAuthenticator;
@@ -353,6 +354,9 @@ class pdf extends AnywhereView
     public function Render($api_key, $pdfID)
     {
         $pdfRender = PdfModel::GetPdfRender($api_key, $pdfID)[0];
+
+        //because render executed outside vars need to be re-supplied
+        $this->vars = ConstantaModel::GetCollection($pdfRender['userID']);
 
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];

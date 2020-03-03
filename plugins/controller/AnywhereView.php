@@ -16,16 +16,17 @@ use pukoframework\middleware\View;
 class AnywhereView extends View
 {
 
-    var $vars = [];
+    public $vars = [];
 
     /**
      * AnywhereView constructor.
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct()
     {
         parent::__construct();
-        //todo: di tulis sementara disini karena dari Session class tidak ada instance-nya
+
+        //because session class don't trigger this instance
         session_start();
     }
 
@@ -37,6 +38,8 @@ class AnywhereView extends View
     {
         if (Session::Is()) {
             $data['IsSessionBlock'] = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
+
+            //pre-fill the data with logged in account
             $this->vars = ConstantaModel::GetCollection($data['IsSessionBlock']['ID']);
         } else {
             $data['IsLoginBlock'] = array(
