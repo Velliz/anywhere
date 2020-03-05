@@ -170,40 +170,30 @@ TAIL;
         $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
 
         if (isset($_POST['mailid'])) {
+
             $mailid = Request::Post('mailid', null);
             $mailName = Request::Post('mailname', null);
 
-            $mailAddress = Request::Post('mailaddress', null);
-            $mailPassword = Request::Post('mailpassword', null);
-
             $host = Request::Post('host', null);
             $port = Request::Post('port', null);
-
-            $smtpauth = Request::Post('smtpauth', null);
-            $smtpsecure = Request::Post('smtpsecure', null);
-
             $requesttype = Request::Post('requesttype', null);
-            $requesturl = Request::Post('requesturl', null);
-
-            $requestsample = Request::Post('requestsample', null);
 
             $resultUpdate = MailModel::UpdateMailPage(
                 array('MAILID' => $mailid),
                 array(
                     'mailname' => $mailName,
-                    'mailaddress' => $mailAddress,
-                    'mailpassword' => $mailPassword,
+                    'mailaddress' => $_POST['mailaddress'],
+                    'mailpassword' => $_POST['mailpassword'],
                     'host' => $host,
                     'port' => $port,
-                    'smtpauth' => $smtpauth,
-                    'smtpsecure' => $smtpsecure,
+                    'smtpauth' => $_POST['smtpauth'],
+                    'smtpsecure' => $_POST['smtpsecure'],
                     'requesttype' => $requesttype,
-                    'requesturl' => $requesturl,
-                    'requestsample' => $requestsample,
+                    'requesturl' => $_POST['requesturl'],
+                    'requestsample' => $_POST['requestsample'],
                     'cssexternal' => $_POST['cssexternal'],
                 ));
 
-            //$this->RedirectTo(Framework::$factory->getBase() . 'beranda');
             if (!$resultUpdate) {
                 $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
             }
@@ -349,7 +339,7 @@ TAIL;
         }
         $render->SetValue(json_decode($mailRender['requestsample'], true));
         $render->SetHtml($htmlFactory, true);
-        $template = $render->Output(null, Pte::VIEW_HTML);
+        $template = $render->Output($this, Pte::VIEW_HTML);
 
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
@@ -475,7 +465,7 @@ TAIL;
         }
         $render->SetValue($coreData);
         $render->SetHtml($htmlFactory, true);
-        $template = $render->Output(null, Pte::VIEW_HTML);
+        $template = $render->Output($this, Pte::VIEW_HTML);
 
         $this->mail->Subject = $coreData['subject'];
         $this->mail->msgHTML($template);
