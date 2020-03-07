@@ -43,9 +43,9 @@ anywhere:
         - '80:80'
         - '4000:443'
     environment:
-        SECRET_KEY: RANDOM_STRING_HERE
-        HOOK: http://10.15.104.99/notify/anywhere
-        SLACK: https://hooks.slack.com/services/T029KSKLQ/BDQJL0JS1/000000000
+        SECRET_KEY: <RANDOM_STRING_HERE>
+        HOOK: <CUSTOM_HOOKS_HERE>
+        SLACK: <CUSTOM_SLACK_HOOKS>
         DB_TYPE: mysql
         DB_HOST: 172.17.0.1
         DB_USER: root
@@ -55,6 +55,7 @@ anywhere:
         DB_CACHE: 'false'
         INSTALLED: false
         LIMITATIONS: 100
+        ENVIRONMENT: PROD
     networks:
         - services
 ```

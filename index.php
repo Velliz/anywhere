@@ -28,7 +28,7 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Si
 
 $factory = array(
     'cli_param' => null,
-    'environment' => 'PROD',
+    'environment' => $_SERVER['ENVIRONMENT'],
     'base' => ($protocol . "://" . $_SERVER['HTTP_HOST'] . "/"),
     'root' => __DIR__,
     'start' => microtime(true)

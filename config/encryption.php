@@ -4,6 +4,7 @@
     'identifier' => 'anywhere',
     'cookies'    => 'anywhere',
     'session'    => 'anywhere',
+    'expired'    => 30,
     'expiredText'=> 'Login untuk melanjutkan',
     'errorText'  => 'Anda tidak memiliki hak akses',
 ];

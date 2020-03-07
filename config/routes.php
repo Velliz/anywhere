@@ -343,6 +343,20 @@
                 "GET",
                 "POST"
             ]
+        ],
+        "api/language/indices/sync" => [
+            "controller" => "api\\language\\indices",
+            "function" => "syncs",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "language/indices/update/{?}" => [
+            "controller" => "languange\\indices",
+            "function" => "update",
+            "accept" => [
+                "GET"
+            ]
         ]
     ],
     "error" => [
