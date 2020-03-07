@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-blue navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -18,33 +19,17 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        <i class="fa fa-list"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{!url()}qr">QR Code Service</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-gear"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header">Api Key</li>
-                        <li class="dropdown-header">{!apikey}</li>
-                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
                         <i class="fa fa-user"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header">{!name}</li>
-                        <li class="dropdown-header">{!status}</li>
+                        <li class="dropdown-header text-center">{!name}</li>
+                        <li class="dropdown-header text-center">{!status}</li>
+                        <hr style="margin: 8px">
+                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
+                        <hr style="margin: 8px">
                         <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
+                        <hr style="margin: 8px">
                         <li><a href="{!url()}logout">Logout</a></li>
                     </ul>
                 </li>

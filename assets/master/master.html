@@ -11,9 +11,9 @@
 
     <title>{!PageTitle} | Anywhere</title>
 
-    <link href="{!url()}assets/global/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="{!url()}assets/global/css/stylish-portfolio.css" rel="stylesheet" type="text/css">
-    <link href="{!url()}assets/global/css/custom.css" rel="stylesheet" type="text/css">
+    <link href="assets/global/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="assets/global/css/stylish-portfolio.css" rel="stylesheet" type="text/css">
+    <link href="assets/global/css/custom.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
           rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
@@ -21,7 +21,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-blue navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
@@ -45,47 +45,26 @@
 
             <!--{!!IsSessionBlock}-->
             <ul class="nav navbar-nav">
-                <li>
+                <li class="selected">
                     <a href="{!url()}beranda">
                         Dashboard Console
                     </a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-list"></i>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> @{!name}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{!url()}qr">QR Code</a></li>
-                        <hr style="margin: 3px"/>
-                        <li><a href="{!url()}constant">Global Variable</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-gear"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header">Api Key</li>
-                        <li class="dropdown-header">{!apikey}</li>
-                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-user"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header">{!name}</li>
-                        <li class="dropdown-header">{!status}</li>
+                        <li class="dropdown-header text-center">{!name}</li>
+                        <li class="dropdown-header text-center">{!status}</li>
+                        <hr style="margin: 8px">
+                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
+                        <hr style="margin: 8px">
                         <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
+                        <hr style="margin: 8px">
                         <li><a href="{!url()}logout">Logout</a></li>
                     </ul>
                 </li>
@@ -97,10 +76,11 @@
 
 {CONTENT}
 
-<script src="{!url()}assets/global/js/jquery.js"></script>
-<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
-
 {!part(css)}
+
+<script src="assets/global/js/jquery.js"></script>
+<script src="assets/global/js/bootstrap.min.js"></script>
+
 {!part(js)}
 
 </body>
