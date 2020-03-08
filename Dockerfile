@@ -5,9 +5,9 @@ LABEL Maintainer="Tim de Pater <code@trafex.nl>" \
 
 # Install packages anywhere
 RUN apk --no-cache add php7 php7-session php7-common php7-fpm php7-pdo php7-xdebug php7-intl php7-bcmath \
-    php7-gmp php7-iconv php-pdo_mysql php7-mysqli php7-mysqlnd php7-json php7-openssl php7-curl \
-    php7-zlib php7-xml php7-phar php7-intl php7-dom php7-ctype php7-zip php7-xmlwriter php7-xmlrpc \
-    php7-mbstring php7-gd git nginx supervisor curl zlib-dev zlib musl zip
+    php7-gmp php7-iconv php-pdo_mysql php7-json php7-openssl php7-curl php7-mbstring php7-gd php7-zlib \
+    php7-xml php7-phar php7-intl php7-dom php7-ctype php7-zip php7-xmlwriter php7-xmlrpc \
+    git nginx supervisor curl zlib-dev zlib musl zip
 
 # Configure nginx
 COPY bootstrap/nginx.conf /etc/nginx/nginx.conf
@@ -29,7 +29,7 @@ RUN chmod -R 777 /var/www/html
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-RUN composer install --ignore-platform-reqs
+RUN composer install --ignore-platform-reqs --no-dev
 
 # Fix iconv
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community gnu-libiconv

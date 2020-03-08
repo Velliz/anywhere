@@ -115,7 +115,6 @@ class users extends AnywhereView
         $vars['LengthEXCEL'] = sizeof($vars['EXCELLists']);
         $vars['LengthCONST'] = sizeof($vars['CONSTLists']);
 
-        $vars['limitations'] = $this->GetAppConstant('LIMITATIONS');
         $vars['tagvar'] = '{!var(KEY)}';
 
         return $vars;

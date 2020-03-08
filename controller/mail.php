@@ -117,7 +117,7 @@ TAIL;
 
         if ((int)$session['statusID'] == 1) {
             $result = MailModel::CountMailUser($session['ID'])[0];
-            if ((int)$result['result'] >= $this->GetAppConstant('LIMITATIONS')) $this->RedirectTo('limitations');
+            if ((int)$result['result'] >= $session['limitations']) $this->RedirectTo('limitations');
         }
 
 

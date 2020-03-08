@@ -169,49 +169,51 @@
                 </div>
                 <div id="var" class="tab-pane fade">
                     <h4>variable ({!LengthCONST})</h4>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <form action="" method="post">
-                                <input type="hidden" name="action" value="Save">
-                                <div class="form-group">
-                                    <input onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control" name="key" placeholder="key"/>
-                                    <p class="help-block">*Key harus unik dan nilainya fix setelah disimpan</p>
-                                </div>
-                                <div class="form-group">
-                                    <textarea name="val" cols="10" rows="2" class="form-control" placeholder="values"></textarea>
-                                </div>
-                                <p>Pemanggilan global variable pada template layout dapat menggunakan tag: <b>{!tagvar}</b></p>
-                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i></button>
-                            </form>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <!--{!CONSTLists}-->
-                                    <form class="form-inline" action="" method="post">
-                                        <input type="hidden" name="constID" value="{!constID}">
-                                        <input type="hidden" name="action" value="Update">
-                                        <div class="form-group">
-                                            <input readonly="readonly" type="text" class="form-control" name="key" placeholder="key" value="{!uniquekey}"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input name="val" class="form-control" placeholder="values" value="{!constantaval}">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
-                                    </form>
-                                    <br/>
-                                    <!--{/CONSTLists}-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <table id="var-table" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Variables</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--{!CONSTLists}-->
+                        <tr>
+                            <td>
+                                <form class="form-inline" action="" method="post">
+                                <input type="hidden" name="constID" value="{!constID}">
+                                <input type="hidden" name="action" value="Update">
+                                <input readonly="readonly" type="text" class="form-control" name="key" placeholder="key" value="{!uniquekey}"/>
+                                <textarea name="val" class="form-control" placeholder="values" cols="70" rows="1">{!constantaval}</textarea>
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <!--{/CONSTLists}-->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div id="add-var" class="hidden">
+    <form action="" method="post">
+        <input type="hidden" name="action" value="Save">
+        <div class="form-group">
+            <input onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control" name="key" placeholder="key"/>
+            <p class="help-block">*Key harus unik dan nilainya fix setelah disimpan</p>
+        </div>
+        <div class="form-group">
+            <textarea name="val" cols="10" rows="2" class="form-control" placeholder="values"></textarea>
+        </div>
+        <p>Pemanggilan global variable pada template layout dapat menggunakan tag: <b>{!tagvar}</b></p>
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> save</button>
+    </form>
+</div>
+
 {!js(<script type="text/javascript" src="assets/vendor/datatables/datatables.js"></script>)}
 {!js(<script type="text/javascript" src="assets/vendor/datatables/Buttons-1.6.1/js/dataTables.buttons.js"></script>)}
 {!js(<script type="text/javascript" src="assets/vendor/datatables/Buttons-1.6.1/js/buttons.bootstrap.js"></script>)}
-{!js(<script src="assets/script/users/beranda.js"></script>)}
+{!js(<script type="text/javascript" src="assets/vendor/bootbox/bootbox.min.js"></script>)}
+{!js(<script type="text/javascript" src="assets/script/users/beranda.js"></script>)}

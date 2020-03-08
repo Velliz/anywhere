@@ -11,7 +11,7 @@
  Target Server Version : 100206
  File Encoding         : 65001
 
- Date: 07/03/2020 21:40:17
+ Date: 08/03/2020 21:14:36
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `constanta`  (
   `uniquekey` varchar(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `constantaval` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`constID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for excel
@@ -82,7 +82,7 @@ CREATE TABLE `images`  (
   `requestsamplename` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `requestsamplefile` longblob NULL,
   PRIMARY KEY (`IMAGEID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for languageindices
@@ -153,7 +153,7 @@ CREATE TABLE `mail`  (
   `requestsample` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `cssexternal` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   PRIMARY KEY (`MAILID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for pdf
@@ -174,7 +174,7 @@ CREATE TABLE `pdf`  (
   `requestsample` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `cssexternal` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   PRIMARY KEY (`PDFID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for settings
@@ -193,6 +193,7 @@ DROP TABLE IF EXISTS `status`;
 CREATE TABLE `status`  (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `limitations` int(10) NOT NULL,
   PRIMARY KEY (`ID`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 

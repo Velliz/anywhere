@@ -1,5 +1,8 @@
 $(function () {
 
+    let addVar = $('#add-var').html();
+    $('#add-var').remove();
+
     let lang = {
         "buttons": {
             "pageLength": "Tampilkan %d data"
@@ -108,6 +111,30 @@ $(function () {
                 text: '<i class="fa fa-plus"></i>',
                 action: function () {
                     window.location.href = "images/main";
+                }
+            },
+        ],
+        language: lang,
+    });
+    $('#var-table').DataTable({
+        dom: 'Bfrtip',
+        ordering: false,
+        stateSave: true,
+        lengthMenu: menu,
+        buttons: [
+            {
+                extend: "pageLength",
+                className: "btn-sm"
+            },
+            {
+                className: "btn-sm btn-primary",
+                text: '<i class="fa fa-plus"></i>',
+                action: function () {
+                    let content = addVar;
+                    bootbox.dialog({
+                        title: `Variabel baru`,
+                        message: content,
+                    });
                 }
             },
         ],

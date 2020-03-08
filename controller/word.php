@@ -69,7 +69,7 @@ class word extends AnywhereView
 
         if ((int)$session['statusID'] == 1) {
             $result = WordModel::CountWordUser($session['ID'])[0];
-            if ((int)$result['result'] >= $this->GetAppConstant('LIMITATIONS')) {
+            if ((int)$result['result'] >= $session['limitations']) {
                 $this->RedirectTo('limitations');
             }
         }

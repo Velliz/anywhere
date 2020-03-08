@@ -49,7 +49,7 @@ class images extends AnywhereView
 
         if ((int)$session['statusID'] == 1) {
             $result = ImageModel::CountImageUser($session['ID'])[0];
-            if ((int)$result['result'] >= $this->GetAppConstant('LIMITATIONS')) $this->RedirectTo('limitations');
+            if ((int)$result['result'] >= $session['limitations']) $this->RedirectTo('limitations');
         }
         $snap_shoot = date('d-m-Y-His');
         $arrayData = array(
