@@ -186,6 +186,15 @@ class pdf extends AnywhereView
                 case 'F4':
                     $dataPDF['pdf'][$key]['F4'] = 'checked';
                     break;
+                case 'folio':
+                    $dataPDF['pdf'][$key]['folio'] = 'checked';
+                    break;
+                case 'letter':
+                    $dataPDF['pdf'][$key]['letter'] = 'checked';
+                    break;
+                case 'legal':
+                    $dataPDF['pdf'][$key]['legal'] = 'checked';
+                    break;
             }
             switch ($value['requesttype']) {
                 case 'POST':
