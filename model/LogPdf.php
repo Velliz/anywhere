@@ -39,22 +39,58 @@ class LogPdf extends \plugins\model\logpdf
      */
     public static function GetLogPdf($logid)
     {
-        return DBI::Prepare('SELECT * FROM logpdf WHERE ($logid = @1);')
+        return DBI::Prepare('SELECT logpdf.PDFID, logpdf.jsondata, pdf.reportname, logpdf.processingtime
+        FROM logpdf
+        LEFT JOIN pdf USING (PDFID)
+        WHERE (logpdf.logid = @1);')
             ->GetData($logid);
     }
 
     /**
- * @param $pdfID
- * @return mixed|null
- * @throws \Exception
- */
-    public static function GetStats($pdfID)
+     * @param $PDFID
+     * @return array
+     * @throws \Exception
+     */
+    public static function GetPdfStats($PDFID)
     {
-        $sql = "SELECT COUNT(logid) generated, DATE(sentat) lastprinted
-        FROM logpdf 
-        WHERE (PDFID = @1)
+        return DBI::Prepare('SELECT logpdf.PDFID, pdf.reportname, COUNT(logpdf.PDFID) generated, logpdf.sentat lastprinted
+        FROM logpdf
+        LEFT JOIN pdf USING (PDFID)
+        WHERE (logpdf.PDFID = @1)
         GROUP BY PDFID
-        ORDER BY sentat DESC;";
-        return DBI::Prepare($sql)->FirstRow($pdfID);
+        ORDER BY COUNT(logpdf.PDFID) DESC')
+            ->GetData($PDFID);
+    }
+
+    /**
+     * @param $PDFID
+     * @param $startdate
+     * @param $enddate
+     * @return array
+     * @throws \Exception
+     */
+    public static function GetPdfTimeline($PDFID, $startdate, $enddate)
+    {
+        return DBI::Prepare("SELECT logpdf.logid, logpdf.PDFID, pdf.reportname, logpdf.processingtime, logpdf.sentat
+        FROM logpdf
+        LEFT JOIN pdf USING (PDFID)
+        WHERE logpdf.PDFID = @1
+        AND DATE(logpdf.sentat) BETWEEN DATE(@2) AND DATE(@3)
+        ORDER BY logpdf.logid DESC")
+            ->GetData($PDFID, $startdate, $enddate);
+    }
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public static function GetAllPopularity()
+    {
+        $sql = "SELECT logpdf.PDFID, pdf.reportname, COUNT(logpdf.PDFID) counter
+        FROM logpdf
+        LEFT JOIN pdf USING (PDFID)
+        GROUP BY PDFID
+        ORDER BY COUNT(logpdf.PDFID) DESC;";
+        return DBI::Prepare($sql)->GetData();
     }
 }

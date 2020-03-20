@@ -144,6 +144,14 @@
                 "POST"
             ]
         ],
+        "pdf/timeline/{?}" => [
+            "controller" => "pdf",
+            "function" => "timeline",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "pdf/render/{?}/{?}" => [
             "controller" => "pdf",
             "function" => "render",
@@ -155,6 +163,14 @@
         "pdf/coderender/{?}/{?}" => [
             "controller" => "pdf",
             "function" => "coderender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "pdf/timeline/{?}/{?}/{?}" => [
+            "controller" => "pdf",
+            "function" => "timelinerender",
             "accept" => [
                 "GET",
                 "POST"

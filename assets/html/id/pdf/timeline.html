@@ -1,0 +1,108 @@
+<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-daterangepicker/daterangepicker.css" />
+
+<style>
+    .navbar-custom {
+        background-color:#e61919;
+        color:#ffffff;
+        border-radius:0;
+    }
+
+    .navbar-custom .navbar-nav > li > a {
+        color:#fff;
+    }
+
+    .navbar-custom .navbar-nav > .active > a {
+        color: #ffffff;
+        background-color:transparent;
+    }
+
+    .navbar-custom .navbar-nav > li > a:hover,
+    .navbar-custom .navbar-nav > li > a:focus,
+    .navbar-custom .navbar-nav > .active > a:hover,
+    .navbar-custom .navbar-nav > .active > a:focus,
+    .navbar-custom .navbar-nav > .open >a {
+        text-decoration: none;
+        background-color: #e61919;
+    }
+
+    .navbar-custom .navbar-brand {
+        color:#eeeeee;
+    }
+    .navbar-custom .navbar-toggle {
+        background-color:#eeeeee;
+    }
+    .navbar-custom .icon-bar {
+        background-color:#e61919;
+    }
+</style>
+<nav class="navbar navbar-custom navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                    class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a data-toggle="tooltip" title="Back" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user"></i> @{!name}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header text-center">{!name}</li>
+                        <li class="dropdown-header text-center">{!status}</li>
+                        <hr style="margin: 8px">
+                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
+                        <hr style="margin: 8px">
+                        <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
+                        <hr style="margin: 8px">
+                        <li><a href="{!url()}logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="design-page">
+    <div class="form">
+        <h4><b>{!PageTitle}</b></h4>
+        Generated <b>{!generated}</b> times
+        <hr>
+        <form action="" method="POST" id="date-form">
+            <input type="text" name="dates" placeholder="pick date" value="{!dates}"/>
+        </form>
+
+        <!--{!timeline}-->
+        <div>
+            seq: <b>{!logid}</b>, at: <b>{!sentat}</b>, {!processingtime}`s
+            result: <a target="_blank" href="{!preview}">{!reportname}</a>
+        </div>
+        <!--{/timeline}-->
+    </div>
+</div>
+
+<script src="{!url()}assets/global/js/jquery.js"></script>
+<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/vendor/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="assets/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script>
+    let dates = $('input[name="dates"]').daterangepicker({
+        locale: {
+            'format': 'DD/MM/YYYY'
+        }
+    });
+    dates.on('apply.daterangepicker', function(ev, picker) {
+        $('#date-form').submit();
+    });
+</script>

@@ -454,6 +454,106 @@ class pdf extends AnywhereView
         exit();
     }
 
+    /**
+     * @param $logID
+     * @param $api_key
+     * @param $pdfID
+     * @throws \pte\exception\PteException
+     */
+    public function TimelineRender($logID, $api_key, $pdfID)
+    {
+        $pdfRender = PdfModel::GetPdfRender($api_key, $pdfID)[0];
+        $logData = LogPdf::GetLogPdf($logID)[0];
+
+        //because render executed outside vars need to be re-supplied
+        $this->vars = ConstantaModel::GetCollection($pdfRender['userID']);
+
+        $this->outputmode = $pdfRender['outputmode'];
+        $this->paper = $pdfRender['paper'];
+        $this->orientation = $pdfRender['orientation'];
+        $this->html = $pdfRender['html'];
+        $this->css = $pdfRender['css'];
+        $this->reportname = $pdfRender['reportname'];
+        $this->requesttype = $pdfRender['requesttype'];
+        $this->requestsample = $pdfRender['requestsample'];
+        $this->cssexternal = $pdfRender['cssexternal'];
+        $this->requesturl = $pdfRender['requesturl'];
+
+        $script = $pdfRender['phpscript'];
+        $php_script = $this->php_head . $script . $this->php_tail;
+
+        $htmlFactory = $this->head . $this->css . $this->middle . $php_script . $this->cssexternal . $this->html . $this->tail;
+
+        $coreData = (array)json_decode($logData['jsondata'], true);
+
+        $response = new Response();
+        $response->useMasterLayout = false;
+
+        $render = new Pte(false);
+        if ($response->useMasterLayout) {
+            $render->SetMaster($response->htmlMaster);
+        }
+        $render->SetValue($coreData);
+        $render->SetHtml($htmlFactory, true);
+        $template = $render->Output($this, Pte::VIEW_HTML);
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/pdf');
+
+        $this->dompdf->setPaper($this->paper, $this->orientation);
+        $this->dompdf->loadHtml($template);
+        $this->dompdf->render();
+
+        if ($this->outputmode == 'Inline') {
+            $this->dompdf->stream($this->reportname . '.pdf', array("Attachment" => 0));
+        }
+        if ($this->outputmode == 'Download') {
+            $this->dompdf->stream($this->reportname . '.pdf', array("Attachment" => 1));
+        }
+        exit();
+    }
+
+    /**
+     * @param $id_pdf
+     * @return mixed
+     * @throws \Exception
+     * #Master master-codes.html
+     * #Auth session true
+     */
+    public function timeline($id_pdf)
+    {
+        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
+        $dataPDF = $session;
+
+        $stats = LogPdf::GetPdfStats($id_pdf)[0];
+        $dataPDF['generated'] = number_format($stats['generated']);
+        $lastprinted = \DateTime::createFromFormat('Y-m-d H:i:s', $stats['lastprinted']);
+        $dataPDF['lastprinted'] = $lastprinted->format('d F, Y (H:i:s)');
+
+        $dataPDF['pdf'] = PdfModel::GetPdfPage($id_pdf);
+        $dataPDF['PageTitle'] = $dataPDF['pdf'][0]['reportname'];
+
+        if (isset($_POST['dates'])) {
+            $dataPDF['dates'] = $_POST['dates'];
+
+            $range = explode(' - ', $_POST['dates']);
+            $start = \DateTime::createFromFormat('d/m/Y', $range[0]);
+            $end = \DateTime::createFromFormat('d/m/Y', $range[1]);
+            $timeline = LogPdf::GetPdfTimeline($id_pdf, $start->format('Y-m-d'), $end->format('Y-m-d'));
+
+            foreach ($timeline as $key => $val) {
+                $val['preview'] = Framework::$factory->getBase() . "pdf/timeline/{$val['logid']}/{$session['apikey']}/{$id_pdf}";
+                $timeline[$key] = $val;
+            }
+
+            $dataPDF['timeline'] = $timeline;
+        }
+
+        return $dataPDF;
+    }
+
     public function Limitations()
     {
 
