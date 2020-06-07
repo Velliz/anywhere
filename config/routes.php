@@ -373,6 +373,14 @@
             "accept" => [
                 "GET"
             ]
+        ],
+        "api/convert/{?}/to/pdf" => [
+            "controller" => "api\\convert",
+            "function" => "topdf",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
         ]
     ],
     "error" => [
