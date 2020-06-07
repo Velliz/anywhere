@@ -6,6 +6,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpWord\Settings;
 use plugins\DomPdfWriter;
 use pukoframework\middleware\Service;
 
@@ -113,14 +114,20 @@ class convert extends Service
                 exit();
                 break;
             case 'word':
+                Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
+                Settings::setPdfRendererPath('.');
+                $phpWord = \PhpOffice\PhpWord\IOFactory::load($source, 'Word2007');
 
+                echo $phpWord->save("{$name}.pdf", 'PDF', true);
+
+                exit();
                 break;
             case 'text':
                 $texts = file_get_contents($source);
                 $texts = "<div style='white-space:pre-wrap;'>{$texts}</div>";
                 $htmlFactory = $this->headNormal . $texts . $this->tail;
 
-                $this->dompdf->setPaper('A4', 'landscape');
+                $this->dompdf->setPaper('A4', 'portrait');
                 $this->dompdf->loadHtml($htmlFactory);
                 $this->dompdf->render();
 
