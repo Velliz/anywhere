@@ -21,6 +21,7 @@ class convert extends Service
     private $dompdf;
 
     private $head = "<!DOCTYPE html><html><body><style type='text/css'>@page{margin: 0px;}body{margin: 0px;}</style>";
+    private $headNormal = "<!DOCTYPE html><html><body><style type='text/css'>body{font-family: 'Helvetica';}</style>";
     private $tail = "</body></html>";
 
     /**
@@ -115,7 +116,23 @@ class convert extends Service
 
                 break;
             case 'text':
+                $texts = file_get_contents($source);
+                $texts = "<div style='white-space:pre-wrap;'>{$texts}</div>";
+                $htmlFactory = $this->headNormal . $texts . $this->tail;
 
+                $this->dompdf->setPaper('A4', 'landscape');
+                $this->dompdf->loadHtml($htmlFactory);
+                $this->dompdf->render();
+
+                header("Cache-Control: no-cache");
+                header("Pragma: no-cache");
+                header("Author: Anywhere 0.1");
+                header('Content-Type: application/pdf');
+
+                $this->dompdf->stream("{$name}.pdf", [
+                    "Attachment" => 0
+                ]);
+                exit();
                 break;
             default:
                 throw new Exception('file type not supported');
