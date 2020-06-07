@@ -64,6 +64,10 @@ class pdf extends AnywhereView
     private $php_tail = "</script>";
     private $tail = "</body></html>";
 
+    /**
+     * pdf constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         parent::__construct();
@@ -71,7 +75,7 @@ class pdf extends AnywhereView
         $options->set('isRemoteEnabled', true);
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
-        $this->dompdf = new DOMPDF($options);
+        $this->dompdf = new Dompdf($options);
     }
 
     /**

@@ -2,9 +2,12 @@
 
 namespace controller\api;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Exception;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use plugins\DomPdfWriter;
 use pukoframework\middleware\Service;
-use pukoframework\Request;
 
 /**
  * #Template html false
@@ -13,23 +16,100 @@ class convert extends Service
 {
 
     /**
+     * @var Dompdf
+     */
+    private $dompdf;
+
+    private $head = "<!DOCTYPE html><html><body><style type='text/css'>@page{margin: 0px;}body{margin: 0px;}</style>";
+    private $tail = "</body></html>";
+
+    /**
+     * convert constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $this->dompdf = new Dompdf($options);
+    }
+
+    /**
      * @param string $from
      * @throws Exception
      */
     public function topdf($from = '')
     {
-        $files = Request::Post('file', null);
-        if ($files === null) {
-            throw new Exception('files required');
+        if (!isset($_FILES['filedata'])) {
+            throw new Exception('File must uploaded!');
         }
 
+        $files = $_FILES['filedata'];
+        $error = $files['error'];
+        $name = $files['name'];
+
+        if ($error !== 0) {
+            throw new Exception("Failed! File protected or to large.");
+        }
+
+        $source = $_FILES['filedata']['tmp_name'];
+
+        //pictures, word, excel
         switch ($from) {
             case 'jpeg':
             case 'jpg':
+                $info = getimagesize($source);
+                if ($info['mime'] === 'image/jpeg') {
+                    $img = imagecreatefromjpeg($source);
+                } else if ($info['mime'] === 'image/gif') {
+                    $img = imagecreatefromgif($source);
+                } else if ($info['mime'] === 'image/png') {
+                    $img = imagecreatefrompng($source);
+                } else {
+                    throw new Exception('Unknown image file format!');
+                }
 
+                $width = imagesx($img);
+                $height = imagesy($img);
+
+                ob_start();
+                imagejpeg($img, null, 80);
+                $compress = ob_get_clean();
+                $compress = base64_encode($compress);
+
+                $imgTag = '<img src="data:' . $info['mime'] . ';base64,' . $compress . '" width="100%" alt="embedded images">';
+                $htmlFactory = $this->head . $imgTag . $this->tail;
+
+                $this->dompdf->setPaper([0, 0, $height, $width], 'landscape');
+                $this->dompdf->loadHtml($htmlFactory);
+                $this->dompdf->render();
+
+                header("Cache-Control: no-cache");
+                header("Pragma: no-cache");
+                header("Author: Anywhere 0.1");
+                header('Content-Type: application/pdf');
+
+                $this->dompdf->stream("{$name}.pdf", [
+                    "Attachment" => 0
+                ]);
+                exit();
                 break;
             case 'spreadsheet':
+                $objPHPExcel = IOFactory::load($source);
+                IOFactory::registerWriter('VPDF', DomPdfWriter::class);
+                $writer = IOFactory::createWriter($objPHPExcel, 'VPDF');
+                $writer->writeAllSheets();
 
+                header("Cache-Control: no-cache");
+                header("Pragma: no-cache");
+                header("Author: Anywhere 0.1");
+                header(sprintf('Content-Disposition: attachment; filename="%s.pdf"', $name));
+                header('Content-Type: application/pdf');
+
+                $writer->save("php://output");
+                exit();
                 break;
             case 'word':
 
@@ -42,5 +122,4 @@ class convert extends Service
                 break;
         }
     }
-
 }
