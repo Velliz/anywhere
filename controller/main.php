@@ -69,7 +69,7 @@ class main extends AnywhereView
             if ($password == null) $exception->Prepare('password', 'Password harus di isi');
             if ($password != $repeat_password) {
                 $exception->Prepare('repeat_password', 'Ulangi password tidak sama');
-                $exception->Throws(
+                return $exception->Throws(
                     array(
                         'name' => $name,
                         'email' => $email,
@@ -83,7 +83,7 @@ class main extends AnywhereView
 
             if (UserModel::IsEmailExists($email)) {
                 $exception->Prepare('email', 'Maaf, Email telah terdaftar.');
-                $exception->Throws(
+                return $exception->Throws(
                     array(
                         'name' => $name,
                         'email' => $email,
@@ -97,7 +97,7 @@ class main extends AnywhereView
 
             if (UserModel::IsUsernameExists($username)) {
                 $exception->Prepare('username', 'Maaf, Username telah terdaftar.');
-                $exception->Throws(
+                return $exception->Throws(
                     array(
                         'name' => $name,
                         'email' => $email,
@@ -158,7 +158,7 @@ class main extends AnywhereView
             }
             $exception->Prepare('global', 'Username atau password anda salah.');
 
-            $exception->Throws(array(
+            return $exception->Throws(array(
                 'IsLoginBlock' => true,
                 'IsSessionBlock' => false,
                 'RegisterBlock' => false,
