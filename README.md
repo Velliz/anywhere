@@ -23,7 +23,7 @@ And another feature on going listed on `TODO.md` files.
 
 ### Install
 
-**source code**
+* from source
 
 ```bash
 git clone https://github.com/Velliz/anywhere.git
@@ -32,9 +32,11 @@ php puko generate db
 php puko serve 4000
 ```
 
-open your `http://localhost:4000/`
+> if you want installing local, don't forget to import MariaDB/MySQL database from **bootstrap/anywhere.sql**
 
-**docker-compose**
+Setup `config/app.php` `config/database.php` `config/encryption.php` as your local machine settings and open: `http://localhost:4000/`
+
+* docker-compose
 
 ```xaml
 anywhere:
@@ -60,9 +62,11 @@ anywhere:
         - services
 ```
 
+> don't forget to import MariaDB/MySQL database from **bootstrap/anywhere.sql**
+
 ### Documentation
 
-Visit [the docs](https://velliz.github.io/anydocs/)
+Read the docs at: [the docs](https://velliz.github.io/anydocs/)
 
 ### About
 
@@ -70,4 +74,4 @@ Anywhere is build on top [puko framework](https://github.com/Velliz/pukoframewor
 
 ### Contributing
 
-If you want to join to this project fill free to contact me at **diditvelliz@gmail.com**
+If you want to join to develop this project, free to open a issue or pull request.
