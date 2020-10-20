@@ -94,7 +94,7 @@
             </div>
             <div class="col-lg-6" style="height: 100%; padding-right: 0px; padding-left: 0px;">
                 <!--{!pdf}-->
-                <iframe src="{!url()}pdf/coderender/{!apikey}/{!PDFID}" frameborder="0" style="overflow:hidden;height:99%;width:100%"></iframe>
+                <iframe id="iframe" src="{!url()}pdf/coderender/{!apikey}/{!PDFID}" frameborder="0" style="overflow:hidden;height:99%;width:100%"></iframe>
                 <!--{/pdf}-->
             </div>
         </div>
@@ -107,8 +107,7 @@
 <script type="text/javascript">
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
-        mode: "javascript",
-        theme: "night",
+        mode: "css",
         extraKeys: {
             "F11": function (cm) {
                 cm.setOption("fullScreen", !cm.getOption("fullScreen"));

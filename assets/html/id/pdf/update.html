@@ -141,9 +141,8 @@
 <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
         lineNumbers: true,
-        theme: "night",
-        name: "htmlmixed",
-        mode: "htmlmixed",
+        name: "javascript",
+        mode: "javascript",
         extraKeys: {
             "F11": function (cm) {
                 cm.setOption("fullScreen", !cm.getOption("fullScreen"));
@@ -155,7 +154,6 @@
     });
     var external = CodeMirror.fromTextArea(document.getElementById("cssexternal"), {
         lineNumbers: true,
-        theme: "night",
         name: "htmlmixed",
         mode: "htmlmixed",
         extraKeys: {
@@ -169,7 +167,6 @@
     });
     var phpscript = CodeMirror.fromTextArea(document.getElementById("phpscript"), {
         lineNumbers: true,
-        theme: "night",
         name: "php",
         mode: "php",
         extraKeys: {

@@ -51,14 +51,14 @@
                 <li><a data-toggle="tooltip" title="Back" href="{!url()}pdf/update/{!PDFID}"><i class="fa fa-arrow-left"></i></a></li>
                 <!--{/pdf}-->
 
-                <li><a data-toggle="tooltip" title="Save and Reload" name="save-btn"><i class="fa fa-save"></i></a></li>
+                <li><a data-toggle="tooltip" title="Save and Reload" name="save-btn"><i class="fa fa-save"></i> <span style="margin-left: 5px">SIMPAN</span></a></li>
 
                 <!--{!designer}-->
-                <li><a data-toggle="tooltip" title="Switch To HTML Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}pdf/html/{!ID}"><i class="fa fa-refresh"></i></a></li>
+                <li><a data-toggle="tooltip" title="Switch To HTML Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}pdf/html/{!ID}"><i class="fa fa-refresh"></i> <span style="margin-left: 5px">TUKAR KE HTML</span></a></li>
                 <!--{/designer}-->
 
                 <!--{!style}-->
-                <li><a data-toggle="tooltip" title="Switch To CSS Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}pdf/style/{!ID}"><i class="fa fa-refresh"></i></a></li>
+                <li><a data-toggle="tooltip" title="Switch To CSS Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}pdf/style/{!ID}"><i class="fa fa-refresh"></i> <span style="margin-left: 5px">TUKAR KE CSS</span></a></li>
                 <!--{/style}-->
             </ul>
 
@@ -93,14 +93,24 @@
                     <textarea id="code" name="code">{!html}</textarea>
                 </form>
             </div>
-            <div class="col-lg-6" style="height: 100%;padding-right: 0px; padding-left: 0px;">
+            <div class="col-lg-6" style="height: 100%;padding-right: 0px; padding-left: 0px;border: 1px solid #eee;">
                 <!--{!pdf}-->
-                <iframe src="{!url()}pdf/coderender/{!apikey}/{!PDFID}" frameborder="0" style="overflow:hidden;height:100%;width:100%"></iframe>
+                <iframe id="iframe" src="{!url()}pdf/coderender/{!apikey}/{!PDFID}" frameborder="0" style="overflow:hidden;height:100%;width:100%">
+                    Loading...
+                </iframe>
                 <!--{/pdf}-->
             </div>
         </div>
     </div>
 </section>
+
+<div class="container" style="margin-top: 15px; margin-bottom: 15px; color: white;">
+    <h4>Catatan</h4>
+    <p class="help-block">Tag HTML tidak perlu menggunakan <b>`head`</b> atau <b>`body`</b>. Langsung gunakan html untuk content seperti <b>`div`</b> atau <b>`table`</b> dan pastikan setiap tag yang dibuka, ditutup dengan benar</p>
+    <p class="help-block">Pastikan semua tag <b>css</b> ditulis dengan benar, jika menggunakan variabel dari json data. Pastikan tidak ada css yang kosong seperti: <b>`font-color: ; background: ;`</b>.
+        Untuk menghindari error saat dokumen PDF dibuat gunakan default value <b>`font-color: #000000; background: #0067AA;`</b></p>
+    <p class="help-block">Proses rendering menggunakan tag PTE {!} yang dokumentasinya dapat dilihat dari <a href="https://github.com/Velliz/pte" target="_blank">link berikut ini</a></p>
+</div>
 
 <script src="{!url()}assets/global/js/jquery.js"></script>
 <script src="{!url()}assets/global/js/bootstrap.min.js"></script>
@@ -109,7 +119,6 @@
 
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
-        theme: "night",
         name: "htmlmixed",
         mode: "htmlmixed",
         extraKeys: {

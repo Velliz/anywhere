@@ -23,7 +23,6 @@
 
     <link rel="stylesheet" href="assets/vendor/codemirror-5.16/lib/codemirror.css">
     <link rel="stylesheet" href="assets/vendor/codemirror-5.16/addon/display/fullscreen.css">
-    <link rel="stylesheet" href="assets/vendor/codemirror-5.16/theme/night.css">
     <link rel="stylesheet" href="assets/vendor/codemirror-5.16/addon/lint/lint.css">
     <link rel="stylesheet" href="assets/vendor/codemirror-5.16/addon/hint/show-hint.css">
     <link rel="stylesheet" href="assets/vendor/codemirror-5.16/addon/scroll/simplescrollbars.css">
@@ -31,6 +30,10 @@
     <script src="assets/vendor/codemirror-5.16/lib/codemirror.js"></script>
     <script src="assets/vendor/codemirror-5.16/mode/htmlmixed/htmlmixed.js"></script>
     <script src="assets/vendor/codemirror-5.16/mode/xml/xml.js"></script>
+    <script src="assets/vendor/codemirror-5.16/mode/javascript/javascript.js"></script>
+    <script src="assets/vendor/codemirror-5.16/mode/clike/clike.js"></script>
+    <script src="assets/vendor/codemirror-5.16/mode/php/php.js"></script>
+    <script src="assets/vendor/codemirror-5.16/mode/css/css.js"></script>
     <script src="assets/vendor/codemirror-5.16/addon/display/fullscreen.js"></script>
     <script src="assets/vendor/codemirror-5.16/addon/display/rulers.js"></script>
     <script src="assets/vendor/codemirror-5.16/addon/hint/html-hint.js"></script>
@@ -50,7 +53,7 @@
         }
 
         .editor-view {
-            padding-top: 50px;
+            padding-top: 51px;
         }
 
         .nopadding {
@@ -71,17 +74,11 @@
         #wrap { width: 600px; height: 390px; padding: 0; overflow: hidden; }
 
         #iframe {
-            -ms-zoom: 0.75;
-            -moz-transform: scale(0.75);
-            -moz-transform-origin: 0 0;
-            -o-transform: scale(0.75);
-            -o-transform-origin: 0 0;
-            -webkit-transform: scale(0.75);
-            -webkit-transform-origin: 0 0;
+            background-color: white;
         }
     </style>
 </head>
-<body style="background:#fdfdfe;">
+<body style="background:#333;">
 {CONTENT}
 
 {!part(css)}
