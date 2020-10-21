@@ -48,14 +48,15 @@ anywhere:
         SECRET_KEY: <RANDOM_STRING_HERE>
         HOOK: <CUSTOM_HOOKS_HERE>
         SLACK: <CUSTOM_SLACK_HOOKS>
+        SLACK_ACTIVE: false
+        HOOK_ACTIVE: false
         DB_TYPE: mysql
         DB_HOST: 172.17.0.1
         DB_USER: root
         DB_PASS: root
         DB_NAME: master
         DB_PORT: 3306
-        DB_CACHE: 'false'
-        INSTALLED: false
+        INSTALLED: true
         LIMITATIONS: 100
         ENVIRONMENT: PROD
     networks:
