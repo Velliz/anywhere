@@ -11,7 +11,7 @@ $(function () {
         "emptyTable": "Tidak ditemukan data di sini",
         "info": "Hasil _START_ sampai _END_ dari _TOTAL_ baris",
         "infoEmpty": "Hasil 0 sampai 0 dari 0 baris",
-        "infoFiltered": "(Seleksi dari _MAX_ tota baris)",
+        "infoFiltered": "(Seleksi dari _MAX_ total baris)",
         "infoPostFix": "",
         "thousands": ",",
         "lengthMenu": "Tampilkan data _MENU_",

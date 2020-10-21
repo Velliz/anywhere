@@ -15,14 +15,14 @@
                 <li><a data-toggle="tooltip" title="Back" href="{!url()}mail/update/{!MAILID}"><i class="fa fa-arrow-left"></i></a></li>
                 <!--{/mail}-->
 
-                <li><a data-toggle="tooltip" title="Save and Reload" name="save-btn"><i class="fa fa-save"></i></a></li>
+                <li><a data-toggle="tooltip" title="Save and Reload" name="save-btn"><i class="fa fa-save"></i> <span style="margin-left: 5px">SIMPAN</span></a></li>
 
                 <!--{!designer}-->
-                <li><a data-toggle="tooltip" title="Switch To HTML Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}mail/html/{!ID}"><i class="fa fa-refresh"></i></a></li>
+                <li><a data-toggle="tooltip" title="Switch To HTML Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}mail/html/{!ID}"><i class="fa fa-refresh"></i> <span style="margin-left: 5px">TUKAR KE HTML</span></a></li>
                 <!--{/designer}-->
 
                 <!--{!style}-->
-                <li><a data-toggle="tooltip" title="Switch To CSS Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}mail/style/{!ID}"><i class="fa fa-refresh"></i></a></li>
+                <li><a data-toggle="tooltip" title="Switch To CSS Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}mail/style/{!ID}"><i class="fa fa-refresh"></i> <span style="margin-left: 5px">TUKAR KE CSS</span></a></li>
                 <!--{/style}-->
 
             </ul>
@@ -60,7 +60,7 @@
             </div>
             <div class="col-lg-6" style="height: 100%;">
                 <!--{!mail}-->
-                <iframe src="{!url()}mail/coderender/{!apikey}/{!MAILID}" frameborder="0" style="overflow:hidden;height:99%;width:100%"></iframe>
+                <iframe id="iframe" src="{!url()}mail/coderender/{!apikey}/{!MAILID}" frameborder="0" style="overflow:hidden;height:99%;width:100%"></iframe>
                 <!--{/mail}-->
             </div>
         </div>
@@ -73,7 +73,8 @@
 <script type="text/javascript">
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
-        theme: "night",
+        name: "htmlmixed",
+        mode: "htmlmixed",
         extraKeys: {
             "F11": function (cm) {
                 cm.setOption("fullScreen", !cm.getOption("fullScreen"));

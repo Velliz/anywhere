@@ -89,16 +89,9 @@ class users extends AnywhereView
                     $constanta->constantaval = $val;
                     $constanta->modify();
                 }
-                /*
-                if ($action === 'Delete') {
-
-                }
-                */
 
                 break;
             case 'GET':
-
-                break;
             default:
                 break;
         }
