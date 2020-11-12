@@ -4,3 +4,5 @@ composer.lock
 storage/
 config/database.php
 config/encryption.php
+package-lock.json
+/node_modules/
