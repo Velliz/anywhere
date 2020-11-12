@@ -255,14 +255,14 @@ class excel extends AnywhereView
 
         foreach ($this->columnspecs as $key => $val) {
             $shit->getColumnDimension($val['column'])->setWidth((int)$val['width']);
-            $shit->setCellValue("{$val['column']}1", $val['display']);
+            $shit->setCellValue("{$val['column']}{$idx}", $val['display']);
             $shit->getStyle("{$val['column']}{$idx}")->getFont()->setBold(true);
             $shit->getStyle("{$val['column']}{$idx}")->applyFromArray($styleArray);
             foreach ($this->dataspecs as $x => $y) {
                 if ($y['key'] === $val['key']) {
                     foreach ($y['value'] as $pointer => $item) {
-                        $shit->setCellValue($val['column'] . ($pointer + 2), $item);
-                        $shit->getStyle($val['column'] . ($pointer + 2))->applyFromArray($styleArray);
+                        $shit->setCellValue($val['column'] . ($pointer + $idx + 1), $item);
+                        $shit->getStyle($val['column'] . ($pointer + $idx + 1))->applyFromArray($styleArray);
                     }
                 }
             }
