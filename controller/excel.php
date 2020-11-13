@@ -184,6 +184,8 @@ class excel extends AnywhereView
      */
     public function render($api_key, $excelId)
     {
+        $mode = 1;
+
         $excelRender = ExcelModel::GetExcelRender($api_key, $excelId)[0];
 
         $this->excelname = $excelRender['excelname'];
@@ -224,9 +226,11 @@ class excel extends AnywhereView
             $decoded_data = (array)json_decode($_POST['jsondata'], true);
             if (isset($decoded_data['tables'])) {
                 if (isset($decoded_data['header'])) {
+                    $mode = 2;
                     $header = $decoded_data['header'];
                 }
                 if (isset($decoded_data['footer'])) {
+                    $mode = 2;
                     $footer = $decoded_data['footer'];
                 }
 
@@ -240,40 +244,58 @@ class excel extends AnywhereView
             throw new Exception('not supported for a moment');
         }
 
-        $shit->setCellValue("A{$idx}", $this->excelname);
-        $shit->getStyle("A{$idx}:B{$idx}")->getFont()->setBold(true);
-
-        $idx++;
-
-        foreach ($header as $key => $val) {
-            $shit->setCellValue("A{$idx}", $val['key']);
-            $shit->setCellValue("B{$idx}", $val['value']);
-            $idx++;
-        }
-
-        $idx++;
-
-        foreach ($this->columnspecs as $key => $val) {
-            $shit->getColumnDimension($val['column'])->setWidth((int)$val['width']);
-            $shit->setCellValue("{$val['column']}{$idx}", $val['display']);
-            $shit->getStyle("{$val['column']}{$idx}")->getFont()->setBold(true);
-            $shit->getStyle("{$val['column']}{$idx}")->applyFromArray($styleArray);
-            foreach ($this->dataspecs as $x => $y) {
-                if ($y['key'] === $val['key']) {
-                    foreach ($y['value'] as $pointer => $item) {
-                        $shit->setCellValue($val['column'] . ($pointer + $idx + 1), $item);
-                        $shit->getStyle($val['column'] . ($pointer + $idx + 1))->applyFromArray($styleArray);
+        if ($mode === 1) {
+            foreach ($this->columnspecs as $key => $val) {
+                $shit->getColumnDimension($val['column'])->setWidth((int)$val['width']);
+                $shit->setCellValue("{$val['column']}1", $val['display']);
+                $shit->getStyle("{$val['column']}1")->getFont()->setBold(true);
+                $shit->getStyle("{$val['column']}1")->applyFromArray($styleArray);
+                foreach ($this->dataspecs as $x => $y) {
+                    if ($y['key'] === $val['key']) {
+                        foreach ($y['value'] as $pointer => $item) {
+                            $shit->setCellValue($val['column'] . ($pointer + 2), $item);
+                            $shit->getStyle($val['column'] . ($pointer + 2))->applyFromArray($styleArray);
+                        }
                     }
                 }
             }
         }
+        if ($mode === 2) {
+            $shit->setCellValue("A{$idx}", $this->excelname);
+            $shit->getStyle("A{$idx}:B{$idx}")->getFont()->setBold(true);
 
-        $idx = $idx + sizeof($this->columnspecs);
-
-        foreach ($footer as $key => $val) {
-            $shit->setCellValue("A{$idx}", $val['key']);
-            $shit->setCellValue("B{$idx}", $val['value']);
             $idx++;
+
+            foreach ($header as $key => $val) {
+                $shit->setCellValue("A{$idx}", $val['key']);
+                $shit->setCellValue("B{$idx}", $val['value']);
+                $idx++;
+            }
+
+            $idx++;
+
+            foreach ($this->columnspecs as $key => $val) {
+                $shit->getColumnDimension($val['column'])->setWidth((int)$val['width']);
+                $shit->setCellValue("{$val['column']}{$idx}", $val['display']);
+                $shit->getStyle("{$val['column']}{$idx}")->getFont()->setBold(true);
+                $shit->getStyle("{$val['column']}{$idx}")->applyFromArray($styleArray);
+                foreach ($this->dataspecs as $x => $y) {
+                    if ($y['key'] === $val['key']) {
+                        foreach ($y['value'] as $pointer => $item) {
+                            $shit->setCellValue($val['column'] . ($pointer + $idx + 1), $item);
+                            $shit->getStyle($val['column'] . ($pointer + $idx + 1))->applyFromArray($styleArray);
+                        }
+                    }
+                }
+            }
+
+            $idx = $idx + sizeof($this->columnspecs);
+
+            foreach ($footer as $key => $val) {
+                $shit->setCellValue("A{$idx}", $val['key']);
+                $shit->setCellValue("B{$idx}", $val['value']);
+                $idx++;
+            }
         }
 
         $invalidCharacters = $shit->getInvalidCharacters();
@@ -296,6 +318,8 @@ class excel extends AnywhereView
      */
     public function coderender($api_key, $excelId)
     {
+        $mode = 1;
+
         $excelRender = ExcelModel::GetExcelRender($api_key, $excelId)[0];
 
         $this->excelname = $excelRender['excelname'];
@@ -326,49 +350,69 @@ class excel extends AnywhereView
 
         if (isset($this->dataspecs['tables'])) {
             if (isset($this->dataspecs['header'])) {
+                $mode = 2;
                 $header = $this->dataspecs['header'];
             }
             if (isset($this->dataspecs['footer'])) {
+                $mode = 2;
                 $footer = $this->dataspecs['footer'];
             }
 
             $this->dataspecs = $this->dataspecs['tables'];
         }
 
-        $shit->setCellValue("A{$idx}", $this->excelname);
-        $shit->getStyle("A{$idx}:B{$idx}")->getFont()->setBold(true);
-
-        $idx++;
-
-        foreach ($header as $key => $val) {
-            $shit->setCellValue("A{$idx}", $val['key']);
-            $shit->setCellValue("B{$idx}", $val['value']);
-            $idx++;
-        }
-
-        $idx++;
-
-        foreach ($this->columnspecs as $key => $val) {
-            $shit->getColumnDimension($val['column'])->setWidth((int)$val['width']);
-            $shit->setCellValue("{$val['column']}{$idx}", $val['display']);
-            $shit->getStyle("{$val['column']}{$idx}")->getFont()->setBold(true);
-            $shit->getStyle("{$val['column']}{$idx}")->applyFromArray($styleArray);
-            foreach ($this->dataspecs as $x => $y) {
-                if ($y['key'] === $val['key']) {
-                    foreach ($y['value'] as $pointer => $item) {
-                        $shit->setCellValue($val['column'] . ($pointer + $idx + 1), $item);
-                        $shit->getStyle($val['column'] . ($pointer + $idx + 1))->applyFromArray($styleArray);
+        if ($mode === 1) {
+            foreach ($this->columnspecs as $key => $val) {
+                $shit->getColumnDimension($val['column'])->setWidth((int)$val['width']);
+                $shit->setCellValue("{$val['column']}1", $val['display']);
+                $shit->getStyle("{$val['column']}1")->getFont()->setBold(true);
+                $shit->getStyle("{$val['column']}1")->applyFromArray($styleArray);
+                foreach ($this->dataspecs as $x => $y) {
+                    if ($y['key'] === $val['key']) {
+                        foreach ($y['value'] as $pointer => $item) {
+                            $shit->setCellValue($val['column'] . ($pointer + 2), $item);
+                            $shit->getStyle($val['column'] . ($pointer + 2))->applyFromArray($styleArray);
+                        }
                     }
                 }
             }
         }
+        if ($mode === 2) {
+            $shit->setCellValue("A{$idx}", $this->excelname);
+            $shit->getStyle("A{$idx}:B{$idx}")->getFont()->setBold(true);
 
-        $idx = $idx + sizeof($this->columnspecs);
-
-        foreach ($footer as $key => $val) {
-            $shit->setCellValue("A{$idx}", $val['key']);
-            $shit->setCellValue("B{$idx}", $val['value']);
             $idx++;
+
+            foreach ($header as $key => $val) {
+                $shit->setCellValue("A{$idx}", $val['key']);
+                $shit->setCellValue("B{$idx}", $val['value']);
+                $idx++;
+            }
+
+            $idx++;
+
+            foreach ($this->columnspecs as $key => $val) {
+                $shit->getColumnDimension($val['column'])->setWidth((int)$val['width']);
+                $shit->setCellValue("{$val['column']}{$idx}", $val['display']);
+                $shit->getStyle("{$val['column']}{$idx}")->getFont()->setBold(true);
+                $shit->getStyle("{$val['column']}{$idx}")->applyFromArray($styleArray);
+                foreach ($this->dataspecs as $x => $y) {
+                    if ($y['key'] === $val['key']) {
+                        foreach ($y['value'] as $pointer => $item) {
+                            $shit->setCellValue($val['column'] . ($pointer + $idx + 1), $item);
+                            $shit->getStyle($val['column'] . ($pointer + $idx + 1))->applyFromArray($styleArray);
+                        }
+                    }
+                }
+            }
+
+            $idx = $idx + sizeof($this->columnspecs);
+
+            foreach ($footer as $key => $val) {
+                $shit->setCellValue("A{$idx}", $val['key']);
+                $shit->setCellValue("B{$idx}", $val['value']);
+                $idx++;
+            }
         }
 
         $invalidCharacters = $shit->getInvalidCharacters();
