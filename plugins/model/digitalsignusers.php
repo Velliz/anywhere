@@ -17,6 +17,11 @@ class digitalsignusers extends Model
     var $id = 0;
 
     /**
+     * #Column userid int(11) not null
+     */
+    var $userid = 0;
+
+    /**
      * #Column created datetime not null
      */
     var $created = '';

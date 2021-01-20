@@ -17,7 +17,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
 
     public static function GetData()
     {
-        $sql = "SELECT id, `name`, phone, email, `type`, ktp, npwp, address,
+        $sql = "SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
         workUnit, `position`, isverified, isspeciment
         FROM digitalsignusers 
@@ -27,7 +27,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
 
     public static function GetById($id)
     {
-        $sql = "SELECT id, `name`, phone, email, `type`, ktp, npwp, address,
+        $sql = "SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
         workUnit, `position`, isverified, isspeciment
         FROM digitalsignusers 
@@ -75,7 +75,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
 
     public static function GetLastData()
     {
-        $sql = "SELECT id, `name`, phone, email, `type`, ktp, npwp, address,
+        $sql = "SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
         workUnit, `position`, isverified, isspeciment
         FROM digitalsignusers 
@@ -89,7 +89,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
         foreach ($keyword as $column => $values) {
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
-        $sql = sprintf("SELECT id, `name`, phone, email, `type`, ktp, npwp, address,
+        $sql = sprintf("SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
         workUnit, `position`, isverified, isspeciment
         FROM digitalsignusers 
@@ -118,6 +118,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
             "position",
             "isverified",
             "isspeciment",
+            "userid",
             "id"
         ));
 
@@ -125,7 +126,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
         foreach ($condition as $column => $values) {
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
-        $sql = sprintf("SELECT id, `name`, phone, email, `type`, ktp, npwp, address,
+        $sql = sprintf("SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
         workUnit, `position`, isverified, isspeciment
         FROM digitalsignusers 
