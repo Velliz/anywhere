@@ -20,6 +20,8 @@ namespace controller;
 
 use Exception;
 use model\ConstantaModel;
+use model\DigitalSignModel;
+use model\DigitalSignUserModel;
 use model\ExcelModel;
 use plugins\auth\AnywhereAuthenticator;
 use model\ImageModel;
@@ -101,12 +103,16 @@ class users extends AnywhereView
         $vars['MAILLists'] = MailModel::GetMailLists($vars['ID']);
         $vars['IMAGELists'] = ImageModel::GetImageLists($vars['ID']);
         $vars['EXCELLists'] = ExcelModel::GetExcelLists($vars['ID']);
+        $vars['DigitalSignList'] = DigitalSignUserModel::SearchData([
+            'userid' => $vars['ID']
+        ]);
 
         $vars['LengthPDF'] = sizeof($vars['PDFLists']);
         $vars['LengthMAIL'] = sizeof($vars['MAILLists']);
         $vars['LengthIMAGE'] = sizeof($vars['IMAGELists']);
         $vars['LengthEXCEL'] = sizeof($vars['EXCELLists']);
         $vars['LengthCONST'] = sizeof($vars['CONSTLists']);
+        $vars['LengthDigitalSign'] = sizeof($vars['DigitalSignList']);
 
         $vars['tagvar'] = '{!var(KEY)}';
 

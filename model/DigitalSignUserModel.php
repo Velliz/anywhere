@@ -3,7 +3,7 @@
 namespace model;
 
 use Exception;
-use plugins\model\digitalsigns;
+use plugins\model\digitalsignusers;
 use pukoframework\pda\DBI;
 use pukoframework\pda\ModelContracts;
 use pukoframework\plugins\DataTables;
@@ -12,14 +12,14 @@ use pukoframework\plugins\DataTables;
  * Class DigitalSignUserModel
  * @package model
  */
-class DigitalSignUserModel extends digitalsigns implements ModelContracts
+class DigitalSignUserModel extends digitalsignusers implements ModelContracts
 {
 
     public static function GetData()
     {
         $sql = "SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
-        workUnit, `position`, isverified, isspeciment
+        workUnit, `position`, isverified, isspeciment, callbackurl
         FROM digitalsignusers 
         WHERE (dflag = 0);";
         return DBI::Prepare($sql)->GetData();
@@ -29,7 +29,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
     {
         $sql = "SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
-        workUnit, `position`, isverified, isspeciment
+        workUnit, `position`, isverified, isspeciment, callbackurl
         FROM digitalsignusers 
         WHERE (dflag = 0) AND (id = @1);";
         return DBI::Prepare($sql)->FirstRow($id);
@@ -77,7 +77,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
     {
         $sql = "SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
-        workUnit, `position`, isverified, isspeciment
+        workUnit, `position`, isverified, isspeciment, callbackurl
         FROM digitalsignusers 
         WHERE (dflag = 0) ORDER BY id DESC LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow();
@@ -91,7 +91,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
         }
         $sql = sprintf("SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
-        workUnit, `position`, isverified, isspeciment
+        workUnit, `position`, isverified, isspeciment, callbackurl
         FROM digitalsignusers 
         WHERE (dflag = 0) %s;", $strings);
         return DBI::Prepare($sql)->GetData();
@@ -119,7 +119,8 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
             "isverified",
             "isspeciment",
             "userid",
-            "id"
+            "id",
+            "callbackurl"
         ));
 
         $strings = "";
@@ -128,7 +129,7 @@ class DigitalSignUserModel extends digitalsigns implements ModelContracts
         }
         $sql = sprintf("SELECT id, userid, `name`, phone, email, `type`, ktp, npwp, address,
         city, province, gender, placeOfBirth, dateOfBirth, orgUnit,
-        workUnit, `position`, isverified, isspeciment
+        workUnit, `position`, isverified, isspeciment, callbackurl
         FROM digitalsignusers 
         WHERE (dflag = 0) %s;", $strings);
 

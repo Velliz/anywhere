@@ -122,6 +122,11 @@ class digitalsignusers extends Model
     var $position = '';
 
     /**
+     * #Column callbackurl varchar(250) not null
+     */
+    var $callbackurl = '';
+
+    /**
      * #Column isverified tinyint(1)
      */
     var $isverified = 0;

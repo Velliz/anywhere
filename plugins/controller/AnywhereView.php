@@ -4,7 +4,9 @@ namespace plugins\controller;
 
 use Exception;
 use model\ConstantaModel;
+use model\DigitalSignUserModel;
 use plugins\auth\AnywhereAuthenticator;
+use plugins\model\digitalsigns;
 use pukoframework\auth\Session;
 use pukoframework\Framework;
 use pukoframework\middleware\View;
@@ -70,6 +72,37 @@ class AnywhereView extends View
                     if ($val['uniquekey'] === $data) {
                         return $val['constantaval'];
                     }
+                }
+            }
+        }
+        if ($this->fn === 'sign') {
+            if ($data !== null) {
+                $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
+
+                $signs = DigitalSignUserModel::SearchData([
+                    'email' => $data
+                ]);
+                if (sizeof($signs) === 0) {
+                    return false;
+                }
+                foreach ($signs as $sign) {
+                    $stamps = new digitalsigns();
+                    $stamps->created = $this->GetServerDateTime();
+                    $stamps->cuid = $session['ID'];
+                    $stamps->userid = $session['ID'];
+
+                    $stamps->digitalsignsecure = $this->GetRandomToken(4) . "=";
+                    $stamps->digitalsignhash = md5($stamps->created . $stamps->digitalsignsecure);
+                    $stamps->email = $sign['email'];
+                    $stamps->documentname = '';
+                    $stamps->location = '';
+                    $stamps->reason = '';
+
+                    if ((int)$sign['isverified'] === 1) {
+                        $stamps->save();
+                    }
+
+                    return $sign['callbackurl'] . $stamps->digitalsignhash;
                 }
             }
         }

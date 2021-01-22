@@ -17,7 +17,7 @@ class DigitalSignModel extends digitalsigns implements ModelContracts
 
     public static function GetData()
     {
-        $sql = "SELECT id, userid, digitalsignhash, digitalsignsecure, email, location, reason
+        $sql = "SELECT id, userid, documentname, digitalsignhash, digitalsignsecure, email, location, reason
         FROM digitalsigns 
         WHERE (dflag = 0);";
         return DBI::Prepare($sql)->GetData();
@@ -25,7 +25,7 @@ class DigitalSignModel extends digitalsigns implements ModelContracts
 
     public static function GetById($id)
     {
-        $sql = "SELECT id, userid, digitalsignhash, digitalsignsecure, email, location, reason
+        $sql = "SELECT id, userid, documentname, digitalsignhash, digitalsignsecure, email, location, reason
         FROM digitalsigns 
         WHERE (dflag = 0) AND (id = @1);";
         return DBI::Prepare($sql)->FirstRow($id);
@@ -71,7 +71,7 @@ class DigitalSignModel extends digitalsigns implements ModelContracts
 
     public static function GetLastData()
     {
-        $sql = "SELECT id, userid, digitalsignhash, digitalsignsecure, email, location, reason
+        $sql = "SELECT id, userid, documentname, digitalsignhash, digitalsignsecure, email, location, reason
         FROM digitalsigns 
         WHERE (dflag = 0) ORDER BY id DESC LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow();
@@ -83,7 +83,7 @@ class DigitalSignModel extends digitalsigns implements ModelContracts
         foreach ($keyword as $column => $values) {
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
-        $sql = sprintf("SELECT id, userid, digitalsignhash, digitalsignsecure, email, location, reason
+        $sql = sprintf("SELECT id, userid, documentname, digitalsignhash, digitalsignsecure, email, location, reason
         FROM digitalsigns 
         WHERE (dflag = 0) %s;", $strings);
         return DBI::Prepare($sql)->GetData();
@@ -99,14 +99,15 @@ class DigitalSignModel extends digitalsigns implements ModelContracts
             "location",
             "reason",
             "userid",
-            "id"
+            "id",
+            "documentname"
         ));
 
         $strings = "";
         foreach ($condition as $column => $values) {
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
-        $sql = sprintf("SELECT id, userid, digitalsignhash, digitalsignsecure, email, location, reason
+        $sql = sprintf("SELECT id, userid, documentname, digitalsignhash, digitalsignsecure, email, location, reason
         FROM digitalsigns 
         WHERE (dflag = 0) %s;", $strings);
 

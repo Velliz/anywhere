@@ -27,9 +27,9 @@ class digitalsigns extends Model
     var $created = '';
 
     /**
-     * #Column modified timestamp not null
+     * #Column modified timestamp
      */
-    var $modified = '';
+    var $modified = null;
 
     /**
      * #Column cuid int(11) not null
@@ -45,6 +45,11 @@ class digitalsigns extends Model
      * #Column dflag tinyint(1) not null
      */
     var $dflag = 0;
+
+    /**
+     * #Column documentname varchar(200)
+     */
+    var $documentname = '';
 
     /**
      * #Column digitalsignhash varchar(200)

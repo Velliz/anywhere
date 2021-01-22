@@ -140,4 +140,25 @@ $(function () {
         ],
         language: lang,
     });
+    $('#digitalsign-table').DataTable({
+        dom: 'Bfrtip',
+        ordering: false,
+        stateSave: true,
+        lengthMenu: menu,
+        buttons: [
+            {
+                extend: "pageLength",
+                className: "btn-sm"
+            },
+            {
+                className: "btn-sm btn-primary",
+                text: '<i class="fa fa-plus"></i>',
+                action: function () {
+
+                }
+            },
+        ],
+        language: lang,
+    });
+
 });
