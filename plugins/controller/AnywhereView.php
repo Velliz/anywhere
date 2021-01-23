@@ -10,6 +10,7 @@ use plugins\model\digitalsigns;
 use pukoframework\auth\Session;
 use pukoframework\Framework;
 use pukoframework\middleware\View;
+use pukoframework\Request;
 
 /**
  * #Master master.html
@@ -83,7 +84,7 @@ class AnywhereView extends View
                     'email' => $data
                 ]);
                 if (sizeof($signs) === 0) {
-                    return false;
+                    return '';
                 }
                 foreach ($signs as $sign) {
                     $stamps = new digitalsigns();
@@ -94,9 +95,19 @@ class AnywhereView extends View
                     $stamps->digitalsignsecure = $this->GetRandomToken(4) . "=";
                     $stamps->digitalsignhash = md5($stamps->created . $stamps->digitalsignsecure);
                     $stamps->email = $sign['email'];
-                    $stamps->documentname = '';
-                    $stamps->location = '';
-                    $stamps->reason = '';
+
+                    $documentname = Request::Header('X-DocName', null);
+                    if ($documentname !== null) {
+                        $stamps->documentname = $documentname;
+                    }
+                    $location = Request::Header('X-Loc', null);
+                    if ($location !== null) {
+                        $stamps->location = $location;
+                    }
+                    $reason = Request::Header('X-Reason', null);
+                    if ($reason !== null) {
+                        $stamps->reason = $reason;
+                    }
 
                     if ((int)$sign['isverified'] === 1) {
                         $stamps->save();
