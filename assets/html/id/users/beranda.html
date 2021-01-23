@@ -8,7 +8,7 @@
                 <li class="active"><a data-toggle="tab" href="#pdf"><i class="fa fa-file-pdf-o"></i></a></li>
                 <li><a data-toggle="tab" href="#xlsx"><i class="fa fa-file-excel-o"></i></a></li>
                 <li><a data-toggle="tab" href="#mail"><i class="fa fa-envelope-o"></i></a></li>
-                <li><a data-toggle="tab" href="#lang"><i class="fa fa-language"></i></a></li>
+                <li><a data-toggle="tab" href="#digitalsigns"><i class="fa fa-users"></i></a></li>
                 <li><a data-toggle="tab" href="#image"><i class="fa fa-image"></i></a></li>
                 <li><a data-toggle="tab" href="#qr"><i class="fa fa-qrcode"></i></a></li>
                 <li><a data-toggle="tab" href="#var"><i class="fa fa-edit"></i></a></li>
@@ -93,9 +93,43 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="lang" class="tab-pane fade">
-                    <h4>dynamic language</h4>
-                    <p>coming soon</p>
+                <div id="digitalsigns" class="tab-pane fade">
+                    <h4>Self Digital Signs</h4>
+                    <table id="digitalsign-table" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Nama Penandatangan</th>
+                            <th>Email</th>
+                            <th>Tipe</th>
+                            <th>Gender</th>
+                            <th>Organization Unit</th>
+                            <th>Work Unit</th>
+                            <th>Posisi</th>
+                            <th>Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <!--{!DigitalSignList}-->
+                            <tr>
+                                <td>{!name}</td>
+                                <td>{!email}</td>
+                                <td>{!type}</td>
+                                <td>{!gender}</td>
+                                <td>{!orgUnit}</td>
+                                <td>{!workUnit}</td>
+                                <td>{!position}</td>
+                                <td>
+                                    <a data-id="{!id}" title="Digital Signs History" href="#" class="btn btn-xs btn-primary">
+                                        <i class="fa fa-list"></i>
+                                    </a>
+                                    <a data-id="{!id}" title="Detailed Information" href="#" class="btn btn-xs btn-success">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <!--{/DigitalSignList}-->
+                        </tbody>
+                    </table>
                 </div>
                 <div id="image" class="tab-pane fade">
                     <h4>image - used <b>{!LengthIMAGE}/{!limitations}</b></h4>

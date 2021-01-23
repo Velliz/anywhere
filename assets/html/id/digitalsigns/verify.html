@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="{!url()}">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Output as-a Service (OAAS) Platform">
+    <meta name="author" content="Didit Velliz">
+    <title>{!title}</title>
+    <link href="assets/global/tailwind/tailwind.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
+</head>
+
+<body class="text-gray-800 antialiased">
+<main>
+    <section class="pb-20 bg-gray-300">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center">
+                <div class="w-full md:w-5/12 px-4 mr-auto ml-auto">
+                    <div class="text-white p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 mt-6 shadow-lg rounded-full bg-green-600">
+                        <i class="fa fa-check text-xl"></i>
+                    </div>
+                    <h3 class="text-3xl mb-2 font-semibold leading-normal">
+                        Document Validated!
+                    </h3>
+                    <p class="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
+                        Your copy of document <b>{!DocumentName}</b> was signed at: <b>{!Created}</b> in <i>{!Location}</i>
+                    </p>
+                    <p class="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
+                        Reason:<br/>{!Reason}
+                    </p>
+                    <p class="text-sm font-light leading-relaxed mt-4 mb-4 text-gray-700">
+                        *The parties agree that either party may use a computer-based system to issue certain
+                        Confirmations and that each such Confirmation executed by a party by means of an
+                        electronically-produced signature, shall have the same legal effect as if, such signature had
+                        been manually written on such Confirmation and that such Confirmation shall be deemed to have
+                        been signed by such party for the purposes of any statute or rule of law that requires such
+                        Confirmation to be signed. The parties acknowledge that, in any legal proceedings between them
+                        in any way relating to this Agreement, each party expressly waives any right to raise any
+                        defence or waiver of liability based upon the execution of a Confirmation by a party by means of
+                        an electronically- produced signature.
+                    </p>
+
+                </div>
+                <div class="w-full md:w-4/12 px-4 mr-auto ml-auto mt-10">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-pink-600">
+                        <img alt="..."
+                             src="{!url()}assets/global/img/doc-secure-white-1.png"
+                             class="object-contain h-full w-100">
+                        <blockquote class="relative p-8 mb-4">
+                            <h4 class="text-xl font-bold text-white">
+                                Digital Sign Protection
+                            </h4>
+                            <p class="text-md font-light mt-2 text-white">
+                                The document is already <b>Signed</b> and <b>Approved</b> with Self-Digital Sign
+                                mechanism.
+                            </p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="relative py-20">
+        <div class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
+             style="height: 80px; transform: translateZ(0px);">
+            <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+                 version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+                <polygon class="text-white fill-current" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+        <div class="container mx-auto px-4">
+            <div class="items-center flex flex-wrap">
+                <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
+                    <div class="md:pr-12">
+                        <h3 class="text-3xl font-semibold">Signer Information</h3>
+                        <p class="mt-2 text-lg leading-relaxed text-gray-600">
+                            The document is signed by <b>{!Name}</b> as {!WorkUnit} at {!OrgUnit}.
+                        </p>
+                        <p class="mt-2 text-lg leading-relaxed text-gray-600">
+                            Contact info:
+                        </p>
+                        <ul class="list-none mt-2">
+                            <li class="py-2">
+                                <div class="flex items-center">
+                                    <div><span
+                                            class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3"><i
+                                            class="fas fa-fingerprint"></i></span></div>
+                                    <div><h4 class="text-gray-600">Email: {!Email}</h4></div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="flex items-center">
+                                    <div><span
+                                            class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3"><i
+                                            class="fab fa-fingerprint"></i></span></div>
+                                    <div><h4 class="text-gray-600">Phone: {!Phone}</h4></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container mx-auto px-4">
+            <hr class="my-6 border-gray-400">
+            <div class="flex flex-wrap items-center md:justify-between justify-center">
+                <div class="w-full md:w-4/12 px-4 mx-auto text-center">
+                    <div class="text-sm text-gray-600 font-semibold py-1">
+                        Copyright © 2021 - Anywhere Output as-service Platform.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>

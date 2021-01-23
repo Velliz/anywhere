@@ -48,20 +48,4 @@ class logpdf extends Model
      */
     var $processingtime = 0;
 
-
-    public static function Create($data)
-    {
-        return DBI::Prepare('logpdf')->Save($data);
-    }
-
-    public static function Update($where, $data)
-    {
-        return DBI::Prepare('logpdf')->Update($where, $data);
-    }
-
-    public static function GetAll()
-    {
-        return DBI::Prepare('SELECT * FROM logpdf')->GetData();
-    }
-
 }

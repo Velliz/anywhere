@@ -12,14 +12,14 @@ use pukoframework\pda\Model;
 class constanta extends Model
 {
 
-    
+
     /**
      * #Column constID int(11) unsigned not null auto_increment
      */
     var $constID = 0;
 
     /**
-     * #Column userID int(11) not null 
+     * #Column userID int(11) not null
      */
     var $userID = 0;
 
@@ -32,21 +32,5 @@ class constanta extends Model
      * #Column constantaval text not null
      */
     var $constantaval = '';
-
-
-    public static function Create($data)
-    {
-        return DBI::Prepare('constanta')->Save($data);
-    }
-
-    public static function Update($where, $data)
-    {
-        return DBI::Prepare('constanta')->Update($where, $data);
-    }
-
-    public static function GetAll()
-    {
-        return DBI::Prepare('SELECT * FROM constanta')->GetData();
-    }
 
 }
