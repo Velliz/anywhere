@@ -5,6 +5,7 @@ namespace plugins\controller;
 use Exception;
 use model\ConstantaModel;
 use model\DigitalSignUserModel;
+use model\UserModel;
 use plugins\auth\AnywhereAuthenticator;
 use plugins\model\digitalsigns;
 use pukoframework\auth\Session;
@@ -86,7 +87,6 @@ class AnywhereView extends View
             if ($data === null) {
                 return '';
             }
-            $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
 
             $digitalsign = (array)json_decode($_POST['digitalsign'], true);
             //scan data as identifier
@@ -95,6 +95,7 @@ class AnywhereView extends View
             }
             $digitalsign = $digitalsign[$data];
 
+            $user = UserModel::UserIdByApiKey($digitalsign['apikey']);
             $signs = DigitalSignUserModel::SearchData([
                 'email' => $digitalsign['email']
             ]);
@@ -104,8 +105,8 @@ class AnywhereView extends View
             foreach ($signs as $sign) {
                 $stamps = new digitalsigns();
                 $stamps->created = $this->GetServerDateTime();
-                $stamps->cuid = $session['ID'];
-                $stamps->userid = $session['ID'];
+                $stamps->cuid = $user;
+                $stamps->userid = $user;
 
                 $stamps->digitalsignsecure = $this->GetRandomToken(4) . "=";
                 $stamps->digitalsignhash = md5($stamps->created . $stamps->digitalsignsecure);
