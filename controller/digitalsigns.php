@@ -57,8 +57,7 @@ class digitalsigns extends View
                 ];
             }
         }
-        //var_dump($data);
-        return $data;
+        return array_merge($data['Signing'], $data['User']);
     }
 
 }
