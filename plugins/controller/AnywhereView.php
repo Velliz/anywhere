@@ -10,7 +10,6 @@ use plugins\model\digitalsigns;
 use pukoframework\auth\Session;
 use pukoframework\Framework;
 use pukoframework\middleware\View;
-use pukoframework\Request;
 
 /**
  * #Master master.html
@@ -65,60 +64,66 @@ class AnywhereView extends View
             return Framework::$factory->getBase() . $this->param;
         }
         if ($this->fn === 'const') {
+            if (!isset($this->const[$this->param])) {
+                return '';
+            }
             return $this->const[$this->param];
         }
         if ($this->fn === 'var') {
-            if ($data !== null) {
-                foreach ($this->vars as $key => $val) {
-                    if ($val['uniquekey'] === $data) {
-                        return $val['constantaval'];
-                    }
+            if ($data === null) {
+                return '';
+            }
+            foreach ($this->vars as $key => $val) {
+                if ($val['uniquekey'] === $data) {
+                    return $val['constantaval'];
                 }
             }
         }
         if ($this->fn === 'sign') {
-            if ($data !== null) {
-                $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
+            if (!isset($_POST['digitalsign'])) {
+                return '';
+            }
+            if ($data === null) {
+                return '';
+            }
+            $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
 
-                $signs = DigitalSignUserModel::SearchData([
-                    'email' => $data
-                ]);
-                if (sizeof($signs) === 0) {
-                    return '';
+            $digitalsign = (array)json_decode($_POST['digitalsign'], true);
+            //scan data as identifier
+            if (!isset($digitalsign[$data])) {
+                return '';
+            }
+            $digitalsign = $digitalsign[$data];
+
+            $signs = DigitalSignUserModel::SearchData([
+                'email' => $digitalsign['email']
+            ]);
+            if (sizeof($signs) === 0) {
+                return '';
+            }
+            foreach ($signs as $sign) {
+                $stamps = new digitalsigns();
+                $stamps->created = $this->GetServerDateTime();
+                $stamps->cuid = $session['ID'];
+                $stamps->userid = $session['ID'];
+
+                $stamps->digitalsignsecure = $this->GetRandomToken(4) . "=";
+                $stamps->digitalsignhash = md5($stamps->created . $stamps->digitalsignsecure);
+                $stamps->email = $sign['email'];
+
+                $stamps->documentname = $digitalsign['docName'];
+                $stamps->location = $digitalsign['location'];
+                $stamps->reason = $digitalsign['reason'];
+
+                if ((int)$sign['isverified'] === 1) {
+                    $stamps->save();
                 }
-                foreach ($signs as $sign) {
-                    $stamps = new digitalsigns();
-                    $stamps->created = $this->GetServerDateTime();
-                    $stamps->cuid = $session['ID'];
-                    $stamps->userid = $session['ID'];
 
-                    $stamps->digitalsignsecure = $this->GetRandomToken(4) . "=";
-                    $stamps->digitalsignhash = md5($stamps->created . $stamps->digitalsignsecure);
-                    $stamps->email = $sign['email'];
-
-                    $documentname = Request::Header('X-DocName', null);
-                    if ($documentname !== null) {
-                        $stamps->documentname = $documentname;
-                    }
-                    $location = Request::Header('X-Loc', null);
-                    if ($location !== null) {
-                        $stamps->location = $location;
-                    }
-                    $reason = Request::Header('X-Reason', null);
-                    if ($reason !== null) {
-                        $stamps->reason = $reason;
-                    }
-
-                    if ((int)$sign['isverified'] === 1) {
-                        $stamps->save();
-                    }
-
-                    return $sign['callbackurl'] . $stamps->digitalsignhash;
-                }
+                return $sign['callbackurl'] . $stamps->digitalsignhash;
             }
         }
-        return '';
 
+        return '';
     }
 
 
