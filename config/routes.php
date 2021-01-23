@@ -24,6 +24,13 @@
                 "POST"
             ]
         ],
+        "api/digitalsigns/verify" => [
+            "controller" => "api\\digitalsigns",
+            "function" => "verify",
+            "accept" => [
+                "POST"
+            ]
+        ],
         "api/getplaceholder/{?}/{?}" => [
             "controller" => "api\\image",
             "function" => "getplaceholder",
@@ -85,6 +92,13 @@
             "accept" => [
                 "GET",
                 "POST"
+            ]
+        ],
+        "digitalsigns/verify/{?}" => [
+            "controller" => "digitalsigns",
+            "function" => "verify",
+            "accept" => [
+                "GET"
             ]
         ],
         "excel/coderender/{?}/{?}" => [

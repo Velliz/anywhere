@@ -1,38 +1,36 @@
 <?php
 
-namespace controller;
+namespace controller\api;
 
 use Exception;
 use model\DigitalSignModel;
 use model\DigitalSignUserModel;
-use pukoframework\middleware\View;
+use pukoframework\middleware\Service;
+use pukoframework\Request;
 
 /**
- * #Master master.html
- * #Value title Signing Users
+ * #Template html false
  */
-class digitalsigns extends View
+class digitalsigns extends Service
 {
-
-    public function users()
-    {
-    }
 
     /**
      * @param string $hash
      * @return array
      * @throws Exception
-     * #Value title Signing Verification
-     * #Template master false
      */
-    public function verify($hash = '')
+    public function verify()
     {
+        $param = Request::JsonBody();
+        if ($param['hash'] === '') {
+            throw new Exception('Hash code required!');
+        }
+
         $signing = DigitalSignModel::SearchData([
-            'digitalsignhash' => $hash
+            'digitalsignhash' => $param['hash']
         ]);
         if (sizeof($signing) === 0) {
-            header('Content-Type: text');
-            die("INVALID DIGITAL SIGNATURE!\nPlease contact the document publisher to confirm that you obtain the original file sealed with valid Digital Signing.");
+            throw new Exception('Invalid digital signature!');
         }
 
         $data = [];
@@ -51,13 +49,13 @@ class digitalsigns extends View
                     'Name' => $user['name'],
                     'Phone' => $user['phone'],
                     'Email' => $user['email'],
-                    'OrgUnit' => $user['orgUnit'],
-                    'WorkUnit' => $user['workUnit'],
+                    'OrgUnit' => $user['orgunit'],
+                    'WorkUnit' => $user['workunit'],
                     'Position' => $user['position']
                 ];
             }
         }
-        //var_dump($data);
+
         return $data;
     }
 
