@@ -3,6 +3,12 @@ $(function () {
     let addVar = $('#add-var').html();
     $('#add-var').remove();
 
+    let digitalsigns_forms = $('#digitalsigns-forms').html();
+    $('#digitalsigns-forms').remove();
+
+    let digitalsigns_tables = $('#digitalsigns-tables').html();
+    $('#digitalsigns-tables').remove();
+
     let lang = {
         "buttons": {
             "pageLength": "Tampilkan %d data"
@@ -154,11 +160,42 @@ $(function () {
                 className: "btn-sm btn-primary",
                 text: '<i class="fa fa-plus"></i>',
                 action: function () {
+                    //todo: add new users digitalsigns
 
                 }
             },
         ],
         language: lang,
+    });
+
+    $(document).on('click', '.btn-digitalsign-history', function (e) {
+        e.preventDefault();
+
+        let id = $(this).attr('data-id');
+
+        let dial = bootbox.dialog({
+            title: 'Histori Digital Sign',
+            message: digitalsigns_forms,
+            size: 'large',
+        });
+        dial.init(function () {
+
+        });
+    });
+
+    $(document).on('click', '.btn-digitalsign-users', function (e) {
+        e.preventDefault();
+
+        let id = $(this).attr('data-id');
+
+        let dial = bootbox.dialog({
+            title: 'Data Detail Penandatangan',
+            message: digitalsigns_forms,
+            size: 'large',
+        });
+        dial.init(function () {
+
+        });
     });
 
 });
