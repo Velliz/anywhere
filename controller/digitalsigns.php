@@ -49,6 +49,7 @@ class digitalsigns extends View
             foreach ($users as $user) {
                 $data['User'] = [
                     'Name' => $user['name'],
+                    'Address' => $user['address'],
                     'Phone' => $user['phone'],
                     'Email' => $user['email'],
                     'OrgUnit' => $user['orgUnit'],
