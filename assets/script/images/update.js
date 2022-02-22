@@ -29,10 +29,10 @@ $(document).ready(function () {
             dataType: 'json',
             data: formdata,
             error: function (error) {
-                location.reload();
+                //location.reload();
             },
             success: function (data) {
-                location.reload();
+                //location.reload();
             }
         });
     });
@@ -58,10 +58,10 @@ $(document).ready(function () {
             dataType: 'json',
             data: formdata,
             error: function (error) {
-                location.reload();
+                //location.reload();
             },
             success: function (data) {
-                location.reload();
+                //location.reload();
             }
         });
     });

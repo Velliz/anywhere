@@ -17,14 +17,14 @@ class ImageModel extends images
             ->GetData($userID);
     }
 
-    public static function NewImagePage($arrayData, $binary = false)
+    public static function NewImagePage($arrayData)
     {
-        return DBI::Prepare('images')->Save($arrayData, $binary);
+        return DBI::Prepare('images')->Save($arrayData);
     }
 
-    public static function UpdateImagePage($imageID, $dataUpdate, $binary = false)
+    public static function UpdateImagePage($imageID, $dataUpdate)
     {
-        return DBI::Prepare('images')->Update($imageID, $dataUpdate, $binary);
+        return DBI::Prepare('images')->Update($imageID, $dataUpdate);
     }
 
     public static function GetImagePage($imageID)
