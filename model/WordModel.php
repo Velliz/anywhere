@@ -18,14 +18,14 @@ class WordModel extends word
             ->GetData($userID);
     }
 
-    public static function NewWordPage($arrayData, $binary = false)
+    public static function NewWordPage($arrayData)
     {
-        return DBI::Prepare('word')->Save($arrayData, $binary);
+        return DBI::Prepare('word')->Save($arrayData);
     }
 
-    public static function UpdateWordPage($wordID, $dataUpdate, $binary = false)
+    public static function UpdateWordPage($wordID, $dataUpdate)
     {
-        return DBI::Prepare('word')->Update($wordID, $dataUpdate, $binary);
+        return DBI::Prepare('word')->Update($wordID, $dataUpdate);
     }
 
     public static function GetWordPage($wordID)
