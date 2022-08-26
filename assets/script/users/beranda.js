@@ -38,8 +38,8 @@ $(function () {
     };
 
     let menu = [
-        [5, 10, 25, 50],
-        ['5', '10', '25', '50']
+        [25, 50, 100, 200],
+        ['25', '50', '100', '200']
     ];
 
     $('#pdf-table').DataTable({
@@ -62,6 +62,7 @@ $(function () {
         ],
         language: lang,
     });
+
     $('#xlsx-table').DataTable({
         dom: 'Bfrtip',
         ordering: false,
@@ -82,6 +83,7 @@ $(function () {
         ],
         language: lang,
     });
+
     $('#mail-table').DataTable({
         dom: 'Bfrtip',
         ordering: false,
@@ -102,6 +104,7 @@ $(function () {
         ],
         language: lang,
     });
+
     $('#image-table').DataTable({
         dom: 'Bfrtip',
         ordering: false,
@@ -122,6 +125,7 @@ $(function () {
         ],
         language: lang,
     });
+
     $('#var-table').DataTable({
         dom: 'Bfrtip',
         ordering: false,
@@ -146,6 +150,7 @@ $(function () {
         ],
         language: lang,
     });
+
     $('#digitalsign-table').DataTable({
         dom: 'Bfrtip',
         ordering: false,

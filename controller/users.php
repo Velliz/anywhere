@@ -116,6 +116,32 @@ class users extends AnywhereView
 
         $vars['tagvar'] = '{!var(KEY)}';
 
+        if (isset($_GET['page'])) {
+            switch ($_GET['page']) {
+                case 'xlsx':
+                    $vars['xlsx_active'] = 'active';
+                    break;
+                case 'mail':
+                    $vars['mail_active'] = 'active';
+                    break;
+                case 'digitalsigns':
+                    $vars['digitalsigns_active'] = 'active';
+                    break;
+                case 'image':
+                    $vars['iamge_active'] = 'active';
+                    break;
+                case 'qr':
+                    $vars['qr_active'] = 'active';
+                    break;
+                case 'var':
+                    $vars['var_active'] = 'active';
+                    break;
+                default:
+                    $vars['pdf_active'] = 'active';
+                    break;
+            }
+        }
+
         return $vars;
     }
 
