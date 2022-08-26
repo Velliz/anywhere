@@ -171,35 +171,6 @@ class pdf extends AnywhereView
 
         foreach ($dataPDF['pdf'] as $key => $value) {
             $dataPDF['pdf'][$key]['apikey'] = $session['apikey'];
-            switch ($value['paper']) {
-                case 'A3':
-                    $dataPDF['pdf'][$key]['A3'] = 'checked';
-                    break;
-                case 'A4':
-                    $dataPDF['pdf'][$key]['A4'] = 'checked';
-                    break;
-                case 'A5':
-                    $dataPDF['pdf'][$key]['A5'] = 'checked';
-                    break;
-                case 'A6':
-                    $dataPDF['pdf'][$key]['A6'] = 'checked';
-                    break;
-                case 'B5':
-                    $dataPDF['pdf'][$key]['B5'] = 'checked';
-                    break;
-                case 'F4':
-                    $dataPDF['pdf'][$key]['F4'] = 'checked';
-                    break;
-                case 'folio':
-                    $dataPDF['pdf'][$key]['folio'] = 'checked';
-                    break;
-                case 'letter':
-                    $dataPDF['pdf'][$key]['letter'] = 'checked';
-                    break;
-                case 'legal':
-                    $dataPDF['pdf'][$key]['legal'] = 'checked';
-                    break;
-            }
             switch ($value['requesttype']) {
                 case 'POST':
                     $dataPDF['pdf'][$key]['POST'] = 'checked';
@@ -344,6 +315,10 @@ class pdf extends AnywhereView
         $render->SetValue(json_decode($pdfRender['requestsample'], true));
         $render->SetHtml($htmlFactory, true);
         $template = $render->Output($this, Pte::VIEW_HTML);
+
+        if (strpos($this->paper, '[') !== false) {
+            $this->paper = json_decode($this->paper);
+        }
 
         $this->dompdf->setPaper($this->paper, $this->orientation);
         $this->dompdf->loadHtml($template);
