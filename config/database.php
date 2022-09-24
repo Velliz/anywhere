@@ -5,7 +5,12 @@ $db['primary'] = [
     'user' => 'root',
     'pass' => '',
     'dbName' => 'anywhere',
-    'port' => 3306
+    'port' => 3306,
+    'driver' => '',
+    'ignoreTableWithPrefix' => '_',
+    'hideColumns' => [
+        'created', 'modified', 'cuid', 'muid', 'dflag', 'password'
+    ]
 ];
 
 return $db;

@@ -1,9 +1,14 @@
 <?php
 
+use Dotenv\Dotenv;
 use pukoframework\Framework;
 use pukoframework\config\Factory;
 
 require 'vendor/autoload.php';
+
+//spin up environment variables
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
 
 $protocol = 'http';
 if (isset($_SERVER['HTTPS'])) {

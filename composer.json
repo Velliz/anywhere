@@ -1,8 +1,8 @@
 {
   "name": "velliz/anywhere",
-  "description": "Pukoframework based Web Console that simplify data object transition state",
+  "description": "Anywhere output as-a service platform.",
   "license": "MIT",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "authors": [
     {
       "name": "Didit Velliz",
@@ -11,16 +11,18 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "puko/framework": "1.2.1",
-    "dompdf/dompdf": "v1.2.2",
-    "aferrandini/phpqrcode": "1.0.1",
-    "phpmailer/phpmailer": "~6.0",
+    "php": ">=7.1|>=8.0",
+    "puko/framework": "^1.3.1",
+    "vlucas/phpdotenv": "^5.4.1",
+    "dompdf/dompdf": "v2.0.1",
+    "aferrandini/phpqrcode": "^1.0.1",
+    "phpmailer/phpmailer": "v6.6.4",
     "phpoffice/phpspreadsheet": "1.20.0",
-    "phpoffice/phpword": "0.18.1"
+    "phpoffice/phpword": "0.18.3"
   },
   "require-dev": {
-    "phpunit/phpunit": "6.5.13",
-    "puko/console": "0.3.0"
+    "phpunit/phpunit": "^9.3.0",
+    "puko/console": "^0.3.1"
   },
   "autoload": {
     "psr-4": {

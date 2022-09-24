@@ -2,7 +2,8 @@
 
 namespace plugins\auth;
 
-use model\UserModel;
+use Exception;
+use model\primary\usersContracts;
 use pukoframework\auth\Auth;
 use pukoframework\auth\PukoAuth;
 
@@ -22,10 +23,16 @@ class AnywhereAuthenticator implements Auth
         return self::$authenticator;
     }
 
+    /**
+     * @param $username
+     * @param $password
+     * @return PukoAuth
+     * @throws Exception
+     */
     public function Login($username, $password)
     {
-        $loginResult = UserModel::GetUser($username, $password);
-        $uid = (isset($loginResult[0]['ID'])) ? $loginResult[0]['ID'] : null;
+        $res = usersContracts::GetUser($username, $password);
+        $uid = (isset($res['id'])) ? $res['id'] : null;
 
         return new PukoAuth($uid, array());
     }
@@ -34,8 +41,19 @@ class AnywhereAuthenticator implements Auth
     {
     }
 
-    public function GetLoginData($id, $permission)
+    /**
+     * @param $data
+     * @param $permission
+     * @return array|mixed|null
+     * @throws Exception
+     */
+    public function GetLoginData($data, $permission)
     {
-        return UserModel::GetUserById($id)[0];
+        $u = usersContracts::GetById($data);
+
+        return [
+            'user' => $u,
+            'permissions' => $permission,
+        ];
     }
 }

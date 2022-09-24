@@ -1,8 +1,31 @@
-.idea/
+# IDE stuff
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Composer stuff
 /vendor
 composer.lock
-storage/
-config/database.php
-config/encryption.php
+
+# Vagrant stuff
+acceptance_config.yml
+boxes/*
+/.vagrant
+/website/.vagrant
+/website/build
+/vagrant-spec.config.rb
+test/vagrant-spec/.vagrant/
+
+# Node stuff
+node_modules
+yarn.lock
 package-lock.json
-/node_modules/
+
+# Dotnev stuff
+.env
+
+# Anywhere stuff
+storage/
