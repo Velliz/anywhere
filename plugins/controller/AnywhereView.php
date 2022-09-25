@@ -4,6 +4,8 @@ namespace plugins\controller;
 
 use Exception;
 use model\primary\constantaContracts;
+use model\primary\digital_signsContracts;
+use model\primary\usersContracts;
 use plugins\auth\AnywhereAuthenticator;
 use plugins\model\primary\digital_signs;
 use pukoframework\auth\Session;
@@ -75,29 +77,31 @@ class AnywhereView extends View
                 return '';
             }
             foreach ($this->vars as $val) {
-                if ($val['uniquekey'] === $data) {
-                    return $val['constantaval'];
+                if ($val['unique_key'] === $data) {
+                    return $val['constanta_val'];
                 }
             }
         }
         if ($this->fn === 'sign') {
-            if (!isset($_POST['digitalsign'])) {
+            if (!isset($_POST['digital_sign'])) {
                 return '';
             }
             if ($data === null) {
                 return '';
             }
 
-            $digitalsign = (array)json_decode($_POST['digitalsign'], true);
+            $digital_sign = (array)json_decode($_POST['digital_sign'], true);
             //scan data as identifier
-            if (!isset($digitalsign[$data])) {
+            if (!isset($digital_sign[$data])) {
                 return '';
             }
-            $digitalsign = $digitalsign[$data];
+            $digital_sign = $digital_sign[$data];
 
-            $user = UserModel::UserIdByApiKey($digitalsign['api_key']);
-            $signs = DigitalSignUserModel::SearchData([
-                'email' => $digitalsign['email']
+            $user = usersContracts::SearchData([
+                'api_key' => $digital_sign['api_key'],
+            ]);
+            $signs = digital_signsContracts::SearchData([
+                'email' => $digital_sign['email']
             ]);
             if (sizeof($signs) === 0) {
                 return '';
@@ -112,15 +116,15 @@ class AnywhereView extends View
                 $stamps->digital_sign_hash = md5($stamps->created . $stamps->digital_sign_secure);
                 $stamps->email = $sign['email'];
 
-                $stamps->document_name = $digitalsign['doc_name'];
-                $stamps->location = $digitalsign['location'];
-                $stamps->reason = $digitalsign['reason'];
+                $stamps->document_name = $digital_sign['doc_name'];
+                $stamps->location = $digital_sign['location'];
+                $stamps->reason = $digital_sign['reason'];
 
-                if ((int)$sign['isverified'] === 1) {
+                if ((int)$sign['is_verified'] === 1) {
                     $stamps->save();
                 }
 
-                return $sign['callbackurl'] . $stamps->digital_sign_hash;
+                return $sign['callback_url'] . $stamps->digital_sign_hash;
             }
         }
 

@@ -122,12 +122,12 @@ class excelContracts extends excel implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "excel_name",
-            "column_specs",
-            "data_specs",
-            "request_type"
+            "id", //0
+            "user_id", //1
+            "excel_name", //2
+            "column_specs", //3
+            "data_specs", //4
+            "request_type", //5
         ));
 
         $strings = "";

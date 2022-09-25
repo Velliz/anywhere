@@ -122,10 +122,10 @@ class constantaContracts extends constanta implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "unique_key",
-            "constanta_val"
+            "id", //0
+            "user_id", //1
+            "unique_key", //2
+            "constanta_val", //3
         ));
 
         $strings = "";

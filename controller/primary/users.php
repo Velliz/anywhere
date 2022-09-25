@@ -4,6 +4,8 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use model\primary\statusContracts;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +14,8 @@ use pukoframework\Request;
  */
 class users extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -22,12 +26,6 @@ class users extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['status_id'] === '') {
-            throw new Exception($this->say('STATUS_ID_REQUIRED'));
-        }
         if ($param['name'] === '') {
             throw new Exception($this->say('NAME_REQUIRED'));
         }
@@ -41,30 +39,33 @@ class users extends Service
             throw new Exception($this->say('API_KEY_REQUIRED'));
         }
 
-
         //validations: customize here
+        $param['name'] = trim($param['name']);
+        $param['username'] = trim($param['username']);
+        $param['email'] = trim($param['email']);
 
         //insert
         $users = new \plugins\model\primary\users();
-        $users->id = $param['id'];
-        $users->status_id = $param['status_id'];
+        $users->created = $this->GetServerDateTime();
+        $users->cuid = $this->user['id'];
+
         $users->name = $param['name'];
         $users->username = $param['username'];
         $users->email = $param['email'];
-        $users->api_key = $param['api_key'];
 
+        $users->api_key = md5($users->username . $users->email);
+        $users->status_id = 0;
 
         $users->save();
 
         //response
         $data['users'] = [
             'id' => $users->id,
-        'status_id' => $users->status_id,
-        'name' => $users->name,
-        'username' => $users->username,
-        'email' => $users->email,
-        'api_key' => $users->api_key,
-
+            'status' => statusContracts::GetById($users->status_id),
+            'name' => $users->name,
+            'username' => $users->username,
+            'email' => $users->email,
+            'api_key' => $users->api_key,
         ];
 
         return $data;
@@ -118,11 +119,11 @@ class users extends Service
         //response
         $data['users'] = [
             'id' => $users->id,
-        'status_id' => $users->status_id,
-        'name' => $users->name,
-        'username' => $users->username,
-        'email' => $users->email,
-        'api_key' => $users->api_key,
+            'status_id' => $users->status_id,
+            'name' => $users->name,
+            'username' => $users->username,
+            'email' => $users->email,
+            'api_key' => $users->api_key,
 
         ];
 
@@ -199,11 +200,11 @@ class users extends Service
         //response
         $data['users'] = [
             'id' => $users->id,
-        'status_id' => $users->status_id,
-        'name' => $users->name,
-        'username' => $users->username,
-        'email' => $users->email,
-        'api_key' => $users->api_key,
+            'status_id' => $users->status_id,
+            'name' => $users->name,
+            'username' => $users->username,
+            'email' => $users->email,
+            'api_key' => $users->api_key,
 
         ];
 

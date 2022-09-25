@@ -122,19 +122,19 @@ class pdfContracts extends pdf implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "report_name",
-            "html",
-            "css",
-            "php_script",
-            "output_mode",
-            "paper",
-            "orientation",
-            "request_type",
-            "request_url",
-            "request_sample",
-            "css_external"
+            "id", //0
+            "user_id", //1
+            "report_name", //2
+            "html", //3
+            "css", //4
+            "php_script", //5
+            "output_mode", //6
+            "paper", //7
+            "orientation", //8
+            "request_type", //9
+            "request_url", //10
+            "request_sample", //11
+            "css_external", //12
         ));
 
         $strings = "";

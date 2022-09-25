@@ -122,14 +122,14 @@ class digital_signsContracts extends digital_signs implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "document_name",
-            "digital_sign_hash",
-            "digital_sign_secure",
-            "email",
-            "location",
-            "reason"
+            "id", //0
+            "user_id", //1
+            "document_name", //2
+            "digital_sign_hash", //3
+            "digital_sign_secure", //4
+            "email", //5
+            "location", //6
+            "reason", //7
         ));
 
         $strings = "";

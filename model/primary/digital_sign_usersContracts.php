@@ -122,26 +122,26 @@ class digital_sign_usersContracts extends digital_sign_users implements ModelCon
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "name",
-            "phone",
-            "email",
-            "type",
-            "ktp",
-            "npwp",
-            "address",
-            "city",
-            "province",
-            "gender",
-            "place_of_birth",
-            "date_of_birth",
-            "org_unit",
-            "work_unit",
-            "position",
-            "is_verified",
-            "callback_url",
-            "is_speciment"
+            "id", //0
+            "user_id", //1
+            "name", //2
+            "phone", //3
+            "email", //4
+            "type", //5
+            "ktp", //6
+            "npwp", //7
+            "address", //8
+            "city", //9
+            "province", //10
+            "gender", //11
+            "place_of_birth", //12
+            "date_of_birth", //13
+            "org_unit", //14
+            "work_unit", //15
+            "position", //16
+            "is_verified", //17
+            "callback_url", //18
+            "is_speciment", //19
         ));
 
         $strings = "";

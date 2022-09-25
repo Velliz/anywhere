@@ -122,14 +122,14 @@ class feedbackContracts extends feedback implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "signature",
-            "subject",
-            "feedback",
-            "is_approved",
-            "approved_date",
-            "feedback_responds"
+            "id", //0
+            "user_id", //1
+            "signature", //2
+            "subject", //3
+            "feedback", //4
+            "is_approved", //5
+            "approved_date", //6
+            "feedback_responds", //7
         ));
 
         $strings = "";

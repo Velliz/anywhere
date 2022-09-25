@@ -122,12 +122,12 @@ class usersContracts extends users implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "status_id",
-            "name",
-            "username",
-            "email",
-            "api_key"
+            "id", //0
+            "status_id", //1
+            "name", //2
+            "username", //3
+            "email", //4
+            "api_key", //5
         ));
 
         $strings = "";

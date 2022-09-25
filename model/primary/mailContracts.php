@@ -122,24 +122,24 @@ class mailContracts extends mail implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "html",
-            "css",
-            "mail_name",
-            "mail_address",
-            "mail_password",
-            "cc",
-            "bcc",
-            "reply_to",
-            "host",
-            "port",
-            "smtp_auth",
-            "smtp_secure",
-            "request_type",
-            "request_url",
-            "request_sample",
-            "css_external"
+            "id", //0
+            "user_id", //1
+            "html", //2
+            "css", //3
+            "mail_name", //4
+            "mail_address", //5
+            "mail_password", //6
+            "cc", //7
+            "bcc", //8
+            "reply_to", //9
+            "host", //10
+            "port", //11
+            "smtp_auth", //12
+            "smtp_secure", //13
+            "request_type", //14
+            "request_url", //15
+            "request_sample", //16
+            "css_external", //17
         ));
 
         $strings = "";

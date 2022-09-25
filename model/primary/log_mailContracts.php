@@ -122,14 +122,14 @@ class log_mailContracts extends log_mail implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "mail_id",
-            "user_id",
-            "sent_at",
-            "json_data",
-            "result_data",
-            "debug_info",
-            "processing_time"
+            "id", //0
+            "mail_id", //1
+            "user_id", //2
+            "sent_at", //3
+            "json_data", //4
+            "result_data", //5
+            "debug_info", //6
+            "processing_time", //7
         ));
 
         $strings = "";

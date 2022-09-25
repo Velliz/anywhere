@@ -122,12 +122,12 @@ class language_indicesContracts extends language_indices implements ModelContrac
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "app_name",
-            "identifier",
-            "variables",
-            "texts"
+            "id", //0
+            "user_id", //1
+            "app_name", //2
+            "identifier", //3
+            "variables", //4
+            "texts", //5
         ));
 
         $strings = "";

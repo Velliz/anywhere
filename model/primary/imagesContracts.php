@@ -122,22 +122,22 @@ class imagesContracts extends images implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "image_name",
-            "placeholder_name",
-            "placeholder_file",
-            "x",
-            "y",
-            "x2",
-            "y2",
-            "w",
-            "h",
-            "request_type",
-            "request_url",
-            "request_sample",
-            "request_sample_name",
-            "request_sample_file"
+            "id", //0
+            "user_id", //1
+            "image_name", //2
+            "placeholder_name", //3
+            "placeholder_file", //4
+            "x", //5
+            "y", //6
+            "x2", //7
+            "y2", //8
+            "w", //9
+            "h", //10
+            "request_type", //11
+            "request_url", //12
+            "request_sample", //13
+            "request_sample_name", //14
+            "request_sample_file", //15
         ));
 
         $strings = "";

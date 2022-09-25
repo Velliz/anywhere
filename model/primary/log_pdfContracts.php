@@ -122,13 +122,13 @@ class log_pdfContracts extends log_pdf implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "pdf_id",
-            "user_id",
-            "sent_at",
-            "json_data",
-            "creator_info",
-            "processing_time"
+            "id", //0
+            "pdf_id", //1
+            "user_id", //2
+            "sent_at", //3
+            "json_data", //4
+            "creator_info", //5
+            "processing_time", //6
         ));
 
         $strings = "";

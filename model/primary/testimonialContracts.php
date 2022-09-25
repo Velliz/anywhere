@@ -122,13 +122,13 @@ class testimonialContracts extends testimonial implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "signature",
-            "subject",
-            "testimonial",
-            "is_valid",
-            "validation_date"
+            "id", //0
+            "user_id", //1
+            "signature", //2
+            "subject", //3
+            "testimonial", //4
+            "is_valid", //5
+            "validation_date", //6
         ));
 
         $strings = "";

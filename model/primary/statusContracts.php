@@ -122,10 +122,10 @@ class statusContracts extends status implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "status",
-            "description",
-            "limitations"
+            "id", //0
+            "status", //1
+            "description", //2
+            "limitations", //3
         ));
 
         $strings = "";
