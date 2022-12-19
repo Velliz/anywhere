@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.15
 
 LABEL Maintainer="Tim de Pater <code@trafex.nl>" \
       Description="Lightweight container with Nginx 1.14 & PHP-FPM 7.2 based on Alpine Linux."
@@ -10,7 +10,7 @@ RUN apk --no-cache add php7 php7-session php7-common php7-fpm php7-pdo php7-xdeb
     git nginx supervisor curl zlib-dev zlib musl zip
 
 # fix work iconv library with alphine
-RUN apk add gnu-libiconv=1.15-r2 --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
+RUN apk add gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 # Configure nginx
