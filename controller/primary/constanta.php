@@ -4,6 +4,8 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use model\primary\usersContracts;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +14,8 @@ use pukoframework\Request;
  */
 class constanta extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -22,12 +26,6 @@ class constanta extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['unique_key'] === '') {
             throw new Exception($this->say('UNIQUE_KEY_REQUIRED'));
         }
@@ -35,26 +33,25 @@ class constanta extends Service
             throw new Exception($this->say('CONSTANTA_VAL_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //insert
         $constanta = new \plugins\model\primary\constanta();
-        $constanta->id = $param['id'];
-        $constanta->user_id = $param['user_id'];
-        $constanta->unique_key = $param['unique_key'];
-        $constanta->constanta_val = $param['constanta_val'];
+        $constanta->created = $this->GetServerDateTime();
+        $constanta->cuid = $this->user['id'];
 
+        $constanta->user_id = $this->user['id'];
+        $constanta->unique_key = trim($param['unique_key']);
+        $constanta->constanta_val = trim($param['constanta_val']);
 
         $constanta->save();
 
         //response
         $data['constanta'] = [
             'id' => $constanta->id,
-            'user_id' => $constanta->user_id,
+            'user' => usersContracts::GetById($constanta->user_id),
             'unique_key' => $constanta->unique_key,
             'constanta_val' => $constanta->constanta_val,
-
         ];
 
         return $data;
@@ -71,12 +68,6 @@ class constanta extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['unique_key'] === '') {
             throw new Exception($this->say('UNIQUE_KEY_REQUIRED'));
         }
@@ -84,16 +75,15 @@ class constanta extends Service
             throw new Exception($this->say('CONSTANTA_VAL_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //update
         $constanta = new \plugins\model\primary\constanta($id);
-        $constanta->id = $param['id'];
-        $constanta->user_id = $param['user_id'];
-        $constanta->unique_key = $param['unique_key'];
-        $constanta->constanta_val = $param['constanta_val'];
+        $constanta->modified = $this->GetServerDateTime();
+        $constanta->muid = $this->user['id'];
 
+        $constanta->unique_key = trim($param['unique_key']);
+        $constanta->constanta_val = trim($param['constanta_val']);
 
         $constanta->modify();
 

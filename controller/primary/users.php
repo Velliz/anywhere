@@ -5,7 +5,9 @@ namespace controller\primary;
 use DateTime;
 use Exception;
 use model\primary\statusContracts;
+use plugins\auth\AnywhereAuthenticator;
 use plugins\UserBearerData;
+use pukoframework\auth\Bearer;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -35,9 +37,6 @@ class users extends Service
         if ($param['email'] === '') {
             throw new Exception($this->say('EMAIL_REQUIRED'));
         }
-        if ($param['api_key'] === '') {
-            throw new Exception($this->say('API_KEY_REQUIRED'));
-        }
 
         //validations: customize here
         $param['name'] = trim($param['name']);
@@ -54,7 +53,7 @@ class users extends Service
         $users->email = $param['email'];
 
         $users->api_key = md5($users->username . $users->email);
-        $users->status_id = 0;
+        $users->status_id = 1;
 
         $users->save();
 
@@ -82,49 +81,33 @@ class users extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['status_id'] === '') {
-            throw new Exception($this->say('STATUS_ID_REQUIRED'));
-        }
         if ($param['name'] === '') {
             throw new Exception($this->say('NAME_REQUIRED'));
-        }
-        if ($param['username'] === '') {
-            throw new Exception($this->say('USERNAME_REQUIRED'));
         }
         if ($param['email'] === '') {
             throw new Exception($this->say('EMAIL_REQUIRED'));
         }
-        if ($param['api_key'] === '') {
-            throw new Exception($this->say('API_KEY_REQUIRED'));
-        }
-
 
         //validations: customize here
 
         //update
         $users = new \plugins\model\primary\users($id);
-        $users->id = $param['id'];
-        $users->status_id = $param['status_id'];
-        $users->name = $param['name'];
-        $users->username = $param['username'];
-        $users->email = $param['email'];
-        $users->api_key = $param['api_key'];
+        $users->modified = $this->GetServerDateTime();
+        $users->muid = $this->user['id'];
 
+        $users->name = trim($param['name']);
+        $users->email = trim($param['email']);
 
         $users->modify();
 
         //response
         $data['users'] = [
             'id' => $users->id,
-            'status_id' => $users->status_id,
+            'status' => statusContracts::GetById($users->status_id),
             'name' => $users->name,
             'username' => $users->username,
             'email' => $users->email,
             'api_key' => $users->api_key,
-
         ];
 
         return $data;
@@ -138,8 +121,12 @@ class users extends Service
     public function delete($id = '')
     {
         $users = new \plugins\model\primary\users($id);
+        $users->modified = $this->GetServerDateTime();
+        $users->muid = $this->user['id'];
 
         //delete logic here
+        $users->dflag = 1;
+        $users->modify();
 
         return [
             'deleted' => true
@@ -156,6 +143,9 @@ class users extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['status_id'])) {
+            $keyword['status_id'] = $param['status_id'];
+        }
 
         return \model\primary\usersContracts::SearchDataPagination($keyword);
     }
@@ -170,6 +160,9 @@ class users extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['status_id'])) {
+            $keyword['status_id'] = $param['status_id'];
+        }
 
         $data['users'] = \model\primary\usersContracts::SearchData($keyword);
         return $data;
@@ -184,6 +177,10 @@ class users extends Service
         $keyword = [];
 
         //post addition filter here
+        $status_id = Request::Post('status_id', '');
+        if ($status_id !== '') {
+            $keyword['status_id'] = $status_id;
+        }
 
         return \model\primary\usersContracts::GetDataTable($keyword);
     }
@@ -200,15 +197,65 @@ class users extends Service
         //response
         $data['users'] = [
             'id' => $users->id,
-            'status_id' => $users->status_id,
+            'status' => statusContracts::GetById($users->status_id),
             'name' => $users->name,
             'username' => $users->username,
             'email' => $users->email,
             'api_key' => $users->api_key,
-
         ];
 
         return $data;
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function login()
+    {
+        $param = Request::JsonBody();
+        if ($param['username'] === '') {
+            throw new Exception($this->say('USERNAME_REQUIRED'));
+        }
+        if ($param['password'] === '') {
+            throw new Exception($this->say('PASSWORD_REQUIRED'));
+        }
+
+        $login = Bearer::Get(AnywhereAuthenticator::Instance())->Login(
+            $param['username'],
+            md5($param['password'])
+        );
+
+        if (!$login) {
+            return [
+                'status' => 'error',
+                'message' => $this->say('LOGIN_FAILED'),
+                'data' => []
+            ];
+        }
+        return [
+            'status' => 'success',
+            'message' => $this->say('LOGIN_SUCCESS'),
+            'data' => [
+                'bearer' => $login,
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     * #Auth bearer true
+     */
+    public function data()
+    {
+        $data = Bearer::Get(AnywhereAuthenticator::Instance())->GetLoginData();
+
+        return [
+            'status' => 'success',
+            'message' => 'Login valid',
+            'data' => $data
+        ];
     }
 
 }

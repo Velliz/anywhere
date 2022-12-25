@@ -1,16 +1,18 @@
-{!css(<link href="assets/global/css/register.css" rel="stylesheet">)}
+{!css(
+<link href="assets/global/css/register.css" rel="stylesheet">)}
 
 <div class="register-page">
     <div class="form">
         <p>Mendaftar ke Anywhere</p>
         <p class="text-danger small">*Harap mengisi informasi pendaftaran dengan lengkap dan benar</p>
         <hr>
-        <form class="register-form" method="POST">
+        <div>
             <!--{!!Exception}-->
             <div class="alert alert-danger">
                 {!ExceptionMessage}
             </div>
             <!--{/Exception}-->
+
             <input type="hidden" name="token" value="{!token}">
             <input type="text" name="name" placeholder="Nama Lengkap" value="{!name}" required/>
             <input type="email" name="email" placeholder="Alamat Email" value="{!email}" required/>
@@ -26,6 +28,9 @@
             <br>
             <button type="submit" name="_submit">Daftar</button>
             <p class="message">Sudah terdaftar? <a href="{!url()}login">Login</a></p>
-        </form>
+        </div>
     </div>
 </div>
+
+{!js(
+<link href="assets/script/register.js" rel="stylesheet">)}

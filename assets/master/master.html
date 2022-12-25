@@ -33,43 +33,43 @@
         </div>
 
         <div class="navbar-collapse collapse" id="navbar">
-            <!--{!!IsLoginBlock}-->
-            <ul class="nav navbar-nav">
-                <li><a href="{!url()}">Anywhere</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{!url()}login">Login</a></li>
-                <li><a href="{!url()}register">Register</a></li>
-            </ul>
-            <!--{/IsLoginBlock}-->
+            <div class="guest-menu" style="display: none;">
+                <ul class="nav navbar-nav">
+                    <li><a href="{!url()}">Anywhere</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{!url()}login">Login</a></li>
+                    <li><a href="{!url()}register">Register</a></li>
+                </ul>
+            </div>
 
-            <!--{!!IsSessionBlock}-->
-            <ul class="nav navbar-nav">
-                <li class="selected">
-                    <a href="{!url()}beranda">
-                        Dashboard Console
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user"></i> @{!name}
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header text-center">{!name}</li>
-                        <li class="dropdown-header text-center">{!status}</li>
-                        <hr style="margin: 8px">
-                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
-                        <hr style="margin: 8px">
-                        <li><a href="{!url()}profil">Profil</a></li>
-                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
-                        <hr style="margin: 8px">
-                        <li><a href="{!url()}logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <!--{/IsSessionBlock}-->
+            <div class="auth-menu" style="display: none;">
+                <ul class="nav navbar-nav">
+                    <li class="selected">
+                        <a href="{!url()}beranda">
+                            Dashboard Console
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i> <span class="auth-username"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header text-center auth-name">{!name}</li>
+                            <li class="dropdown-header text-center auth-status">{!status}</li>
+                            <hr style="margin: 8px">
+                            <li class="dropdown-header"><i class="fa fa-key"></i> <span class="auth-api_key"></span></li>
+                            <hr style="margin: 8px">
+                            <li><a href="{!url()}profil">Profil</a></li>
+                            <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
+                            <hr style="margin: 8px">
+                            <li><a onclick="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
@@ -80,6 +80,8 @@
 
 <script src="assets/global/js/jquery.js"></script>
 <script src="assets/global/js/bootstrap.min.js"></script>
+<script src="assets/script/utility.js"></script>
+<script src="assets/script/master.js"></script>
 
 {!part(js)}
 

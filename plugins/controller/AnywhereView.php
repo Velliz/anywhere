@@ -3,19 +3,12 @@
 namespace plugins\controller;
 
 use Exception;
-use model\primary\constantaContracts;
 use model\primary\digital_signsContracts;
 use model\primary\usersContracts;
-use plugins\auth\AnywhereAuthenticator;
 use plugins\model\primary\digital_signs;
-use pukoframework\auth\Session;
 use pukoframework\Framework;
 use pukoframework\middleware\View;
 
-/**
- * #Master master.html
- * #Value title Hello World
- */
 class AnywhereView extends View
 {
 
@@ -28,30 +21,6 @@ class AnywhereView extends View
     public function __construct()
     {
         parent::__construct();
-
-        //because session class don't trigger this instance
-        session_start();
-    }
-
-    /**
-     * @return array
-     * @throws Exception
-     */
-    public function BeforeInitialize()
-    {
-        if (Session::Is()) {
-            $data['IsSessionBlock'] = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-
-            //pre-fill the data with logged in account
-            $this->vars = constantaContracts::SearchData([
-                'user_id' => $data['IsSessionBlock']['id'],
-            ]);
-        } else {
-            $data['IsLoginBlock'] = array(
-                'login' => true
-            );
-        }
-        return $data;
     }
 
     /**
@@ -130,6 +99,5 @@ class AnywhereView extends View
 
         return '';
     }
-
 
 }

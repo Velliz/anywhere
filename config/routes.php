@@ -1042,12 +1042,26 @@
                 "POST"
             ]
         ],
+        "users/data" => [
+            "controller" => "primary\\users",
+            "function" => "data",
+            "accept" => [
+                "GET"
+            ]
+        ],
         "users/explore" => [
             "controller" => "primary\\users",
             "function" => "explore",
             "accept" => [
                 "POST",
                 "GET"
+            ]
+        ],
+        "users/login" => [
+            "controller" => "primary\\users",
+            "function" => "login",
+            "accept" => [
+                "POST"
             ]
         ],
         "users/search" => [
