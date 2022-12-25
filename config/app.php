@@ -1,19 +1,19 @@
 <?php return [
     'const' => [
-        'INSTALLED' => true,
-        'LIMITATIONS' => 9999
+        'INSTALLED' => $_SERVER['INSTALLED'],
+        'LIMITATIONS' => $_SERVER['LIMITATIONS']
     ],
     'cache' => [
         'kind' => 'MEMCACHED',
-        'host' => 'localhost',
+        'host' => $_SERVER['MEMCACHED_IP'],
         'port' => 11211,
     ],
     'logs' => [
         'slack' => [
-            'url' => '',
+            'url' => $_SERVER['SLACK_API'],
             'secure' => '',
             'username' => 'anywhere',
-            'active' => false
+            'active' => $_SERVER['SLACK_API_STATUS']
         ],
         'hook' => [
             'url' => '',

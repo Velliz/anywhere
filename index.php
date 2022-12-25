@@ -33,7 +33,7 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, Cache-Con
 
 $factory = array(
     'cli_param' => null,
-    'environment' => 'DEV',
+    'environment' => $_SERVER['ENVIRONMENT'],
     'base' => ($protocol . "://" . $_SERVER['HTTP_HOST'] . "/"),
     'root' => __DIR__,
     'start' => microtime(true)
