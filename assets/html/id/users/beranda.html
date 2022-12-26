@@ -2,261 +2,146 @@
 {!css(<link rel="stylesheet" type="text/css" href="assets/vendor/datatables/Buttons-1.6.1/css/buttons.bootstrap.css"/>)}
 
 <div class="container content-main">
-    <div class="row">
-        <div class="col-lg-12">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#pdf"><i class="fa fa-file-pdf-o"></i></a></li>
-                <li><a data-toggle="tab" href="#xlsx"><i class="fa fa-file-excel-o"></i></a></li>
-                <li><a data-toggle="tab" href="#mail"><i class="fa fa-envelope-o"></i></a></li>
-                <li><a data-toggle="tab" href="#digitalsigns"><i class="fa fa-users"></i></a></li>
-                <li><a data-toggle="tab" href="#image"><i class="fa fa-image"></i></a></li>
-                <li><a data-toggle="tab" href="#qr"><i class="fa fa-qrcode"></i></a></li>
-                <li><a data-toggle="tab" href="#var"><i class="fa fa-edit"></i></a></li>
-            </ul>
-
-            <div class="tab-content">
-                <div id="pdf" class="tab-pane fade in active">
-                    <h4>.pdf - used <b>{!LengthPDF}/{!limitations}</b></h4>
+    <div>
+        <h1>Welcome <span class="auth-name"></span>!</h1>
+        <p>Your current plan is <span class="auth-status"></span>. You can create up to <span class="auth-limitations"></span> templates.</p>
+    </div>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        PDF Generator
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
                     <table id="pdf-table" class="table table-bordered">
                         <thead>
                         <tr>
                             <th>Template name</th>
-                            <th>Size</th>
+                            <th>Paper Size</th>
                             <th>Orientation</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <!--{!PDFLists}-->
-                        <tr>
-                            <td>
-                                <a href="{!url()}pdf/update/{!PDFID}" class="btn btn-default btn-xs">{!reportname}</a>
-                            </td>
-                            <td>
-                                {!paper}
-                            </td>
-                            <td>
-                                {!orientation}
-                            </td>
-                            <td>
-                                <a title="Jump to HTML Designer" href="{!url()}pdf/html/{!PDFID}" target="_blank" class="btn btn-xs btn-primary"><i class="fa fa-external-link"></i></a>
-                                <a title="Timeline" href="{!url()}pdf/timeline/{!PDFID}" target="_blank" class="btn btn-xs btn-success"><i class="fa fa-bar-chart"></i></a>
-                            </td>
-                        </tr>
-                        <!--{/PDFLists}-->
                         </tbody>
                     </table>
                 </div>
-                <div id="xlsx" class="tab-pane fade">
-                    <h4>.xlsx - used <b>{!LengthEXCEL}/{!limitations}</b></h4>
-                    <table id="xlsx-table" class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Template name</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--{!EXCELLists}-->
-                        <tr>
-                            <td>
-                                <a href="{!url()}excel/update/{!EXCELID}" class="btn btn-default btn-xs">{!excelname}</a>
-                            </td>
-                        </tr>
-                        <!--{/EXCELLists}-->
-                        </tbody>
-                    </table>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        Spreadsheet Generator
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                    commodo consequat.
                 </div>
-                <div id="mail" class="tab-pane fade">
-                    <h4>@mail - used <b>{!LengthMAIL}/{!limitations}</b></h4>
-                    <table id="mail-table" class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Template name</th>
-                            <th>Sender</th>
-                            <th>Host</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--{!MAILLists}-->
-                        <tr>
-                            <td>
-                                <a href="{!url()}mail/update/{!MAILID}" class="btn btn-default btn-xs">{!mailname}</a>
-                            </td>
-                            <td>{!mailaddress}</td>
-                            <td>{!host}</td>
-                            <td>
-                                <a title="Jump to HTML Designer" href="{!url()}mail/html/{!MAILID}" target="_blank" class="btn btn-primary btn-xs"><i class="fa fa-external-link"></i></a>
-                            </td>
-                        </tr>
-                        <!--{/MAILLists}-->
-                        </tbody>
-                    </table>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                        Send Email Service (SMTP)
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                    commodo consequat.
                 </div>
-                <div id="digitalsigns" class="tab-pane fade">
-                    <h4>Self Digital Signs</h4>
-                    <table id="digitalsign-table" class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Nama Penandatangan</th>
-                            <th>Email</th>
-                            <th>Tipe</th>
-                            <th>Gender</th>
-                            <th>Organization Unit</th>
-                            <th>Work Unit</th>
-                            <th>Posisi</th>
-                            <th>Aksi</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <!--{!DigitalSignList}-->
-                            <tr>
-                                <td>{!name}</td>
-                                <td>{!email}</td>
-                                <td>{!type}</td>
-                                <td>{!gender}</td>
-                                <td>{!orgUnit}</td>
-                                <td>{!workUnit}</td>
-                                <td>{!position}</td>
-                                <td>
-                                    <a data-id="{!id}" title="Digital Signs History" href="#" class="btn btn-xs btn-primary btn-digitalsign-history">
-                                        <i class="fa fa-list"></i>
-                                    </a>
-                                    <a data-id="{!id}" title="Detailed Information" href="#" class="btn btn-xs btn-success btn-digitalsign-users">
-                                        <i class="fa fa-expand"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <!--{/DigitalSignList}-->
-                        </tbody>
-                    </table>
-                    <div class="hidden" id="digitalsigns-forms">
-                        LOLOL
-                    </div>
-                    <div class="hidden" id="digitalsigns-tables">
-                        LOLOL
-                    </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                        Digital Signing (Self Signed)
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                    commodo consequat.
                 </div>
-                <div id="image" class="tab-pane fade">
-                    <h4>image - used <b>{!LengthIMAGE}/{!limitations}</b></h4>
-                    <table id="image-table" class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Image name</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--{!IMAGELists}-->
-                        <tr>
-                            <td>
-                                <a style="width: 100%;" href="{!url()}images/update/{!IMAGEID}" class="btn btn-default">{!imagename}</a>
-                            </td>
-                        </tr>
-                        <!--{/IMAGELists}-->
-                        </tbody>
-                    </table>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                        Image Combinator
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                    commodo consequat.
                 </div>
-                <div id="qr" class="tab-pane fade">
-                    <h4>qr codes</h4>
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="design-page">
-                                <div class="form text-center">
-                                    <form class="login-form" method="POST">
-                                        <p id="apiurl">
-                                            API URL <br>
-                                            <a target="_blank" href="{!url()}qr/render?data=your_data_to_qr">{!url()}qr/render?data=[data]</a>
-                                        </p>
-                                        <img src="{!url()}qr/render?data=admin@example.co.id&size=5" alt="qr codes">
-                                        <br>
-                                        <a target="_blank" href="{!url()}qr/render?data=admin@example.co.id&size=5">{!url()}qr/render?data=admin@example.co.id&size=5</a>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <table class="table table-bordered table-responsive">
-                                <thead>
-                                <tr>
-                                    <th>Options</th>
-                                    <th>Value</th>
-                                    <th>Example</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>output</td>
-                                    <td>jpeg | jpg | png | svg</td>
-                                    <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&output=jpeg">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&output=jpeg</a></td>
-                                </tr>
-                                <tr>
-                                    <td>size</td>
-                                    <td>1 to 100</td>
-                                    <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&size=9">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&size=9</a></td>
-                                </tr>
-                                <tr>
-                                    <td>margin</td>
-                                    <td>1 to 100</td>
-                                    <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&margin=15">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&margin=15</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                        QRCode Generator
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse6" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                    commodo consequat.
                 </div>
-                <div id="var" class="tab-pane fade">
-                    <h4>variable ({!LengthCONST})</h4>
-                    <table id="var-table" class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Variables</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--{!CONSTLists}-->
-                        <tr>
-                            <td>
-                                <form class="form-inline" action="" method="post">
-                                <input type="hidden" name="constID" value="{!constID}">
-                                <input type="hidden" name="action" value="Update">
-                                <input readonly="readonly" type="text" class="form-control" name="key" placeholder="key" value="{!uniquekey}"/>
-                                <textarea name="val" class="form-control" placeholder="values" cols="70" rows="1">{!constantaval}</textarea>
-                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                        <!--{/CONSTLists}-->
-                        </tbody>
-                    </table>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                        Custom Variables
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse7" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                    commodo consequat.
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="add-var" class="hidden">
-    <form action="" method="post">
-        <input type="hidden" name="action" value="Save">
-        <div class="form-group">
-            <input onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control" name="key" placeholder="key"/>
-            <p class="help-block">*Key harus unik dan nilainya fix setelah disimpan</p>
-        </div>
-        <div class="form-group">
-            <textarea name="val" cols="10" rows="2" class="form-control" placeholder="values"></textarea>
-        </div>
-        <p>Pemanggilan global variable pada template layout dapat menggunakan tag: <b>{!tagvar}</b></p>
-        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> save</button>
-    </form>
-</div>
-
-{!js(<script src="assets/vendor/datatables/datatables.js"></script>)}
-{!js(<script src="assets/vendor/datatables/Buttons-1.6.1/js/dataTables.buttons.js"></script>)}
-{!js(<script src="assets/vendor/datatables/Buttons-1.6.1/js/buttons.bootstrap.js"></script>)}
-{!js(<script src="assets/vendor/bootbox/bootbox.min.js"></script>)}
+{!js(
+<script src="assets/vendor/datatables/datatables.js"></script>
+<script src="assets/vendor/datatables/Buttons-1.6.1/js/dataTables.buttons.js"></script>
+<script src="assets/vendor/datatables/Buttons-1.6.1/js/buttons.bootstrap.js"></script>
+<script src="assets/vendor/bootbox/bootbox.min.js"></script>
 
 {!js(<script src="assets/script/auth.js"></script>)}
-{!js(<script src="assets/script/users/beranda.js"/>)}
+{!js(<script src="assets/script/users/beranda.js"></script>)}

@@ -17,9 +17,8 @@
  */
 namespace controller;
 
-use plugins\auth\AnywhereAuthenticator;
 use Exception;
-use model\UserModel;
+use plugins\auth\AnywhereAuthenticator;
 use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
 use pukoframework\Framework;

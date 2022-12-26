@@ -15,6 +15,7 @@ $(function () {
             $('.auth-username').html(data.user.email);
             $('.auth-name').html(data.user.name);
             $('.auth-status').html(data.user.status.status);
+            $('.auth-limitations').html(data.user.status.limitations);
             $('.auth-api_key').html(data.user.api_key);
         },
         function (xhr, result) {

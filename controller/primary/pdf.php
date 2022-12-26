@@ -4,6 +4,7 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +13,8 @@ use pukoframework\Request;
  */
 class pdf extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -87,18 +90,18 @@ class pdf extends Service
         //response
         $data['pdf'] = [
             'id' => $pdf->id,
-        'user_id' => $pdf->user_id,
-        'report_name' => $pdf->report_name,
-        'html' => $pdf->html,
-        'css' => $pdf->css,
-        'php_script' => $pdf->php_script,
-        'output_mode' => $pdf->output_mode,
-        'paper' => $pdf->paper,
-        'orientation' => $pdf->orientation,
-        'request_type' => $pdf->request_type,
-        'request_url' => $pdf->request_url,
-        'request_sample' => $pdf->request_sample,
-        'css_external' => $pdf->css_external,
+            'user_id' => $pdf->user_id,
+            'report_name' => $pdf->report_name,
+            'html' => $pdf->html,
+            'css' => $pdf->css,
+            'php_script' => $pdf->php_script,
+            'output_mode' => $pdf->output_mode,
+            'paper' => $pdf->paper,
+            'orientation' => $pdf->orientation,
+            'request_type' => $pdf->request_type,
+            'request_url' => $pdf->request_url,
+            'request_sample' => $pdf->request_sample,
+            'css_external' => $pdf->css_external,
 
         ];
 
@@ -181,18 +184,18 @@ class pdf extends Service
         //response
         $data['pdf'] = [
             'id' => $pdf->id,
-        'user_id' => $pdf->user_id,
-        'report_name' => $pdf->report_name,
-        'html' => $pdf->html,
-        'css' => $pdf->css,
-        'php_script' => $pdf->php_script,
-        'output_mode' => $pdf->output_mode,
-        'paper' => $pdf->paper,
-        'orientation' => $pdf->orientation,
-        'request_type' => $pdf->request_type,
-        'request_url' => $pdf->request_url,
-        'request_sample' => $pdf->request_sample,
-        'css_external' => $pdf->css_external,
+            'user_id' => $pdf->user_id,
+            'report_name' => $pdf->report_name,
+            'html' => $pdf->html,
+            'css' => $pdf->css,
+            'php_script' => $pdf->php_script,
+            'output_mode' => $pdf->output_mode,
+            'paper' => $pdf->paper,
+            'orientation' => $pdf->orientation,
+            'request_type' => $pdf->request_type,
+            'request_url' => $pdf->request_url,
+            'request_sample' => $pdf->request_sample,
+            'css_external' => $pdf->css_external,
 
         ];
 
@@ -245,14 +248,16 @@ class pdf extends Service
     }
 
     /**
-     * @return array|mixed
+     * @return array
      * @throws Exception
+     * #Auth bearer true
      */
     public function table()
     {
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\pdfContracts::GetDataTable($keyword);
     }
@@ -269,18 +274,18 @@ class pdf extends Service
         //response
         $data['pdf'] = [
             'id' => $pdf->id,
-        'user_id' => $pdf->user_id,
-        'report_name' => $pdf->report_name,
-        'html' => $pdf->html,
-        'css' => $pdf->css,
-        'php_script' => $pdf->php_script,
-        'output_mode' => $pdf->output_mode,
-        'paper' => $pdf->paper,
-        'orientation' => $pdf->orientation,
-        'request_type' => $pdf->request_type,
-        'request_url' => $pdf->request_url,
-        'request_sample' => $pdf->request_sample,
-        'css_external' => $pdf->css_external,
+            'user_id' => $pdf->user_id,
+            'report_name' => $pdf->report_name,
+            'html' => $pdf->html,
+            'css' => $pdf->css,
+            'php_script' => $pdf->php_script,
+            'output_mode' => $pdf->output_mode,
+            'paper' => $pdf->paper,
+            'orientation' => $pdf->orientation,
+            'request_type' => $pdf->request_type,
+            'request_url' => $pdf->request_url,
+            'request_sample' => $pdf->request_sample,
+            'css_external' => $pdf->css_external,
 
         ];
 
