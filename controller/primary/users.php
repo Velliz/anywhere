@@ -5,6 +5,7 @@ namespace controller\primary;
 use DateTime;
 use Exception;
 use model\primary\statusContracts;
+use model\primary\usersContracts;
 use plugins\auth\AnywhereAuthenticator;
 use plugins\UserBearerData;
 use pukoframework\auth\Bearer;
@@ -37,11 +38,28 @@ class users extends Service
         if ($param['email'] === '') {
             throw new Exception($this->say('EMAIL_REQUIRED'));
         }
+        if ($param['password'] === '') {
+            throw new Exception($this->say('PASSWORD_REQUIRED'));
+        }
 
         //validations: customize here
         $param['name'] = trim($param['name']);
         $param['username'] = trim($param['username']);
         $param['email'] = trim($param['email']);
+
+        //duplication check
+        $username = usersContracts::GetDataSizeWhere([
+            'username' => $param['username'],
+        ]);
+        if ($username > 0) {
+            throw new Exception($this->say('USERNAME_EXIST', [$param['username']]));
+        }
+        $email = usersContracts::GetDataSizeWhere([
+            'email' => $param['email'],
+        ]);
+        if ($email > 0) {
+            throw new Exception($this->say('EMAIL_EXIST', [$param['username']]));
+        }
 
         //insert
         $users = new \plugins\model\primary\users();
@@ -54,6 +72,8 @@ class users extends Service
 
         $users->api_key = md5($users->username . $users->email);
         $users->status_id = 1;
+
+        $users->password = md5($param['password']);
 
         $users->save();
 

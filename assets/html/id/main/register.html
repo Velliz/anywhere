@@ -3,34 +3,32 @@
 
 <div class="register-page">
     <div class="form">
-        <p>Mendaftar ke Anywhere</p>
-        <p class="text-danger small">*Harap mengisi informasi pendaftaran dengan lengkap dan benar</p>
+        <p>Anywhere Registration</p>
+        <p class="text-danger small">*Please enter your valid email.</p>
         <hr>
         <div>
-            <!--{!!Exception}-->
-            <div class="alert alert-danger">
-                {!ExceptionMessage}
+            <div class="alert alert-danger ajax-register" style="display: none;">
+                <span class="ajax-register-message"></span>
             </div>
-            <!--{/Exception}-->
 
-            <input type="hidden" name="token" value="{!token}">
-            <input type="text" name="name" placeholder="Nama Lengkap" value="{!name}" required/>
-            <input type="email" name="email" placeholder="Alamat Email" value="{!email}" required/>
-            <input type="text" name="username" placeholder="Username" value="{!username}" required/>
+            <input type="text" name="name" placeholder="Your Name" value="" required/>
+            <input type="email" name="email" placeholder="Your Email" value="" required/>
+            <input type="text" name="username" placeholder="Username" value="" required/>
             <div class="row">
                 <div class="col-lg-6">
                     <input type="password" name="password" placeholder="Password" required/>
                 </div>
                 <div class="col-lg-6">
-                    <input type="password" name="repeat_password" placeholder="Ulangi Password" required/>
+                    <input type="password" name="repeat_password" placeholder="Re-type Password" required/>
                 </div>
             </div>
             <br>
-            <button type="submit" name="_submit">Daftar</button>
-            <p class="message">Sudah terdaftar? <a href="{!url()}login">Login</a></p>
+            <button type="submit" name="register-submit" class="register-submit">Regsiter</button>
+
+            <p class="message">Already have account? <a href="{!url()}login">Login</a></p>
         </div>
     </div>
 </div>
 
 {!js(
-<link href="assets/script/register.js" rel="stylesheet">)}
+<script src="assets/script/register.js"></script>)}
