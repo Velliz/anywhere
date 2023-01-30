@@ -11,7 +11,10 @@ $(function () {
                 location.replace('/beranda');
             }
         },
-        function (result) {
+        function (xhr, result) {
+            if (result === 'error') {
+                localStorage.clear();
+            }
         },
     );
 

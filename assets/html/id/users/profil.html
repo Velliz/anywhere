@@ -1,15 +1,35 @@
 {!css(<!-- place your custom CSS file here -->)}
 
 <div class="container content-main">
-    <hr>
     <h1>Profil Anda</h1>
-    <hr>
-    <p>UserID : {!ID}</p>
-    <p>Nama : {!name}</p>
-    <p>username : {!username}</p>
-    <p>email : {!email}</p>
-    <p>apikey : {!apikey}</p>
-    <p>Status : {!status}</p>
+
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td><b>ID</b></td>
+            <td>#<span class="profile-id"></span></td>
+        </tr>
+        <tr>
+            <td><b>Username</b></td>
+            <td><span class="profile-username"></span></td>
+        </tr>
+        <tr>
+            <td><b>Display Name</b></td>
+            <td><span class="profile-name"></span></td>
+        </tr>
+        <tr>
+            <td><b>Status</b></td>
+            <td><span class="profile-status"></span></td>
+        </tr>
+        <tr>
+            <td><b>Limitations</b></td>
+            <td><span class="profile-limitations"></span> template</td>
+        </tr>
+        <tr>
+            <td><b>API Key</b></td>
+            <td><span class="profile-api_key"></span></td>
+        </tr>
+    </table>
 </div>
 
-{!js(<!-- place your custom JavaScript file here -->)}
+{!js(<script src="assets/script/auth.js"></script>)}
+{!js(<script src="assets/script/users/profil.js"></script>)}

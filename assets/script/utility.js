@@ -65,7 +65,7 @@ const datatables_config = {
     },
     'decimal': '',
     'emptyTable': 'No data founds',
-    'info': 'Result _START_ to _END_ from _TOTAL_ rows',
+    'info': 'Result _START_ to _END_ from _TOTAL_ templates',
     'infoEmpty': 'Result 0 to 0 from 0 row',
     'infoFiltered': '(Filtered from _MAX_ rows)',
     'infoPostFix': '',

@@ -38,13 +38,13 @@ $(function () {
         ],
         language: datatables_config,
         rowCallback: function (row, data) {
-            let details = `<a title="Details" href="pdf/html/1" target="_blank" class="btn btn-xs btn-primary">
+            let details = `<a title="Details" href="pdf/update/1" target="_blank" class="btn btn-xs btn-primary">
                 <i class="fa fa-eye"></i> Details
             </a>`;
             let designer = `<a title="Designer" href="pdf/html/1" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
                 <i class="fa fa-pencil"></i> Designer
             </a>`;
-            let usages = `<a title="Usage History" href="pdf/html/1" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+            let usages = `<a title="Usage History" href="pdf/timeline/1" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
                 <i class="fa fa-external-link"></i> Usage History
             </a>`;
 

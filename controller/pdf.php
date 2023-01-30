@@ -18,13 +18,10 @@
 
 namespace controller;
 
-use model\ConstantaModel;
-use model\LogPdf;
-use model\UserModel;
+use Exception;
 use plugins\auth\AnywhereAuthenticator;
 use Dompdf\Options;
 use Dompdf\Dompdf;
-use model\PdfModel;
 use plugins\controller\AnywhereView;
 use pte\Pte;
 use pukoframework\auth\Session;

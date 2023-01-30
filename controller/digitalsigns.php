@@ -5,13 +5,13 @@ namespace controller;
 use Exception;
 use model\DigitalSignModel;
 use model\DigitalSignUserModel;
-use pukoframework\middleware\View;
+use plugins\controller\AnywhereView;
 
 /**
  * #Master master.html
  * #Value title Signing Users
  */
-class digitalsigns extends View
+class digitalsigns extends AnywhereView
 {
 
     public function users()
