@@ -91,3 +91,46 @@ const datatables_menu = [
     [10, 50, 100, 200],
     ['10', '50', '100', '200']
 ];
+
+function bootbox_dialog(title, message, size, ok_action, cancel_action, with_btn = true) {
+    let btn = null;
+    if (with_btn) {
+        btn = {
+            cancel: {
+                label: "Batal",
+                className: 'btn-default btn-sm',
+                callback: cancel_action
+            },
+            ok: {
+                label: "Lanjut",
+                className: 'btn-primary btn-sm',
+                callback: ok_action
+            }
+        };
+    }
+    return bootbox.dialog({
+        title: title,
+        message: message,
+        size: size,
+        buttons: btn
+    });
+}
+
+function pnotify(title, text, type) {
+    new PNotify({
+        title: title,
+        text: text,
+        type: type,
+        styling: 'bootstrap3',
+        mobile: {
+            swipe_dismiss: true,
+            styling: true
+        },
+        buttons: {
+            closer: true,
+            sticker: false,
+            closer_hover: true,
+            show_on_nonblock: true
+        }
+    });
+}

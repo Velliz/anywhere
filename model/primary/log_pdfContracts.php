@@ -150,4 +150,39 @@ class log_pdfContracts extends log_pdf implements ModelContracts
             return $result;
         });
     }
+
+    public static function GetPdfStats($id_pdf)
+    {
+        $sql = "SELECT logpdf.pdfid, pdf.reportname, COUNT(logpdf.pdfid) AS generated, logpdf.sentat AS lastprinted
+        FROM logpdf
+        LEFT JOIN pdf USING (pdfid)
+        WHERE (logpdf.dflag = 0) 
+        AND (logpdf.pdfid = @1)
+        GROUP BY pdfid
+        ORDER BY COUNT(logpdf.pdfid) DESC";
+        return DBI::Prepare($sql)->GetData($id_pdf);
+    }
+
+    public static function GetPdfTimeline($id_pdf, $startdate, $enddate)
+    {
+        $sql = "SELECT logpdf.logid, logpdf.pdfid, pdf.reportname, logpdf.processingtime, logpdf.sentat
+        FROM logpdf
+        LEFT JOIN pdf USING (pdfid)
+        WHERE (logpdf.dflag = 0)
+        AND (logpdf.pdfid = @1)
+        AND DATE(logpdf.sentat) BETWEEN DATE(@2) AND DATE(@3)
+        ORDER BY logpdf.logid DESC";
+        return DBI::Prepare($sql)->GetData($id_pdf, $startdate, $enddate);
+    }
+
+    public static function GetAllPopularity()
+    {
+        $sql = "SELECT logpdf.logid, pdf.reportname, COUNT(logpdf.logid) AS counter
+        FROM logpdf
+        LEFT JOIN pdf USING (logid)
+        GROUP BY logid
+        ORDER BY COUNT(logpdf.logid) DESC;";
+        return DBI::Prepare($sql)->GetData();
+    }
+
 }

@@ -167,4 +167,14 @@ class usersContracts extends users implements ModelContracts
         LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow($username, $password);
     }
+
+    public static function UserIdByApiKey($api_key)
+    {
+        $sql = "SELECT id
+        FROM users
+        WHERE (dflag = 0)
+        AND (apikey = @1);";
+        $data = DBI::Prepare($sql)->FirstRow($api_key);
+        return $data['id'];
+    }
 }

@@ -33,10 +33,14 @@ class pdf extends Service
         }
 
         //validations: customize here
+        $user_limitations = $this->user['status']['limitations'];
+        if ($user_limitations === null) {
+            $user_limitations = $this->GetAppConstant('LIMITATIONS');
+        }
         $limit = pdfContracts::GetDataSizeWhere([
             'user_id' => $this->user['id'],
         ]);
-        if ($limit >= $this->GetAppConstant('LIMITATIONS')) {
+        if ($limit >= $user_limitations) {
             throw new Exception($this->say('QUOTA_LIMITATIONS'));
         }
 

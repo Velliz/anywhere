@@ -1,6 +1,6 @@
 $(function () {
 
-    $('#pdf-table').DataTable({
+    let pdf = $('#pdf-table').DataTable({
         ajax: {
             type: "POST",
             dataType: "json",
@@ -30,21 +30,48 @@ $(function () {
             },
             {
                 className: "btn-sm btn-primary",
-                text: `Create new`,
+                text: `Create new template`,
                 action: function () {
-                    window.location.href = "pdf/main";
+                    bootbox_dialog(
+                        `Template name`,
+                        `<input class="form-control" name="report_name" placeholder="pdf template name"/>`,
+                        `small`,
+                        function () {
+                            $('.bootbox-accept').prop('disabled', true);
+                            let report_name = $('.bootbox-body input[name=report_name]').val();
+                            ajax_post(
+                                `pdf/create`,
+                                {
+                                    report_name: report_name
+                                },
+                                pdf,
+                                function (result) {
+                                    let pdf = result.pdf;
+                                    pnotify(`Template created`, `New template ${report_name} - ${pdf.paper} ${pdf.orientation} successfully created!`, 'success');
+                                    bootbox.hideAll();
+                                },
+                                function (xhr, error) {
+                                    $('.bootbox-accept').prop('disabled', false);
+                                    if (error === 'error') {
+                                        pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                                    }
+                                }
+                            );
+                            return false;
+                        }
+                    );
                 }
             },
         ],
         language: datatables_config,
         rowCallback: function (row, data) {
-            let details = `<a title="Details" href="pdf/update/1" target="_blank" class="btn btn-xs btn-primary">
+            let details = `<a title="Details" href="pdf/update/${data[0]}" target="_blank" class="btn btn-xs btn-primary">
                 <i class="fa fa-eye"></i> Details
             </a>`;
-            let designer = `<a title="Designer" href="pdf/html/1" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+            let designer = `<a title="Designer" href="pdf/html/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
                 <i class="fa fa-pencil"></i> Designer
             </a>`;
-            let usages = `<a title="Usage History" href="pdf/timeline/1" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+            let usages = `<a title="Usage History" href="pdf/timeline/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
                 <i class="fa fa-external-link"></i> Usage History
             </a>`;
 

@@ -801,14 +801,6 @@
                 "POST"
             ]
         ],
-        "pdf/main" => [
-            "controller" => "pdf",
-            "function" => "main",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
         "pdf/render/{?}/{?}" => [
             "controller" => "pdf",
             "function" => "render",
