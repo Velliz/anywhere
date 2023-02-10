@@ -75,11 +75,16 @@ class pdf extends Service
             'id' => $pdf->id,
             'user' => usersContracts::GetById($pdf->user_id),
             'report_name' => $pdf->report_name,
+            'html' => $pdf->html,
+            'css' => $pdf->css,
+            'php_script' => $pdf->php_script,
             'output_mode' => $pdf->output_mode,
             'paper' => $pdf->paper,
             'orientation' => $pdf->orientation,
             'request_type' => $pdf->request_type,
             'request_url' => $pdf->request_url,
+            'request_sample' => $pdf->request_sample,
+            'css_external' => $pdf->css_external,
         ];
 
         return $data;
@@ -108,6 +113,9 @@ class pdf extends Service
         if ($param['orientation'] === '') {
             throw new Exception($this->say('ORIENTATION_REQUIRED'));
         }
+        if ($param['request_type'] === '') {
+            throw new Exception($this->say('REQUEST_TYPE_REQUIRED'));
+        }
 
         //validations: customize here
 
@@ -120,6 +128,17 @@ class pdf extends Service
         $pdf->output_mode = $param['output_mode'];
         $pdf->paper = trim($param['paper']);
         $pdf->orientation = $param['orientation'];
+        $pdf->request_type = $param['request_type'];
+
+        if (isset($param['css_external'])) {
+            $pdf->css_external = $param['css_external'];
+        }
+        if (isset($param['request_sample'])) {
+            $pdf->request_sample = $param['request_sample'];
+        }
+        if (isset($param['php_script'])) {
+            $pdf->php_script = $param['php_script'];
+        }
 
         $pdf->modify();
 
@@ -128,11 +147,16 @@ class pdf extends Service
             'id' => $pdf->id,
             'user' => usersContracts::GetById($pdf->user_id),
             'report_name' => $pdf->report_name,
+            'html' => $pdf->html,
+            'css' => $pdf->css,
+            'php_script' => $pdf->php_script,
             'output_mode' => $pdf->output_mode,
             'paper' => $pdf->paper,
             'orientation' => $pdf->orientation,
             'request_type' => $pdf->request_type,
             'request_url' => $pdf->request_url,
+            'request_sample' => $pdf->request_sample,
+            'css_external' => $pdf->css_external,
         ];
 
         return $data;
