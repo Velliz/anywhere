@@ -131,32 +131,26 @@ class pdf extends View
     {
         $pdfRender = pdfContracts::GetPdfRender($api_key, $pdfId);
 
-        $this->outputmode = $pdfRender['outputmode'];
+        $this->outputmode = $pdfRender['output_mode'];
         $this->paper = $pdfRender['paper'];
         $this->orientation = $pdfRender['orientation'];
         $this->html = $pdfRender['html'];
         $this->css = $pdfRender['css'];
-        $this->reportname = $pdfRender['reportname'];
-        $this->requesttype = $pdfRender['requesttype'];
-        $this->requestsample = $pdfRender['requestsample'];
-        $this->cssexternal = $pdfRender['cssexternal'];
+        $this->reportname = $pdfRender['report_name'];
+        $this->requesttype = $pdfRender['request_type'];
+        $this->requestsample = $pdfRender['request_sample'];
+        $this->cssexternal = $pdfRender['css_external'];
 
-        $script = $pdfRender['phpscript'];
+        $script = $pdfRender['php_script'];
         $php_script = $this->php_head . $script . $this->php_tail;
 
         $htmlFactory = $this->head . $this->css . $this->middle . $php_script . $this->cssexternal . $this->html . $this->tail;
 
-        $response = new Response();
-        $response->useMasterLayout = false;
-
         $render = new Pte(false);
-        if ($response->useMasterLayout) {
-            $render->SetMaster($response->htmlMaster);
-        }
 
         $render->SetValue(json_decode($this->requestsample, true));
         $render->SetHtml($htmlFactory, true);
-        $template = $render->Output($this, Pte::VIEW_HTML);
+        $template = $render->Output($this);
 
         $this->dompdf->setPaper($this->paper, $this->orientation);
         $this->dompdf->loadHtml($template);
@@ -166,8 +160,12 @@ class pdf extends View
         header("Pragma: no-cache");
         header("Author: Anywhere 0.1");
         header('Content-Type: application/pdf');
+        header("Content-Disposition: attachment; filename='{$this->reportname}.pdf'");
 
-        $this->dompdf->stream($this->reportname . '.pdf', array("Attachment" => 0));
+        $this->dompdf->stream("{$this->reportname}.pdf", [
+            'Attachment' => 0
+        ]);
+
         exit();
     }
 
@@ -186,16 +184,16 @@ class pdf extends View
             'user_id' => $pdfRender['user_id']
         ]);
 
-        $this->outputmode = $pdfRender['outputmode'];
+        $this->outputmode = $pdfRender['output_mode'];
         $this->paper = $pdfRender['paper'];
         $this->orientation = $pdfRender['orientation'];
         $this->html = $pdfRender['html'];
         $this->css = $pdfRender['css'];
-        $this->reportname = $pdfRender['reportname'];
-        $this->requesttype = $pdfRender['requesttype'];
-        $this->requestsample = $pdfRender['requestsample'];
-        $this->cssexternal = $pdfRender['cssexternal'];
-        $this->requesturl = $pdfRender['requesturl'];
+        $this->reportname = $pdfRender['report_name'];
+        $this->requesttype = $pdfRender['request_type'];
+        $this->requestsample = $pdfRender['request_sample'];
+        $this->cssexternal = $pdfRender['css_external'];
+        $this->requesturl = $pdfRender['request_url'];
 
         $script = $pdfRender['phpscript'];
         $php_script = $this->php_head . $script . $this->php_tail;

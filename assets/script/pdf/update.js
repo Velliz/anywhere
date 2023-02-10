@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
 
     let id_pdf = $('input[name=id]').val();
 
@@ -12,6 +12,10 @@ $(function() {
     let cssexternal;
     let requestsample;
     let phpscript;
+
+    let requestsample_editor;
+    let cssexternal_editor;
+    let phpscript_editor;
 
     ajax_get(
         `pdf/${id_pdf}`,
@@ -30,7 +34,7 @@ $(function() {
             requestsample = $(`textarea[name=requestsample]`).val(pdf.request_sample);
             phpscript = $(`textarea[name=phpscript]`).val(pdf.php_script);
 
-            CodeMirror.fromTextArea(document.getElementById("requestsample"), {
+            requestsample_editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
                 lineNumbers: true,
                 name: "javascript",
                 mode: "javascript",
@@ -44,7 +48,7 @@ $(function() {
                 }
             });
 
-            CodeMirror.fromTextArea(document.getElementById("cssexternal"), {
+            cssexternal_editor = CodeMirror.fromTextArea(document.getElementById("cssexternal"), {
                 lineNumbers: true,
                 name: "htmlmixed",
                 mode: "htmlmixed",
@@ -58,7 +62,7 @@ $(function() {
                 }
             });
 
-            CodeMirror.fromTextArea(document.getElementById("phpscript"), {
+            phpscript_editor = CodeMirror.fromTextArea(document.getElementById("phpscript"), {
                 lineNumbers: true,
                 name: "php",
                 mode: "text/x-php",
@@ -71,6 +75,11 @@ $(function() {
                     }
                 }
             });
+        },
+        function (xhr, error) {
+            if (error === 'error') {
+                pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+            }
         }
     );
 
@@ -81,14 +90,14 @@ $(function() {
             `pdf/${id_pdf}/update`,
             {
                 report_name: reportname.val(),
-                paper: paper.val(),
-                request_type: requesttype.val(),
-                orientation: orientation.val(),
+                paper: $(`input[name=paper]:checked`).val(),
+                request_type: $(`input[name=requesttype]:checked`).val(),
+                orientation: $(`input[name=orientation]:checked`).val(),
                 request_url: requesturl.val(),
-                output_mode: outputmode.val(),
-                css_external: cssexternal.val(),
-                request_sample: requestsample.val(),
-                php_script: phpscript.val(),
+                output_mode: $(`input[name=outputmode]:checked`).val(),
+                css_external: cssexternal_editor.getValue(),
+                request_sample: requestsample_editor.getValue(),
+                php_script: phpscript_editor.getValue(),
             },
             null,
             function (result) {

@@ -161,9 +161,9 @@ class pdfContracts extends pdf implements ModelContracts
     {
         $sql = "SELECT * 
         FROM pdf p 
-        LEFT JOIN users u ON (p.userID = u.ID)
-        WHERE u.apikey = @1 
-        AND p.PDFID = @2 
+        LEFT JOIN users u ON (p.user_id = u.id)
+        WHERE u.api_key = @1 
+        AND p.id = @2 
         LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow($api_key, $pdfId);
     }

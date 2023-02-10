@@ -129,6 +129,9 @@ class pdf extends Service
         $pdf->paper = trim($param['paper']);
         $pdf->orientation = $param['orientation'];
         $pdf->request_type = $param['request_type'];
+        if (isset($param['request_url'])) {
+            $pdf->request_url = $param['request_url'];
+        }
 
         if (isset($param['css_external'])) {
             $pdf->css_external = $param['css_external'];
