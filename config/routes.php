@@ -877,6 +877,13 @@
                 "POST"
             ]
         ],
+        "pdf/{?}/update/html" => [
+            "controller" => "primary\\pdf",
+            "function" => "update_html",
+            "accept" => [
+                "POST"
+            ]
+        ],
         "profil" => [
             "controller" => "users",
             "function" => "profil",

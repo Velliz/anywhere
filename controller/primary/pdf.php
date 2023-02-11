@@ -264,4 +264,44 @@ class pdf extends Service
         return $data;
     }
 
+    /**
+     * @param $id
+     * @return array
+     * @throws Exception
+     */
+    public function update_html($id = '')
+    {
+        $param = Request::JsonBody();
+        if ($param['html'] === '') {
+            throw new Exception($this->say('HTML_REQUIRED'));
+        }
+
+        $pdf = new \plugins\model\primary\pdf($id);
+        $pdf->modified = $this->GetServerDateTime();
+        $pdf->muid = $this->user['id'];
+
+        $pdf->html = $param['html'];
+
+        $pdf->modify();
+
+        //response
+        $data['pdf'] = [
+            'id' => $pdf->id,
+            'user' => usersContracts::GetById($pdf->user_id),
+            'report_name' => $pdf->report_name,
+            'html' => $pdf->html,
+            'css' => $pdf->css,
+            'php_script' => $pdf->php_script,
+            'output_mode' => $pdf->output_mode,
+            'paper' => $pdf->paper,
+            'orientation' => $pdf->orientation,
+            'request_type' => $pdf->request_type,
+            'request_url' => $pdf->request_url,
+            'request_sample' => $pdf->request_sample,
+            'css_external' => $pdf->css_external,
+        ];
+
+        return $data;
+    }
+
 }
