@@ -877,6 +877,13 @@
                 "POST"
             ]
         ],
+        "pdf/{?}/update/style" => [
+            "controller" => "primary\\pdf",
+            "function" => "update_style",
+            "accept" => [
+                "POST"
+            ]
+        ],
         "pdf/{?}/update/html" => [
             "controller" => "primary\\pdf",
             "function" => "update_html",

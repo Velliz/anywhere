@@ -2,7 +2,7 @@ $(function () {
 
     let id_pdf = $('input[name=id]').val();
 
-    let html;
+    let css;
     let editor;
     let timeout;
 
@@ -12,11 +12,11 @@ $(function () {
         function (result) {
             let pdf = result.pdf;
 
-            html = $(`textarea[name=code]`).val(pdf.html);
+            css = $(`textarea[name=code]`).val(pdf.css);
             editor = CodeMirror.fromTextArea(document.getElementById("code"), {
                 lineNumbers: true,
-                name: "htmlmixed",
-                mode: "htmlmixed",
+                name: "css",
+                mode: "css",
                 extraKeys: {
                     "F11": function (cm) {
                         cm.setOption("fullScreen", !cm.getOption("fullScreen"));
@@ -40,14 +40,14 @@ $(function () {
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     ajax_post(
-                        `pdf/${id_pdf}/update/html`,
+                        `pdf/${id_pdf}/update/style`,
                         {
-                            html: editor.getValue()
+                            css: editor.getValue()
                         },
                         null,
                         function (result) {
                             let pdf = result.pdf;
-                            pnotify(`Reloading PDF`, `HTML saved!`, 'success');
+                            pnotify(`Reloading PDF`, `CSS saved!`, 'success');
                             document.getElementById('iframe').contentDocument.location.reload();
                         },
                         function (xhr, error) {
@@ -65,5 +65,4 @@ $(function () {
             }
         }
     );
-
 });
