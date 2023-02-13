@@ -277,14 +277,6 @@
                 "GET"
             ]
         ],
-        "excel/main" => [
-            "controller" => "excel",
-            "function" => "main",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
         "excel/render/{?}/{?}" => [
             "controller" => "excel",
             "function" => "render",

@@ -149,4 +149,26 @@ class excelContracts extends excel implements ModelContracts
             return $result;
         });
     }
+
+    public static function GetExcelRender($api_key, $pdfId)
+    {
+        $sql = "SELECT * 
+        FROM excel e 
+        LEFT JOIN users u ON (e.user_id = u.id)
+        WHERE u.api_key = @1 
+        AND e.id = @2 
+        LIMIT 1;";
+        return DBI::Prepare($sql)->FirstRow($api_key, $pdfId);
+    }
+
+    public static function GetApiKeyById($pdfId)
+    {
+        $sql = "SELECT u.api_key
+        FROM excel e 
+        LEFT JOIN users u ON (e.user_id = u.id)
+        WHERE e.dflag = 0
+        AND e.id = @1
+        LIMIT 1";
+        return DBI::Prepare($sql)->FirstRow($pdfId)['api_key'];
+    }
 }

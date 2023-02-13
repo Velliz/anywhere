@@ -18,15 +18,14 @@
 
 namespace controller;
 
-use model\ExcelModel;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use plugins\auth\AnywhereAuthenticator;
-use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
 use pukoframework\Framework;
+use pukoframework\middleware\View;
 
 /**
  * Class excel
@@ -36,7 +35,7 @@ use pukoframework\Framework;
  * #Master master.html
  * #Value PageTitle Excel Template
  */
-class excel extends AnywhereView
+class excel extends View
 {
 
     /**
@@ -58,75 +57,6 @@ class excel extends AnywhereView
      * @var string
      */
     var $requesttype = "POST";
-
-    /**
-     * @throws \Exception
-     */
-    public function main()
-    {
-        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-        if (!isset($session['ID'])) $this->RedirectTo(Framework::$factory->getBase());
-
-        if ((int)$session['statusID'] == 1) {
-            $result = ExcelModel::CountExcelUser($session['ID'])[0];
-            if ((int)$result['result'] >= $session['limitations']) $this->RedirectTo('limitations');
-        }
-
-        $snap_shoot = date('d-m-Y-His');
-
-        $arrayData = array(
-            'userID' => $session['ID'],
-            'excelname' => 'EXCEL-' . $snap_shoot . '.xlsx',
-            'columnspecs' => json_encode(array(
-                array("key" => "nama", "display" => "Nama", "width" => 20, "column" => "A"),
-                array("key" => "umur", "display" => "Umur", "width" => 8, "column" => "B"),
-                array("key" => "dob", "display" => "Tempat, Tanggal Lahir", "width" => 20, "column" => "C"),
-                array("key" => "hobi", "display" => "Hobi", "width" => 25, "column" => "D"),
-                array("key" => "alamat", "display" => "Alamat", "width" => 35, "column" => "E")
-            ), JSON_PRETTY_PRINT),
-            'dataspecs' => json_encode(array(
-                "tables" => array(
-                    array("key" => "nama", "value" => array(
-                        "Anywhere Wrapper", "Puko Framework", "PHP 7.3"
-                    )),
-                    array("key" => "umur", "value" => array(
-                        12, 15, 14
-                    )),
-                    array("key" => "dob", "value" => array(
-                        "Bandung, 23 januari 2009", "Bandung, 04 maret 2001", "Jakarta, 14 februari 1995"
-                    )),
-                    array("key" => "hobi", "value" => array(
-                        "Coding", "Sleeping", "Shopping"
-                    )),
-                    array("key" => "alamat", "value" => array(
-                        "JL Perintis Kemerdekaan No 19", "JL Perintis Kemerdekaan No 9", "JL Perintis Kemerdekaan No 43"
-                    )),
-                ),
-                "header" => array(
-                    array(
-                        "key" => "Ketua",
-                        "value" => "Raja Kepiting"
-                    ),
-                    array(
-                        "key" => "Periode",
-                        "value" => "2020"
-                    )
-                ),
-                "footer" => array(
-                    array(
-                        "key" => "catatan",
-                        "value" => "Data ini hanya fiktif dan karangan belaka."
-                    )
-                ),
-            ), JSON_PRETTY_PRINT),
-            'requesttype' => 'POST',
-        );
-
-        $excelID = ExcelModel::NewExcelPage($arrayData);
-        $dataEXCEL = ExcelModel::GetExcelPage($excelID)[0];
-
-        $this->RedirectTo('update/' . $dataEXCEL['EXCELID']);
-    }
 
     /**
      * @param $id

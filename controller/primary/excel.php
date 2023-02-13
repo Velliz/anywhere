@@ -4,6 +4,7 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -13,46 +14,31 @@ use pukoframework\Request;
 class excel extends Service
 {
 
+    use UserBearerData;
+
     /**
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function create()
     {
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['excel_name'] === '') {
             throw new Exception($this->say('EXCEL_NAME_REQUIRED'));
         }
-        if ($param['column_specs'] === '') {
-            throw new Exception($this->say('COLUMN_SPECS_REQUIRED'));
-        }
-        if ($param['data_specs'] === '') {
-            throw new Exception($this->say('DATA_SPECS_REQUIRED'));
-        }
-        if ($param['request_type'] === '') {
-            throw new Exception($this->say('REQUEST_TYPE_REQUIRED'));
-        }
-
 
         //validations: customize here
 
         //insert
         $excel = new \plugins\model\primary\excel();
-        $excel->id = $param['id'];
-        $excel->user_id = $param['user_id'];
-        $excel->excel_name = $param['excel_name'];
-        $excel->column_specs = $param['column_specs'];
-        $excel->data_specs = $param['data_specs'];
-        $excel->request_type = $param['request_type'];
+        $excel->created = $this->GetServerDateTime();
+        $excel->cuid = $this->user['id'];
 
+        $excel->user_id = $this->user['id'];
+        $excel->excel_name = $param['excel_name'];
+        $excel->request_type = 'POST';
 
         $excel->save();
 
@@ -80,12 +66,6 @@ class excel extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['excel_name'] === '') {
             throw new Exception($this->say('EXCEL_NAME_REQUIRED'));
         }
@@ -99,18 +79,17 @@ class excel extends Service
             throw new Exception($this->say('REQUEST_TYPE_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //update
         $excel = new \plugins\model\primary\excel($id);
-        $excel->id = $param['id'];
-        $excel->user_id = $param['user_id'];
+        $excel->modified = $this->GetServerDateTime();
+        $excel->muid = $this->user['id'];
+
         $excel->excel_name = $param['excel_name'];
         $excel->column_specs = $param['column_specs'];
         $excel->data_specs = $param['data_specs'];
         $excel->request_type = $param['request_type'];
-
 
         $excel->modify();
 
@@ -135,8 +114,13 @@ class excel extends Service
     public function delete($id = '')
     {
         $excel = new \plugins\model\primary\excel($id);
+        $excel->modified = $this->GetServerDateTime();
+        $excel->muid = $this->user['id'];
 
         //delete logic here
+        $excel->dflag = 1;
+
+        $excel->modify();
 
         return [
             'deleted' => true
@@ -153,6 +137,9 @@ class excel extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\excelContracts::SearchDataPagination($keyword);
     }
@@ -167,6 +154,9 @@ class excel extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['excel'] = \model\primary\excelContracts::SearchData($keyword);
         return $data;
@@ -181,6 +171,10 @@ class excel extends Service
         $keyword = [];
 
         //post addition filter here
+        $user_id = Request::Post('user_id', '');
+        if ($user_id !== '') {
+            $keyword['user_id'] = $user_id;
+        }
 
         return \model\primary\excelContracts::GetDataTable($keyword);
     }

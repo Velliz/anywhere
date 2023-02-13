@@ -21,6 +21,7 @@ $(function () {
         processing: true,
         serverSide: true,
         stateSave: true,
+        bAutoWidth: false,
         dom: 'Bfrtip',
         lengthMenu: datatables_menu,
         buttons: [
@@ -86,12 +87,30 @@ $(function () {
         }
     });
 
-    /*
-    $('#xlsx-table').DataTable({
-        dom: 'Bfrtip',
-        ordering: false,
+    let excel = $('#excel-table').DataTable({
+        ajax: {
+            type: "POST",
+            dataType: "json",
+            responsive: true,
+            url: "excel/table",
+            data: function (data) {
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            },
+            dataSrc: function (json) {
+                if (json.exception !== undefined) {
+                    return [];
+                }
+                return json.data;
+            }
+        },
+        processing: true,
+        serverSide: true,
         stateSave: true,
-        lengthMenu: menu,
+        bAutoWidth: false,
+        dom: 'Bfrtip',
+        lengthMenu: datatables_menu,
         buttons: [
             {
                 extend: "pageLength",
@@ -99,15 +118,59 @@ $(function () {
             },
             {
                 className: "btn-sm btn-primary",
-                text: '<i class="fa fa-plus"></i>',
+                text: `Create new template`,
                 action: function () {
-                    window.location.href = "excel/main";
+                    bootbox_dialog(
+                        `Template name`,
+                        `<input class="form-control" name="report_name" placeholder="excel template name"/>`,
+                        `small`,
+                        function () {
+                            $('.bootbox-accept').prop('disabled', true);
+                            let report_name = $('.bootbox-body input[name=report_name]').val();
+                            ajax_post(
+                                `excel/create`,
+                                {
+                                    excel_name: report_name
+                                },
+                                excel,
+                                function (result) {
+                                    let pdf = result.pdf;
+                                    pnotify(`Template created`, `New template ${report_name} successfully created!`, 'success');
+                                    bootbox.hideAll();
+                                },
+                                function (xhr, error) {
+                                    $('.bootbox-accept').prop('disabled', false);
+                                    if (error === 'error') {
+                                        pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                                    }
+                                }
+                            );
+                            return false;
+                        }
+                    );
                 }
             },
         ],
-        language: lang,
+        language: datatables_config,
+        rowCallback: function (row, data) {
+            let details = `<a title="Details" href="excel/update/${data[0]}" target="_blank" class="btn btn-xs btn-primary">
+                <i class="fa fa-eye"></i> Details
+            </a>`;
+            let usages = `<a title="Usage History" href="excel/timeline/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+                <i class="fa fa-external-link"></i> Usage History
+            </a>`;
+
+            $('td:eq(0)', row).html(`<b>${data[2]}</b>`);
+            $('td:eq(1)', row).html(`<span class="label label-danger">${data[5]}</span>`);
+            $('td:eq(2)', row).html(details + usages);
+        },
+        fnDrawCallback: function () {
+        },
+        preDrawCallback: function (settings) {
+        }
     });
 
+    /*
     $('#mail-table').DataTable({
         dom: 'Bfrtip',
         ordering: false,
