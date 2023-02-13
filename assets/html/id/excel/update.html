@@ -1,38 +1,5 @@
-<style>
-    .navbar-custom {
-        background-color:#229922;
-        color:#ffffff;
-        border-radius:0;
-    }
+{!css(<link href="assets/styles/excel/update.css" rel="stylesheet">)}
 
-    .navbar-custom .navbar-nav > li > a {
-        color:#fff;
-    }
-
-    .navbar-custom .navbar-nav > .active > a {
-        color: #ffffff;
-        background-color:transparent;
-    }
-
-    .navbar-custom .navbar-nav > li > a:hover,
-    .navbar-custom .navbar-nav > li > a:focus,
-    .navbar-custom .navbar-nav > .active > a:hover,
-    .navbar-custom .navbar-nav > .active > a:focus,
-    .navbar-custom .navbar-nav > .open >a {
-        text-decoration: none;
-        background-color: #33aa33;
-    }
-
-    .navbar-custom .navbar-brand {
-        color:#eeeeee;
-    }
-    .navbar-custom .navbar-toggle {
-        background-color:#eeeeee;
-    }
-    .navbar-custom .icon-bar {
-        background-color:#33aa33;
-    }
-</style>
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -51,20 +18,19 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-user"></i> @{!name}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> <span class="auth-username"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header text-center">{!name}</li>
-                        <li class="dropdown-header text-center">{!status}</li>
+                        <li class="dropdown-header text-center auth-name"></li>
+                        <li class="dropdown-header text-center auth-status"></li>
                         <hr style="margin: 8px">
-                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
+                        <li class="dropdown-header"><i class="fa fa-key"></i> <span class="auth-api_key"></span></li>
                         <hr style="margin: 8px">
                         <li><a href="{!url()}profil">Profil</a></li>
                         <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                         <hr style="margin: 8px">
-                        <li><a href="{!url()}logout">Logout</a></li>
+                        <li><a onclick="logout()" style="cursor: pointer">Logout</a></li>
                     </ul>
                 </li>
             </ul>

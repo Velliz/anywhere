@@ -59,12 +59,11 @@ class excel extends Service
         //response
         $data['excel'] = [
             'id' => $excel->id,
-        'user_id' => $excel->user_id,
-        'excel_name' => $excel->excel_name,
-        'column_specs' => $excel->column_specs,
-        'data_specs' => $excel->data_specs,
-        'request_type' => $excel->request_type,
-
+            'user_id' => $excel->user_id,
+            'excel_name' => $excel->excel_name,
+            'column_specs' => $excel->column_specs,
+            'data_specs' => $excel->data_specs,
+            'request_type' => $excel->request_type,
         ];
 
         return $data;
@@ -118,12 +117,11 @@ class excel extends Service
         //response
         $data['excel'] = [
             'id' => $excel->id,
-        'user_id' => $excel->user_id,
-        'excel_name' => $excel->excel_name,
-        'column_specs' => $excel->column_specs,
-        'data_specs' => $excel->data_specs,
-        'request_type' => $excel->request_type,
-
+            'user_id' => $excel->user_id,
+            'excel_name' => $excel->excel_name,
+            'column_specs' => $excel->column_specs,
+            'data_specs' => $excel->data_specs,
+            'request_type' => $excel->request_type,
         ];
 
         return $data;
@@ -199,12 +197,11 @@ class excel extends Service
         //response
         $data['excel'] = [
             'id' => $excel->id,
-        'user_id' => $excel->user_id,
-        'excel_name' => $excel->excel_name,
-        'column_specs' => $excel->column_specs,
-        'data_specs' => $excel->data_specs,
-        'request_type' => $excel->request_type,
-
+            'user_id' => $excel->user_id,
+            'excel_name' => $excel->excel_name,
+            'column_specs' => $excel->column_specs,
+            'data_specs' => $excel->data_specs,
+            'request_type' => $excel->request_type,
         ];
 
         return $data;
