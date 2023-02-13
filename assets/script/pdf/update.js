@@ -1,6 +1,7 @@
 $(function () {
 
     let id_pdf = $('input[name=id]').val();
+    let api_key = $('input[name=api_key]').val();
 
     let reportname;
     let paper;

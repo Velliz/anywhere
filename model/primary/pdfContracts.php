@@ -167,4 +167,15 @@ class pdfContracts extends pdf implements ModelContracts
         LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow($api_key, $pdfId);
     }
+
+    public static function GetApiKeyById($pdfId)
+    {
+        $sql = "SELECT u.api_key
+        FROM pdf p 
+        LEFT JOIN users u ON (p.user_id = u.id)
+        WHERE p.dflag = 0
+        AND p.id = @1
+        LIMIT 1";
+        return DBI::Prepare($sql)->FirstRow($pdfId)['api_key'];
+    }
 }

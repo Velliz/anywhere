@@ -87,6 +87,8 @@ class pdf extends View
     public function Update($id_pdf)
     {
         $data['id_pdf'] = $id_pdf;
+        $data['api_key'] = pdfContracts::GetApiKeyById($id_pdf);
+
         return $data;
     }
 
@@ -103,6 +105,8 @@ class pdf extends View
     public function html($id_pdf)
     {
         $data['id_pdf'] = $id_pdf;
+        $data['api_key'] = pdfContracts::GetApiKeyById($id_pdf);
+
         return $data;
     }
 
@@ -119,6 +123,8 @@ class pdf extends View
     public function Style($id_pdf)
     {
         $data['id_pdf'] = $id_pdf;
+        $data['api_key'] = pdfContracts::GetApiKeyById($id_pdf);
+
         return $data;
     }
 
@@ -343,6 +349,8 @@ class pdf extends View
     public function timeline($id_pdf)
     {
         $data['id_pdf'] = $id_pdf;
+        $data['api_key'] = pdfContracts::GetApiKeyById($id_pdf);
+
         return $data;
     }
 

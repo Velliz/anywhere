@@ -1,6 +1,7 @@
 {!css(<link href="assets/styles/pdf/update.css" rel="stylesheet">)}
 
 <input type="hidden" name="id" value="{!id_pdf}">
+<input type="hidden" name="api_key" value="{!api_key}">
 
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
@@ -85,11 +86,14 @@
             <textarea style="width: 100%;" id="phpscript" name="phpscript" rows="8"></textarea>
         </div>
 
-        <p id="apiurl"></p>
-
         <div class="form-group">
             <a href="{!url()}pdf/html/{!id_pdf}" class="btn btn-dark">Open .html designer</a>
             <a href="{!url()}pdf/style/{!id_pdf}" class="btn btn-dark">Open .css designer</a>
+        </div>
+
+        <div class="alert alert-info text-center">
+            <p><b>API URL</b></p>
+            <p><a target="_blank" href="{!url()}pdf/render/{!api_key}/{!id_pdf}">{!url()}pdf/render/{!api_key}/{!id_pdf}</a></p>
         </div>
 
         <button name="submit" type="submit">Simpan Konfigurasi</button>

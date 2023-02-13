@@ -1,6 +1,7 @@
 $(function () {
 
     let id_pdf = $('input[name=id]').val();
+    let api_key = $('input[name=api_key]').val();
 
     let css;
     let editor;
@@ -31,7 +32,7 @@ $(function () {
                 <iframe 
                 class="full-height full-width no-padding no-margin" 
                 id="iframe" 
-                src="pdf/coderender/06cfa92d19ddbd70cb368116e23a1922/${id_pdf}">
+                src="pdf/coderender/${api_key}/${id_pdf}">
                     Loading...
                 </iframe>
             `);
