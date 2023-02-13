@@ -5,6 +5,7 @@ namespace controller\primary;
 use DateTime;
 use Exception;
 use plugins\UserBearerData;
+use pukoframework\Framework;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -38,7 +39,14 @@ class excel extends Service
 
         $excel->user_id = $this->user['id'];
         $excel->excel_name = $param['excel_name'];
+
         $excel->request_type = 'POST';
+
+        $column_specs = file_get_contents(Framework::$factory->getRoot() . '/assets/template/starter.excel.columnspecs.json');
+        $data_specs = file_get_contents(Framework::$factory->getRoot() . '/assets/template/starter.excel.dataspecs.json');
+
+        $excel->column_specs = $column_specs;
+        $excel->data_specs = $data_specs;
 
         $excel->save();
 

@@ -18,13 +18,11 @@
 
 namespace controller;
 
+use model\primary\excelContracts;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use plugins\auth\AnywhereAuthenticator;
-use pukoframework\auth\Session;
-use pukoframework\Framework;
 use pukoframework\middleware\View;
 
 /**
@@ -59,58 +57,23 @@ class excel extends View
     var $requesttype = "POST";
 
     /**
-     * @param $id
-     * @return bool
-     * @throws \Exception
-     * #Auth session true
+     * @param $id_excel
+     * @return array
      * #Master master-codes.html
      */
-    public function update($id)
+    public function update($id_excel)
     {
-        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-        if (isset($_POST['excelid'])) {
-            $arrayID = array('EXCELID' => $_POST['excelid']);
-            $arrayData = array(
-                'EXCELID' => $_POST['excelid'],
-                'excelname' => $_POST['excelname'],
-                'columnspecs' => $_POST['columnspecs'],
-                'dataspecs' => $_POST['dataspecs'],
-                'requesttype' => $_POST['requesttype'],
-            );
-            $resultUpdate = ExcelModel::UpdateExcelPage($arrayID, $arrayData);
+        $data['id_excel'] = $id_excel;
+        $data['api_key'] = excelContracts::GetApiKeyById($id_excel);
 
-            //$this->RedirectTo(Framework::$factory->getBase() . 'beranda');
-            if (!$resultUpdate) {
-                $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
-            }
-        }
-
-        $dataEXCEL = $session;
-
-        $dataEXCEL['excel'] = ExcelModel::GetExcelPage($id);
-
-        $dataEXCEL['PageTitle'] = $dataEXCEL['excel'][0]['excelname'];
-
-        foreach ($dataEXCEL['excel'] as $key => $value) {
-            $dataEXCEL['excel'][$key]['apikey'] = $session['apikey'];
-            switch ($value['requesttype']) {
-                case 'POST':
-                    $dataEXCEL['excel'][$key]['POST'] = 'checked';
-                    break;
-                case 'URL':
-                    $dataEXCEL['excel'][$key]['URL'] = 'checked';
-                    break;
-            }
-        }
-
-        return $dataEXCEL;
+        return $data;
     }
 
     /**
      * @param $api_key
      * @param $excelId
      * @throws Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * #Template html false
      */
     public function render($api_key, $excelId)
     {
@@ -243,7 +206,7 @@ class excel extends View
     /**
      * @param $api_key
      * @param $excelId
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws Exception
      * #Template html false
      */
     public function coderender($api_key, $excelId)

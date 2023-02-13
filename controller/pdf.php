@@ -84,7 +84,7 @@ class pdf extends View
      * @throws Exception
      * #Master master-codes.html
      */
-    public function Update($id_pdf)
+    public function update($id_pdf)
     {
         $data['id_pdf'] = $id_pdf;
         $data['api_key'] = pdfContracts::GetApiKeyById($id_pdf);
@@ -120,7 +120,7 @@ class pdf extends View
      * @throws Exception
      * #Master master-codes.html
      */
-    public function Style($id_pdf)
+    public function style($id_pdf)
     {
         $data['id_pdf'] = $id_pdf;
         $data['api_key'] = pdfContracts::GetApiKeyById($id_pdf);
@@ -133,7 +133,7 @@ class pdf extends View
      * @param $pdfId
      * @throws Exception
      */
-    public function CodeRender($api_key, $pdfId)
+    public function coderender($api_key, $pdfId)
     {
         $pdfRender = pdfContracts::GetPdfRender($api_key, $pdfId);
 
@@ -181,7 +181,7 @@ class pdf extends View
      * @param $pdfId
      * @throws Exception
      */
-    public function Render($api_key, $pdfId)
+    public function render($api_key, $pdfId)
     {
         $pdfRender = pdfContracts::GetPdfRender($api_key, $pdfId);
 
@@ -283,7 +283,7 @@ class pdf extends View
      * @param $pdfId
      * @throws Exception
      */
-    public function TimelineRender($logID, $api_key, $pdfId)
+    public function timelinerender($logID, $api_key, $pdfId)
     {
         $pdfRender = pdfContracts::GetPdfRender($api_key, $pdfId);
         $logData = log_pdfContracts::GetById($logID);
