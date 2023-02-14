@@ -1,6 +1,6 @@
 $(function () {
 
-    let pdf = $('#pdf-table').DataTable({
+    let pdf_table = $('#pdf-table').DataTable({
         ajax: {
             type: "POST",
             dataType: "json",
@@ -45,8 +45,10 @@ $(function () {
                                 {
                                     report_name: report_name
                                 },
-                                pdf,
+                                pdf_table,
                                 function (result) {
+                                    pdf_table.ajax.reload();
+
                                     let pdf = result.pdf;
                                     pnotify(`Template created`, `New template ${report_name} - ${pdf.paper} ${pdf.orientation} successfully created!`, 'success');
                                     bootbox.hideAll();
@@ -87,7 +89,7 @@ $(function () {
         }
     });
 
-    let excel = $('#excel-table').DataTable({
+    let excel_table = $('#excel-table').DataTable({
         ajax: {
             type: "POST",
             dataType: "json",
@@ -132,9 +134,11 @@ $(function () {
                                 {
                                     excel_name: report_name
                                 },
-                                excel,
+                                excel_table,
                                 function (result) {
-                                    let pdf = result.pdf;
+                                    excel_table.ajax.reload();
+
+                                    let excel = result.excel;
                                     pnotify(`Template created`, `New template ${report_name} successfully created!`, 'success');
                                     bootbox.hideAll();
                                 },

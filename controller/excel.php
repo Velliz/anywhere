@@ -79,12 +79,12 @@ class excel extends View
     {
         $mode = 1;
 
-        $excelRender = ExcelModel::GetExcelRender($api_key, $excelId)[0];
+        $excelRender = excelContracts::GetExcelRender($api_key, $excelId);
 
-        $this->excelname = $excelRender['excelname'];
-        $this->columnspecs = json_decode($excelRender['columnspecs'], true);
-        $this->dataspecs = json_decode($excelRender['dataspecs'], true);
-        $this->requesttype = $excelRender['requesttype'];
+        $this->excelname = $excelRender['excel_name'];
+        $this->columnspecs = json_decode($excelRender['column_specs'], true);
+        $this->dataspecs = json_decode($excelRender['data_specs'], true);
+        $this->requesttype = $excelRender['request_type'];
 
         $excel = new Spreadsheet();
         $shit = $excel->getActiveSheet();
@@ -213,12 +213,12 @@ class excel extends View
     {
         $mode = 1;
 
-        $excelRender = ExcelModel::GetExcelRender($api_key, $excelId)[0];
+        $excelRender = excelContracts::GetExcelRender($api_key, $excelId);
 
-        $this->excelname = $excelRender['excelname'];
-        $this->columnspecs = json_decode($excelRender['columnspecs'], true);
-        $this->dataspecs = json_decode($excelRender['dataspecs'], true);
-        $this->requesttype = $excelRender['requesttype'];
+        $this->excelname = $excelRender['excel_name'];
+        $this->columnspecs = json_decode($excelRender['column_specs'], true);
+        $this->dataspecs = json_decode($excelRender['data_specs'], true);
+        $this->requesttype = $excelRender['request_type'];
 
         $excel = new Spreadsheet();
         $shit = $excel->getActiveSheet();

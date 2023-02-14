@@ -54,7 +54,33 @@ $(function() {
     );
 
     let btn_submit = $('button[name=submit]').on('click', function () {
+        btn_submit.prop('disabled', true);
+        btn_submit.html('Menyimpan...');
+        ajax_post(
+            `excel/${id_excel}/update`,
+            {
+                excel_name: excelname.val(),
+                request_type: $(`input[name=requesttype]:checked`).val(),
+                column_specs: columnspecs_editor.getValue(),
+                data_specs: dataspecs_editor.getValue(),
+            },
+            null,
+            function (result) {
+                let excel = result.excel;
+                pnotify(`Template updated`, `"New template ${excel.excel_name}" successfully updated!`, 'success');
 
+                btn_submit.prop('disabled', false);
+                btn_submit.html('Simpan Konfigurasi');
+            },
+            function (xhr, error) {
+                if (error === 'error') {
+                    pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                }
+
+                btn_submit.prop('disabled', false);
+                btn_submit.html('Simpan Konfigurasi');
+            }
+        );
     });
 
 });
