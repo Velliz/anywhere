@@ -11,6 +11,9 @@ $(function() {
     let columnspecs_editor;
     let dataspecs_editor;
 
+    let timeout1;
+    let timeout2;
+
     ajax_get(
         `excel/${id_excel}`,
         null,
@@ -50,6 +53,68 @@ $(function() {
                     }
                 }
             });
+
+            columnspecs_editor.on('change', function () {
+                clearTimeout(timeout1);
+                timeout1 = setTimeout(function() {
+                    ajax_post(
+                        `excel/${id_excel}/update`,
+                        {
+                            excel_name: excelname.val(),
+                            request_type: $(`input[name=requesttype]:checked`).val(),
+                            column_specs: columnspecs_editor.getValue(),
+                            data_specs: dataspecs_editor.getValue(),
+                        },
+                        null,
+                        function (result) {
+                            let excel = result.excel;
+                            pnotify(`Template updated`, `"${excel.excel_name}" successfully updated!`, 'success');
+
+                            btn_submit.prop('disabled', false);
+                            btn_submit.html('Simpan Konfigurasi');
+                        },
+                        function (xhr, error) {
+                            if (error === 'error') {
+                                pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                            }
+
+                            btn_submit.prop('disabled', false);
+                            btn_submit.html('Simpan Konfigurasi');
+                        }
+                    );
+                }, 2200);
+            });
+
+            dataspecs_editor.on('change', function () {
+                clearTimeout(timeout2);
+                timeout2 = setTimeout(function() {
+                    ajax_post(
+                        `excel/${id_excel}/update`,
+                        {
+                            excel_name: excelname.val(),
+                            request_type: $(`input[name=requesttype]:checked`).val(),
+                            column_specs: columnspecs_editor.getValue(),
+                            data_specs: dataspecs_editor.getValue(),
+                        },
+                        null,
+                        function (result) {
+                            let excel = result.excel;
+                            pnotify(`Template updated`, `"${excel.excel_name}" successfully updated!`, 'success');
+
+                            btn_submit.prop('disabled', false);
+                            btn_submit.html('Simpan Konfigurasi');
+                        },
+                        function (xhr, error) {
+                            if (error === 'error') {
+                                pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                            }
+
+                            btn_submit.prop('disabled', false);
+                            btn_submit.html('Simpan Konfigurasi');
+                        }
+                    );
+                }, 2200);
+            });
         }
     );
 
@@ -67,7 +132,7 @@ $(function() {
             null,
             function (result) {
                 let excel = result.excel;
-                pnotify(`Template updated`, `"New template ${excel.excel_name}" successfully updated!`, 'success');
+                pnotify(`Template updated`, `"${excel.excel_name}" successfully updated!`, 'success');
 
                 btn_submit.prop('disabled', false);
                 btn_submit.html('Simpan Konfigurasi');

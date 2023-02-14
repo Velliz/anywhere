@@ -72,16 +72,23 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                        Send Email Service (SMTP)
+                        Email Service (via SMTP)
                     </a>
                 </h4>
             </div>
             <div id="collapse3" class="panel-collapse collapse">
                 <div class="panel-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
+                    <table id="mail-table" class="table table-bordered full-width">
+                        <thead>
+                        <tr>
+                            <th>Template name</th>
+                            <th>Sender</th>
+                            <th>Host</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -95,10 +102,47 @@
             </div>
             <div id="collapse4" class="panel-collapse collapse">
                 <div class="panel-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
+                    <table id="digitalsign-table" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Nama Penandatangan</th>
+                            <th>Email</th>
+                            <th>Tipe</th>
+                            <th>Gender</th>
+                            <th>Organization Unit</th>
+                            <th>Work Unit</th>
+                            <th>Posisi</th>
+                            <th>Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--{!DigitalSignList}-->
+                        <tr>
+                            <td>{!name}</td>
+                            <td>{!email}</td>
+                            <td>{!type}</td>
+                            <td>{!gender}</td>
+                            <td>{!orgUnit}</td>
+                            <td>{!workUnit}</td>
+                            <td>{!position}</td>
+                            <td>
+                                <a data-id="{!id}" title="Digital Signs History" href="#" class="btn btn-xs btn-primary btn-digitalsign-history">
+                                    <i class="fa fa-list"></i>
+                                </a>
+                                <a data-id="{!id}" title="Detailed Information" href="#" class="btn btn-xs btn-success btn-digitalsign-users">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <!--{/DigitalSignList}-->
+                        </tbody>
+                    </table>
+                    <div class="hidden" id="digitalsigns-forms">
+                        LOLOL
+                    </div>
+                    <div class="hidden" id="digitalsigns-tables">
+                        LOLOL
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,16 +150,21 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-                        Image Combinator
+                        Image
                     </a>
                 </h4>
             </div>
             <div id="collapse5" class="panel-collapse collapse">
                 <div class="panel-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
+                    <table id="image-table" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Image name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -129,10 +178,41 @@
             </div>
             <div id="collapse6" class="panel-collapse collapse">
                 <div class="panel-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
+                    <p id="apiurl">
+                        API URL <br>
+                        <a target="_blank" href="{!url()}qr/render?data=your_data_to_qr">{!url()}qr/render?data=[data]</a>
+                    </p>
+                    <img src="{!url()}qr/render?data=admin@example.co.id&size=5" alt="qr codes">
+                    <br>
+                    <a target="_blank" href="{!url()}qr/render?data=admin@example.co.id&size=5">{!url()}qr/render?data=admin@example.co.id&size=5</a>
+
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                        <tr>
+                            <th>Options</th>
+                            <th>Value</th>
+                            <th>Example</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>output</td>
+                            <td>jpeg | jpg | png | svg</td>
+                            <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&output=jpeg">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&output=jpeg</a></td>
+                        </tr>
+                        <tr>
+                            <td>size</td>
+                            <td>1 to 100</td>
+                            <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&size=9">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&size=9</a></td>
+                        </tr>
+                        <tr>
+                            <td>margin</td>
+                            <td>1 to 100</td>
+                            <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&margin=15">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&margin=15</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -146,10 +226,28 @@
             </div>
             <div id="collapse7" class="panel-collapse collapse">
                 <div class="panel-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.
+                    <table id="var-table" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Variables</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--{!CONSTLists}-->
+                        <tr>
+                            <td>
+                                <form class="form-inline" action="" method="post">
+                                    <input type="hidden" name="constID" value="{!constID}">
+                                    <input type="hidden" name="action" value="Update">
+                                    <input readonly="readonly" type="text" class="form-control" name="key" placeholder="key" value="{!uniquekey}"/>
+                                    <textarea name="val" class="form-control" placeholder="values" cols="70" rows="1">{!constantaval}</textarea>
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <!--{/CONSTLists}-->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
