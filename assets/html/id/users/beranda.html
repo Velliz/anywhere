@@ -160,6 +160,11 @@
                         <thead>
                         <tr>
                             <th>Image name</th>
+                            <th>Placeholder</th>
+                            <th>Sample</th>
+                            <th>Type</th>
+                            <th>Coordinate</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -178,14 +183,6 @@
             </div>
             <div id="collapse6" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p id="apiurl">
-                        API URL <br>
-                        <a target="_blank" href="{!url()}qr/render?data=your_data_to_qr&label=Anywhere">{!url()}qr/render?data=[data]&label=Anywhere</a>
-                    </p>
-                    <img src="{!url()}qr/render?data=admin@example.co.id&size=300&label=Anywhere" alt="qr codes">
-                    <br>
-                    <a target="_blank" href="{!url()}qr/render?data=admin@example.co.id&size=300&label=Anywhere">{!url()}qr/render?data=admin@example.co.id&size=300&label=Anywhere</a>
-
                     <table class="table table-bordered table-responsive">
                         <thead>
                         <tr>
@@ -196,22 +193,28 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>output</td>
-                            <td>jpeg | jpg | png | svg</td>
+                            <td>Label</td>
+                            <td>Name or email or id</td>
                             <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&label=Anywhere">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&label=Anywhere</a></td>
                         </tr>
                         <tr>
-                            <td>size</td>
-                            <td>1 to 100</td>
+                            <td>Size</td>
+                            <td>300 to 1000</td>
                             <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&size=300&label=Anywhere">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&size=300&label=Anywhere</a></td>
-                        </tr>
-                        <tr>
-                            <td>margin</td>
-                            <td>1 to 100</td>
-                            <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&margin=5&label=Anywhere">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&margin=5&label=Anywhere</a></td>
                         </tr>
                         </tbody>
                     </table>
+
+                    <div class="text-center">
+                        <img src="{!url()}qr/render?data=admin@example.co.id&size=100&label=Anywhere" alt="qr codes">
+                    </div>
+
+                    <br/>
+
+                    <div class="alert alert-info text-center">
+                        <p><b>API URL</b></p>
+                        <p><a target="_blank" href="{!url()}qr/render?data=your_data_to_qr&label=Anywhere">{!url()}qr/render?data=[data]&label=Anywhere</a></p>
+                    </div>
 
                 </div>
             </div>

@@ -19,6 +19,7 @@
 namespace controller;
 
 use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
@@ -26,10 +27,7 @@ use Endroid\QrCode\Label\Font\NotoSans;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 use Exception;
-use plugins\controller\AnywhereView;
-use pukoframework\Framework;
 use pukoframework\middleware\View;
-use pukoframework\Request;
 
 /**
  * Class qr
@@ -68,10 +66,11 @@ class qr extends View
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size($size)
-            ->margin(15)
+            ->margin(5)
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->labelText($label)
             ->labelFont(new NotoSans(14))
+            ->foregroundColor(new Color(0, 102, 204))
             ->labelAlignment(new LabelAlignmentCenter())
             ->validateResult(false)
             ->build();

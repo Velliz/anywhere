@@ -107,8 +107,12 @@ class constanta extends Service
     public function delete($id = '')
     {
         $constanta = new \plugins\model\primary\constanta($id);
+        $constanta->modified = $this->GetServerDateTime();
+        $constanta->muid = $this->user['id'];
 
         //delete logic here
+        $constanta->dflag = 1;
+        $constanta->modify();
 
         return [
             'deleted' => true
@@ -125,6 +129,9 @@ class constanta extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\constantaContracts::SearchDataPagination($keyword);
     }
@@ -139,6 +146,9 @@ class constanta extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['constanta'] = \model\primary\constantaContracts::SearchData($keyword);
         return $data;
@@ -153,6 +163,7 @@ class constanta extends Service
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\constantaContracts::GetDataTable($keyword);
     }
@@ -172,7 +183,6 @@ class constanta extends Service
             'user_id' => $constanta->user_id,
             'unique_key' => $constanta->unique_key,
             'constanta_val' => $constanta->constanta_val,
-
         ];
 
         return $data;

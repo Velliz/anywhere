@@ -4,6 +4,7 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +13,8 @@ use pukoframework\Request;
  */
 class images extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -99,21 +102,21 @@ class images extends Service
         //response
         $data['images'] = [
             'id' => $images->id,
-        'user_id' => $images->user_id,
-        'image_name' => $images->image_name,
-        'placeholder_name' => $images->placeholder_name,
-        'placeholder_file' => $images->placeholder_file,
-        'x' => $images->x,
-        'y' => $images->y,
-        'x2' => $images->x2,
-        'y2' => $images->y2,
-        'w' => $images->w,
-        'h' => $images->h,
-        'request_type' => $images->request_type,
-        'request_url' => $images->request_url,
-        'request_sample' => $images->request_sample,
-        'request_sample_name' => $images->request_sample_name,
-        'request_sample_file' => $images->request_sample_file,
+            'user_id' => $images->user_id,
+            'image_name' => $images->image_name,
+            'placeholder_name' => $images->placeholder_name,
+            'placeholder_file' => $images->placeholder_file,
+            'x' => $images->x,
+            'y' => $images->y,
+            'x2' => $images->x2,
+            'y2' => $images->y2,
+            'w' => $images->w,
+            'h' => $images->h,
+            'request_type' => $images->request_type,
+            'request_url' => $images->request_url,
+            'request_sample' => $images->request_sample,
+            'request_sample_name' => $images->request_sample_name,
+            'request_sample_file' => $images->request_sample_file,
 
         ];
 
@@ -208,21 +211,21 @@ class images extends Service
         //response
         $data['images'] = [
             'id' => $images->id,
-        'user_id' => $images->user_id,
-        'image_name' => $images->image_name,
-        'placeholder_name' => $images->placeholder_name,
-        'placeholder_file' => $images->placeholder_file,
-        'x' => $images->x,
-        'y' => $images->y,
-        'x2' => $images->x2,
-        'y2' => $images->y2,
-        'w' => $images->w,
-        'h' => $images->h,
-        'request_type' => $images->request_type,
-        'request_url' => $images->request_url,
-        'request_sample' => $images->request_sample,
-        'request_sample_name' => $images->request_sample_name,
-        'request_sample_file' => $images->request_sample_file,
+            'user_id' => $images->user_id,
+            'image_name' => $images->image_name,
+            'placeholder_name' => $images->placeholder_name,
+            'placeholder_file' => $images->placeholder_file,
+            'x' => $images->x,
+            'y' => $images->y,
+            'x2' => $images->x2,
+            'y2' => $images->y2,
+            'w' => $images->w,
+            'h' => $images->h,
+            'request_type' => $images->request_type,
+            'request_url' => $images->request_url,
+            'request_sample' => $images->request_sample,
+            'request_sample_name' => $images->request_sample_name,
+            'request_sample_file' => $images->request_sample_file,
 
         ];
 
@@ -255,6 +258,9 @@ class images extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\imagesContracts::SearchDataPagination($keyword);
     }
@@ -269,6 +275,9 @@ class images extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['images'] = \model\primary\imagesContracts::SearchData($keyword);
         return $data;
@@ -283,6 +292,7 @@ class images extends Service
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\imagesContracts::GetDataTable($keyword);
     }
@@ -299,21 +309,21 @@ class images extends Service
         //response
         $data['images'] = [
             'id' => $images->id,
-        'user_id' => $images->user_id,
-        'image_name' => $images->image_name,
-        'placeholder_name' => $images->placeholder_name,
-        'placeholder_file' => $images->placeholder_file,
-        'x' => $images->x,
-        'y' => $images->y,
-        'x2' => $images->x2,
-        'y2' => $images->y2,
-        'w' => $images->w,
-        'h' => $images->h,
-        'request_type' => $images->request_type,
-        'request_url' => $images->request_url,
-        'request_sample' => $images->request_sample,
-        'request_sample_name' => $images->request_sample_name,
-        'request_sample_file' => $images->request_sample_file,
+            'user_id' => $images->user_id,
+            'image_name' => $images->image_name,
+            'placeholder_name' => $images->placeholder_name,
+            'placeholder_file' => $images->placeholder_file,
+            'x' => $images->x,
+            'y' => $images->y,
+            'x2' => $images->x2,
+            'y2' => $images->y2,
+            'w' => $images->w,
+            'h' => $images->h,
+            'request_type' => $images->request_type,
+            'request_url' => $images->request_url,
+            'request_sample' => $images->request_sample,
+            'request_sample_name' => $images->request_sample_name,
+            'request_sample_file' => $images->request_sample_file,
 
         ];
 

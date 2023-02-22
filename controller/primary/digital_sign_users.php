@@ -4,6 +4,8 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use model\primary\usersContracts;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +14,8 @@ use pukoframework\Request;
  */
 class digital_sign_users extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -22,12 +26,6 @@ class digital_sign_users extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['name'] === '') {
             throw new Exception($this->say('NAME_REQUIRED'));
         }
@@ -73,68 +71,65 @@ class digital_sign_users extends Service
         if ($param['position'] === '') {
             throw new Exception($this->say('POSITION_REQUIRED'));
         }
-        if ($param['is_verified'] === '') {
-            throw new Exception($this->say('IS_VERIFIED_REQUIRED'));
-        }
-        if ($param['callback_url'] === '') {
-            throw new Exception($this->say('CALLBACK_URL_REQUIRED'));
-        }
-        if ($param['is_speciment'] === '') {
-            throw new Exception($this->say('IS_SPECIMENT_REQUIRED'));
-        }
-
 
         //validations: customize here
+        $date_of_birth = DateTime::createFromFormat('d/m/Y', $param['date_of_birth']);
+        if (!$date_of_birth instanceof DateTime) {
+            throw new Exception($this->say('DATE_OF_BIRTH_INVALID'));
+        }
 
         //insert
         $digital_sign_users = new \plugins\model\primary\digital_sign_users();
-        $digital_sign_users->id = $param['id'];
-        $digital_sign_users->user_id = $param['user_id'];
-        $digital_sign_users->name = $param['name'];
-        $digital_sign_users->phone = $param['phone'];
-        $digital_sign_users->email = $param['email'];
-        $digital_sign_users->type = $param['type'];
-        $digital_sign_users->ktp = $param['ktp'];
-        $digital_sign_users->npwp = $param['npwp'];
-        $digital_sign_users->address = $param['address'];
-        $digital_sign_users->city = $param['city'];
-        $digital_sign_users->province = $param['province'];
-        $digital_sign_users->gender = $param['gender'];
-        $digital_sign_users->place_of_birth = $param['place_of_birth'];
-        $digital_sign_users->date_of_birth = $param['date_of_birth'];
-        $digital_sign_users->org_unit = $param['org_unit'];
-        $digital_sign_users->work_unit = $param['work_unit'];
-        $digital_sign_users->position = $param['position'];
-        $digital_sign_users->is_verified = $param['is_verified'];
-        $digital_sign_users->callback_url = $param['callback_url'];
-        $digital_sign_users->is_speciment = $param['is_speciment'];
+        $digital_sign_users->created = $this->GetServerDateTime();
+        $digital_sign_users->cuid = $this->user['id'];
 
+        $digital_sign_users->user_id = $this->user['id'];
+
+        $digital_sign_users->name = trim($param['name']);
+        $digital_sign_users->phone = trim($param['phone']);
+        $digital_sign_users->email = trim($param['email']);
+        $digital_sign_users->type = trim($param['type']);
+
+        $digital_sign_users->ktp = trim($param['ktp']);
+        $digital_sign_users->npwp = trim($param['npwp']);
+
+        $digital_sign_users->address = trim($param['address']);
+        $digital_sign_users->city = trim($param['city']);
+        $digital_sign_users->province = trim($param['province']);
+
+        $digital_sign_users->gender = trim($param['gender']);
+
+        $digital_sign_users->place_of_birth = trim($param['place_of_birth']);
+        $digital_sign_users->date_of_birth = $date_of_birth->format('Y-m-d');
+
+        $digital_sign_users->org_unit = trim($param['org_unit']);
+        $digital_sign_users->work_unit = trim($param['work_unit']);
+        $digital_sign_users->position = trim($param['position']);
 
         $digital_sign_users->save();
 
         //response
         $data['digital_sign_users'] = [
             'id' => $digital_sign_users->id,
-        'user_id' => $digital_sign_users->user_id,
-        'name' => $digital_sign_users->name,
-        'phone' => $digital_sign_users->phone,
-        'email' => $digital_sign_users->email,
-        'type' => $digital_sign_users->type,
-        'ktp' => $digital_sign_users->ktp,
-        'npwp' => $digital_sign_users->npwp,
-        'address' => $digital_sign_users->address,
-        'city' => $digital_sign_users->city,
-        'province' => $digital_sign_users->province,
-        'gender' => $digital_sign_users->gender,
-        'place_of_birth' => $digital_sign_users->place_of_birth,
-        'date_of_birth' => $digital_sign_users->date_of_birth,
-        'org_unit' => $digital_sign_users->org_unit,
-        'work_unit' => $digital_sign_users->work_unit,
-        'position' => $digital_sign_users->position,
-        'is_verified' => $digital_sign_users->is_verified,
-        'callback_url' => $digital_sign_users->callback_url,
-        'is_speciment' => $digital_sign_users->is_speciment,
-
+            'user' => usersContracts::GetById($digital_sign_users->user_id),
+            'name' => $digital_sign_users->name,
+            'phone' => $digital_sign_users->phone,
+            'email' => $digital_sign_users->email,
+            'type' => $digital_sign_users->type,
+            'ktp' => $digital_sign_users->ktp,
+            'npwp' => $digital_sign_users->npwp,
+            'address' => $digital_sign_users->address,
+            'city' => $digital_sign_users->city,
+            'province' => $digital_sign_users->province,
+            'gender' => $digital_sign_users->gender,
+            'place_of_birth' => $digital_sign_users->place_of_birth,
+            'date_of_birth' => $digital_sign_users->date_of_birth,
+            'org_unit' => $digital_sign_users->org_unit,
+            'work_unit' => $digital_sign_users->work_unit,
+            'position' => $digital_sign_users->position,
+            'is_verified' => $digital_sign_users->is_verified,
+            'callback_url' => $digital_sign_users->callback_url,
+            'is_speciment' => $digital_sign_users->is_speciment,
         ];
 
         return $data;
@@ -151,12 +146,6 @@ class digital_sign_users extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['name'] === '') {
             throw new Exception($this->say('NAME_REQUIRED'));
         }
@@ -202,68 +191,65 @@ class digital_sign_users extends Service
         if ($param['position'] === '') {
             throw new Exception($this->say('POSITION_REQUIRED'));
         }
-        if ($param['is_verified'] === '') {
-            throw new Exception($this->say('IS_VERIFIED_REQUIRED'));
-        }
-        if ($param['callback_url'] === '') {
-            throw new Exception($this->say('CALLBACK_URL_REQUIRED'));
-        }
-        if ($param['is_speciment'] === '') {
-            throw new Exception($this->say('IS_SPECIMENT_REQUIRED'));
-        }
-
 
         //validations: customize here
+        $date_of_birth = DateTime::createFromFormat('d/m/Y', $param['date_of_birth']);
+        if (!$date_of_birth instanceof DateTime) {
+            throw new Exception($this->say('DATE_OF_BIRTH_INVALID'));
+        }
 
         //update
         $digital_sign_users = new \plugins\model\primary\digital_sign_users($id);
-        $digital_sign_users->id = $param['id'];
-        $digital_sign_users->user_id = $param['user_id'];
-        $digital_sign_users->name = $param['name'];
-        $digital_sign_users->phone = $param['phone'];
-        $digital_sign_users->email = $param['email'];
-        $digital_sign_users->type = $param['type'];
-        $digital_sign_users->ktp = $param['ktp'];
-        $digital_sign_users->npwp = $param['npwp'];
-        $digital_sign_users->address = $param['address'];
-        $digital_sign_users->city = $param['city'];
-        $digital_sign_users->province = $param['province'];
-        $digital_sign_users->gender = $param['gender'];
-        $digital_sign_users->place_of_birth = $param['place_of_birth'];
-        $digital_sign_users->date_of_birth = $param['date_of_birth'];
-        $digital_sign_users->org_unit = $param['org_unit'];
-        $digital_sign_users->work_unit = $param['work_unit'];
-        $digital_sign_users->position = $param['position'];
-        $digital_sign_users->is_verified = $param['is_verified'];
-        $digital_sign_users->callback_url = $param['callback_url'];
-        $digital_sign_users->is_speciment = $param['is_speciment'];
+        $digital_sign_users->modified = $this->GetServerDateTime();
+        $digital_sign_users->muid = $this->user['id'];
 
+        $digital_sign_users->user_id = $this->user['id'];
+
+        $digital_sign_users->name = trim($param['name']);
+        $digital_sign_users->phone = trim($param['phone']);
+        $digital_sign_users->email = trim($param['email']);
+        $digital_sign_users->type = trim($param['type']);
+
+        $digital_sign_users->ktp = trim($param['ktp']);
+        $digital_sign_users->npwp = trim($param['npwp']);
+
+        $digital_sign_users->address = trim($param['address']);
+        $digital_sign_users->city = trim($param['city']);
+        $digital_sign_users->province = trim($param['province']);
+
+        $digital_sign_users->gender = trim($param['gender']);
+
+        $digital_sign_users->place_of_birth = trim($param['place_of_birth']);
+        $digital_sign_users->date_of_birth = $date_of_birth->format('Y-m-d');
+
+        $digital_sign_users->org_unit = trim($param['org_unit']);
+        $digital_sign_users->work_unit = trim($param['work_unit']);
+        $digital_sign_users->position = trim($param['position']);
 
         $digital_sign_users->modify();
 
         //response
         $data['digital_sign_users'] = [
             'id' => $digital_sign_users->id,
-        'user_id' => $digital_sign_users->user_id,
-        'name' => $digital_sign_users->name,
-        'phone' => $digital_sign_users->phone,
-        'email' => $digital_sign_users->email,
-        'type' => $digital_sign_users->type,
-        'ktp' => $digital_sign_users->ktp,
-        'npwp' => $digital_sign_users->npwp,
-        'address' => $digital_sign_users->address,
-        'city' => $digital_sign_users->city,
-        'province' => $digital_sign_users->province,
-        'gender' => $digital_sign_users->gender,
-        'place_of_birth' => $digital_sign_users->place_of_birth,
-        'date_of_birth' => $digital_sign_users->date_of_birth,
-        'org_unit' => $digital_sign_users->org_unit,
-        'work_unit' => $digital_sign_users->work_unit,
-        'position' => $digital_sign_users->position,
-        'is_verified' => $digital_sign_users->is_verified,
-        'callback_url' => $digital_sign_users->callback_url,
-        'is_speciment' => $digital_sign_users->is_speciment,
-
+            'user' => usersContracts::GetById($digital_sign_users->user_id),
+            'name' => $digital_sign_users->name,
+            'phone' => $digital_sign_users->phone,
+            'email' => $digital_sign_users->email,
+            'type' => $digital_sign_users->type,
+            'ktp' => $digital_sign_users->ktp,
+            'npwp' => $digital_sign_users->npwp,
+            'address' => $digital_sign_users->address,
+            'city' => $digital_sign_users->city,
+            'province' => $digital_sign_users->province,
+            'gender' => $digital_sign_users->gender,
+            'place_of_birth' => $digital_sign_users->place_of_birth,
+            'date_of_birth' => $digital_sign_users->date_of_birth,
+            'org_unit' => $digital_sign_users->org_unit,
+            'work_unit' => $digital_sign_users->work_unit,
+            'position' => $digital_sign_users->position,
+            'is_verified' => $digital_sign_users->is_verified,
+            'callback_url' => $digital_sign_users->callback_url,
+            'is_speciment' => $digital_sign_users->is_speciment,
         ];
 
         return $data;
@@ -277,8 +263,12 @@ class digital_sign_users extends Service
     public function delete($id = '')
     {
         $digital_sign_users = new \plugins\model\primary\digital_sign_users($id);
+        $digital_sign_users->modified = $this->GetServerDateTime();
+        $digital_sign_users->muid = $this->user['id'];
 
         //delete logic here
+        $digital_sign_users->dflag = 1;
+        $digital_sign_users->modify();
 
         return [
             'deleted' => true
@@ -295,6 +285,9 @@ class digital_sign_users extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\digital_sign_usersContracts::SearchDataPagination($keyword);
     }
@@ -309,6 +302,9 @@ class digital_sign_users extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['digital_sign_users'] = \model\primary\digital_sign_usersContracts::SearchData($keyword);
         return $data;
@@ -323,6 +319,7 @@ class digital_sign_users extends Service
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\digital_sign_usersContracts::GetDataTable($keyword);
     }
@@ -339,26 +336,25 @@ class digital_sign_users extends Service
         //response
         $data['digital_sign_users'] = [
             'id' => $digital_sign_users->id,
-        'user_id' => $digital_sign_users->user_id,
-        'name' => $digital_sign_users->name,
-        'phone' => $digital_sign_users->phone,
-        'email' => $digital_sign_users->email,
-        'type' => $digital_sign_users->type,
-        'ktp' => $digital_sign_users->ktp,
-        'npwp' => $digital_sign_users->npwp,
-        'address' => $digital_sign_users->address,
-        'city' => $digital_sign_users->city,
-        'province' => $digital_sign_users->province,
-        'gender' => $digital_sign_users->gender,
-        'place_of_birth' => $digital_sign_users->place_of_birth,
-        'date_of_birth' => $digital_sign_users->date_of_birth,
-        'org_unit' => $digital_sign_users->org_unit,
-        'work_unit' => $digital_sign_users->work_unit,
-        'position' => $digital_sign_users->position,
-        'is_verified' => $digital_sign_users->is_verified,
-        'callback_url' => $digital_sign_users->callback_url,
-        'is_speciment' => $digital_sign_users->is_speciment,
-
+            'user' => usersContracts::GetById($digital_sign_users->user_id),
+            'name' => $digital_sign_users->name,
+            'phone' => $digital_sign_users->phone,
+            'email' => $digital_sign_users->email,
+            'type' => $digital_sign_users->type,
+            'ktp' => $digital_sign_users->ktp,
+            'npwp' => $digital_sign_users->npwp,
+            'address' => $digital_sign_users->address,
+            'city' => $digital_sign_users->city,
+            'province' => $digital_sign_users->province,
+            'gender' => $digital_sign_users->gender,
+            'place_of_birth' => $digital_sign_users->place_of_birth,
+            'date_of_birth' => $digital_sign_users->date_of_birth,
+            'org_unit' => $digital_sign_users->org_unit,
+            'work_unit' => $digital_sign_users->work_unit,
+            'position' => $digital_sign_users->position,
+            'is_verified' => $digital_sign_users->is_verified,
+            'callback_url' => $digital_sign_users->callback_url,
+            'is_speciment' => $digital_sign_users->is_speciment,
         ];
 
         return $data;

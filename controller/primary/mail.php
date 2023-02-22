@@ -4,6 +4,7 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +13,8 @@ use pukoframework\Request;
  */
 class mail extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -107,23 +110,23 @@ class mail extends Service
         //response
         $data['mail'] = [
             'id' => $mail->id,
-        'user_id' => $mail->user_id,
-        'html' => $mail->html,
-        'css' => $mail->css,
-        'mail_name' => $mail->mail_name,
-        'mail_address' => $mail->mail_address,
-        'mail_password' => $mail->mail_password,
-        'cc' => $mail->cc,
-        'bcc' => $mail->bcc,
-        'reply_to' => $mail->reply_to,
-        'host' => $mail->host,
-        'port' => $mail->port,
-        'smtp_auth' => $mail->smtp_auth,
-        'smtp_secure' => $mail->smtp_secure,
-        'request_type' => $mail->request_type,
-        'request_url' => $mail->request_url,
-        'request_sample' => $mail->request_sample,
-        'css_external' => $mail->css_external,
+            'user_id' => $mail->user_id,
+            'html' => $mail->html,
+            'css' => $mail->css,
+            'mail_name' => $mail->mail_name,
+            'mail_address' => $mail->mail_address,
+            'mail_password' => $mail->mail_password,
+            'cc' => $mail->cc,
+            'bcc' => $mail->bcc,
+            'reply_to' => $mail->reply_to,
+            'host' => $mail->host,
+            'port' => $mail->port,
+            'smtp_auth' => $mail->smtp_auth,
+            'smtp_secure' => $mail->smtp_secure,
+            'request_type' => $mail->request_type,
+            'request_url' => $mail->request_url,
+            'request_sample' => $mail->request_sample,
+            'css_external' => $mail->css_external,
 
         ];
 
@@ -226,23 +229,23 @@ class mail extends Service
         //response
         $data['mail'] = [
             'id' => $mail->id,
-        'user_id' => $mail->user_id,
-        'html' => $mail->html,
-        'css' => $mail->css,
-        'mail_name' => $mail->mail_name,
-        'mail_address' => $mail->mail_address,
-        'mail_password' => $mail->mail_password,
-        'cc' => $mail->cc,
-        'bcc' => $mail->bcc,
-        'reply_to' => $mail->reply_to,
-        'host' => $mail->host,
-        'port' => $mail->port,
-        'smtp_auth' => $mail->smtp_auth,
-        'smtp_secure' => $mail->smtp_secure,
-        'request_type' => $mail->request_type,
-        'request_url' => $mail->request_url,
-        'request_sample' => $mail->request_sample,
-        'css_external' => $mail->css_external,
+            'user_id' => $mail->user_id,
+            'html' => $mail->html,
+            'css' => $mail->css,
+            'mail_name' => $mail->mail_name,
+            'mail_address' => $mail->mail_address,
+            'mail_password' => $mail->mail_password,
+            'cc' => $mail->cc,
+            'bcc' => $mail->bcc,
+            'reply_to' => $mail->reply_to,
+            'host' => $mail->host,
+            'port' => $mail->port,
+            'smtp_auth' => $mail->smtp_auth,
+            'smtp_secure' => $mail->smtp_secure,
+            'request_type' => $mail->request_type,
+            'request_url' => $mail->request_url,
+            'request_sample' => $mail->request_sample,
+            'css_external' => $mail->css_external,
 
         ];
 
@@ -319,23 +322,23 @@ class mail extends Service
         //response
         $data['mail'] = [
             'id' => $mail->id,
-        'user_id' => $mail->user_id,
-        'html' => $mail->html,
-        'css' => $mail->css,
-        'mail_name' => $mail->mail_name,
-        'mail_address' => $mail->mail_address,
-        'mail_password' => $mail->mail_password,
-        'cc' => $mail->cc,
-        'bcc' => $mail->bcc,
-        'reply_to' => $mail->reply_to,
-        'host' => $mail->host,
-        'port' => $mail->port,
-        'smtp_auth' => $mail->smtp_auth,
-        'smtp_secure' => $mail->smtp_secure,
-        'request_type' => $mail->request_type,
-        'request_url' => $mail->request_url,
-        'request_sample' => $mail->request_sample,
-        'css_external' => $mail->css_external,
+            'user_id' => $mail->user_id,
+            'html' => $mail->html,
+            'css' => $mail->css,
+            'mail_name' => $mail->mail_name,
+            'mail_address' => $mail->mail_address,
+            'mail_password' => $mail->mail_password,
+            'cc' => $mail->cc,
+            'bcc' => $mail->bcc,
+            'reply_to' => $mail->reply_to,
+            'host' => $mail->host,
+            'port' => $mail->port,
+            'smtp_auth' => $mail->smtp_auth,
+            'smtp_secure' => $mail->smtp_secure,
+            'request_type' => $mail->request_type,
+            'request_url' => $mail->request_url,
+            'request_sample' => $mail->request_sample,
+            'css_external' => $mail->css_external,
 
         ];
 
