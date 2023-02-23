@@ -3,15 +3,15 @@
 namespace controller;
 
 use Exception;
-use model\DigitalSignModel;
-use model\DigitalSignUserModel;
-use plugins\controller\AnywhereView;
+use model\primary\digital_sign_usersContracts;
+use model\primary\digital_signsContracts;
+use pukoframework\middleware\View;
 
 /**
  * #Master master.html
  * #Value title Signing Users
  */
-class digitalsigns extends AnywhereView
+class digitalsigns extends View
 {
 
     public function users()
@@ -20,19 +20,18 @@ class digitalsigns extends AnywhereView
 
     /**
      * @param string $hash
-     * @return array
      * @throws Exception
      * #Value title Signing Verification
      * #Template master false
      */
-    public function verify($hash = '')
+    public function verify(string $hash = '')
     {
-        $signing = DigitalSignModel::SearchData([
-            'digitalsignhash' => $hash
+        $signing = digital_signsContracts::SearchData([
+            'digital_sign_hash' => $hash
         ]);
         if (sizeof($signing) === 0) {
             header('Content-Type: text');
-            die("INVALID DIGITAL SIGNATURE!\nPlease contact the document publisher to confirm that you obtain the original file sealed with valid Digital Signing.");
+            die($this->say('INVALID_DIGITAL_SIGNATURE'));
         }
 
         $data = [];
@@ -43,7 +42,7 @@ class digitalsigns extends AnywhereView
                 'Location' => $item['location'],
                 'Reason' => $item['reason']
             ];
-            $users = DigitalSignUserModel::SearchData([
+            $users = digital_sign_usersContracts::SearchData([
                 'email' => $item['email']
             ]);
             foreach ($users as $user) {
@@ -58,6 +57,7 @@ class digitalsigns extends AnywhereView
                 ];
             }
         }
+
         return array_merge($data['Signing'], $data['User']);
     }
 

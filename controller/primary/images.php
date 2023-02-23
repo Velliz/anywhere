@@ -4,6 +4,7 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use model\primary\usersContracts;
 use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
@@ -25,38 +26,8 @@ class images extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['image_name'] === '') {
             throw new Exception($this->say('IMAGE_NAME_REQUIRED'));
-        }
-        if ($param['placeholder_name'] === '') {
-            throw new Exception($this->say('PLACEHOLDER_NAME_REQUIRED'));
-        }
-        if ($param['placeholder_file'] === '') {
-            throw new Exception($this->say('PLACEHOLDER_FILE_REQUIRED'));
-        }
-        if ($param['x'] === '') {
-            throw new Exception($this->say('X_REQUIRED'));
-        }
-        if ($param['y'] === '') {
-            throw new Exception($this->say('Y_REQUIRED'));
-        }
-        if ($param['x2'] === '') {
-            throw new Exception($this->say('X2_REQUIRED'));
-        }
-        if ($param['y2'] === '') {
-            throw new Exception($this->say('Y2_REQUIRED'));
-        }
-        if ($param['w'] === '') {
-            throw new Exception($this->say('W_REQUIRED'));
-        }
-        if ($param['h'] === '') {
-            throw new Exception($this->say('H_REQUIRED'));
         }
         if ($param['request_type'] === '') {
             throw new Exception($this->say('REQUEST_TYPE_REQUIRED'));
@@ -67,57 +38,39 @@ class images extends Service
         if ($param['request_sample'] === '') {
             throw new Exception($this->say('REQUEST_SAMPLE_REQUIRED'));
         }
-        if ($param['request_sample_name'] === '') {
-            throw new Exception($this->say('REQUEST_SAMPLE_NAME_REQUIRED'));
-        }
-        if ($param['request_sample_file'] === '') {
-            throw new Exception($this->say('REQUEST_SAMPLE_FILE_REQUIRED'));
-        }
-
 
         //validations: customize here
 
         //insert
         $images = new \plugins\model\primary\images();
-        $images->id = $param['id'];
-        $images->user_id = $param['user_id'];
-        $images->image_name = $param['image_name'];
-        $images->placeholder_name = $param['placeholder_name'];
-        $images->placeholder_file = $param['placeholder_file'];
-        $images->x = $param['x'];
-        $images->y = $param['y'];
-        $images->x2 = $param['x2'];
-        $images->y2 = $param['y2'];
-        $images->w = $param['w'];
-        $images->h = $param['h'];
-        $images->request_type = $param['request_type'];
-        $images->request_url = $param['request_url'];
-        $images->request_sample = $param['request_sample'];
-        $images->request_sample_name = $param['request_sample_name'];
-        $images->request_sample_file = $param['request_sample_file'];
+        $images->created = $this->GetServerDateTime();
+        $images->cuid = $this->user['id'];
 
+        $images->user_id = $this->user['id'];
+
+        $images->image_name = trim($param['image_name']);
+        $images->request_type = trim($param['request_type']);
+        $images->request_url = trim($param['request_url']);
+        $images->request_sample = trim($param['request_sample']);
 
         $images->save();
 
         //response
         $data['images'] = [
             'id' => $images->id,
-            'user_id' => $images->user_id,
+            'user' => usersContracts::GetById($images->user_id),
             'image_name' => $images->image_name,
             'placeholder_name' => $images->placeholder_name,
-            'placeholder_file' => $images->placeholder_file,
+            'request_type' => $images->request_type,
+            'request_url' => $images->request_url,
+            'request_sample' => $images->request_sample,
+            'request_sample_name' => $images->request_sample_name,
             'x' => $images->x,
             'y' => $images->y,
             'x2' => $images->x2,
             'y2' => $images->y2,
             'w' => $images->w,
             'h' => $images->h,
-            'request_type' => $images->request_type,
-            'request_url' => $images->request_url,
-            'request_sample' => $images->request_sample,
-            'request_sample_name' => $images->request_sample_name,
-            'request_sample_file' => $images->request_sample_file,
-
         ];
 
         return $data;
@@ -134,38 +87,8 @@ class images extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['image_name'] === '') {
             throw new Exception($this->say('IMAGE_NAME_REQUIRED'));
-        }
-        if ($param['placeholder_name'] === '') {
-            throw new Exception($this->say('PLACEHOLDER_NAME_REQUIRED'));
-        }
-        if ($param['placeholder_file'] === '') {
-            throw new Exception($this->say('PLACEHOLDER_FILE_REQUIRED'));
-        }
-        if ($param['x'] === '') {
-            throw new Exception($this->say('X_REQUIRED'));
-        }
-        if ($param['y'] === '') {
-            throw new Exception($this->say('Y_REQUIRED'));
-        }
-        if ($param['x2'] === '') {
-            throw new Exception($this->say('X2_REQUIRED'));
-        }
-        if ($param['y2'] === '') {
-            throw new Exception($this->say('Y2_REQUIRED'));
-        }
-        if ($param['w'] === '') {
-            throw new Exception($this->say('W_REQUIRED'));
-        }
-        if ($param['h'] === '') {
-            throw new Exception($this->say('H_REQUIRED'));
         }
         if ($param['request_type'] === '') {
             throw new Exception($this->say('REQUEST_TYPE_REQUIRED'));
@@ -176,57 +99,39 @@ class images extends Service
         if ($param['request_sample'] === '') {
             throw new Exception($this->say('REQUEST_SAMPLE_REQUIRED'));
         }
-        if ($param['request_sample_name'] === '') {
-            throw new Exception($this->say('REQUEST_SAMPLE_NAME_REQUIRED'));
-        }
-        if ($param['request_sample_file'] === '') {
-            throw new Exception($this->say('REQUEST_SAMPLE_FILE_REQUIRED'));
-        }
-
 
         //validations: customize here
 
         //update
         $images = new \plugins\model\primary\images($id);
-        $images->id = $param['id'];
-        $images->user_id = $param['user_id'];
-        $images->image_name = $param['image_name'];
-        $images->placeholder_name = $param['placeholder_name'];
-        $images->placeholder_file = $param['placeholder_file'];
-        $images->x = $param['x'];
-        $images->y = $param['y'];
-        $images->x2 = $param['x2'];
-        $images->y2 = $param['y2'];
-        $images->w = $param['w'];
-        $images->h = $param['h'];
-        $images->request_type = $param['request_type'];
-        $images->request_url = $param['request_url'];
-        $images->request_sample = $param['request_sample'];
-        $images->request_sample_name = $param['request_sample_name'];
-        $images->request_sample_file = $param['request_sample_file'];
+        $images->modified = $this->GetServerDateTime();
+        $images->muid = $this->user['id'];
 
+        $images->user_id = $this->user['id'];
+
+        $images->image_name = trim($param['image_name']);
+        $images->request_type = trim($param['request_type']);
+        $images->request_url = trim($param['request_url']);
+        $images->request_sample = trim($param['request_sample']);
 
         $images->modify();
 
         //response
         $data['images'] = [
             'id' => $images->id,
-            'user_id' => $images->user_id,
+            'user' => usersContracts::GetById($images->user_id),
             'image_name' => $images->image_name,
             'placeholder_name' => $images->placeholder_name,
-            'placeholder_file' => $images->placeholder_file,
+            'request_type' => $images->request_type,
+            'request_url' => $images->request_url,
+            'request_sample' => $images->request_sample,
+            'request_sample_name' => $images->request_sample_name,
             'x' => $images->x,
             'y' => $images->y,
             'x2' => $images->x2,
             'y2' => $images->y2,
             'w' => $images->w,
             'h' => $images->h,
-            'request_type' => $images->request_type,
-            'request_url' => $images->request_url,
-            'request_sample' => $images->request_sample,
-            'request_sample_name' => $images->request_sample_name,
-            'request_sample_file' => $images->request_sample_file,
-
         ];
 
         return $data;
@@ -240,8 +145,12 @@ class images extends Service
     public function delete($id = '')
     {
         $images = new \plugins\model\primary\images($id);
+        $images->modified = $this->GetServerDateTime();
+        $images->muid = $this->user['id'];
 
         //delete logic here
+        $images->dflag = 1;
+        $images->modify();
 
         return [
             'deleted' => true
@@ -309,22 +218,19 @@ class images extends Service
         //response
         $data['images'] = [
             'id' => $images->id,
-            'user_id' => $images->user_id,
+            'user' => usersContracts::GetById($images->user_id),
             'image_name' => $images->image_name,
             'placeholder_name' => $images->placeholder_name,
-            'placeholder_file' => $images->placeholder_file,
+            'request_type' => $images->request_type,
+            'request_url' => $images->request_url,
+            'request_sample' => $images->request_sample,
+            'request_sample_name' => $images->request_sample_name,
             'x' => $images->x,
             'y' => $images->y,
             'x2' => $images->x2,
             'y2' => $images->y2,
             'w' => $images->w,
             'h' => $images->h,
-            'request_type' => $images->request_type,
-            'request_url' => $images->request_url,
-            'request_sample' => $images->request_sample,
-            'request_sample_name' => $images->request_sample_name,
-            'request_sample_file' => $images->request_sample_file,
-
         ];
 
         return $data;

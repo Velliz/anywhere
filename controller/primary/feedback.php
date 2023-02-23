@@ -4,6 +4,8 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use model\primary\usersContracts;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +14,8 @@ use pukoframework\Request;
  */
 class feedback extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -22,12 +26,6 @@ class feedback extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['signature'] === '') {
             throw new Exception($this->say('SIGNATURE_REQUIRED'));
         }
@@ -37,44 +35,36 @@ class feedback extends Service
         if ($param['feedback'] === '') {
             throw new Exception($this->say('FEEDBACK_REQUIRED'));
         }
-        if ($param['is_approved'] === '') {
-            throw new Exception($this->say('IS_APPROVED_REQUIRED'));
-        }
-        if ($param['approved_date'] === '') {
-            throw new Exception($this->say('APPROVED_DATE_REQUIRED'));
-        }
         if ($param['feedback_responds'] === '') {
             throw new Exception($this->say('FEEDBACK_RESPONDS_REQUIRED'));
         }
-
 
         //validations: customize here
 
         //insert
         $feedback = new \plugins\model\primary\feedback();
-        $feedback->id = $param['id'];
-        $feedback->user_id = $param['user_id'];
-        $feedback->signature = $param['signature'];
-        $feedback->subject = $param['subject'];
-        $feedback->feedback = $param['feedback'];
-        $feedback->is_approved = $param['is_approved'];
-        $feedback->approved_date = $param['approved_date'];
-        $feedback->feedback_responds = $param['feedback_responds'];
+        $feedback->created = $this->GetServerDateTime();
+        $feedback->cuid = $this->user['id'];
 
+        $feedback->user_id = $this->user['id'];
+
+        $feedback->signature = trim($param['signature']);
+        $feedback->subject = trim($param['subject']);
+        $feedback->feedback = trim($param['feedback']);
+        $feedback->feedback_responds = trim($param['feedback_responds']);
 
         $feedback->save();
 
         //response
         $data['feedback'] = [
             'id' => $feedback->id,
-        'user_id' => $feedback->user_id,
-        'signature' => $feedback->signature,
-        'subject' => $feedback->subject,
-        'feedback' => $feedback->feedback,
-        'is_approved' => $feedback->is_approved,
-        'approved_date' => $feedback->approved_date,
-        'feedback_responds' => $feedback->feedback_responds,
-
+            'user' => usersContracts::GetById($feedback->user_id),
+            'signature' => $feedback->signature,
+            'subject' => $feedback->subject,
+            'feedback' => $feedback->feedback,
+            'is_approved' => $feedback->is_approved,
+            'approved_date' => $feedback->approved_date,
+            'feedback_responds' => $feedback->feedback_responds,
         ];
 
         return $data;
@@ -91,12 +81,6 @@ class feedback extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['signature'] === '') {
             throw new Exception($this->say('SIGNATURE_REQUIRED'));
         }
@@ -116,34 +100,32 @@ class feedback extends Service
             throw new Exception($this->say('FEEDBACK_RESPONDS_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //update
         $feedback = new \plugins\model\primary\feedback($id);
-        $feedback->id = $param['id'];
-        $feedback->user_id = $param['user_id'];
-        $feedback->signature = $param['signature'];
-        $feedback->subject = $param['subject'];
-        $feedback->feedback = $param['feedback'];
-        $feedback->is_approved = $param['is_approved'];
-        $feedback->approved_date = $param['approved_date'];
-        $feedback->feedback_responds = $param['feedback_responds'];
+        $feedback->modified = $this->GetServerDateTime();
+        $feedback->muid = $this->user['id'];
 
+        $feedback->user_id = $this->user['id'];
+
+        $feedback->signature = trim($param['signature']);
+        $feedback->subject = trim($param['subject']);
+        $feedback->feedback = trim($param['feedback']);
+        $feedback->feedback_responds = trim($param['feedback_responds']);
 
         $feedback->modify();
 
         //response
         $data['feedback'] = [
             'id' => $feedback->id,
-        'user_id' => $feedback->user_id,
-        'signature' => $feedback->signature,
-        'subject' => $feedback->subject,
-        'feedback' => $feedback->feedback,
-        'is_approved' => $feedback->is_approved,
-        'approved_date' => $feedback->approved_date,
-        'feedback_responds' => $feedback->feedback_responds,
-
+            'user' => usersContracts::GetById($feedback->user_id),
+            'signature' => $feedback->signature,
+            'subject' => $feedback->subject,
+            'feedback' => $feedback->feedback,
+            'is_approved' => $feedback->is_approved,
+            'approved_date' => $feedback->approved_date,
+            'feedback_responds' => $feedback->feedback_responds,
         ];
 
         return $data;
@@ -157,8 +139,12 @@ class feedback extends Service
     public function delete($id = '')
     {
         $feedback = new \plugins\model\primary\feedback($id);
+        $feedback->modified = $this->GetServerDateTime();
+        $feedback->muid = $this->user['id'];
 
         //delete logic here
+        $feedback->dflag = 1;
+        $feedback->modify();
 
         return [
             'deleted' => true
@@ -175,6 +161,9 @@ class feedback extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\feedbackContracts::SearchDataPagination($keyword);
     }
@@ -189,6 +178,9 @@ class feedback extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['feedback'] = \model\primary\feedbackContracts::SearchData($keyword);
         return $data;
@@ -203,6 +195,7 @@ class feedback extends Service
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\feedbackContracts::GetDataTable($keyword);
     }
@@ -219,13 +212,13 @@ class feedback extends Service
         //response
         $data['feedback'] = [
             'id' => $feedback->id,
-        'user_id' => $feedback->user_id,
-        'signature' => $feedback->signature,
-        'subject' => $feedback->subject,
-        'feedback' => $feedback->feedback,
-        'is_approved' => $feedback->is_approved,
-        'approved_date' => $feedback->approved_date,
-        'feedback_responds' => $feedback->feedback_responds,
+            'user' => usersContracts::GetById($feedback->user_id),
+            'signature' => $feedback->signature,
+            'subject' => $feedback->subject,
+            'feedback' => $feedback->feedback,
+            'is_approved' => $feedback->is_approved,
+            'approved_date' => $feedback->approved_date,
+            'feedback_responds' => $feedback->feedback_responds,
 
         ];
 

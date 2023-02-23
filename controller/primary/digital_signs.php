@@ -4,6 +4,10 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use model\primary\digital_sign_usersContracts;
+use model\primary\digital_signsContracts;
+use model\primary\usersContracts;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +16,8 @@ use pukoframework\Request;
  */
 class digital_signs extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -22,12 +28,6 @@ class digital_signs extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['document_name'] === '') {
             throw new Exception($this->say('DOCUMENT_NAME_REQUIRED'));
         }
@@ -47,34 +47,34 @@ class digital_signs extends Service
             throw new Exception($this->say('REASON_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //insert
         $digital_signs = new \plugins\model\primary\digital_signs();
-        $digital_signs->id = $param['id'];
-        $digital_signs->user_id = $param['user_id'];
-        $digital_signs->document_name = $param['document_name'];
-        $digital_signs->digital_sign_hash = $param['digital_sign_hash'];
-        $digital_signs->digital_sign_secure = $param['digital_sign_secure'];
-        $digital_signs->email = $param['email'];
-        $digital_signs->location = $param['location'];
-        $digital_signs->reason = $param['reason'];
+        $digital_signs->created = $this->GetServerDateTime();
+        $digital_signs->cuid = $this->user['id'];
 
+        $digital_signs->user_id = $this->user['id'];
+
+        $digital_signs->document_name = trim($param['document_name']);
+        $digital_signs->digital_sign_hash = trim($param['digital_sign_hash']);
+        $digital_signs->digital_sign_secure = trim($param['digital_sign_secure']);
+        $digital_signs->email = trim($param['email']);
+        $digital_signs->location = trim($param['location']);
+        $digital_signs->reason = trim($param['reason']);
 
         $digital_signs->save();
 
         //response
         $data['digital_signs'] = [
             'id' => $digital_signs->id,
-        'user_id' => $digital_signs->user_id,
-        'document_name' => $digital_signs->document_name,
-        'digital_sign_hash' => $digital_signs->digital_sign_hash,
-        'digital_sign_secure' => $digital_signs->digital_sign_secure,
-        'email' => $digital_signs->email,
-        'location' => $digital_signs->location,
-        'reason' => $digital_signs->reason,
-
+            'user' => usersContracts::GetById($digital_signs->user_id),
+            'document_name' => $digital_signs->document_name,
+            'digital_sign_hash' => $digital_signs->digital_sign_hash,
+            'digital_sign_secure' => $digital_signs->digital_sign_secure,
+            'email' => $digital_signs->email,
+            'location' => $digital_signs->location,
+            'reason' => $digital_signs->reason,
         ];
 
         return $data;
@@ -91,12 +91,6 @@ class digital_signs extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['document_name'] === '') {
             throw new Exception($this->say('DOCUMENT_NAME_REQUIRED'));
         }
@@ -116,34 +110,34 @@ class digital_signs extends Service
             throw new Exception($this->say('REASON_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //update
         $digital_signs = new \plugins\model\primary\digital_signs($id);
-        $digital_signs->id = $param['id'];
-        $digital_signs->user_id = $param['user_id'];
-        $digital_signs->document_name = $param['document_name'];
-        $digital_signs->digital_sign_hash = $param['digital_sign_hash'];
-        $digital_signs->digital_sign_secure = $param['digital_sign_secure'];
-        $digital_signs->email = $param['email'];
-        $digital_signs->location = $param['location'];
-        $digital_signs->reason = $param['reason'];
+        $digital_signs->modified = $this->GetServerDateTime();
+        $digital_signs->muid = $this->user['id'];
 
+        $digital_signs->user_id = $this->user['id'];
+
+        $digital_signs->document_name = trim($param['document_name']);
+        $digital_signs->digital_sign_hash = trim($param['digital_sign_hash']);
+        $digital_signs->digital_sign_secure = trim($param['digital_sign_secure']);
+        $digital_signs->email = trim($param['email']);
+        $digital_signs->location = trim($param['location']);
+        $digital_signs->reason = trim($param['reason']);
 
         $digital_signs->modify();
 
         //response
         $data['digital_signs'] = [
             'id' => $digital_signs->id,
-        'user_id' => $digital_signs->user_id,
-        'document_name' => $digital_signs->document_name,
-        'digital_sign_hash' => $digital_signs->digital_sign_hash,
-        'digital_sign_secure' => $digital_signs->digital_sign_secure,
-        'email' => $digital_signs->email,
-        'location' => $digital_signs->location,
-        'reason' => $digital_signs->reason,
-
+            'user' => usersContracts::GetById($digital_signs->user_id),
+            'document_name' => $digital_signs->document_name,
+            'digital_sign_hash' => $digital_signs->digital_sign_hash,
+            'digital_sign_secure' => $digital_signs->digital_sign_secure,
+            'email' => $digital_signs->email,
+            'location' => $digital_signs->location,
+            'reason' => $digital_signs->reason,
         ];
 
         return $data;
@@ -157,8 +151,12 @@ class digital_signs extends Service
     public function delete($id = '')
     {
         $digital_signs = new \plugins\model\primary\digital_signs($id);
+        $digital_signs->modified = $this->GetServerDateTime();
+        $digital_signs->muid = $this->user['id'];
 
         //delete logic here
+        $digital_signs->dflag = 1;
+        $digital_signs->modify();
 
         return [
             'deleted' => true
@@ -175,6 +173,9 @@ class digital_signs extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\digital_signsContracts::SearchDataPagination($keyword);
     }
@@ -189,6 +190,9 @@ class digital_signs extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['digital_signs'] = \model\primary\digital_signsContracts::SearchData($keyword);
         return $data;
@@ -203,6 +207,7 @@ class digital_signs extends Service
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\digital_signsContracts::GetDataTable($keyword);
     }
@@ -219,14 +224,13 @@ class digital_signs extends Service
         //response
         $data['digital_signs'] = [
             'id' => $digital_signs->id,
-        'user_id' => $digital_signs->user_id,
-        'document_name' => $digital_signs->document_name,
-        'digital_sign_hash' => $digital_signs->digital_sign_hash,
-        'digital_sign_secure' => $digital_signs->digital_sign_secure,
-        'email' => $digital_signs->email,
-        'location' => $digital_signs->location,
-        'reason' => $digital_signs->reason,
-
+            'user' => usersContracts::GetById($digital_signs->user_id),
+            'document_name' => $digital_signs->document_name,
+            'digital_sign_hash' => $digital_signs->digital_sign_hash,
+            'digital_sign_secure' => $digital_signs->digital_sign_secure,
+            'email' => $digital_signs->email,
+            'location' => $digital_signs->location,
+            'reason' => $digital_signs->reason,
         ];
 
         return $data;

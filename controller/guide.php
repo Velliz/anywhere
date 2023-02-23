@@ -19,8 +19,8 @@ namespace controller;
 
 use Exception;
 use Parsedown;
-use plugins\controller\AnywhereView;
 use pukoframework\Framework;
+use pukoframework\middleware\View;
 
 /**
  * Class guide
@@ -29,7 +29,7 @@ use pukoframework\Framework;
  * #Master master.html
  * #Value PageTitle Guide
  */
-class guide extends AnywhereView
+class guide extends View
 {
 
     /**

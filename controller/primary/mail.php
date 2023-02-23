@@ -4,6 +4,7 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use model\primary\usersContracts;
 use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
@@ -25,18 +26,6 @@ class mail extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
-        if ($param['html'] === '') {
-            throw new Exception($this->say('HTML_REQUIRED'));
-        }
-        if ($param['css'] === '') {
-            throw new Exception($this->say('CSS_REQUIRED'));
-        }
         if ($param['mail_name'] === '') {
             throw new Exception($this->say('MAIL_NAME_REQUIRED'));
         }
@@ -73,46 +62,38 @@ class mail extends Service
         if ($param['request_url'] === '') {
             throw new Exception($this->say('REQUEST_URL_REQUIRED'));
         }
-        if ($param['request_sample'] === '') {
-            throw new Exception($this->say('REQUEST_SAMPLE_REQUIRED'));
-        }
-        if ($param['css_external'] === '') {
-            throw new Exception($this->say('CSS_EXTERNAL_REQUIRED'));
-        }
-
 
         //validations: customize here
 
         //insert
         $mail = new \plugins\model\primary\mail();
-        $mail->id = $param['id'];
-        $mail->user_id = $param['user_id'];
-        $mail->html = $param['html'];
-        $mail->css = $param['css'];
+        $mail->created = $this->GetServerDateTime();
+        $mail->cuid = $this->user['id'];
+
+        $mail->user_id = $this->user['id'];
+
         $mail->mail_name = $param['mail_name'];
         $mail->mail_address = $param['mail_address'];
         $mail->mail_password = $param['mail_password'];
         $mail->cc = $param['cc'];
         $mail->bcc = $param['bcc'];
         $mail->reply_to = $param['reply_to'];
+
         $mail->host = $param['host'];
         $mail->port = $param['port'];
+
         $mail->smtp_auth = $param['smtp_auth'];
         $mail->smtp_secure = $param['smtp_secure'];
+
         $mail->request_type = $param['request_type'];
         $mail->request_url = $param['request_url'];
-        $mail->request_sample = $param['request_sample'];
-        $mail->css_external = $param['css_external'];
-
 
         $mail->save();
 
         //response
         $data['mail'] = [
             'id' => $mail->id,
-            'user_id' => $mail->user_id,
-            'html' => $mail->html,
-            'css' => $mail->css,
+            'user' => usersContracts::GetById($mail->user_id),
             'mail_name' => $mail->mail_name,
             'mail_address' => $mail->mail_address,
             'mail_password' => $mail->mail_password,
@@ -127,7 +108,6 @@ class mail extends Service
             'request_url' => $mail->request_url,
             'request_sample' => $mail->request_sample,
             'css_external' => $mail->css_external,
-
         ];
 
         return $data;
@@ -144,17 +124,8 @@ class mail extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
         if ($param['user_id'] === '') {
             throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
-        if ($param['html'] === '') {
-            throw new Exception($this->say('HTML_REQUIRED'));
-        }
-        if ($param['css'] === '') {
-            throw new Exception($this->say('CSS_REQUIRED'));
         }
         if ($param['mail_name'] === '') {
             throw new Exception($this->say('MAIL_NAME_REQUIRED'));
@@ -192,46 +163,38 @@ class mail extends Service
         if ($param['request_url'] === '') {
             throw new Exception($this->say('REQUEST_URL_REQUIRED'));
         }
-        if ($param['request_sample'] === '') {
-            throw new Exception($this->say('REQUEST_SAMPLE_REQUIRED'));
-        }
-        if ($param['css_external'] === '') {
-            throw new Exception($this->say('CSS_EXTERNAL_REQUIRED'));
-        }
-
 
         //validations: customize here
 
         //update
         $mail = new \plugins\model\primary\mail($id);
-        $mail->id = $param['id'];
-        $mail->user_id = $param['user_id'];
-        $mail->html = $param['html'];
-        $mail->css = $param['css'];
+        $mail->modified = $this->GetServerDateTime();
+        $mail->muid = $this->user['id'];
+
+        $mail->user_id = $this->user['id'];
+
         $mail->mail_name = $param['mail_name'];
         $mail->mail_address = $param['mail_address'];
         $mail->mail_password = $param['mail_password'];
         $mail->cc = $param['cc'];
         $mail->bcc = $param['bcc'];
         $mail->reply_to = $param['reply_to'];
+
         $mail->host = $param['host'];
         $mail->port = $param['port'];
+
         $mail->smtp_auth = $param['smtp_auth'];
         $mail->smtp_secure = $param['smtp_secure'];
+
         $mail->request_type = $param['request_type'];
         $mail->request_url = $param['request_url'];
-        $mail->request_sample = $param['request_sample'];
-        $mail->css_external = $param['css_external'];
-
 
         $mail->modify();
 
         //response
         $data['mail'] = [
             'id' => $mail->id,
-            'user_id' => $mail->user_id,
-            'html' => $mail->html,
-            'css' => $mail->css,
+            'user' => usersContracts::GetById($mail->user_id),
             'mail_name' => $mail->mail_name,
             'mail_address' => $mail->mail_address,
             'mail_password' => $mail->mail_password,
@@ -246,7 +209,6 @@ class mail extends Service
             'request_url' => $mail->request_url,
             'request_sample' => $mail->request_sample,
             'css_external' => $mail->css_external,
-
         ];
 
         return $data;
@@ -260,8 +222,12 @@ class mail extends Service
     public function delete($id = '')
     {
         $mail = new \plugins\model\primary\mail($id);
+        $mail->modified = $this->GetServerDateTime();
+        $mail->muid = $this->user['id'];
 
         //delete logic here
+        $mail->dflag = 1;
+        $mail->modify();
 
         return [
             'deleted' => true
@@ -278,6 +244,9 @@ class mail extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\mailContracts::SearchDataPagination($keyword);
     }
@@ -292,6 +261,9 @@ class mail extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['mail'] = \model\primary\mailContracts::SearchData($keyword);
         return $data;
@@ -306,6 +278,7 @@ class mail extends Service
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\mailContracts::GetDataTable($keyword);
     }
@@ -322,7 +295,7 @@ class mail extends Service
         //response
         $data['mail'] = [
             'id' => $mail->id,
-            'user_id' => $mail->user_id,
+            'user' => usersContracts::GetById($mail->user_id),
             'html' => $mail->html,
             'css' => $mail->css,
             'mail_name' => $mail->mail_name,
@@ -339,7 +312,6 @@ class mail extends Service
             'request_url' => $mail->request_url,
             'request_sample' => $mail->request_sample,
             'css_external' => $mail->css_external,
-
         ];
 
         return $data;

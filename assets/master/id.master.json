@@ -88,5 +88,7 @@
     "USERNAME_EXIST": "Describe your message about USERNAME_EXIST with parameters %s",
     "EMAIL_EXIST": "Describe your message about EMAIL_EXIST with parameters %s",
     "LOGIN_FAILED": "Describe your message about LOGIN_FAILED",
-    "LOGIN_SUCCESS": "Describe your message about LOGIN_SUCCESS"
+    "LOGIN_SUCCESS": "Describe your message about LOGIN_SUCCESS",
+    "INVALID_DIGITAL_SIGNATURE": "INVALID DIGITAL SIGNATURE! Please contact the document publisher to confirm that you obtain the original file sealed with valid Digital Signing.",
+    "DATE_OF_BIRTH_INVALID": "Describe your message about DATE_OF_BIRTH_INVALID"
 }

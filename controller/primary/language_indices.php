@@ -4,6 +4,8 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use model\primary\usersContracts;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +14,8 @@ use pukoframework\Request;
  */
 class language_indices extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -22,12 +26,6 @@ class language_indices extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['app_name'] === '') {
             throw new Exception($this->say('APP_NAME_REQUIRED'));
         }
@@ -41,30 +39,30 @@ class language_indices extends Service
             throw new Exception($this->say('TEXTS_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //insert
         $language_indices = new \plugins\model\primary\language_indices();
-        $language_indices->id = $param['id'];
-        $language_indices->user_id = $param['user_id'];
-        $language_indices->app_name = $param['app_name'];
-        $language_indices->identifier = $param['identifier'];
-        $language_indices->variables = $param['variables'];
-        $language_indices->texts = $param['texts'];
+        $language_indices->created = $this->GetServerDateTime();
+        $language_indices->cuid = $this->user['id'];
 
+        $language_indices->user_id = $this->user['id'];
+
+        $language_indices->app_name = trim($param['app_name']);
+        $language_indices->identifier = trim($param['identifier']);
+        $language_indices->variables = trim($param['variables']);
+        $language_indices->texts = trim($param['texts']);
 
         $language_indices->save();
 
         //response
         $data['language_indices'] = [
             'id' => $language_indices->id,
-        'user_id' => $language_indices->user_id,
-        'app_name' => $language_indices->app_name,
-        'identifier' => $language_indices->identifier,
-        'variables' => $language_indices->variables,
-        'texts' => $language_indices->texts,
-
+            'user' => usersContracts::GetById($language_indices->user_id),
+            'app_name' => $language_indices->app_name,
+            'identifier' => $language_indices->identifier,
+            'variables' => $language_indices->variables,
+            'texts' => $language_indices->texts,
         ];
 
         return $data;
@@ -81,12 +79,6 @@ class language_indices extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['app_name'] === '') {
             throw new Exception($this->say('APP_NAME_REQUIRED'));
         }
@@ -100,30 +92,28 @@ class language_indices extends Service
             throw new Exception($this->say('TEXTS_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //update
         $language_indices = new \plugins\model\primary\language_indices($id);
-        $language_indices->id = $param['id'];
-        $language_indices->user_id = $param['user_id'];
-        $language_indices->app_name = $param['app_name'];
-        $language_indices->identifier = $param['identifier'];
-        $language_indices->variables = $param['variables'];
-        $language_indices->texts = $param['texts'];
+        $language_indices->modified = $this->GetServerDateTime();
+        $language_indices->muid = $this->user['id'];
 
+        $language_indices->app_name = trim($param['app_name']);
+        $language_indices->identifier = trim($param['identifier']);
+        $language_indices->variables = trim($param['variables']);
+        $language_indices->texts = trim($param['texts']);
 
         $language_indices->modify();
 
         //response
         $data['language_indices'] = [
             'id' => $language_indices->id,
-        'user_id' => $language_indices->user_id,
-        'app_name' => $language_indices->app_name,
-        'identifier' => $language_indices->identifier,
-        'variables' => $language_indices->variables,
-        'texts' => $language_indices->texts,
-
+            'user' => usersContracts::GetById($language_indices->user_id),
+            'app_name' => $language_indices->app_name,
+            'identifier' => $language_indices->identifier,
+            'variables' => $language_indices->variables,
+            'texts' => $language_indices->texts,
         ];
 
         return $data;
@@ -137,8 +127,11 @@ class language_indices extends Service
     public function delete($id = '')
     {
         $language_indices = new \plugins\model\primary\language_indices($id);
-
+        $language_indices->modified = $this->GetServerDateTime();
+        $language_indices->muid = $this->user['id'];
         //delete logic here
+        $language_indices->dflag = 1;
+        $language_indices->modify();
 
         return [
             'deleted' => true
@@ -155,6 +148,9 @@ class language_indices extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\language_indicesContracts::SearchDataPagination($keyword);
     }
@@ -169,6 +165,9 @@ class language_indices extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['language_indices'] = \model\primary\language_indicesContracts::SearchData($keyword);
         return $data;
@@ -183,6 +182,7 @@ class language_indices extends Service
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\language_indicesContracts::GetDataTable($keyword);
     }
@@ -199,11 +199,11 @@ class language_indices extends Service
         //response
         $data['language_indices'] = [
             'id' => $language_indices->id,
-        'user_id' => $language_indices->user_id,
-        'app_name' => $language_indices->app_name,
-        'identifier' => $language_indices->identifier,
-        'variables' => $language_indices->variables,
-        'texts' => $language_indices->texts,
+            'user' => usersContracts::GetById($language_indices->user_id),
+            'app_name' => $language_indices->app_name,
+            'identifier' => $language_indices->identifier,
+            'variables' => $language_indices->variables,
+            'texts' => $language_indices->texts,
 
         ];
 

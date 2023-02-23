@@ -4,6 +4,7 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +13,8 @@ use pukoframework\Request;
  */
 class log_pdf extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -22,14 +25,8 @@ class log_pdf extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
         if ($param['pdf_id'] === '') {
             throw new Exception($this->say('PDF_ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
         }
         if ($param['sent_at'] === '') {
             throw new Exception($this->say('SENT_AT_REQUIRED'));
@@ -44,32 +41,32 @@ class log_pdf extends Service
             throw new Exception($this->say('PROCESSING_TIME_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //insert
         $log_pdf = new \plugins\model\primary\log_pdf();
-        $log_pdf->id = $param['id'];
+        $log_pdf->created = $this->GetServerDateTime();
+        $log_pdf->cuid = $this->user['id'];
+
+        $log_pdf->user_id = $this->user['id'];
+
         $log_pdf->pdf_id = $param['pdf_id'];
-        $log_pdf->user_id = $param['user_id'];
         $log_pdf->sent_at = $param['sent_at'];
         $log_pdf->json_data = $param['json_data'];
         $log_pdf->creator_info = $param['creator_info'];
         $log_pdf->processing_time = $param['processing_time'];
-
 
         $log_pdf->save();
 
         //response
         $data['log_pdf'] = [
             'id' => $log_pdf->id,
-        'pdf_id' => $log_pdf->pdf_id,
-        'user_id' => $log_pdf->user_id,
-        'sent_at' => $log_pdf->sent_at,
-        'json_data' => $log_pdf->json_data,
-        'creator_info' => $log_pdf->creator_info,
-        'processing_time' => $log_pdf->processing_time,
-
+            'pdf_id' => $log_pdf->pdf_id,
+            'user_id' => $log_pdf->user_id,
+            'sent_at' => $log_pdf->sent_at,
+            'json_data' => $log_pdf->json_data,
+            'creator_info' => $log_pdf->creator_info,
+            'processing_time' => $log_pdf->processing_time,
         ];
 
         return $data;
@@ -86,14 +83,8 @@ class log_pdf extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
         if ($param['pdf_id'] === '') {
             throw new Exception($this->say('PDF_ID_REQUIRED'));
-        }
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
         }
         if ($param['sent_at'] === '') {
             throw new Exception($this->say('SENT_AT_REQUIRED'));
@@ -108,32 +99,32 @@ class log_pdf extends Service
             throw new Exception($this->say('PROCESSING_TIME_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //update
         $log_pdf = new \plugins\model\primary\log_pdf($id);
-        $log_pdf->id = $param['id'];
+        $log_pdf->modified = $this->GetServerDateTime();
+        $log_pdf->muid = $this->user['id'];
+
+        $log_pdf->user_id = $this->user['id'];
+
         $log_pdf->pdf_id = $param['pdf_id'];
-        $log_pdf->user_id = $param['user_id'];
         $log_pdf->sent_at = $param['sent_at'];
         $log_pdf->json_data = $param['json_data'];
         $log_pdf->creator_info = $param['creator_info'];
         $log_pdf->processing_time = $param['processing_time'];
-
 
         $log_pdf->modify();
 
         //response
         $data['log_pdf'] = [
             'id' => $log_pdf->id,
-        'pdf_id' => $log_pdf->pdf_id,
-        'user_id' => $log_pdf->user_id,
-        'sent_at' => $log_pdf->sent_at,
-        'json_data' => $log_pdf->json_data,
-        'creator_info' => $log_pdf->creator_info,
-        'processing_time' => $log_pdf->processing_time,
-
+            'pdf_id' => $log_pdf->pdf_id,
+            'user_id' => $log_pdf->user_id,
+            'sent_at' => $log_pdf->sent_at,
+            'json_data' => $log_pdf->json_data,
+            'creator_info' => $log_pdf->creator_info,
+            'processing_time' => $log_pdf->processing_time,
         ];
 
         return $data;
@@ -147,8 +138,12 @@ class log_pdf extends Service
     public function delete($id = '')
     {
         $log_pdf = new \plugins\model\primary\log_pdf($id);
+        $log_pdf->modified = $this->GetServerDateTime();
+        $log_pdf->muid = $this->user['id'];
 
         //delete logic here
+        $log_pdf->dflag = 1;
+        $log_pdf->modify();
 
         return [
             'deleted' => true
@@ -165,6 +160,9 @@ class log_pdf extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\log_pdfContracts::SearchDataPagination($keyword);
     }
@@ -179,6 +177,9 @@ class log_pdf extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['log_pdf'] = \model\primary\log_pdfContracts::SearchData($keyword);
         return $data;
@@ -193,6 +194,7 @@ class log_pdf extends Service
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\log_pdfContracts::GetDataTable($keyword);
     }
@@ -209,13 +211,12 @@ class log_pdf extends Service
         //response
         $data['log_pdf'] = [
             'id' => $log_pdf->id,
-        'pdf_id' => $log_pdf->pdf_id,
-        'user_id' => $log_pdf->user_id,
-        'sent_at' => $log_pdf->sent_at,
-        'json_data' => $log_pdf->json_data,
-        'creator_info' => $log_pdf->creator_info,
-        'processing_time' => $log_pdf->processing_time,
-
+            'pdf_id' => $log_pdf->pdf_id,
+            'user_id' => $log_pdf->user_id,
+            'sent_at' => $log_pdf->sent_at,
+            'json_data' => $log_pdf->json_data,
+            'creator_info' => $log_pdf->creator_info,
+            'processing_time' => $log_pdf->processing_time,
         ];
 
         return $data;

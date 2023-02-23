@@ -90,7 +90,7 @@ class constanta extends Service
         //response
         $data['constanta'] = [
             'id' => $constanta->id,
-            'user_id' => $constanta->user_id,
+            'user' => usersContracts::GetById($constanta->user_id),
             'unique_key' => $constanta->unique_key,
             'constanta_val' => $constanta->constanta_val,
 
@@ -180,7 +180,7 @@ class constanta extends Service
         //response
         $data['constanta'] = [
             'id' => $constanta->id,
-            'user_id' => $constanta->user_id,
+            'user' => usersContracts::GetById($constanta->user_id),
             'unique_key' => $constanta->unique_key,
             'constanta_val' => $constanta->constanta_val,
         ];

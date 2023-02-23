@@ -4,6 +4,7 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use model\primary\usersContracts;
 use plugins\UserBearerData;
 use pukoframework\Framework;
 use pukoframework\middleware\Service;
@@ -53,7 +54,7 @@ class excel extends Service
         //response
         $data['excel'] = [
             'id' => $excel->id,
-            'user_id' => $excel->user_id,
+            'user' => usersContracts::GetById($excel->user_id),
             'excel_name' => $excel->excel_name,
             'column_specs' => $excel->column_specs,
             'data_specs' => $excel->data_specs,
@@ -104,7 +105,7 @@ class excel extends Service
         //response
         $data['excel'] = [
             'id' => $excel->id,
-            'user_id' => $excel->user_id,
+            'user' => usersContracts::GetById($excel->user_id),
             'excel_name' => $excel->excel_name,
             'column_specs' => $excel->column_specs,
             'data_specs' => $excel->data_specs,
@@ -199,7 +200,7 @@ class excel extends Service
         //response
         $data['excel'] = [
             'id' => $excel->id,
-            'user_id' => $excel->user_id,
+            'user' => usersContracts::GetById($excel->user_id),
             'excel_name' => $excel->excel_name,
             'column_specs' => $excel->column_specs,
             'data_specs' => $excel->data_specs,

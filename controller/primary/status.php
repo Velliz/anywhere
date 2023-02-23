@@ -4,6 +4,7 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
+use plugins\UserBearerData;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -12,6 +13,8 @@ use pukoframework\Request;
  */
 class status extends Service
 {
+
+    use UserBearerData;
 
     /**
      * @throws Exception
@@ -22,9 +25,6 @@ class status extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
         if ($param['status'] === '') {
             throw new Exception($this->say('STATUS_REQUIRED'));
         }
@@ -35,26 +35,25 @@ class status extends Service
             throw new Exception($this->say('LIMITATIONS_REQUIRED'));
         }
 
-
         //validations: customize here
 
         //insert
         $status = new \plugins\model\primary\status();
-        $status->id = $param['id'];
-        $status->status = $param['status'];
-        $status->description = $param['description'];
-        $status->limitations = $param['limitations'];
+        $status->created = $this->GetServerDateTime();
+        $status->cuid = $this->user['id'];
 
+        $status->status = trim($param['status']);
+        $status->description = trim($param['description']);
+        $status->limitations = $param['limitations'];
 
         $status->save();
 
         //response
         $data['status'] = [
             'id' => $status->id,
-        'status' => $status->status,
-        'description' => $status->description,
-        'limitations' => $status->limitations,
-
+            'status' => $status->status,
+            'description' => $status->description,
+            'limitations' => $status->limitations,
         ];
 
         return $data;
@@ -71,9 +70,6 @@ class status extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['id'] === '') {
-            throw new Exception($this->say('ID_REQUIRED'));
-        }
         if ($param['status'] === '') {
             throw new Exception($this->say('STATUS_REQUIRED'));
         }
@@ -89,21 +85,21 @@ class status extends Service
 
         //update
         $status = new \plugins\model\primary\status($id);
-        $status->id = $param['id'];
-        $status->status = $param['status'];
-        $status->description = $param['description'];
-        $status->limitations = $param['limitations'];
+        $status->modified = $this->GetServerDateTime();
+        $status->muid = $this->user['id'];
 
+        $status->status = trim($param['status']);
+        $status->description = trim($param['description']);
+        $status->limitations = $param['limitations'];
 
         $status->modify();
 
         //response
         $data['status'] = [
             'id' => $status->id,
-        'status' => $status->status,
-        'description' => $status->description,
-        'limitations' => $status->limitations,
-
+            'status' => $status->status,
+            'description' => $status->description,
+            'limitations' => $status->limitations,
         ];
 
         return $data;
@@ -117,8 +113,12 @@ class status extends Service
     public function delete($id = '')
     {
         $status = new \plugins\model\primary\status($id);
+        $status->modified = $this->GetServerDateTime();
+        $status->muid = $this->user['id'];
 
         //delete logic here
+        $status->dflag = 1;
+        $status->modify();
 
         return [
             'deleted' => true
@@ -135,6 +135,9 @@ class status extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         return \model\primary\statusContracts::SearchDataPagination($keyword);
     }
@@ -149,6 +152,9 @@ class status extends Service
 
         $param = Request::JsonBody();
         //post addition filter here
+        if (isset($param['user_id'])) {
+            $keyword['user_id'] = $param['user_id'];
+        }
 
         $data['status'] = \model\primary\statusContracts::SearchData($keyword);
         return $data;
@@ -163,6 +169,7 @@ class status extends Service
         $keyword = [];
 
         //post addition filter here
+        $keyword['user_id'] = $this->user['id'];
 
         return \model\primary\statusContracts::GetDataTable($keyword);
     }
@@ -179,10 +186,9 @@ class status extends Service
         //response
         $data['status'] = [
             'id' => $status->id,
-        'status' => $status->status,
-        'description' => $status->description,
-        'limitations' => $status->limitations,
-
+            'status' => $status->status,
+            'description' => $status->description,
+            'limitations' => $status->limitations,
         ];
 
         return $data;

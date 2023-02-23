@@ -20,10 +20,9 @@ namespace controller;
 
 use plugins\auth\AnywhereAuthenticator;
 use Exception;
-use model\ImageModel;
-use plugins\controller\AnywhereView;
 use pukoframework\auth\Session;
 use pukoframework\Framework;
+use pukoframework\middleware\View;
 use pukoframework\Request;
 
 /**
@@ -34,7 +33,7 @@ use pukoframework\Request;
  * #Master master.html
  * #Value PageTitle Image Template
  */
-class images extends AnywhereView
+class images extends View
 {
 
     /**
@@ -44,28 +43,6 @@ class images extends AnywhereView
      */
     public function Main()
     {
-        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-        if (!isset($session['ID'])) $this->RedirectTo(Framework::$factory->getBase());
-
-        if ((int)$session['statusID'] == 1) {
-            $result = ImageModel::CountImageUser($session['ID'])[0];
-            if ((int)$result['result'] >= $session['limitations']) $this->RedirectTo('limitations');
-        }
-        $snap_shoot = date('d-m-Y-His');
-        $arrayData = array(
-            'userID' => $session['ID'],
-            'imagename' => 'IMAGE-' . $snap_shoot . '.jpg',
-            'requesttype' => 'URL',
-            'requestsample' => json_encode(
-                array(
-                    'url' => Framework::$factory->getBase() . 'qr/render?data=developer@example.com',
-                )
-            )
-        );
-        $imageID = ImageModel::NewImagePage($arrayData);
-        $dataIMAGE = ImageModel::GetImagePage($imageID)[0];
-
-        $this->RedirectTo('update/' . $dataIMAGE['IMAGEID']);
     }
 
     /**
