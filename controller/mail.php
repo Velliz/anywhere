@@ -18,12 +18,8 @@
 
 namespace controller;
 
-use model\ConstantaModel;
+use Exception;
 use plugins\auth\AnywhereAuthenticator;
-use Dompdf\Exception;
-use model\LogMail;
-use model\MailModel;
-use model\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use plugins\controller\AnywhereView;
 use pte\exception\PteException;
@@ -110,7 +106,7 @@ TAIL;
      * then redirect to configure
      * @throws \Exception
      */
-    public function Main()
+    public function main()
     {
         $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         if (!isset($session['ID'])) $this->RedirectTo(Framework::$factory->getBase());
@@ -164,7 +160,7 @@ TAIL;
      * @throws \Exception
      * #Master master-codes.html
      */
-    public function Update($id)
+    public function update($id)
     {
         if (!is_numeric($id)) throw new Exception("ID not defined");
 
@@ -228,7 +224,7 @@ TAIL;
      * @throws \Exception
      * #Master master-codes.html
      */
-    public function Html($id_mail)
+    public function html($id_mail)
     {
         $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         $file = $session;
@@ -265,7 +261,7 @@ TAIL;
      * @throws \Exception
      * #Master master-codes.html
      */
-    public function Style($id_mail)
+    public function style($id_mail)
     {
         $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
         $file = $session;
@@ -304,7 +300,7 @@ TAIL;
      * @throws PteException
      * @throws \Exception
      */
-    public function CodeRender($api_key, $mailId)
+    public function coderender($api_key, $mailId)
     {
         $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
 
@@ -354,10 +350,9 @@ TAIL;
      * @param $api_key
      * @param $mailId
      * @throws PteException
-     * @throws \Exception
-     * @throws \PHPMailer\PHPMailer\Exception
+     * @throws Exception
      */
-    public function Render($api_key, $mailId)
+    public function render($api_key, $mailId)
     {
         $mailRender = MailModel::GetMailRender($api_key, $mailId)[0];
 
@@ -498,7 +493,7 @@ TAIL;
         exit();
     }
 
-    public function Limitations()
+    public function limitations()
     {
     }
 

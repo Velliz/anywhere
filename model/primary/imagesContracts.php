@@ -157,4 +157,26 @@ class imagesContracts extends images implements ModelContracts
             return $result;
         });
     }
+
+    public static function GetApiKeyById($idImage)
+    {
+        $sql = "SELECT u.api_key
+        FROM images i
+        LEFT JOIN users u ON (i.user_id = u.id)
+        WHERE i.dflag = 0
+        AND i.id = @1
+        LIMIT 1";
+        return DBI::Prepare($sql)->FirstRow($idImage)['api_key'];
+    }
+
+    public static function GetImageRender($api_key, $imageId)
+    {
+        $sql = "SELECT * 
+        FROM images i 
+        LEFT JOIN users u ON (i.user_id = u.id)
+        WHERE (u.api_key = @1) 
+        AND (i.id = @2) 
+        LIMIT 1;";
+        return DBI::Prepare($sql)->FirstRow($api_key, $imageId);
+    }
 }

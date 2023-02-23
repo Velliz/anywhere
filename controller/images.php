@@ -18,10 +18,8 @@
 
 namespace controller;
 
-use plugins\auth\AnywhereAuthenticator;
+use model\primary\imagesContracts;
 use Exception;
-use pukoframework\auth\Session;
-use pukoframework\Framework;
 use pukoframework\middleware\View;
 use pukoframework\Request;
 
@@ -38,98 +36,41 @@ class images extends View
 
     /**
      * #Template html false
-     * #Auth session true
      * @throws Exception
      */
-    public function Main()
+    public function main()
     {
     }
 
     /**
-     * @param $id
-     * @return bool
+     * @param $id_image
+     * @return array
      * @throws Exception
-     *
-     * #Auth session true
      * #Master master-codes.html
      */
-    public function Update($id)
+    public function update($id_image)
     {
-        if (!is_numeric($id)) throw new Exception("ID not defined");
+        $data['id_image'] = $id_image;
+        $data['api_key'] = imagesContracts::GetApiKeyById($id_image);
 
-        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-
-        if (isset($_POST['imageid'])) {
-            $imageid = Request::Post('imageid', null);
-            $imageName = Request::Post('imagename', null);
-
-            $x = Request::Post('x', null);
-            $x2 = Request::Post('x2', null);
-            $y = Request::Post('y', null);
-            $y2 = Request::Post('y2', null);
-            $w = Request::Post('w', null);
-            $h = Request::Post('h', null);
-            $requesttype = Request::Post('requesttype', null);
-            $requesturl = Request::Post('requesturl', null);
-
-            $resultUpdate = ImageModel::UpdateImagePage(
-                array('IMAGEID' => $imageid),
-                array(
-                    'imagename' => $imageName,
-                    'x' => $x,
-                    'x2' => $x2,
-                    'y' => $y,
-                    'y2' => $y2,
-                    'w' => $w,
-                    'h' => $h,
-                    'requesttype' => $requesttype,
-                    'requesturl' => $requesturl,
-                ));
-
-            //$this->RedirectTo(Framework::$factory->getBase() . 'beranda');
-            if (!$resultUpdate) {
-                $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
-            }
-        }
-        $dataIMAGE = $session;
-        $dataIMAGE['image'] = ImageModel::GetImagePage($id);
-
-        $dataIMAGE['PageTitle'] = $dataIMAGE['image'][0]['imagename'];
-
-        foreach ($dataIMAGE['image'] as $key => $value) {
-            $dataIMAGE['image'][$key]['apikey'] = $session['apikey'];
-            switch ($value['requesttype']) {
-                case 'POST':
-                    $dataIMAGE['image'][$key]['POST'] = 'checked';
-                    break;
-                case 'URL':
-                    $dataIMAGE['image'][$key]['URL'] = 'checked';
-                    break;
-                case 'GET':
-                    $dataIMAGE['image'][$key]['GET'] = 'checked';
-                    break;
-            }
-        }
-
-        return $dataIMAGE;
+        return $data;
     }
 
     /**
      * @param $api_key
      * @param $imageId
      * @throws Exception
-     *
      * #Template html false
      */
-    public function Render($api_key, $imageId)
+    public function render($api_key, $imageId)
     {
-        $mailRender = ImageModel::GetImageRender($api_key, $imageId)[0];
+        $imageRender = imagesContracts::GetImageRender($api_key, $imageId);
 
-        $imageName = $mailRender['imagename'];
-        $placeholderFile = $mailRender['placeholderfile'];
+        $imageName = $imageRender['image_name'];
+        $placeholderFile = $imageRender['placeholder_file'];
         $requestFile = null;
 
-        if ($mailRender['requesttype'] == 'POST') {
+        if ($imageRender['request_type'] == 'POST') {
             $data['status'] = 'success';
             if (!isset($_POST['jsondata'])) {
                 $data['status'] = 'failed';
@@ -140,12 +81,12 @@ class images extends View
             $requestFile = file_get_contents($coreData['url'], 'rb');
         }
 
-        if ($mailRender['requesttype'] == 'URL') {
-            $requestFile = file_get_contents($mailRender['requesturl'], 'rb');
+        if ($imageRender['request_type'] == 'URL') {
+            $requestFile = file_get_contents($imageRender['request_url'], 'rb');
         }
 
-        if ($mailRender['requesttype'] == 'GET') {
-            $url = Request::Get('requesturl', null);
+        if ($imageRender['request_type'] == 'GET') {
+            $url = Request::Get('request_url', null);
             if ($url == null) {
                 $data['status'] = 'failed';
                 $data['reason'] = 'post data [jsondata] is not defined.';
@@ -154,10 +95,10 @@ class images extends View
             $requestFile = file_get_contents($url, 'rb');
         }
 
-        $x = $mailRender['x'];
-        $y = $mailRender['y'];
-        $w = $mailRender['w'];
-        $h = $mailRender['h'];
+        $x = $imageRender['x'];
+        $y = $imageRender['y'];
+        $w = $imageRender['w'];
+        $h = $imageRender['h'];
 
         $placeHolder = imagecreatefromstring($placeholderFile);
         $sample = imagecreatefromstring($requestFile);
@@ -184,32 +125,28 @@ class images extends View
         header('Content-Disposition: inline; filename="' . $imageName . '.png"');
 
         echo $image;
+
         exit();
     }
 
     /**
      * @param $api_key
      * @param $imageId
-     *
      * @throws Exception
-     *
      * #Template html false
      */
-    public function CodeRender($api_key, $imageId)
+    public function coderender($api_key, $imageId)
     {
-        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-        if (!isset($session['ID'])) throw new Exception("Session Expired");
+        $imageRender = imagesContracts::GetImageRender($api_key, $imageId);
 
-        $mailRender = ImageModel::GetImageRender($api_key, $imageId)[0];
+        $imageName = $imageRender['image_name'];
+        $placeholderFile = $imageRender['placeholder_file'];
+        $requestSampleFile = $imageRender['request_sample_file'];
 
-        $imageName = $mailRender['imagename'];
-        $placeholderFile = $mailRender['placeholderfile'];
-        $requestSampleFile = $mailRender['requestsamplefile'];
-
-        $x = $mailRender['x'];
-        $y = $mailRender['y'];
-        $w = $mailRender['w'];
-        $h = $mailRender['h'];
+        $x = $imageRender['x'];
+        $y = $imageRender['y'];
+        $w = $imageRender['w'];
+        $h = $imageRender['h'];
 
         $placeHolder = imagecreatefromstring($placeholderFile);
         $sample = imagecreatefromstring($requestSampleFile);
@@ -236,10 +173,11 @@ class images extends View
         header('Content-Disposition: inline; filename="' . $imageName . '.png"');
 
         echo $image;
+
         exit();
     }
 
-    public function Limitations()
+    public function limitations()
     {
     }
 }

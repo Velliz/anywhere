@@ -32,12 +32,6 @@ class images extends Service
         if ($param['request_type'] === '') {
             throw new Exception($this->say('REQUEST_TYPE_REQUIRED'));
         }
-        if ($param['request_url'] === '') {
-            throw new Exception($this->say('REQUEST_URL_REQUIRED'));
-        }
-        if ($param['request_sample'] === '') {
-            throw new Exception($this->say('REQUEST_SAMPLE_REQUIRED'));
-        }
 
         //validations: customize here
 
@@ -51,7 +45,29 @@ class images extends Service
         $images->image_name = trim($param['image_name']);
         $images->request_type = trim($param['request_type']);
         $images->request_url = trim($param['request_url']);
-        $images->request_sample = trim($param['request_sample']);
+
+        if (isset($param['request_sample'])) {
+            $images->request_sample = trim($param['request_sample']);
+        }
+
+        if (isset($param['x'])) {
+            $images->x = trim($param['x']);
+        }
+        if (isset($param['y'])) {
+            $images->y = trim($param['y']);
+        }
+        if (isset($param['x2'])) {
+            $images->x2 = trim($param['x2']);
+        }
+        if (isset($param['y2'])) {
+            $images->y2 = trim($param['y2']);
+        }
+        if (isset($param['w'])) {
+            $images->w = trim($param['w']);
+        }
+        if (isset($param['h'])) {
+            $images->h = trim($param['h']);
+        }
 
         $images->save();
 
@@ -93,12 +109,6 @@ class images extends Service
         if ($param['request_type'] === '') {
             throw new Exception($this->say('REQUEST_TYPE_REQUIRED'));
         }
-        if ($param['request_url'] === '') {
-            throw new Exception($this->say('REQUEST_URL_REQUIRED'));
-        }
-        if ($param['request_sample'] === '') {
-            throw new Exception($this->say('REQUEST_SAMPLE_REQUIRED'));
-        }
 
         //validations: customize here
 
@@ -112,7 +122,29 @@ class images extends Service
         $images->image_name = trim($param['image_name']);
         $images->request_type = trim($param['request_type']);
         $images->request_url = trim($param['request_url']);
-        $images->request_sample = trim($param['request_sample']);
+
+        if (isset($param['request_sample'])) {
+            $images->request_sample = trim($param['request_sample']);
+        }
+
+        if (isset($param['x'])) {
+            $images->x = trim($param['x']);
+        }
+        if (isset($param['y'])) {
+            $images->y = trim($param['y']);
+        }
+        if (isset($param['x2'])) {
+            $images->x2 = trim($param['x2']);
+        }
+        if (isset($param['y2'])) {
+            $images->y2 = trim($param['y2']);
+        }
+        if (isset($param['w'])) {
+            $images->w = trim($param['w']);
+        }
+        if (isset($param['h'])) {
+            $images->h = trim($param['h']);
+        }
 
         $images->modify();
 

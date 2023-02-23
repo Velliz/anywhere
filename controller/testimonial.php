@@ -31,7 +31,6 @@ class testimonial extends AnywhereView
 
     public function main()
     {
-        //coming soon
     }
 
 }
