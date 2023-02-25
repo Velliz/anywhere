@@ -3,8 +3,8 @@
 namespace controller\api;
 
 use Exception;
-use model\DigitalSignModel;
-use model\DigitalSignUserModel;
+use model\primary\digital_sign_usersContracts;
+use model\primary\digital_signsContracts;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -15,7 +15,6 @@ class digitalsigns extends Service
 {
 
     /**
-     * @param string $hash
      * @return array
      * @throws Exception
      */
@@ -26,8 +25,8 @@ class digitalsigns extends Service
             throw new Exception('Hash code required!');
         }
 
-        $signing = DigitalSignModel::SearchData([
-            'digitalsignhash' => $param['hash']
+        $signing = digital_signsContracts::SearchData([
+            'digital_sign_hash' => $param['hash']
         ]);
         if (sizeof($signing) === 0) {
             throw new Exception('Invalid digital signature!');
@@ -37,11 +36,11 @@ class digitalsigns extends Service
         foreach ($signing as $item) {
             $data['Signing'] = [
                 'Created' => $item['created'],
-                'DocumentName' => $item['documentname'],
+                'DocumentName' => $item['document_name'],
                 'Location' => $item['location'],
                 'Reason' => $item['reason']
             ];
-            $users = DigitalSignUserModel::SearchData([
+            $users = digital_sign_usersContracts::SearchData([
                 'email' => $item['email']
             ]);
             foreach ($users as $user) {
@@ -49,8 +48,8 @@ class digitalsigns extends Service
                     'Name' => $user['name'],
                     'Phone' => $user['phone'],
                     'Email' => $user['email'],
-                    'OrgUnit' => $user['orgunit'],
-                    'WorkUnit' => $user['workunit'],
+                    'OrgUnit' => $user['org_unit'],
+                    'WorkUnit' => $user['work_unit'],
                     'Position' => $user['position']
                 ];
             }

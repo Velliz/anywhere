@@ -39,32 +39,9 @@
                 "POST"
             ]
         ],
-        "api/language/indices/sync" => [
-            "controller" => "api\\language\\indices",
-            "function" => "syncs",
-            "accept" => [
-                "POST"
-            ]
-        ],
         "api/placeholder" => [
             "controller" => "api\\image",
             "function" => "placeholder",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "api/upload/wordplaceholder/{?}" => [
-            "controller" => "api\\word",
-            "function" => "placeholder",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "api/upload/wordtemplate" => [
-            "controller" => "api\\word",
-            "function" => "wordtemplate",
             "accept" => [
                 "GET",
                 "POST"
@@ -485,13 +462,6 @@
             "accept" => [
                 "PUT",
                 "POST"
-            ]
-        ],
-        "language/indices/update/{?}" => [
-            "controller" => "languange\\indices",
-            "function" => "update",
-            "accept" => [
-                "GET"
             ]
         ],
         "language_indices/create" => [
@@ -1095,38 +1065,6 @@
             "function" => "update",
             "accept" => [
                 "PUT",
-                "POST"
-            ]
-        ],
-        "word/coderender/{?}/{?}" => [
-            "controller" => "word",
-            "function" => "coderender",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "word/main" => [
-            "controller" => "word",
-            "function" => "main",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "word/render/{?}/{?}" => [
-            "controller" => "word",
-            "function" => "render",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "word/update/{?}" => [
-            "controller" => "word",
-            "function" => "update",
-            "accept" => [
-                "GET",
                 "POST"
             ]
         ]
