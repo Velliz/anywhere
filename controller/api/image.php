@@ -99,10 +99,10 @@ class image extends Service
         header('Content-Type: image/jpeg');
 
         if ($type == 'placeholder') {
-            echo $avatar['placeholderfile'];
+            echo $avatar['placeholder_file'];
         }
         if ($type == 'sample') {
-            echo $avatar['requestsamplefile'];
+            echo $avatar['request_sample_file'];
         }
 
         die();
