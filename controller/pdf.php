@@ -25,6 +25,7 @@ use model\primary\pdfContracts;
 use model\primary\usersContracts;
 use Dompdf\Options;
 use Dompdf\Dompdf;
+use plugins\model\primary\log_pdf;
 use pte\Pte;
 use pukoframework\middleware\View;
 use pukoframework\Response;
@@ -258,15 +259,18 @@ class pdf extends View
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
 
-        $user = usersContracts::UserIdByApiKey($api_key);
-        log_pdfContracts::Create([
-            'PDFID' => $pdfId,
-            'userid' => ((int)$user > 0) ? $user : 0,
-            'sentat' => $this->GetServerDateTime(),
-            'jsondata' => json_encode($coreData, true),
-            'creatorinfo' => isset($_POST['creator']) ? $_POST['creator'] : null,
-            'processingtime' => $render->GetElapsedTime(),
-        ]);
+        //save logs
+        $log_pdf = new log_pdf();
+        $log_pdf->created = $this->GetServerDateTime();
+        $log_pdf->cuid = $pdfRender['user_id'];
+
+        $log_pdf->pdf_id = $pdfId;
+        $log_pdf->user_id = $pdfRender['user_id'];
+        $log_pdf->sent_at = $this->GetServerDateTime();
+        $log_pdf->json_data = json_encode($coreData, true);
+        $log_pdf->creator_info = $_POST['creator'] ?? null;
+        $log_pdf->processing_time = $render->GetElapsedTime();
+        $log_pdf->save();
 
         if ($this->outputmode == 'Inline') {
             $this->dompdf->stream($this->reportname . '.pdf', array("Attachment" => 0));
