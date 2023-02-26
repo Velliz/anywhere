@@ -377,12 +377,30 @@ $(function () {
         }
     });
 
-    /*
-    $('#mail-table').DataTable({
-        dom: 'Bfrtip',
-        ordering: false,
+    let digitalsign_table = $('#digitalsign-table').DataTable({
+        ajax: {
+            type: "POST",
+            dataType: "json",
+            responsive: true,
+            url: "digital_sign_users/table",
+            data: function (data) {
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            },
+            dataSrc: function (json) {
+                if (json.exception !== undefined) {
+                    return [];
+                }
+                return json.data;
+            }
+        },
+        processing: true,
+        serverSide: true,
         stateSave: true,
-        lengthMenu: menu,
+        bAutoWidth: false,
+        dom: 'Bfrtip',
+        lengthMenu: datatables_menu,
         buttons: [
             {
                 extend: "pageLength",
@@ -390,20 +408,126 @@ $(function () {
             },
             {
                 className: "btn-sm btn-primary",
-                text: '<i class="fa fa-plus"></i>',
+                text: `Create new`,
                 action: function () {
-                    window.location.href = "mail/main";
+                    bootbox_dialog(
+                        `Create new user penandatangan`,
+                        `<div class="form">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input class="form-control" name="variable_key" placeholder="Key"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="variable_name" placeholder="Val"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                
+                                </div>
+                            </div>
+                        </div>`,
+                        `large`,
+                        function () {
+                            $('.bootbox-accept').prop('disabled', true);
+                            let variable_key = $('.bootbox-body input[name=variable_key]').val();
+                            let variable_name = $('.bootbox-body input[name=variable_name]').val();
+                            ajax_post(
+                                `digital_sign_users/create`,
+                                {
+                                    unique_key: variable_key,
+                                    constanta_val: variable_name
+                                },
+                                digitalsign_table,
+                                function (result) {
+                                    digitalsign_table.ajax.reload();
+
+                                    let constanta = result.constanta;
+                                    pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
+                                    bootbox.hideAll();
+                                },
+                                function (xhr, error) {
+                                    $('.bootbox-accept').prop('disabled', false);
+                                    if (error === 'error') {
+                                        pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                                    }
+                                }
+                            );
+                            return false;
+                        }
+                    );
                 }
             },
         ],
-        language: lang,
+        language: datatables_config,
+        rowCallback: function (row, data) {
+            let details = `<a title="Details" href="digital_signs/update/${data[0]}" target="_blank" class="btn btn-xs btn-primary">
+                <i class="fa fa-eye"></i> Details
+            </a>`;
+            let history = `<a title="Sign History" href="digital_signs/timeline/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+                <i class="fa fa-external-link"></i> Usage History
+            </a>`;
+            $('td:eq(0)', row).html(`<b>${data[2]}</b>`);
+            $('td:eq(1)', row).html(data[4]);
+            $('td:eq(2)', row).html(data[5]);
+            $('td:eq(3)', row).html(data[11]);
+            $('td:eq(4)', row).html(data[14]);
+            $('td:eq(5)', row).html(data[15]);
+            $('td:eq(6)', row).html(data[16]);
+            $('td:eq(7)', row).html(details + history);
+        },
+        fnDrawCallback: function () {
+            $('.btn-update-variable').on('click', function () {
+                let id = $(this).attr('data-id');
+                let variable_key = $(this).parent().find('input').val();
+                let variable_name = $(this).parent().find('textarea').val();
+                ajax_post(
+                    `digital_signs/${id}/update`,
+                    {
+                        unique_key: variable_key,
+                        constanta_val: variable_name
+                    },
+                    var_table,
+                    function (result) {
+                        let constanta = result.constanta;
+                        pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
+                    },
+                    function (xhr, error) {
+                        if (error === 'error') {
+                            pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                        }
+                    }
+                );
+            });
+        },
+        preDrawCallback: function (settings) {
+        }
     });
 
-    $('#digitalsign-table').DataTable({
-        dom: 'Bfrtip',
-        ordering: false,
+    let mail_table = $('#mail-table').DataTable({
+        ajax: {
+            type: "POST",
+            dataType: "json",
+            responsive: true,
+            url: "mail/table",
+            data: function (data) {
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            },
+            dataSrc: function (json) {
+                if (json.exception !== undefined) {
+                    return [];
+                }
+                return json.data;
+            }
+        },
+        processing: true,
+        serverSide: true,
         stateSave: true,
-        lengthMenu: menu,
+        bAutoWidth: false,
+        dom: 'Bfrtip',
+        lengthMenu: datatables_menu,
         buttons: [
             {
                 extend: "pageLength",
@@ -411,44 +535,120 @@ $(function () {
             },
             {
                 className: "btn-sm btn-primary",
-                text: '<i class="fa fa-plus"></i>',
+                text: `Create new`,
                 action: function () {
-                    //todo: add new users digitalsigns
+                    bootbox_dialog(
+                        `Create new email`,
+                        `<div class="form">
+                            <div class="form-group">
+                                <input class="form-control" name="variable_key" placeholder="Key"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="variable_name" placeholder="Val"/>
+                            </div>
+                        </div>`,
+                        `small`,
+                        function () {
+                            $('.bootbox-accept').prop('disabled', true);
+                            let variable_key = $('.bootbox-body input[name=variable_key]').val();
+                            let variable_name = $('.bootbox-body input[name=variable_name]').val();
+                            ajax_post(
+                                `mail/create`,
+                                {
+                                    unique_key: variable_key,
+                                    constanta_val: variable_name
+                                },
+                                mail_table,
+                                function (result) {
+                                    mail_table.ajax.reload();
 
+                                    let constanta = result.constanta;
+                                    pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
+                                    bootbox.hideAll();
+                                },
+                                function (xhr, error) {
+                                    $('.bootbox-accept').prop('disabled', false);
+                                    if (error === 'error') {
+                                        pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                                    }
+                                }
+                            );
+                            return false;
+                        }
+                    );
                 }
             },
         ],
-        language: lang,
+        language: datatables_config,
+        rowCallback: function (row, data) {
+            let details = `<a title="Details" href="digital_signs/update/${data[0]}" target="_blank" class="btn btn-xs btn-primary">
+                <i class="fa fa-eye"></i> Details
+            </a>`;
+            let history = `<a title="Sign History" href="digital_signs/timeline/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+                <i class="fa fa-external-link"></i> Usage History
+            </a>`;
+            $('td:eq(0)', row).html(`<b>${data[4]}</b>`);
+            $('td:eq(1)', row).html(data[5]);
+            $('td:eq(2)', row).html(data[10]);
+            $('td:eq(3)', row).html(details + history);
+        },
+        fnDrawCallback: function () {
+
+            $(document).on('click', '.btn-digitalsign-history', function (e) {
+                e.preventDefault();
+
+                let id = $(this).attr('data-id');
+
+                let dial = bootbox.dialog({
+                    title: 'Histori Digital Sign',
+                    message: digitalsigns_forms,
+                    size: 'large',
+                });
+                dial.init(function () {
+
+                });
+            });
+
+            $(document).on('click', '.btn-digitalsign-users', function (e) {
+                e.preventDefault();
+
+                let id = $(this).attr('data-id');
+
+                let dial = bootbox.dialog({
+                    title: 'Data Detail Penandatangan',
+                    message: digitalsigns_forms,
+                    size: 'large',
+                });
+                dial.init(function () {
+
+                });
+            });
+
+            $('.btn-update-variable').on('click', function () {
+                let id = $(this).attr('data-id');
+                let variable_key = $(this).parent().find('input').val();
+                let variable_name = $(this).parent().find('textarea').val();
+                ajax_post(
+                    `mail/${id}/update`,
+                    {
+                        unique_key: variable_key,
+                        constanta_val: variable_name
+                    },
+                    mail_table,
+                    function (result) {
+                        let constanta = result.constanta;
+                        pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
+                    },
+                    function (xhr, error) {
+                        if (error === 'error') {
+                            pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                        }
+                    }
+                );
+            });
+        },
+        preDrawCallback: function (settings) {
+        }
     });
 
-    $(document).on('click', '.btn-digitalsign-history', function (e) {
-        e.preventDefault();
-
-        let id = $(this).attr('data-id');
-
-        let dial = bootbox.dialog({
-            title: 'Histori Digital Sign',
-            message: digitalsigns_forms,
-            size: 'large',
-        });
-        dial.init(function () {
-
-        });
-    });
-
-    $(document).on('click', '.btn-digitalsign-users', function (e) {
-        e.preventDefault();
-
-        let id = $(this).attr('data-id');
-
-        let dial = bootbox.dialog({
-            title: 'Data Detail Penandatangan',
-            message: digitalsigns_forms,
-            size: 'large',
-        });
-        dial.init(function () {
-
-        });
-    });
-    */
 });
