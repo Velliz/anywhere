@@ -216,7 +216,15 @@
                 "POST"
             ]
         ],
-        "digitalsigns/users" => [
+        "digitalsigns/timeline/{?}" => [
+            "controller" => "digitalsigns",
+            "function" => "timeline",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "digitalsigns/users/{?}" => [
             "controller" => "digitalsigns",
             "function" => "users",
             "accept" => [

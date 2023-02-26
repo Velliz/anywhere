@@ -18,7 +18,7 @@ class digital_signsContracts extends digital_signs implements ModelContracts
 
     public static function GetData()
     {
-        $sql = "SELECT id, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
+        $sql = "SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
         FROM digital_signs
         WHERE dflag = 0";
         return DBI::Prepare($sql)->GetData();
@@ -26,7 +26,7 @@ class digital_signsContracts extends digital_signs implements ModelContracts
 
     public static function GetById($id)
     {
-        $sql = "SELECT id, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
+        $sql = "SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
         FROM digital_signs
         WHERE dflag = 0 AND id = @1";
         return DBI::Prepare($sql)->FirstRow($id);
@@ -72,7 +72,7 @@ class digital_signsContracts extends digital_signs implements ModelContracts
 
     public static function GetLastData()
     {
-        $sql = "SELECT id, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
+        $sql = "SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
         FROM digital_signs
         WHERE dflag = 0
         ORDER BY id DESC
@@ -86,7 +86,7 @@ class digital_signsContracts extends digital_signs implements ModelContracts
         foreach ($keyword as $column => $values) {
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
-        $sql = sprintf("SELECT id, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
+        $sql = sprintf("SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
         FROM digital_signs
         WHERE dflag = 0 %s;", $strings);
         return DBI::Prepare($sql)->GetData();
@@ -102,7 +102,7 @@ class digital_signsContracts extends digital_signs implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
+        $sql = sprintf("SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
         FROM digital_signs
         WHERE dflag = 0 %s;", $strings);
 
@@ -137,7 +137,7 @@ class digital_signsContracts extends digital_signs implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
+        $sql = sprintf("SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
         FROM digital_signs
         WHERE dflag = 0 %s;", $strings);
 

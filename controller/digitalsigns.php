@@ -18,6 +18,10 @@ class digitalsigns extends View
     {
     }
 
+    public function timeline()
+    {
+    }
+
     /**
      * @param string $hash
      * @throws Exception
@@ -38,7 +42,7 @@ class digitalsigns extends View
         foreach ($signing as $item) {
             $data['Signing'] = [
                 'Created' => $item['created'],
-                'DocumentName' => $item['documentname'],
+                'DocumentName' => $item['document_name'],
                 'Location' => $item['location'],
                 'Reason' => $item['reason']
             ];
@@ -51,8 +55,8 @@ class digitalsigns extends View
                     'Address' => $user['address'],
                     'Phone' => $user['phone'],
                     'Email' => $user['email'],
-                    'OrgUnit' => $user['orgUnit'],
-                    'WorkUnit' => $user['workUnit'],
+                    'OrgUnit' => $user['org_unit'],
+                    'WorkUnit' => $user['work_unit'],
                     'Position' => $user['position']
                 ];
             }
