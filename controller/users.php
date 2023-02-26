@@ -19,14 +19,14 @@
 namespace controller;
 
 use Exception;
-use plugins\controller\AnywhereView;
+use pukoframework\middleware\View;
 
 /**
  * Class users
  * @package controller
  * #Master master.html
  */
-class users extends AnywhereView
+class users extends View
 {
 
     /**

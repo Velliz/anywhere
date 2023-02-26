@@ -21,11 +21,11 @@ namespace controller;
 use Exception;
 use plugins\auth\AnywhereAuthenticator;
 use PHPMailer\PHPMailer\PHPMailer;
-use plugins\controller\AnywhereView;
 use pte\exception\PteException;
 use pte\Pte;
 use pukoframework\auth\Session;
 use pukoframework\Framework;
+use pukoframework\middleware\View;
 use pukoframework\Request;
 use pukoframework\Response;
 
@@ -38,7 +38,7 @@ use pukoframework\Response;
  * #Master master.html
  * #Value PageTitle Email Template
  */
-class mail extends AnywhereView
+class mail extends View
 {
 
     private $mailName;
