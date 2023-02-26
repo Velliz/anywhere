@@ -263,6 +263,120 @@ $(function () {
         }
     });
 
+    let var_table = $('#var-table').DataTable({
+        ajax: {
+            type: "POST",
+            dataType: "json",
+            responsive: true,
+            url: "constanta/table",
+            data: function (data) {
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            },
+            dataSrc: function (json) {
+                if (json.exception !== undefined) {
+                    return [];
+                }
+                return json.data;
+            }
+        },
+        processing: true,
+        serverSide: true,
+        stateSave: true,
+        bAutoWidth: false,
+        dom: 'Bfrtip',
+        lengthMenu: datatables_menu,
+        buttons: [
+            {
+                extend: "pageLength",
+                className: "btn-sm"
+            },
+            {
+                className: "btn-sm btn-primary",
+                text: `Create new variable`,
+                action: function () {
+                    bootbox_dialog(
+                        `Create new variable`,
+                        `<div class="form">
+                            <div class="form-group">
+                                <input class="form-control" name="variable_key" placeholder="Key"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="variable_name" placeholder="Val"/>
+                            </div>
+                        </div>`,
+                        `small`,
+                        function () {
+                            $('.bootbox-accept').prop('disabled', true);
+                            let variable_key = $('.bootbox-body input[name=variable_key]').val();
+                            let variable_name = $('.bootbox-body input[name=variable_name]').val();
+                            ajax_post(
+                                `constanta/create`,
+                                {
+                                    unique_key: variable_key,
+                                    constanta_val: variable_name
+                                },
+                                var_table,
+                                function (result) {
+                                    var_table.ajax.reload();
+
+                                    let constanta = result.constanta;
+                                    pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
+                                    bootbox.hideAll();
+                                },
+                                function (xhr, error) {
+                                    $('.bootbox-accept').prop('disabled', false);
+                                    if (error === 'error') {
+                                        pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                                    }
+                                }
+                            );
+                            return false;
+                        }
+                    );
+                }
+            },
+        ],
+        language: datatables_config,
+        rowCallback: function (row, data) {
+            let details = `<div class="form-group">
+                <input readonly="readonly" type="text" class="form-control" name="key" placeholder="key" value="${data[2]}"/>
+                <textarea name="val" class="form-control" placeholder="values" cols="70" rows="1">${data[3]}</textarea>
+                <button type="submit" class="btn btn-primary btn-sm btn-update-variable" data-id="${data[0]}">
+                    <i class="fa fa-refresh"></i>
+                </button>
+            </div>`;
+            $('td:eq(0)', row).html(details);
+        },
+        fnDrawCallback: function () {
+            $('.btn-update-variable').on('click', function () {
+                let id = $(this).attr('data-id');
+                let variable_key = $(this).parent().find('input').val();
+                let variable_name = $(this).parent().find('textarea').val();
+                ajax_post(
+                    `constanta/${id}/update`,
+                    {
+                        unique_key: variable_key,
+                        constanta_val: variable_name
+                    },
+                    var_table,
+                    function (result) {
+                        let constanta = result.constanta;
+                        pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
+                    },
+                    function (xhr, error) {
+                        if (error === 'error') {
+                            pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                        }
+                    }
+                );
+            });
+        },
+        preDrawCallback: function (settings) {
+        }
+    });
+
     /*
     $('#mail-table').DataTable({
         dom: 'Bfrtip',
@@ -279,31 +393,6 @@ $(function () {
                 text: '<i class="fa fa-plus"></i>',
                 action: function () {
                     window.location.href = "mail/main";
-                }
-            },
-        ],
-        language: lang,
-    });
-
-    $('#var-table').DataTable({
-        dom: 'Bfrtip',
-        ordering: false,
-        stateSave: true,
-        lengthMenu: menu,
-        buttons: [
-            {
-                extend: "pageLength",
-                className: "btn-sm"
-            },
-            {
-                className: "btn-sm btn-primary",
-                text: '<i class="fa fa-plus"></i>',
-                action: function () {
-                    let content = addVar;
-                    bootbox.dialog({
-                        title: `Variabel baru`,
-                        message: content,
-                    });
                 }
             },
         ],
