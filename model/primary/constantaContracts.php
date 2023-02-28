@@ -18,17 +18,21 @@ class constantaContracts extends constanta implements ModelContracts
 
     public static function GetData()
     {
-        $sql = "SELECT id, user_id, unique_key, constanta_val
-        FROM constanta
-        WHERE dflag = 0";
+        $sql = "SELECT c.id, c.user_id, c.unique_key, c.constanta_val,
+        u.api_key
+        FROM constanta c
+        LEFT JOIN users u ON (c.user_id = u.id AND u.dflag = 0)
+        WHERE c.dflag = 0";
         return DBI::Prepare($sql)->GetData();
     }
 
     public static function GetById($id)
     {
-        $sql = "SELECT id, user_id, unique_key, constanta_val
-        FROM constanta
-        WHERE dflag = 0 AND id = @1";
+        $sql = "SELECT c.id, c.user_id, c.unique_key, c.constanta_val,
+        u.api_key
+        FROM constanta c
+        LEFT JOIN users u ON (c.user_id = u.id AND u.dflag = 0)
+        WHERE c.dflag = 0 AND c.id = @1";
         return DBI::Prepare($sql)->FirstRow($id);
     }
 
@@ -72,10 +76,12 @@ class constantaContracts extends constanta implements ModelContracts
 
     public static function GetLastData()
     {
-        $sql = "SELECT id, user_id, unique_key, constanta_val
-        FROM constanta
-        WHERE dflag = 0
-        ORDER BY id DESC
+        $sql = "SELECT c.id, c.user_id, c.unique_key, c.constanta_val,
+        u.api_key
+        FROM constanta c
+        LEFT JOIN users u ON (c.user_id = u.id AND u.dflag = 0)
+        WHERE c.dflag = 0 
+        ORDER BY c.id DESC
         LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow();
     }
@@ -86,9 +92,12 @@ class constantaContracts extends constanta implements ModelContracts
         foreach ($keyword as $column => $values) {
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
-        $sql = sprintf("SELECT id, user_id, unique_key, constanta_val
-        FROM constanta
-        WHERE dflag = 0 %s;", $strings);
+        $sql = sprintf("SELECT c.id, c.user_id, c.unique_key, c.constanta_val,
+        u.api_key
+        FROM constanta c
+        LEFT JOIN users u ON (c.user_id = u.id AND u.dflag = 0)
+        WHERE c.dflag = 0 
+        %s;", $strings);
         return DBI::Prepare($sql)->GetData();
     }
 
@@ -102,9 +111,12 @@ class constantaContracts extends constanta implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, user_id, unique_key, constanta_val
-        FROM constanta
-        WHERE dflag = 0 %s;", $strings);
+        $sql = sprintf("SELECT c.id, c.user_id, c.unique_key, c.constanta_val,
+        u.api_key
+        FROM constanta c
+        LEFT JOIN users u ON (c.user_id = u.id AND u.dflag = 0)
+        WHERE c.dflag = 0 
+        %s;", $strings);
 
         $pagination->SetQuery($sql);
 
@@ -133,9 +145,12 @@ class constantaContracts extends constanta implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, user_id, unique_key, constanta_val
-        FROM constanta
-        WHERE dflag = 0 %s;", $strings);
+        $sql = sprintf("SELECT c.id, c.user_id, c.unique_key, c.constanta_val,
+        u.api_key
+        FROM constanta c
+        LEFT JOIN users u ON (c.user_id = u.id AND u.dflag = 0)
+        WHERE c.dflag = 0 
+        %s;", $strings);
 
         $table->SetQuery($sql);
 

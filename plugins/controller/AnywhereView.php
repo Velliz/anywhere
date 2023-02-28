@@ -29,7 +29,12 @@ class AnywhereView extends View
      */
     public function BeforeInitialize()
     {
-        $this->vars = constantaContracts::SearchData();
+        $request = explode('/', $_GET['request']);
+        $apikey = $request[sizeof($request) - 2];
+
+        $this->vars = constantaContracts::SearchData([
+            'api_key' => $apikey,
+        ]);
     }
 
     /**

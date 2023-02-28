@@ -163,4 +163,15 @@ class digital_sign_usersContracts extends digital_sign_users implements ModelCon
             return $result;
         });
     }
+
+    public static function GetApiKeyById($id_digitalsign_users)
+    {
+        $sql = "SELECT u.api_key
+        FROM digital_sign_users dsu
+        LEFT JOIN users u ON (dsu.user_id = u.id)
+        WHERE dsu.dflag = 0
+        AND dsu.id = @1
+        LIMIT 1";
+        return DBI::Prepare($sql)->FirstRow($id_digitalsign_users)['api_key'];
+    }
 }

@@ -411,39 +411,33 @@ $(function () {
                 text: `Create new`,
                 action: function () {
                     bootbox_dialog(
-                        `Create new user penandatangan`,
+                        `Create new digital sign user`,
                         `<div class="form">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input class="form-control" name="variable_key" placeholder="Key"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" name="variable_name" placeholder="Val"/>
-                                    </div>
+                                <div class="form-group">
+                                    <input class="form-control" name="name" placeholder="Name"/>
                                 </div>
-                                <div class="col-lg-6">
-                                
+                                <div class="form-group">
+                                    <input class="form-control" name="email" placeholder="Email"/>
                                 </div>
                             </div>
                         </div>`,
-                        `large`,
+                        `small`,
                         function () {
                             $('.bootbox-accept').prop('disabled', true);
-                            let variable_key = $('.bootbox-body input[name=variable_key]').val();
-                            let variable_name = $('.bootbox-body input[name=variable_name]').val();
+                            let name = $('.bootbox-body input[name=name]').val();
+                            let email = $('.bootbox-body input[name=email]').val();
                             ajax_post(
                                 `digital_sign_users/create`,
                                 {
-                                    unique_key: variable_key,
-                                    constanta_val: variable_name
+                                    name: name,
+                                    email: email
                                 },
                                 digitalsign_table,
                                 function (result) {
                                     digitalsign_table.ajax.reload();
 
-                                    let constanta = result.constanta;
-                                    pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
+                                    let digital_sign_users = result.digital_sign_users;
+                                    pnotify(`Template created`, `New sign user ${name} successfully created!`, 'success');
                                     bootbox.hideAll();
                                 },
                                 function (xhr, error) {

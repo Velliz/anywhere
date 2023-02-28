@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use model\primary\usersContracts;
 use plugins\UserBearerData;
+use pukoframework\Framework;
 use pukoframework\middleware\Service;
 use pukoframework\Request;
 
@@ -29,53 +30,8 @@ class digital_sign_users extends Service
         if ($param['name'] === '') {
             throw new Exception($this->say('NAME_REQUIRED'));
         }
-        if ($param['phone'] === '') {
-            throw new Exception($this->say('PHONE_REQUIRED'));
-        }
         if ($param['email'] === '') {
             throw new Exception($this->say('EMAIL_REQUIRED'));
-        }
-        if ($param['type'] === '') {
-            throw new Exception($this->say('TYPE_REQUIRED'));
-        }
-        if ($param['ktp'] === '') {
-            throw new Exception($this->say('KTP_REQUIRED'));
-        }
-        if ($param['npwp'] === '') {
-            throw new Exception($this->say('NPWP_REQUIRED'));
-        }
-        if ($param['address'] === '') {
-            throw new Exception($this->say('ADDRESS_REQUIRED'));
-        }
-        if ($param['city'] === '') {
-            throw new Exception($this->say('CITY_REQUIRED'));
-        }
-        if ($param['province'] === '') {
-            throw new Exception($this->say('PROVINCE_REQUIRED'));
-        }
-        if ($param['gender'] === '') {
-            throw new Exception($this->say('GENDER_REQUIRED'));
-        }
-        if ($param['place_of_birth'] === '') {
-            throw new Exception($this->say('PLACE_OF_BIRTH_REQUIRED'));
-        }
-        if ($param['date_of_birth'] === '') {
-            throw new Exception($this->say('DATE_OF_BIRTH_REQUIRED'));
-        }
-        if ($param['org_unit'] === '') {
-            throw new Exception($this->say('ORG_UNIT_REQUIRED'));
-        }
-        if ($param['work_unit'] === '') {
-            throw new Exception($this->say('WORK_UNIT_REQUIRED'));
-        }
-        if ($param['position'] === '') {
-            throw new Exception($this->say('POSITION_REQUIRED'));
-        }
-
-        //validations: customize here
-        $date_of_birth = DateTime::createFromFormat('d/m/Y', $param['date_of_birth']);
-        if (!$date_of_birth instanceof DateTime) {
-            throw new Exception($this->say('DATE_OF_BIRTH_INVALID'));
         }
 
         //insert
@@ -86,25 +42,28 @@ class digital_sign_users extends Service
         $digital_sign_users->user_id = $this->user['id'];
 
         $digital_sign_users->name = trim($param['name']);
-        $digital_sign_users->phone = trim($param['phone']);
         $digital_sign_users->email = trim($param['email']);
-        $digital_sign_users->type = trim($param['type']);
+        $digital_sign_users->type = 'INDIVIDUAL';
 
-        $digital_sign_users->ktp = trim($param['ktp']);
-        $digital_sign_users->npwp = trim($param['npwp']);
+        $digital_sign_users->ktp = '0000000000000000';
+        $digital_sign_users->npwp = '0000000000';
 
-        $digital_sign_users->address = trim($param['address']);
-        $digital_sign_users->city = trim($param['city']);
-        $digital_sign_users->province = trim($param['province']);
+        $digital_sign_users->address = '-';
+        $digital_sign_users->city = '-';
+        $digital_sign_users->province = '-';
 
-        $digital_sign_users->gender = trim($param['gender']);
+        $digital_sign_users->gender = 'M';
 
-        $digital_sign_users->place_of_birth = trim($param['place_of_birth']);
-        $digital_sign_users->date_of_birth = $date_of_birth->format('Y-m-d');
+        $digital_sign_users->place_of_birth = '-';
+        $digital_sign_users->date_of_birth = '0000-00-00';
 
-        $digital_sign_users->org_unit = trim($param['org_unit']);
-        $digital_sign_users->work_unit = trim($param['work_unit']);
-        $digital_sign_users->position = trim($param['position']);
+        $digital_sign_users->org_unit = '-';
+        $digital_sign_users->work_unit = '-';
+        $digital_sign_users->position = '-';
+
+        $digital_sign_users->is_verified = 0;
+
+        $digital_sign_users->callback_url = Framework::$factory->getBase() . "digitalsigns/verify/";
 
         $digital_sign_users->save();
 
@@ -225,6 +184,10 @@ class digital_sign_users extends Service
         $digital_sign_users->org_unit = trim($param['org_unit']);
         $digital_sign_users->work_unit = trim($param['work_unit']);
         $digital_sign_users->position = trim($param['position']);
+
+        $digital_sign_users->is_verified = 1;
+
+        $digital_sign_users->callback_url = Framework::$factory->getBase() . "digitalsigns/verify/";
 
         $digital_sign_users->modify();
 

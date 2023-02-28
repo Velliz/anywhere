@@ -15,15 +15,27 @@ class digitalsigns extends View
 {
 
     /**
-     * @return void
+     * @return array
      * #Value PageTitle Digital sign user
      */
-    public function users()
+    public function users($id_digitalsign_users = '')
     {
+        $data['id_digitalsign_users'] = $id_digitalsign_users;
+        $data['api_key'] = digital_sign_usersContracts::GetApiKeyById($id_digitalsign_users);
+
+        return $data;
     }
 
-    public function timeline()
+    /**
+     * @return array
+     * #Value PageTitle Digital sign user
+     */
+    public function timeline($id_digitalsign_users = '')
     {
+        $data['id_digitalsign_users'] = $id_digitalsign_users;
+        $data['api_key'] = digital_sign_usersContracts::GetApiKeyById($id_digitalsign_users);
+
+        return $data;
     }
 
     /**
