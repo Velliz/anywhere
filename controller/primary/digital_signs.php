@@ -174,7 +174,7 @@ class digital_signs extends Service
         $param = Request::JsonBody();
         //post addition filter here
         if (isset($param['user_id'])) {
-            $keyword['user_id'] = $param['user_id'];
+            $keyword['ds.user_id'] = $param['user_id'];
         }
 
         return \model\primary\digital_signsContracts::SearchDataPagination($keyword);
@@ -191,7 +191,7 @@ class digital_signs extends Service
         $param = Request::JsonBody();
         //post addition filter here
         if (isset($param['user_id'])) {
-            $keyword['user_id'] = $param['user_id'];
+            $keyword['ds.user_id'] = $param['user_id'];
         }
 
         $data['digital_signs'] = \model\primary\digital_signsContracts::SearchData($keyword);
@@ -207,7 +207,7 @@ class digital_signs extends Service
         $keyword = [];
 
         //post addition filter here
-        $keyword['user_id'] = $this->user['id'];
+        $keyword['ds.user_id'] = $this->user['id'];
 
         return \model\primary\digital_signsContracts::GetDataTable($keyword);
     }

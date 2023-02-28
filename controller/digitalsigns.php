@@ -14,6 +14,10 @@ use pukoframework\middleware\View;
 class digitalsigns extends View
 {
 
+    /**
+     * @return void
+     * #Value PageTitle Digital sign user
+     */
     public function users()
     {
     }
@@ -25,7 +29,7 @@ class digitalsigns extends View
     /**
      * @param string $hash
      * @throws Exception
-     * #Value title Signing Verification
+     * #Value PageTitle Signing Verification
      * #Template master false
      */
     public function verify(string $hash = '')

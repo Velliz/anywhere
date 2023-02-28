@@ -3,6 +3,7 @@
 namespace plugins\controller;
 
 use Exception;
+use model\primary\constantaContracts;
 use model\primary\digital_signsContracts;
 use model\primary\usersContracts;
 use plugins\model\primary\digital_signs;
@@ -21,6 +22,14 @@ class AnywhereView extends View
     public function __construct()
     {
         parent::__construct();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function BeforeInitialize()
+    {
+        $this->vars = constantaContracts::SearchData();
     }
 
     /**
@@ -52,14 +61,14 @@ class AnywhereView extends View
             }
         }
         if ($this->fn === 'sign') {
-            if (!isset($_POST['digital_sign'])) {
+            if (!isset($_POST['digitalsign'])) {
                 return '';
             }
             if ($data === null) {
                 return '';
             }
 
-            $digital_sign = (array)json_decode($_POST['digital_sign'], true);
+            $digital_sign = (array)json_decode($_POST['digitalsign'], true);
             //scan data as identifier
             if (!isset($digital_sign[$data])) {
                 return '';
@@ -67,10 +76,13 @@ class AnywhereView extends View
             $digital_sign = $digital_sign[$data];
 
             $user = usersContracts::SearchData([
-                'api_key' => $digital_sign['api_key'],
+                'api_key' => $digital_sign['apikey'],
             ]);
+            if (sizeof($user) === 0) {
+                return '';
+            }
             $signs = digital_signsContracts::SearchData([
-                'email' => $digital_sign['email']
+                'ds.email' => $digital_sign['email']
             ]);
             if (sizeof($signs) === 0) {
                 return '';
@@ -78,14 +90,14 @@ class AnywhereView extends View
             foreach ($signs as $sign) {
                 $stamps = new digital_signs();
                 $stamps->created = $this->GetServerDateTime();
-                $stamps->cuid = $user;
-                $stamps->user_id = $user;
+                $stamps->cuid = $user[0]['id'];
+                $stamps->user_id = $user[0]['id'];
 
                 $stamps->digital_sign_secure = $this->GetRandomToken(4) . "=";
                 $stamps->digital_sign_hash = md5($stamps->created . $stamps->digital_sign_secure);
                 $stamps->email = $sign['email'];
 
-                $stamps->document_name = $digital_sign['doc_name'];
+                $stamps->document_name = $digital_sign['docName'];
                 $stamps->location = $digital_sign['location'];
                 $stamps->reason = $digital_sign['reason'];
 

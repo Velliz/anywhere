@@ -1,6 +1,85 @@
 {!css(<!-- place your custom CSS file here -->)}
-<div style="margin:10px;">
-    <p>Blank pages is proof that your routes looks right.</p>
-    <p>Happy designing :)</p>
+
+<div class="container content-main">
+    <h1>Digital sign user</h1>
+    <p>Detail data</p>
+
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td><b>Name</b></td>
+            <td><input type="text" class="form-control" name="dsu-name" placeholder="Name"></td>
+        </tr>
+        <tr>
+            <td><b>Phone</b></td>
+            <td><input type="text" class="form-control" name="dsu-phone" placeholder="Phone"></td>
+        </tr>
+        <tr>
+            <td><b>Email</b></td>
+            <td><input type="text" class="form-control" name="dsu-email" placeholder="Email"></td>
+        </tr>
+        <tr>
+            <td><b>User Type</b></td>
+            <td>
+                <select name="dsu-type" class="form-control" id="dsu-type">
+                    <option value="INDIVIDUAL">INDIVIDUAL</option>
+                    <option value="ORGANIZATION">ORGANIZATION</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><b>National Identification Number</b></td>
+            <td><input type="text" class="form-control" name="dsu-ktp" placeholder="Identification Number"></td>
+        </tr>
+        <tr>
+            <td><b>National Tax Number</b></td>
+            <td><input type="text" class="form-control" name="dsu-npwp" placeholder="National Tax Number"></td>
+        </tr>
+        <tr>
+            <td><b>Address</b></td>
+            <td><input type="text" class="form-control" name="dsu-address" placeholder="Address"></td>
+        </tr>
+        <tr>
+            <td><b>City</b></td>
+            <td><input type="text" class="form-control" name="dsu-city" placeholder="City"></td>
+        </tr>
+        <tr>
+            <td><b>Province</b></td>
+            <td><input type="text" class="form-control" name="dsu-province" placeholder="Province"></td>
+        </tr>
+        <tr>
+            <td><b>Gender</b></td>
+            <td>
+                <select name="dsu-gender" class="form-control" id="dsu-gender">
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Place of birth</b></td>
+            <td><input type="text" class="form-control" name="dsu-place_of_birth" placeholder="Place of birth"></td>
+        </tr>
+        <tr>
+            <td><b>Date of birth</b></td>
+            <td><input type="text" class="form-control" name="dsu-date_of_birth" placeholder="Date of birth"></td>
+        </tr>
+        <tr>
+            <td><b>Organization Unit</b></td>
+            <td><input type="text" class="form-control" name="dsu-org_unit" placeholder="Organization Unit"></td>
+        </tr>
+        <tr>
+            <td><b>Work Unit</b></td>
+            <td><input type="text" class="form-control" name="dsu-work_unit" placeholder="Work Unit"></td>
+        </tr>
+        <tr>
+            <td><b>Position</b></td>
+            <td><input type="text" class="form-control" name="dsu-position" placeholder="Position"></td>
+        </tr>
+    </table>
+
+    <button class="btn btn-primary" name="submit" type="submit">Update Data</button>
+
 </div>
-{!js(<!-- place your custom JavaScript file here -->)}
+
+{!js(<script src="assets/script/auth.js"></script>)}
+{!js(<script src="assets/script/users/beranda.js"></script>)}

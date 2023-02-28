@@ -18,17 +18,23 @@ class digital_signsContracts extends digital_signs implements ModelContracts
 
     public static function GetData()
     {
-        $sql = "SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
-        FROM digital_signs
-        WHERE dflag = 0";
+        $sql = "SELECT ds.id, ds.created, ds.user_id, ds.document_name, ds.digital_sign_hash, 
+        ds.digital_sign_secure, ds.email, ds.location, ds.reason,
+        dsu.is_verified, dsu.callback_url, dsu.is_speciment
+        FROM digital_signs ds
+        LEFT JOIN digital_sign_users dsu ON (ds.user_id = dsu.id AND dsu.dflag = 0)
+        WHERE ds.dflag = 0";
         return DBI::Prepare($sql)->GetData();
     }
 
     public static function GetById($id)
     {
-        $sql = "SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
-        FROM digital_signs
-        WHERE dflag = 0 AND id = @1";
+        $sql = "SELECT ds.id, ds.created, ds.user_id, ds.document_name, ds.digital_sign_hash, 
+        ds.digital_sign_secure, ds.email, ds.location, ds.reason,
+        dsu.is_verified, dsu.callback_url, dsu.is_speciment
+        FROM digital_signs ds
+        LEFT JOIN digital_sign_users dsu ON (ds.user_id = dsu.id AND dsu.dflag = 0)
+        WHERE ds.dflag = 0 AND ds.id = @1";
         return DBI::Prepare($sql)->FirstRow($id);
     }
 
@@ -72,10 +78,13 @@ class digital_signsContracts extends digital_signs implements ModelContracts
 
     public static function GetLastData()
     {
-        $sql = "SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
-        FROM digital_signs
-        WHERE dflag = 0
-        ORDER BY id DESC
+        $sql = "SELECT ds.id, ds.created, ds.user_id, ds.document_name, ds.digital_sign_hash, 
+        ds.digital_sign_secure, ds.email, ds.location, ds.reason,
+        dsu.is_verified, dsu.callback_url, dsu.is_speciment
+        FROM digital_signs ds
+        LEFT JOIN digital_sign_users dsu ON (ds.user_id = dsu.id AND dsu.dflag = 0)
+        WHERE ds.dflag = 0
+        ORDER BY ds.id DESC
         LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow();
     }
@@ -86,9 +95,13 @@ class digital_signsContracts extends digital_signs implements ModelContracts
         foreach ($keyword as $column => $values) {
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
-        $sql = sprintf("SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
-        FROM digital_signs
-        WHERE dflag = 0 %s;", $strings);
+        $sql = sprintf("SELECT ds.id, ds.created, ds.user_id, ds.document_name, ds.digital_sign_hash, 
+        ds.digital_sign_secure, ds.email, ds.location, ds.reason,
+        dsu.is_verified, dsu.callback_url, dsu.is_speciment
+        FROM digital_signs ds
+        LEFT JOIN digital_sign_users dsu ON (ds.user_id = dsu.id AND dsu.dflag = 0)
+        WHERE ds.dflag = 0 
+        %s;", $strings);
         return DBI::Prepare($sql)->GetData();
     }
 
@@ -102,9 +115,13 @@ class digital_signsContracts extends digital_signs implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
-        FROM digital_signs
-        WHERE dflag = 0 %s;", $strings);
+        $sql = sprintf("SELECT ds.id, ds.created, ds.user_id, ds.document_name, ds.digital_sign_hash, 
+        ds.digital_sign_secure, ds.email, ds.location, ds.reason,
+        dsu.is_verified, dsu.callback_url, dsu.is_speciment
+        FROM digital_signs ds
+        LEFT JOIN digital_sign_users dsu ON (ds.user_id = dsu.id AND dsu.dflag = 0)
+        WHERE ds.dflag = 0 
+        %s;", $strings);
 
         $pagination->SetQuery($sql);
 
@@ -137,9 +154,13 @@ class digital_signsContracts extends digital_signs implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, created, user_id, document_name, digital_sign_hash, digital_sign_secure, email, location, reason
-        FROM digital_signs
-        WHERE dflag = 0 %s;", $strings);
+        $sql = sprintf("SELECT ds.id, ds.created, ds.user_id, ds.document_name, ds.digital_sign_hash, 
+        ds.digital_sign_secure, ds.email, ds.location, ds.reason,
+        dsu.is_verified, dsu.callback_url, dsu.is_speciment
+        FROM digital_signs ds
+        LEFT JOIN digital_sign_users dsu ON (ds.user_id = dsu.id AND dsu.dflag = 0)
+        WHERE ds.dflag = 0 
+        %s;", $strings);
 
         $table->SetQuery($sql);
 

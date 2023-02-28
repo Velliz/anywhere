@@ -22,12 +22,11 @@ use Exception;
 use model\primary\constantaContracts;
 use model\primary\log_pdfContracts;
 use model\primary\pdfContracts;
-use model\primary\usersContracts;
 use Dompdf\Options;
 use Dompdf\Dompdf;
+use plugins\controller\AnywhereView;
 use plugins\model\primary\log_pdf;
 use pte\Pte;
-use pukoframework\middleware\View;
 use pukoframework\Response;
 
 /**
@@ -38,7 +37,7 @@ use pukoframework\Response;
  * #Master master.html
  * #Value PageTitle PDF Templates
  */
-class pdf extends View
+class pdf extends AnywhereView
 {
 
     private $outputmode;
@@ -51,8 +50,6 @@ class pdf extends View
     private $requesturl;
     private $requestsample;
     private $cssexternal;
-
-    private $vars = [];
 
     /**
      * @var Dompdf
@@ -202,7 +199,7 @@ class pdf extends View
         $this->cssexternal = $pdfRender['css_external'];
         $this->requesturl = $pdfRender['request_url'];
 
-        $script = $pdfRender['phpscript'];
+        $script = $pdfRender['php_script'];
         $php_script = $this->php_head . $script . $this->php_tail;
 
         $htmlFactory = $this->head . $this->css . $this->middle . $php_script . $this->cssexternal . $this->html . $this->tail;
