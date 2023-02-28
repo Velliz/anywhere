@@ -575,10 +575,10 @@ $(function () {
         ],
         language: datatables_config,
         rowCallback: function (row, data) {
-            let details = `<a title="Details" href="digital_signs/update/${data[0]}" target="_blank" class="btn btn-xs btn-primary">
+            let details = `<a title="Details" href="mail/update/${data[0]}" target="_blank" class="btn btn-xs btn-primary">
                 <i class="fa fa-eye"></i> Details
             </a>`;
-            let history = `<a title="Sign History" href="digital_signs/timeline/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+            let history = `<a title="Mail History" href="mail/timeline/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
                 <i class="fa fa-external-link"></i> Usage History
             </a>`;
             $('td:eq(0)', row).html(`<b>${data[4]}</b>`);
