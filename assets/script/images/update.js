@@ -126,7 +126,7 @@ $(document).ready(function () {
             null,
             function (result) {
                 let images = result.images;
-                pnotify(`Template updated`, `"New template ${images.image_name}" successfully updated!`, 'success');
+                pnotify(`Template updated`, `New template "${images.image_name}" successfully updated!`, 'success');
 
                 btn_submit.prop('disabled', false);
                 btn_submit.html('Simpan Konfigurasi');

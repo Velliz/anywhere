@@ -103,7 +103,7 @@ $(function () {
             null,
             function (result) {
                 let pdf = result.pdf;
-                pnotify(`Template updated`, `"New template ${pdf.report_name}" successfully updated!`, 'success');
+                pnotify(`Template updated`, `New template "${pdf.report_name}" successfully updated!`, 'success');
 
                 btn_submit.prop('disabled', false);
                 btn_submit.html('Simpan Konfigurasi');

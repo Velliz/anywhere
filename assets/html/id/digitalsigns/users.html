@@ -1,4 +1,4 @@
-{!css(<!-- place your custom CSS file here -->)}
+{!css(<link href="assets/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">)}
 
 <input type="hidden" name="id" value="{!id_digitalsign_users}">
 <input type="hidden" name="api_key" value="{!api_key}">
@@ -84,7 +84,10 @@
 
 </div>
 
-{!js(<script src="assets/script/auth.js"></script>)}
-{!js(<script src="assets/script/users/beranda.js"></script>)}
+{!js(
+<script src="assets/vendor/bootstrap-daterangepicker/moment.min.js"></script>
+<script src="assets/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+)}
 
+{!js(<script src="assets/script/auth.js"></script>)}
 {!js(<script src="assets/script/digitalsigns/users.js"></script>)}

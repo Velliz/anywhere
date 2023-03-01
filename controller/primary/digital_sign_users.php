@@ -296,6 +296,11 @@ class digital_sign_users extends Service
     {
         $digital_sign_users = new \plugins\model\primary\digital_sign_users($id);
 
+        $date_of_birth = DateTime::createFromFormat('Y-m-d', $digital_sign_users->date_of_birth);
+        if ($date_of_birth instanceof DateTime) {
+            $date_of_birth = $date_of_birth->format('d/m/Y');
+        }
+
         //response
         $data['digital_sign_users'] = [
             'id' => $digital_sign_users->id,
@@ -311,7 +316,7 @@ class digital_sign_users extends Service
             'province' => $digital_sign_users->province,
             'gender' => $digital_sign_users->gender,
             'place_of_birth' => $digital_sign_users->place_of_birth,
-            'date_of_birth' => $digital_sign_users->date_of_birth,
+            'date_of_birth' => $date_of_birth,
             'org_unit' => $digital_sign_users->org_unit,
             'work_unit' => $digital_sign_users->work_unit,
             'position' => $digital_sign_users->position,
