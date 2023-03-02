@@ -11,6 +11,7 @@ $(function () {
     }
 
     $.ajaxSetup({
+        timeout: 120000,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', `Bearer ${authorization}`);
         }
