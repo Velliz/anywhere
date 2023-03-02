@@ -31,7 +31,7 @@ Untuk mengirim e-mail download AnywhereWrapper Kemudian kamu bisa mengirim e-mai
 ```php
 require 'Wrapper.php';
 
-$mail = new AnywhereMail(Wrapper::POST);
+$mail = new Mail(Wrapper::POST);
 $mail->setTo('example@gmail.com');
 $mail->setCc('example@outlook.com');
 $mail->setBcc('example@yahoo.co.id');

@@ -46,7 +46,7 @@ Untuk membuat request PDF download AnywhereWrapper Kemudian kamu bisa menuliskan
 ```php
 require 'Wrapper.php';
 
-$pdf = new AnywherePdf(Wrapper::POST);
+$pdf = new Pdf(Wrapper::POST);
 $pdf->setValue('Name', 'Someone');
 $pdf->setValue('Age', '22');
 $pdf->Send(API_URL);
