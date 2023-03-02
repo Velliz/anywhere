@@ -111,9 +111,6 @@ class mail extends Service
         $param = Request::JsonBody();
 
         //validations: empty check
-        if ($param['user_id'] === '') {
-            throw new Exception($this->say('USER_ID_REQUIRED'));
-        }
         if ($param['mail_name'] === '') {
             throw new Exception($this->say('MAIL_NAME_REQUIRED'));
         }
@@ -122,15 +119,6 @@ class mail extends Service
         }
         if ($param['mail_password'] === '') {
             throw new Exception($this->say('MAIL_PASSWORD_REQUIRED'));
-        }
-        if ($param['cc'] === '') {
-            throw new Exception($this->say('CC_REQUIRED'));
-        }
-        if ($param['bcc'] === '') {
-            throw new Exception($this->say('BCC_REQUIRED'));
-        }
-        if ($param['reply_to'] === '') {
-            throw new Exception($this->say('REPLY_TO_REQUIRED'));
         }
         if ($param['host'] === '') {
             throw new Exception($this->say('HOST_REQUIRED'));
@@ -147,9 +135,6 @@ class mail extends Service
         if ($param['request_type'] === '') {
             throw new Exception($this->say('REQUEST_TYPE_REQUIRED'));
         }
-        if ($param['request_url'] === '') {
-            throw new Exception($this->say('REQUEST_URL_REQUIRED'));
-        }
 
         //validations: customize here
 
@@ -163,9 +148,6 @@ class mail extends Service
         $mail->mail_name = $param['mail_name'];
         $mail->mail_address = $param['mail_address'];
         $mail->mail_password = $param['mail_password'];
-        $mail->cc = $param['cc'];
-        $mail->bcc = $param['bcc'];
-        $mail->reply_to = $param['reply_to'];
 
         $mail->host = $param['host'];
         $mail->port = $param['port'];
@@ -174,7 +156,16 @@ class mail extends Service
         $mail->smtp_secure = $param['smtp_secure'];
 
         $mail->request_type = $param['request_type'];
-        $mail->request_url = $param['request_url'];
+
+        if (isset($param['request_sample'])) {
+            $mail->request_sample = $param['request_sample'];
+        }
+        if (isset($param['css_external'])) {
+            $mail->css_external = $param['css_external'];
+        }
+        if (isset($param['request_url'])) {
+            $mail->request_url = $param['request_url'];
+        }
 
         $mail->modify();
 
