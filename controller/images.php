@@ -169,4 +169,6 @@ class images extends View
         exit();
     }
 
+    public function timeline($id2 = '') {}
+
 }

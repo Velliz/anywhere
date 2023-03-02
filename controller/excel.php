@@ -321,4 +321,6 @@ class excel extends AnywhereView
     }
 
 
+    public function timeline($id2 = '') {}
+
 }

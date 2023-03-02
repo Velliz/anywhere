@@ -342,4 +342,6 @@ TAIL;
 
         return preg_replace('/\s{2,}/u', "\n\r", $str);
     }
+    public function timeline($id2 = '') {}
+
 }

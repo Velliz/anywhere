@@ -284,6 +284,14 @@
                 "POST"
             ]
         ],
+        "excel/timeline/{?}" => [
+            "controller" => "excel",
+            "function" => "timeline",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "excel/update/{?}" => [
             "controller" => "excel",
             "function" => "update",
@@ -431,6 +439,14 @@
             "controller" => "primary\\images",
             "function" => "table",
             "accept" => [
+                "POST"
+            ]
+        ],
+        "images/timeline/{?}" => [
+            "controller" => "images",
+            "function" => "timeline",
+            "accept" => [
+                "GET",
                 "POST"
             ]
         ],
@@ -692,6 +708,14 @@
             "function" => "table",
             "accept" => [
                 "POST"
+            ]
+        ],
+        "mail/timeline/{?}" => [
+            "controller" => "mail",
+            "function" => "timeline",
+            "accept" => [
+                "POST",
+                "GET"
             ]
         ],
         "mail/update/{?}" => [
