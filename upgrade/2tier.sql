@@ -111,7 +111,7 @@ RENAME
 
 ALTER TABLE log_pdf
     CHANGE COLUMN logid id int(11),
-    CHANGE COLUMN PDFID mail_id int(11),
+    CHANGE COLUMN PDFID pdf_id int(11),
     CHANGE COLUMN userid user_id int(11),
     CHANGE COLUMN sentat sent_at timestamp,
     CHANGE COLUMN jsondata json_data longblob,
