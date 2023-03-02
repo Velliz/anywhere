@@ -161,4 +161,26 @@ class mailContracts extends mail implements ModelContracts
             return $result;
         });
     }
+
+    public static function GetApiKeyById($idMail)
+    {
+        $sql = "SELECT u.api_key
+        FROM mail m
+        LEFT JOIN users u ON (m.user_id = u.id)
+        WHERE m.dflag = 0
+        AND m.id = @1
+        LIMIT 1";
+        return DBI::Prepare($sql)->FirstRow($idMail)['api_key'];
+    }
+
+    public static function GetMailRender($api_key, $mailId)
+    {
+        $sql = "SELECT *
+        FROM mail m
+        LEFT JOIN users u ON (m.user_id = u.id)
+        WHERE m.dflag = 0
+        AND m.id = @1
+        LIMIT 1;";
+        return DBI::Prepare($sql)->FirstRow($api_key, $mailId);
+    }
 }

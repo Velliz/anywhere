@@ -412,14 +412,6 @@
                 "GET"
             ]
         ],
-        "images/main" => [
-            "controller" => "images",
-            "function" => "main",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
         "images/render/{?}/{?}" => [
             "controller" => "images",
             "function" => "render",
@@ -667,14 +659,6 @@
         "mail/html/{?}" => [
             "controller" => "mail",
             "function" => "html",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "mail/main" => [
-            "controller" => "mail",
-            "function" => "main",
             "accept" => [
                 "GET",
                 "POST"

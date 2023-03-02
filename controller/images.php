@@ -35,14 +35,6 @@ class images extends View
 {
 
     /**
-     * #Template html false
-     * @throws Exception
-     */
-    public function main()
-    {
-    }
-
-    /**
      * @param $id_image
      * @return array
      * @throws Exception
@@ -177,7 +169,4 @@ class images extends View
         exit();
     }
 
-    public function limitations()
-    {
-    }
 }

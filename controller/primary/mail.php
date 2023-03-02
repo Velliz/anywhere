@@ -32,36 +32,6 @@ class mail extends Service
         if ($param['mail_address'] === '') {
             throw new Exception($this->say('MAIL_ADDRESS_REQUIRED'));
         }
-        if ($param['mail_password'] === '') {
-            throw new Exception($this->say('MAIL_PASSWORD_REQUIRED'));
-        }
-        if ($param['cc'] === '') {
-            throw new Exception($this->say('CC_REQUIRED'));
-        }
-        if ($param['bcc'] === '') {
-            throw new Exception($this->say('BCC_REQUIRED'));
-        }
-        if ($param['reply_to'] === '') {
-            throw new Exception($this->say('REPLY_TO_REQUIRED'));
-        }
-        if ($param['host'] === '') {
-            throw new Exception($this->say('HOST_REQUIRED'));
-        }
-        if ($param['port'] === '') {
-            throw new Exception($this->say('PORT_REQUIRED'));
-        }
-        if ($param['smtp_auth'] === '') {
-            throw new Exception($this->say('SMTP_AUTH_REQUIRED'));
-        }
-        if ($param['smtp_secure'] === '') {
-            throw new Exception($this->say('SMTP_SECURE_REQUIRED'));
-        }
-        if ($param['request_type'] === '') {
-            throw new Exception($this->say('REQUEST_TYPE_REQUIRED'));
-        }
-        if ($param['request_url'] === '') {
-            throw new Exception($this->say('REQUEST_URL_REQUIRED'));
-        }
 
         //validations: customize here
 
@@ -74,19 +44,36 @@ class mail extends Service
 
         $mail->mail_name = $param['mail_name'];
         $mail->mail_address = $param['mail_address'];
-        $mail->mail_password = $param['mail_password'];
-        $mail->cc = $param['cc'];
-        $mail->bcc = $param['bcc'];
-        $mail->reply_to = $param['reply_to'];
+        $mail->mail_password = '';
 
-        $mail->host = $param['host'];
-        $mail->port = $param['port'];
+        $mail->host = 'smtp.gmail.com';
+        $mail->port = 587;
 
-        $mail->smtp_auth = $param['smtp_auth'];
-        $mail->smtp_secure = $param['smtp_secure'];
+        $mail->smtp_auth = 'true';
+        $mail->smtp_secure = 'tls';
 
-        $mail->request_type = $param['request_type'];
-        $mail->request_url = $param['request_url'];
+        $mail->request_type = 'POST';
+        $mail->request_url = '';
+
+        $mail->html = "<div>Welcome to Anywhere!</div>";
+        $mail->css = "body {}";
+
+        $request_sample = [
+            'to' => 'example@anywhere.com',
+            'subject' => 'Test Email',
+            'attachment' => [
+                [
+                    'name' => 'attachment1',
+                    'url' => 'http://localhost/anywhere/qr/render?data=attachment1'
+                ],
+                [
+                    'name' => 'attachment2',
+                    'url' => 'http://localhost/anywhere/qr/render?data=attachment2'
+                ]
+            ]
+        ];
+
+        $mail->request_sample = json_encode($request_sample, JSON_PRETTY_PRINT);
 
         $mail->save();
 

@@ -23,7 +23,7 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use pukoframework\middleware\View;
+use plugins\controller\AnywhereView;
 
 /**
  * Class excel
@@ -33,7 +33,7 @@ use pukoframework\middleware\View;
  * #Master master.html
  * #Value PageTitle Excel Template
  */
-class excel extends View
+class excel extends AnywhereView
 {
 
     /**

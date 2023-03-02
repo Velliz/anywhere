@@ -183,11 +183,6 @@ class pdf extends AnywhereView
     {
         $pdfRender = pdfContracts::GetPdfRender($api_key, $pdfId);
 
-        //because render executed outside vars need to be re-supplied
-        $this->vars = constantaContracts::SearchData([
-            'user_id' => $pdfRender['user_id']
-        ]);
-
         $this->outputmode = $pdfRender['output_mode'];
         $this->paper = $pdfRender['paper'];
         $this->orientation = $pdfRender['orientation'];
@@ -288,11 +283,6 @@ class pdf extends AnywhereView
     {
         $pdfRender = pdfContracts::GetPdfRender($api_key, $pdfId);
         $logData = log_pdfContracts::GetById($logID);
-
-        //because render executed outside vars need to be re-supplied
-        $this->vars = constantaContracts::SearchData([
-            'user_id' => $pdfRender['user_id']
-        ]);
 
         $this->outputmode = $pdfRender['outputmode'];
         $this->paper = $pdfRender['paper'];

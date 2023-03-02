@@ -45,11 +45,4 @@ class users extends View
     {
     }
 
-    /**
-     * @throws Exception
-     * #Value PageTitle Limit Reached
-     */
-    public function limitations()
-    {
-    }
 }
