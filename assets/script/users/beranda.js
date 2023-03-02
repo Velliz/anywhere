@@ -535,29 +535,29 @@ $(function () {
                         `Create new email`,
                         `<div class="form">
                             <div class="form-group">
-                                <input class="form-control" name="variable_key" placeholder="Key"/>
+                                <input class="form-control" name="mail_name" placeholder="Nama Email"/>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" name="variable_name" placeholder="Val"/>
+                                <input class="form-control" name="mail_address" placeholder="xxx@gmail.com"/>
                             </div>
                         </div>`,
                         `small`,
                         function () {
                             $('.bootbox-accept').prop('disabled', true);
-                            let variable_key = $('.bootbox-body input[name=variable_key]').val();
-                            let variable_name = $('.bootbox-body input[name=variable_name]').val();
+                            let mail_name = $('.bootbox-body input[name=mail_name]').val();
+                            let mail_address = $('.bootbox-body input[name=mail_address]').val();
                             ajax_post(
                                 `mail/create`,
                                 {
-                                    unique_key: variable_key,
-                                    constanta_val: variable_name
+                                    mail_name: mail_name,
+                                    mail_address: mail_address
                                 },
                                 mail_table,
                                 function (result) {
                                     mail_table.ajax.reload();
 
                                     let constanta = result.constanta;
-                                    pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
+                                    pnotify(`Template created`, `New mail "${mail_name}" successfully created!`, 'success');
                                     bootbox.hideAll();
                                 },
                                 function (xhr, error) {

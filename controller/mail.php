@@ -106,7 +106,7 @@ TAIL;
      */
     public function update($id_mail)
     {
-        $data['id_image'] = $id_mail;
+        $data['id_mail'] = $id_mail;
         $data['api_key'] = mailContracts::GetApiKeyById($id_mail);
 
         return $data;
@@ -120,7 +120,7 @@ TAIL;
      */
     public function html($id_mail)
     {
-        $data['id_image'] = $id_mail;
+        $data['id_mail'] = $id_mail;
         $data['api_key'] = mailContracts::GetApiKeyById($id_mail);
 
         return $data;
@@ -134,7 +134,7 @@ TAIL;
      */
     public function style($id_mail)
     {
-        $data['id_image'] = $id_mail;
+        $data['id_mail'] = $id_mail;
         $data['api_key'] = mailContracts::GetApiKeyById($id_mail);
 
         return $data;
