@@ -19,7 +19,6 @@ class mail extends Service
 
     /**
      * @throws Exception
-     * @auth bearer true
      */
     public function create()
     {
@@ -104,7 +103,6 @@ class mail extends Service
      * @param string $id
      * @return mixed
      * @throws Exception
-     * @auth bearer true
      */
     public function update($id = '')
     {
@@ -195,7 +193,6 @@ class mail extends Service
     /**
      * @param string $id
      * @throws Exception
-     * @auth bearer true
      */
     public function delete($id = '')
     {
@@ -269,6 +266,96 @@ class mail extends Service
     public function read($id = '')
     {
         $mail = new \plugins\model\primary\mail($id);
+
+        //response
+        $data['mail'] = [
+            'id' => $mail->id,
+            'user' => usersContracts::GetById($mail->user_id),
+            'html' => $mail->html,
+            'css' => $mail->css,
+            'mail_name' => $mail->mail_name,
+            'mail_address' => $mail->mail_address,
+            'mail_password' => $mail->mail_password,
+            'cc' => $mail->cc,
+            'bcc' => $mail->bcc,
+            'reply_to' => $mail->reply_to,
+            'host' => $mail->host,
+            'port' => $mail->port,
+            'smtp_auth' => $mail->smtp_auth,
+            'smtp_secure' => $mail->smtp_secure,
+            'request_type' => $mail->request_type,
+            'request_url' => $mail->request_url,
+            'request_sample' => $mail->request_sample,
+            'css_external' => $mail->css_external,
+        ];
+
+        return $data;
+    }
+
+    /**
+     * @param $id
+     * @return array
+     * @throws Exception
+     */
+    public function update_html($id = '')
+    {
+        $param = Request::JsonBody();
+        if ($param['html'] === '') {
+            throw new Exception($this->say('HTML_REQUIRED'));
+        }
+
+        $mail = new \plugins\model\primary\mail($id);
+        $mail->modified = $this->GetServerDateTime();
+        $mail->muid = $this->user['id'];
+
+        $mail->html = $param['html'];
+
+        $mail->modify();
+
+        //response
+        $data['mail'] = [
+            'id' => $mail->id,
+            'user' => usersContracts::GetById($mail->user_id),
+            'html' => $mail->html,
+            'css' => $mail->css,
+            'mail_name' => $mail->mail_name,
+            'mail_address' => $mail->mail_address,
+            'mail_password' => $mail->mail_password,
+            'cc' => $mail->cc,
+            'bcc' => $mail->bcc,
+            'reply_to' => $mail->reply_to,
+            'host' => $mail->host,
+            'port' => $mail->port,
+            'smtp_auth' => $mail->smtp_auth,
+            'smtp_secure' => $mail->smtp_secure,
+            'request_type' => $mail->request_type,
+            'request_url' => $mail->request_url,
+            'request_sample' => $mail->request_sample,
+            'css_external' => $mail->css_external,
+        ];
+
+        return $data;
+    }
+
+    /**
+     * @param $id
+     * @return array
+     * @throws Exception
+     */
+    public function update_style($id = '')
+    {
+        $param = Request::JsonBody();
+        if ($param['css'] === '') {
+            throw new Exception($this->say('CSS_REQUIRED'));
+        }
+
+        $mail = new \plugins\model\primary\mail($id);
+        $mail->modified = $this->GetServerDateTime();
+        $mail->muid = $this->user['id'];
+
+        $mail->css = $param['css'];
+
+        $mail->modify();
 
         //response
         $data['mail'] = [

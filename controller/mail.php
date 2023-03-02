@@ -143,12 +143,9 @@ TAIL;
     /**
      * @param $api_key
      * @param $mailId
-     * @throws Exception
-     *
      * #Template html false
-     * #Auth session true
      * @throws PteException
-     * @throws \Exception
+     * @throws Exception
      */
     public function coderender($api_key, $mailId)
     {

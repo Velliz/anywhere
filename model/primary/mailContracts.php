@@ -175,11 +175,11 @@ class mailContracts extends mail implements ModelContracts
 
     public static function GetMailRender($api_key, $mailId)
     {
-        $sql = "SELECT *
+        $sql = "SELECT * 
         FROM mail m
         LEFT JOIN users u ON (m.user_id = u.id)
-        WHERE m.dflag = 0
-        AND m.id = @1
+        WHERE (u.api_key = @1) 
+        AND (m.id = @2) 
         LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow($api_key, $mailId);
     }

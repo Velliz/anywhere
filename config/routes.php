@@ -724,6 +724,20 @@
                 "POST"
             ]
         ],
+        "mail/{?}/update/html" => [
+            "controller" => "primary\\mail",
+            "function" => "update_html",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "mail/{?}/update/style" => [
+            "controller" => "primary\\mail",
+            "function" => "update_style",
+            "accept" => [
+                "POST"
+            ]
+        ],
         "pdf/coderender/{?}/{?}" => [
             "controller" => "pdf",
             "function" => "coderender",
@@ -831,16 +845,16 @@
                 "POST"
             ]
         ],
-        "pdf/{?}/update/style" => [
+        "pdf/{?}/update/html" => [
             "controller" => "primary\\pdf",
-            "function" => "update_style",
+            "function" => "update_html",
             "accept" => [
                 "POST"
             ]
         ],
-        "pdf/{?}/update/html" => [
+        "pdf/{?}/update/style" => [
             "controller" => "primary\\pdf",
-            "function" => "update_html",
+            "function" => "update_style",
             "accept" => [
                 "POST"
             ]
