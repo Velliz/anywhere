@@ -18,12 +18,16 @@
 
 namespace controller;
 
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
+use Endroid\QrCode\Label\Font\NotoSans;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
 use Exception;
-use PHPQRCode\QRcode;
-use plugins\auth\AnywhereAuthenticator;
-use plugins\controller\AnywhereView;
-use pukoframework\auth\Session;
-use pukoframework\Request;
+use pukoframework\middleware\View;
 
 /**
  * Class qr
@@ -31,19 +35,14 @@ use pukoframework\Request;
  * #Master master.html
  * #Value PageTitle QR Code
  */
-class qr extends AnywhereView
+class qr extends View
 {
 
     /**
-     * @return mixed
      * @throws Exception
      */
     public function main()
     {
-        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-        $dataQR = $session;
-
-        return $dataQR;
     }
 
     public function render()
@@ -54,38 +53,30 @@ class qr extends AnywhereView
             die(json_encode($data));
         }
 
-        $size = 10;
-        $margin = 2;
-        $output = 'png';
+        $size = 300;
+        $label = "";
 
         if (isset($_GET['size'])) $size = $_GET['size'];
-        if (isset($_GET['margin'])) $size = $_GET['margin'];
-        if (isset($_GET['output'])) $output = $_GET['output'];
+        if (isset($_GET['label'])) $label = $_GET['label'];
 
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
-        header("Author: Anywhere 0.1");
+        $result = Builder::create()
+            ->writer(new PngWriter())
+            ->writerOptions([])
+            ->data($_GET['data'])
+            ->encoding(new Encoding('UTF-8'))
+            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+            ->size($size)
+            ->margin(5)
+            ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->labelText($label)
+            ->labelFont(new NotoSans(14))
+            ->foregroundColor(new Color(0, 102, 204))
+            ->labelAlignment(new LabelAlignmentCenter())
+            ->validateResult(false)
+            ->build();
 
-        if ($output === 'png') {
-            header('Content-Type: image/' . $output);
-            QRcode::png($_GET['data'], false, 'L', $size, $margin);
-        }
-        if ($output === 'jpg' || $output === 'jpeg') {
-            header('Content-Type: image/' . $output);
-            Request::OutputBufferStart();
-            QRcode::png($_GET['data'], false, 'L', $size, $margin);
-            $ImagePng = Request::OutputBufferFlush();
-
-            $ImageObject = imagecreatefromstring($ImagePng);
-
-            Request::OutputBufferStart();
-            imagejpeg($ImageObject, "qr" . $output, 75);
-            $ImageResult = Request::OutputBufferFlush();
-            imagedestroy($ImageObject);
-
-            echo $ImageResult;
-        }
-
+        header('Content-Type: ' . $result->getMimeType());
+        echo $result->getString();
         die();
     }
 }

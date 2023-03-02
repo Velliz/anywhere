@@ -1,0 +1,18 @@
+{
+  "biodata": [
+    {
+      "nama": "Alex Amber",
+      "umur": "22",
+      "dob": "Jakarta, 21 March 1999",
+      "hobi": "Programming, Cooking",
+      "alamat": "Testing Street No. 34"
+    },
+    {
+      "nama": "Zendaya Rose",
+      "umur": "21",
+      "dob": "New York, 22 April 1998",
+      "hobi": "Singing",
+      "alamat": "-"
+    }
+  ]
+}

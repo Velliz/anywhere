@@ -17,22 +17,26 @@ class DomPdfWriter extends \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf
     protected function createExternalWriterInstance()
     {
         $options = new Options();
+
         $options->set('isRemoteEnabled', true);
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
 
         $instance = new Dompdf($options);
+
         $instance->setPaper('A4', 'landscape');
 
         return $instance;
     }
 
     /**
-     * @param string $pFilename
+     * @param $filename
+     * @param int $flags
+     * @return void
      */
-    public function save($pFilename): void
+    public function save($filename, int $flags = 0): void
     {
-        $fileHandle = parent::prepareForSave($pFilename);
+        $fileHandle = parent::prepareForSave($filename);
 
         $pdf = $this->createExternalWriterInstance();
 

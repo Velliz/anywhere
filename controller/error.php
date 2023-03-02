@@ -2,7 +2,7 @@
 
 namespace controller;
 
-use plugins\controller\AnywhereView;
+use pukoframework\middleware\View;
 
 /**
  * Class error
@@ -11,17 +11,15 @@ use plugins\controller\AnywhereView;
  * #Master master.html
  * #Value PageTitle Error
  */
-class error extends AnywhereView
+class error extends View
 {
 
     public function display()
     {
-
     }
 
     public function notfound()
     {
-
     }
 
 }

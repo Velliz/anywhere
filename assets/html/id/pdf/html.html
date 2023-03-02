@@ -1,38 +1,7 @@
-<style>
-    .navbar-custom {
-        background-color:#e61919;
-        color:#ffffff;
-        border-radius:0;
-    }
+{!css(<link href="assets/styles/pdf/html.css" rel="stylesheet">)}
 
-    .navbar-custom .navbar-nav > li > a {
-        color:#fff;
-    }
-
-    .navbar-custom .navbar-nav > .active > a {
-        color: #ffffff;
-        background-color:transparent;
-    }
-
-    .navbar-custom .navbar-nav > li > a:hover,
-    .navbar-custom .navbar-nav > li > a:focus,
-    .navbar-custom .navbar-nav > .active > a:hover,
-    .navbar-custom .navbar-nav > .active > a:focus,
-    .navbar-custom .navbar-nav > .open >a {
-        text-decoration: none;
-        background-color: #e61919;
-    }
-
-    .navbar-custom .navbar-brand {
-        color:#eeeeee;
-    }
-    .navbar-custom .navbar-toggle {
-        background-color:#eeeeee;
-    }
-    .navbar-custom .icon-bar {
-        background-color:#e61919;
-    }
-</style>
+<input type="hidden" name="id" value="{!id_pdf}">
+<input type="hidden" name="api_key" value="{!api_key}">
 
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
@@ -47,37 +16,29 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <!--{!pdf}-->
-                <li><a data-toggle="tooltip" title="Back" href="{!url()}pdf/update/{!PDFID}"><i class="fa fa-arrow-left"></i></a></li>
-                <!--{/pdf}-->
-
-                <li><a data-toggle="tooltip" title="Save and Reload" name="save-btn"><i class="fa fa-save"></i> <span style="margin-left: 5px">SIMPAN</span></a></li>
-
-                <!--{!designer}-->
-                <li><a data-toggle="tooltip" title="Switch To HTML Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}pdf/html/{!ID}"><i class="fa fa-refresh"></i> <span style="margin-left: 5px">TUKAR KE HTML</span></a></li>
-                <!--{/designer}-->
-
-                <!--{!style}-->
-                <li><a data-toggle="tooltip" title="Switch To CSS Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}pdf/style/{!ID}"><i class="fa fa-refresh"></i> <span style="margin-left: 5px">TUKAR KE CSS</span></a></li>
-                <!--{/style}-->
+                <li>
+                    <a data-toggle="tooltip" title="CSS Editor" href="{!url()}pdf/style/{!id_pdf}">
+                        <i class="fa fa-refresh"></i>
+                        <span style="margin-left: 5px">TUKAR KE CSS</span>
+                    </a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-user"></i> @{!name}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> <span class="auth-username"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header text-center">{!name}</li>
-                        <li class="dropdown-header text-center">{!status}</li>
+                        <li class="dropdown-header text-center auth-name"></li>
+                        <li class="dropdown-header text-center auth-status"></li>
                         <hr style="margin: 8px">
-                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
+                        <li class="dropdown-header"><i class="fa fa-key"></i> <span class="auth-api_key"></span></li>
                         <hr style="margin: 8px">
                         <li><a href="{!url()}profil">Profil</a></li>
                         <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                         <hr style="margin: 8px">
-                        <li><a href="{!url()}logout">Logout</a></li>
+                        <li><a onclick="logout()" style="cursor: pointer">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -88,52 +49,25 @@
 <section class="editor-view full-height">
     <div class="container-fluid full-height">
         <div class="row full-height">
-            <div class="col-lg-6 nopadding" style="height: 100%;">
-                <form class="full-height" name="save" id="save" action="" method="post">
-                    <textarea id="code" name="code">{!html}</textarea>
-                </form>
+            <div class="col-lg-6 nopadding full-height">
+                <textarea id="code" name="code"></textarea>
             </div>
-            <div class="col-lg-6" style="height: 100%;padding-right: 0px; padding-left: 0px;border: 1px solid #eee;">
-                <!--{!pdf}-->
-                <iframe id="iframe" src="{!url()}pdf/coderender/{!apikey}/{!PDFID}" frameborder="0" style="overflow:hidden;height:100%;width:100%">
-                    Loading...
-                </iframe>
-                <!--{/pdf}-->
+            <div class="col-lg-6 iframe full-height no-padding no-margin">
             </div>
         </div>
     </div>
 </section>
 
-<div class="container" style="margin-top: 15px; margin-bottom: 15px; color: white;">
-    <h4>Catatan</h4>
-    <p class="help-block">Tag HTML tidak perlu menggunakan <b>`head`</b> atau <b>`body`</b>. Langsung gunakan html untuk content seperti <b>`div`</b> atau <b>`table`</b> dan pastikan setiap tag yang dibuka, ditutup dengan benar</p>
-    <p class="help-block">Pastikan semua tag <b>css</b> ditulis dengan benar, jika menggunakan variabel dari json data. Pastikan tidak ada css yang kosong seperti: <b>`font-color: ; background: ;`</b>.
-        Untuk menghindari error saat dokumen PDF dibuat gunakan default value <b>`font-color: #000000; background: #0067AA;`</b></p>
-    <p class="help-block">Proses rendering menggunakan tag PTE {!} yang dokumentasinya dapat dilihat dari <a href="https://github.com/Velliz/pte" target="_blank">link berikut ini</a></p>
-</div>
+{!js(
+<script src="assets/global/js/jquery.js"></script>
+<script src="assets/global/js/bootstrap.min.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.buttons.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.nonblock.js"></script>
 
-<script src="{!url()}assets/global/js/jquery.js"></script>
-<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
+<script src="assets/script/utility.js"></script>
+<script src="assets/script/master.js"></script>
+)}
 
-<script type="text/javascript">
-
-    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-        lineNumbers: true,
-        name: "htmlmixed",
-        mode: "htmlmixed",
-        extraKeys: {
-            "F11": function (cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-            },
-            "Esc": function (cm) {
-                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-            }
-        }
-    });
-
-    $(document).ready(function () {
-        $('a[name=save-btn]').on('click', function () {
-            $('form[name=save]').submit();
-        });
-    });
-</script>
+{!js(<script src="assets/script/auth.js"></script>)}
+{!js(<script src="assets/script/pdf/html.js"></script>)}

@@ -18,15 +18,12 @@
 
 namespace controller;
 
-use model\ExcelModel;
+use model\primary\excelContracts;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use plugins\auth\AnywhereAuthenticator;
 use plugins\controller\AnywhereView;
-use pukoframework\auth\Session;
-use pukoframework\Framework;
 
 /**
  * Class excel
@@ -60,138 +57,34 @@ class excel extends AnywhereView
     var $requesttype = "POST";
 
     /**
-     * @throws \Exception
-     */
-    public function main()
-    {
-        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-        if (!isset($session['ID'])) $this->RedirectTo(Framework::$factory->getBase());
-
-        if ((int)$session['statusID'] == 1) {
-            $result = ExcelModel::CountExcelUser($session['ID'])[0];
-            if ((int)$result['result'] >= $session['limitations']) $this->RedirectTo('limitations');
-        }
-
-        $snap_shoot = date('d-m-Y-His');
-
-        $arrayData = array(
-            'userID' => $session['ID'],
-            'excelname' => 'EXCEL-' . $snap_shoot . '.xlsx',
-            'columnspecs' => json_encode(array(
-                array("key" => "nama", "display" => "Nama", "width" => 20, "column" => "A"),
-                array("key" => "umur", "display" => "Umur", "width" => 8, "column" => "B"),
-                array("key" => "dob", "display" => "Tempat, Tanggal Lahir", "width" => 20, "column" => "C"),
-                array("key" => "hobi", "display" => "Hobi", "width" => 25, "column" => "D"),
-                array("key" => "alamat", "display" => "Alamat", "width" => 35, "column" => "E")
-            ), JSON_PRETTY_PRINT),
-            'dataspecs' => json_encode(array(
-                "tables" => array(
-                    array("key" => "nama", "value" => array(
-                        "Anywhere Wrapper", "Puko Framework", "PHP 7.3"
-                    )),
-                    array("key" => "umur", "value" => array(
-                        12, 15, 14
-                    )),
-                    array("key" => "dob", "value" => array(
-                        "Bandung, 23 januari 2009", "Bandung, 04 maret 2001", "Jakarta, 14 februari 1995"
-                    )),
-                    array("key" => "hobi", "value" => array(
-                        "Coding", "Sleeping", "Shopping"
-                    )),
-                    array("key" => "alamat", "value" => array(
-                        "JL Perintis Kemerdekaan No 19", "JL Perintis Kemerdekaan No 9", "JL Perintis Kemerdekaan No 43"
-                    )),
-                ),
-                "header" => array(
-                    array(
-                        "key" => "Ketua",
-                        "value" => "Raja Kepiting"
-                    ),
-                    array(
-                        "key" => "Periode",
-                        "value" => "2020"
-                    )
-                ),
-                "footer" => array(
-                    array(
-                        "key" => "catatan",
-                        "value" => "Data ini hanya fiktif dan karangan belaka."
-                    )
-                ),
-            ), JSON_PRETTY_PRINT),
-            'requesttype' => 'POST',
-        );
-
-        $excelID = ExcelModel::NewExcelPage($arrayData);
-        $dataEXCEL = ExcelModel::GetExcelPage($excelID)[0];
-
-        $this->RedirectTo('update/' . $dataEXCEL['EXCELID']);
-    }
-
-    /**
-     * @param $id
-     * @return bool
-     * @throws \Exception
-     * #Auth session true
+     * @param $id_excel
+     * @return array
      * #Master master-codes.html
      */
-    public function update($id)
+    public function update($id_excel)
     {
-        $session = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-        if (isset($_POST['excelid'])) {
-            $arrayID = array('EXCELID' => $_POST['excelid']);
-            $arrayData = array(
-                'EXCELID' => $_POST['excelid'],
-                'excelname' => $_POST['excelname'],
-                'columnspecs' => $_POST['columnspecs'],
-                'dataspecs' => $_POST['dataspecs'],
-                'requesttype' => $_POST['requesttype'],
-            );
-            $resultUpdate = ExcelModel::UpdateExcelPage($arrayID, $arrayData);
+        $data['id_excel'] = $id_excel;
+        $data['api_key'] = excelContracts::GetApiKeyById($id_excel);
 
-            //$this->RedirectTo(Framework::$factory->getBase() . 'beranda');
-            if (!$resultUpdate) {
-                $this->RedirectTo(Framework::$factory->getBase() . 'sorry');
-            }
-        }
-
-        $dataEXCEL = $session;
-
-        $dataEXCEL['excel'] = ExcelModel::GetExcelPage($id);
-
-        $dataEXCEL['PageTitle'] = $dataEXCEL['excel'][0]['excelname'];
-
-        foreach ($dataEXCEL['excel'] as $key => $value) {
-            $dataEXCEL['excel'][$key]['apikey'] = $session['apikey'];
-            switch ($value['requesttype']) {
-                case 'POST':
-                    $dataEXCEL['excel'][$key]['POST'] = 'checked';
-                    break;
-                case 'URL':
-                    $dataEXCEL['excel'][$key]['URL'] = 'checked';
-                    break;
-            }
-        }
-
-        return $dataEXCEL;
+        return $data;
     }
 
     /**
      * @param $api_key
      * @param $excelId
      * @throws Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * #Template html false
      */
     public function render($api_key, $excelId)
     {
         $mode = 1;
 
-        $excelRender = ExcelModel::GetExcelRender($api_key, $excelId)[0];
+        $excelRender = excelContracts::GetExcelRender($api_key, $excelId);
 
-        $this->excelname = $excelRender['excelname'];
-        $this->columnspecs = json_decode($excelRender['columnspecs'], true);
-        $this->dataspecs = json_decode($excelRender['dataspecs'], true);
-        $this->requesttype = $excelRender['requesttype'];
+        $this->excelname = $excelRender['excel_name'];
+        $this->columnspecs = json_decode($excelRender['column_specs'], true);
+        $this->dataspecs = json_decode($excelRender['data_specs'], true);
+        $this->requesttype = $excelRender['request_type'];
 
         $excel = new Spreadsheet();
         $shit = $excel->getActiveSheet();
@@ -313,19 +206,19 @@ class excel extends AnywhereView
     /**
      * @param $api_key
      * @param $excelId
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws Exception
      * #Template html false
      */
     public function coderender($api_key, $excelId)
     {
         $mode = 1;
 
-        $excelRender = ExcelModel::GetExcelRender($api_key, $excelId)[0];
+        $excelRender = excelContracts::GetExcelRender($api_key, $excelId);
 
-        $this->excelname = $excelRender['excelname'];
-        $this->columnspecs = json_decode($excelRender['columnspecs'], true);
-        $this->dataspecs = json_decode($excelRender['dataspecs'], true);
-        $this->requesttype = $excelRender['requesttype'];
+        $this->excelname = $excelRender['excel_name'];
+        $this->columnspecs = json_decode($excelRender['column_specs'], true);
+        $this->dataspecs = json_decode($excelRender['data_specs'], true);
+        $this->requesttype = $excelRender['request_type'];
 
         $excel = new Spreadsheet();
         $shit = $excel->getActiveSheet();
@@ -427,5 +320,7 @@ class excel extends AnywhereView
         exit();
     }
 
+
+    public function timeline($id2 = '') {}
 
 }

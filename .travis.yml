@@ -15,4 +15,4 @@ deploy:
 notifications:
   email: "diditvelliz@gmail.com"
   on_success: never
-on_failure: always
+  on_failure: always

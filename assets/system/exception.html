@@ -2,18 +2,23 @@
 <title>Fatal Exception Detected</title>
 <style>
     body { text-align: center; padding: 150px; }
-    h1 { font-size: 50px; }
+    h1 { font-size: 50px; color: #dc8100; text-decoration: none; }
     body { font: 20px Helvetica, sans-serif; color: #333; }
     article { display: block; text-align: left; width: 650px; margin: 0 auto; }
-    a { color: #dc8100; text-decoration: none; }
     a:hover { color: #333; text-decoration: none; }
+    p { font-size: 11px; margin: 5px }
 </style>
 
 <article>
     <h1>:(</h1>
     <div>
-        <p>An {!ErrorCount} fatal error raised when server trying to fulfill your request. Message: <b>{!Message}</b></p>
-        <p>ErrorCode: ({!ErrorCode} - {!LineNumber})</p>
-        <p>&mdash; Puko Framework</p>
+        <p>Fatal error raised when server trying to fulfill your request.</p>
+        <p>ErrorCode: <b>{!ErrorCode}</b></p>
+
+        <p>Message: <b>{!Message}</b></p>
+        <p>File: <b>{!File}</b></p>
+        <p>Line Number: <b>{!LineNumber}</b></p>
+        <pre>{!Stacktrace}</pre>
+        <p>Puko Framework</p>
     </div>
 </article>

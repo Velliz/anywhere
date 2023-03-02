@@ -1,0 +1,60 @@
+{
+  "tables": [
+    {
+      "key": "nama",
+      "value": [
+        "Anywhere Wrapper",
+        "Puko Framework",
+        "PHP 7.3"
+      ]
+    },
+    {
+      "key": "umur",
+      "value": [
+        12,
+        15,
+        14
+      ]
+    },
+    {
+      "key": "dob",
+      "value": [
+        "Bandung, 23 januari 2009",
+        "Bandung, 04 maret 2001",
+        "Jakarta, 14 februari 1995"
+      ]
+    },
+    {
+      "key": "hobi",
+      "value": [
+        "Coding",
+        "Sleeping",
+        "Shopping"
+      ]
+    },
+    {
+      "key": "alamat",
+      "value": [
+        "JL Perintis Kemerdekaan No 19",
+        "JL Perintis Kemerdekaan No 9",
+        "JL Perintis Kemerdekaan No 43"
+      ]
+    }
+  ],
+  "header": [
+    {
+      "key": "Ketua",
+      "value": "Raja Kepiting"
+    },
+    {
+      "key": "Periode",
+      "value": "2020"
+    }
+  ],
+  "footer": [
+    {
+      "key": "catatan",
+      "value": "Data ini hanya fiktif dan karangan belaka."
+    }
+  ]
+}
