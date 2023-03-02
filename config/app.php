@@ -10,16 +10,16 @@
     ],
     'logs' => [
         'slack' => [
-            'url' => $_SERVER['SLACK_API'],
+            'url' => $_SERVER['SLACK'],
             'secure' => '',
             'username' => 'anywhere',
-            'active' => $_SERVER['SLACK_API_STATUS']
+            'active' => $_SERVER['SLACK_ACTIVE']
         ],
         'hook' => [
-            'url' => '',
+            'url' => $_SERVER['HOOK'],
             'secure' => '',
             'username' => 'anywhere',
-            'active' => false
+            'active' => $_SERVER['HOOK_ACTIVE']
         ]
     ]
 ];
