@@ -17,7 +17,7 @@
  */
 namespace controller;
 
-use plugins\controller\AnywhereView;
+use pukoframework\middleware\View;
 
 /**
  * Class feedback
@@ -26,12 +26,11 @@ use plugins\controller\AnywhereView;
  * #Master master.html
  * #Value PageTitle Feedbacks
  */
-class feedback extends AnywhereView
+class feedback extends View
 {
 
     public function main()
     {
-        //coming soon
     }
 
 }

@@ -39,32 +39,9 @@
                 "POST"
             ]
         ],
-        "api/language/indices/sync" => [
-            "controller" => "api\\language\\indices",
-            "function" => "syncs",
-            "accept" => [
-                "POST"
-            ]
-        ],
         "api/placeholder" => [
             "controller" => "api\\image",
             "function" => "placeholder",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "api/upload/wordplaceholder/{?}" => [
-            "controller" => "api\\word",
-            "function" => "placeholder",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "api/upload/wordtemplate" => [
-            "controller" => "api\\word",
-            "function" => "wordtemplate",
             "accept" => [
                 "GET",
                 "POST"
@@ -86,7 +63,168 @@
                 "POST"
             ]
         ],
-        "digitalsigns/users" => [
+        "constanta/create" => [
+            "controller" => "primary\\constanta",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "constanta/explore" => [
+            "controller" => "primary\\constanta",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "constanta/search" => [
+            "controller" => "primary\\constanta",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "constanta/table" => [
+            "controller" => "primary\\constanta",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "constanta/{?}" => [
+            "controller" => "primary\\constanta",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "constanta/{?}/delete" => [
+            "controller" => "primary\\constanta",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "constanta/{?}/update" => [
+            "controller" => "primary\\constanta",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "digital_sign_users/create" => [
+            "controller" => "primary\\digital_sign_users",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "digital_sign_users/explore" => [
+            "controller" => "primary\\digital_sign_users",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "digital_sign_users/search" => [
+            "controller" => "primary\\digital_sign_users",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "digital_sign_users/table" => [
+            "controller" => "primary\\digital_sign_users",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "digital_sign_users/{?}" => [
+            "controller" => "primary\\digital_sign_users",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "digital_sign_users/{?}/delete" => [
+            "controller" => "primary\\digital_sign_users",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "digital_sign_users/{?}/update" => [
+            "controller" => "primary\\digital_sign_users",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "digital_signs/create" => [
+            "controller" => "primary\\digital_signs",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "digital_signs/explore" => [
+            "controller" => "primary\\digital_signs",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "digital_signs/search" => [
+            "controller" => "primary\\digital_signs",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "digital_signs/table" => [
+            "controller" => "primary\\digital_signs",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "digital_signs/{?}" => [
+            "controller" => "primary\\digital_signs",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "digital_signs/{?}/delete" => [
+            "controller" => "primary\\digital_signs",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "digital_signs/{?}/update" => [
+            "controller" => "primary\\digital_signs",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "digitalsigns/timeline/{?}" => [
+            "controller" => "digitalsigns",
+            "function" => "timeline",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "digitalsigns/users/{?}" => [
             "controller" => "digitalsigns",
             "function" => "users",
             "accept" => [
@@ -109,12 +247,19 @@
                 "POST"
             ]
         ],
-        "excel/main" => [
-            "controller" => "excel",
-            "function" => "main",
+        "excel/create" => [
+            "controller" => "primary\\excel",
+            "function" => "create",
             "accept" => [
-                "GET",
                 "POST"
+            ]
+        ],
+        "excel/explore" => [
+            "controller" => "primary\\excel",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
             ]
         ],
         "excel/render/{?}/{?}" => [
@@ -125,11 +270,106 @@
                 "POST"
             ]
         ],
+        "excel/search" => [
+            "controller" => "primary\\excel",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "excel/table" => [
+            "controller" => "primary\\excel",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "excel/timeline/{?}" => [
+            "controller" => "excel",
+            "function" => "timeline",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "excel/update/{?}" => [
             "controller" => "excel",
             "function" => "update",
             "accept" => [
                 "GET",
+                "POST"
+            ]
+        ],
+        "excel/{?}" => [
+            "controller" => "primary\\excel",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "excel/{?}/delete" => [
+            "controller" => "primary\\excel",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "excel/{?}/update" => [
+            "controller" => "primary\\excel",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "feedback/create" => [
+            "controller" => "primary\\feedback",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "feedback/explore" => [
+            "controller" => "primary\\feedback",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "feedback/search" => [
+            "controller" => "primary\\feedback",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "feedback/table" => [
+            "controller" => "primary\\feedback",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "feedback/{?}" => [
+            "controller" => "primary\\feedback",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "feedback/{?}/delete" => [
+            "controller" => "primary\\feedback",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "feedback/{?}/update" => [
+            "controller" => "primary\\feedback",
+            "function" => "update",
+            "accept" => [
+                "PUT",
                 "POST"
             ]
         ],
@@ -165,17 +405,46 @@
                 "POST"
             ]
         ],
-        "images/main" => [
-            "controller" => "images",
-            "function" => "main",
+        "images/create" => [
+            "controller" => "primary\\images",
+            "function" => "create",
             "accept" => [
-                "GET",
                 "POST"
+            ]
+        ],
+        "images/explore" => [
+            "controller" => "primary\\images",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
             ]
         ],
         "images/render/{?}/{?}" => [
             "controller" => "images",
             "function" => "render",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "images/search" => [
+            "controller" => "primary\\images",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "images/table" => [
+            "controller" => "primary\\images",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "images/timeline/{?}" => [
+            "controller" => "images",
+            "function" => "timeline",
             "accept" => [
                 "GET",
                 "POST"
@@ -189,11 +458,179 @@
                 "POST"
             ]
         ],
-        "language/indices/update/{?}" => [
-            "controller" => "languange\\indices",
-            "function" => "update",
+        "images/{?}" => [
+            "controller" => "primary\\images",
+            "function" => "read",
             "accept" => [
                 "GET"
+            ]
+        ],
+        "images/{?}/delete" => [
+            "controller" => "primary\\images",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "images/{?}/update" => [
+            "controller" => "primary\\images",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "language_indices/create" => [
+            "controller" => "primary\\language_indices",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "language_indices/explore" => [
+            "controller" => "primary\\language_indices",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "language_indices/search" => [
+            "controller" => "primary\\language_indices",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "language_indices/table" => [
+            "controller" => "primary\\language_indices",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "language_indices/{?}" => [
+            "controller" => "primary\\language_indices",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "language_indices/{?}/delete" => [
+            "controller" => "primary\\language_indices",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "language_indices/{?}/update" => [
+            "controller" => "primary\\language_indices",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "log_mail/create" => [
+            "controller" => "primary\\log_mail",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_mail/explore" => [
+            "controller" => "primary\\log_mail",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "log_mail/search" => [
+            "controller" => "primary\\log_mail",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_mail/table" => [
+            "controller" => "primary\\log_mail",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_mail/{?}" => [
+            "controller" => "primary\\log_mail",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "log_mail/{?}/delete" => [
+            "controller" => "primary\\log_mail",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "log_mail/{?}/update" => [
+            "controller" => "primary\\log_mail",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "log_pdf/create" => [
+            "controller" => "primary\\log_pdf",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_pdf/explore" => [
+            "controller" => "primary\\log_pdf",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "log_pdf/search" => [
+            "controller" => "primary\\log_pdf",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_pdf/table" => [
+            "controller" => "primary\\log_pdf",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_pdf/{?}" => [
+            "controller" => "primary\\log_pdf",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "log_pdf/{?}/delete" => [
+            "controller" => "primary\\log_pdf",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "log_pdf/{?}/update" => [
+            "controller" => "primary\\log_pdf",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
             ]
         ],
         "login" => [
@@ -220,17 +657,24 @@
                 "POST"
             ]
         ],
-        "mail/html/{?}" => [
-            "controller" => "mail",
-            "function" => "html",
+        "mail/create" => [
+            "controller" => "primary\\mail",
+            "function" => "create",
             "accept" => [
-                "GET",
                 "POST"
             ]
         ],
-        "mail/main" => [
+        "mail/explore" => [
+            "controller" => "primary\\mail",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "mail/html/{?}" => [
             "controller" => "mail",
-            "function" => "main",
+            "function" => "html",
             "accept" => [
                 "GET",
                 "POST"
@@ -244,6 +688,13 @@
                 "POST"
             ]
         ],
+        "mail/search" => [
+            "controller" => "primary\\mail",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
         "mail/style/{?}" => [
             "controller" => "mail",
             "function" => "style",
@@ -252,11 +703,62 @@
                 "POST"
             ]
         ],
+        "mail/table" => [
+            "controller" => "primary\\mail",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "mail/timeline/{?}" => [
+            "controller" => "mail",
+            "function" => "timeline",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
         "mail/update/{?}" => [
             "controller" => "mail",
             "function" => "update",
             "accept" => [
                 "GET",
+                "POST"
+            ]
+        ],
+        "mail/{?}" => [
+            "controller" => "primary\\mail",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "mail/{?}/delete" => [
+            "controller" => "primary\\mail",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "mail/{?}/update" => [
+            "controller" => "primary\\mail",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "mail/{?}/update/html" => [
+            "controller" => "primary\\mail",
+            "function" => "update_html",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "mail/{?}/update/style" => [
+            "controller" => "primary\\mail",
+            "function" => "update_style",
+            "accept" => [
                 "POST"
             ]
         ],
@@ -268,17 +770,24 @@
                 "POST"
             ]
         ],
-        "pdf/html/{?}" => [
-            "controller" => "pdf",
-            "function" => "html",
+        "pdf/create" => [
+            "controller" => "primary\\pdf",
+            "function" => "create",
             "accept" => [
-                "GET",
                 "POST"
             ]
         ],
-        "pdf/main" => [
+        "pdf/explore" => [
+            "controller" => "primary\\pdf",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "pdf/html/{?}" => [
             "controller" => "pdf",
-            "function" => "main",
+            "function" => "html",
             "accept" => [
                 "GET",
                 "POST"
@@ -292,11 +801,25 @@
                 "POST"
             ]
         ],
+        "pdf/search" => [
+            "controller" => "primary\\pdf",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
         "pdf/style/{?}" => [
             "controller" => "pdf",
             "function" => "style",
             "accept" => [
                 "GET",
+                "POST"
+            ]
+        ],
+        "pdf/table" => [
+            "controller" => "primary\\pdf",
+            "function" => "table",
+            "accept" => [
                 "POST"
             ]
         ],
@@ -321,6 +844,42 @@
             "function" => "update",
             "accept" => [
                 "GET",
+                "POST"
+            ]
+        ],
+        "pdf/{?}" => [
+            "controller" => "primary\\pdf",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "pdf/{?}/delete" => [
+            "controller" => "primary\\pdf",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "pdf/{?}/update" => [
+            "controller" => "primary\\pdf",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "pdf/{?}/update/html" => [
+            "controller" => "primary\\pdf",
+            "function" => "update_html",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "pdf/{?}/update/style" => [
+            "controller" => "primary\\pdf",
+            "function" => "update_style",
+            "accept" => [
                 "POST"
             ]
         ],
@@ -372,35 +931,170 @@
                 "POST"
             ]
         ],
-        "word/coderender/{?}/{?}" => [
-            "controller" => "word",
-            "function" => "coderender",
+        "status/create" => [
+            "controller" => "primary\\status",
+            "function" => "create",
             "accept" => [
-                "GET",
                 "POST"
             ]
         ],
-        "word/main" => [
-            "controller" => "word",
-            "function" => "main",
+        "status/explore" => [
+            "controller" => "primary\\status",
+            "function" => "explore",
             "accept" => [
-                "GET",
+                "POST",
+                "GET"
+            ]
+        ],
+        "status/search" => [
+            "controller" => "primary\\status",
+            "function" => "search",
+            "accept" => [
                 "POST"
             ]
         ],
-        "word/render/{?}/{?}" => [
-            "controller" => "word",
-            "function" => "render",
+        "status/table" => [
+            "controller" => "primary\\status",
+            "function" => "table",
             "accept" => [
-                "GET",
                 "POST"
             ]
         ],
-        "word/update/{?}" => [
-            "controller" => "word",
+        "status/{?}" => [
+            "controller" => "primary\\status",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "status/{?}/delete" => [
+            "controller" => "primary\\status",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "status/{?}/update" => [
+            "controller" => "primary\\status",
             "function" => "update",
             "accept" => [
-                "GET",
+                "PUT",
+                "POST"
+            ]
+        ],
+        "testimonial/create" => [
+            "controller" => "primary\\testimonial",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "testimonial/explore" => [
+            "controller" => "primary\\testimonial",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "testimonial/search" => [
+            "controller" => "primary\\testimonial",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "testimonial/table" => [
+            "controller" => "primary\\testimonial",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "testimonial/{?}" => [
+            "controller" => "primary\\testimonial",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "testimonial/{?}/delete" => [
+            "controller" => "primary\\testimonial",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "testimonial/{?}/update" => [
+            "controller" => "primary\\testimonial",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "users/create" => [
+            "controller" => "primary\\users",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "users/data" => [
+            "controller" => "primary\\users",
+            "function" => "data",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "users/explore" => [
+            "controller" => "primary\\users",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "users/login" => [
+            "controller" => "primary\\users",
+            "function" => "login",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "users/search" => [
+            "controller" => "primary\\users",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "users/table" => [
+            "controller" => "primary\\users",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "users/{?}" => [
+            "controller" => "primary\\users",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "users/{?}/delete" => [
+            "controller" => "primary\\users",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "users/{?}/update" => [
+            "controller" => "primary\\users",
+            "function" => "update",
+            "accept" => [
+                "PUT",
                 "POST"
             ]
         ]

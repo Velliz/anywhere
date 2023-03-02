@@ -17,9 +17,10 @@
  */
 namespace controller;
 
-use plugins\auth\AnywhereAuthenticator;
-use plugins\controller\AnywhereView;
-use pukoframework\auth\Session;
+use Exception;
+use Parsedown;
+use pukoframework\Framework;
+use pukoframework\middleware\View;
 
 /**
  * Class guide
@@ -28,22 +29,50 @@ use pukoframework\auth\Session;
  * #Master master.html
  * #Value PageTitle Guide
  */
-class guide extends AnywhereView
+class guide extends View
 {
 
     /**
      * #Value PageTitle Manual
-     * @throws \Exception
+     * @throws Exception
      */
     public function main()
     {
-        if (Session::Is()) {
-            $data['IsSessionBlock'] = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
-        } else {
-            $data['IsLoginBlock'] = array(
-                'login' => false
-            );
+        $pdf = sprintf("%s/assets/tutorial/pdf.md", Framework::$factory->getRoot());
+        if (!file_exists($pdf)) {
+            die("pdf.md file not found!");
         }
+        $file_pdf = file_get_contents($pdf);
+        $data['pdf'] = Parsedown::instance()->text($file_pdf);
+
+        $image = sprintf("%s/assets/tutorial/image.md", Framework::$factory->getRoot());
+        if (!file_exists($image)) {
+            die("image.md file not found!");
+        }
+        $file_image = file_get_contents($image);
+        $data['image'] = Parsedown::instance()->text($file_image);
+
+        $mail = sprintf("%s/assets/tutorial/mail.md", Framework::$factory->getRoot());
+        if (!file_exists($mail)) {
+            die("mail.md file not found!");
+        }
+        $file_mail = file_get_contents($mail);
+        $data['mail'] = Parsedown::instance()->text($file_mail);
+
+        $excel = sprintf("%s/assets/tutorial/excel.md", Framework::$factory->getRoot());
+        if (!file_exists($excel)) {
+            die("excel.md file not found!");
+        }
+        $file_excel = file_get_contents($excel);
+        $data['excel'] = Parsedown::instance()->text($file_excel);
+
+        $self_sign = sprintf("%s/assets/tutorial/self-sign.md", Framework::$factory->getRoot());
+        if (!file_exists($self_sign)) {
+            die("self-sign.md file not found!");
+        }
+        $file_self_sign = file_get_contents($self_sign);
+        $data['self-sign'] = Parsedown::instance()->text($file_self_sign);
+
         return $data;
     }
 

@@ -1,9 +1,14 @@
 <?php
 
+use Dotenv\Dotenv;
 use pukoframework\Framework;
 use pukoframework\config\Factory;
 
 require 'vendor/autoload.php';
+
+//spin up environment variables
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
 
 $protocol = 'http';
 if (isset($_SERVER['HTTPS'])) {
@@ -28,7 +33,7 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, Cache-Con
 
 $factory = array(
     'cli_param' => null,
-    'environment' => $_SERVER['MAINTENANCE'],
+    'environment' => $_SERVER['ENVIRONMENT'],
     'base' => ($protocol . "://" . $_SERVER['HTTP_HOST'] . "/"),
     'root' => __DIR__,
     'start' => microtime(true)

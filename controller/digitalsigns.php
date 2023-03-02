@@ -3,8 +3,8 @@
 namespace controller;
 
 use Exception;
-use model\DigitalSignModel;
-use model\DigitalSignUserModel;
+use model\primary\digital_sign_usersContracts;
+use model\primary\digital_signsContracts;
 use pukoframework\middleware\View;
 
 /**
@@ -14,36 +14,55 @@ use pukoframework\middleware\View;
 class digitalsigns extends View
 {
 
-    public function users()
+    /**
+     * @return array
+     * #Value PageTitle Digital sign user
+     */
+    public function users($id_digitalsign_users = '')
     {
+        $data['id_digitalsign_users'] = $id_digitalsign_users;
+        $data['api_key'] = digital_sign_usersContracts::GetApiKeyById($id_digitalsign_users);
+
+        return $data;
+    }
+
+    /**
+     * @return array
+     * #Value PageTitle Digital sign user
+     */
+    public function timeline($id_digitalsign_users = '')
+    {
+        $data['id_digitalsign_users'] = $id_digitalsign_users;
+        $data['api_key'] = digital_sign_usersContracts::GetApiKeyById($id_digitalsign_users);
+
+        return $data;
     }
 
     /**
      * @param string $hash
-     * @return array
      * @throws Exception
-     * #Value title Signing Verification
+     * #Value PageTitle Signing Verification
      * #Template master false
      */
-    public function verify($hash = '')
+    public function verify(string $hash = '')
     {
-        $signing = DigitalSignModel::SearchData([
-            'digitalsignhash' => $hash
+        $signing = digital_signsContracts::SearchData([
+            'digital_sign_hash' => $hash
         ]);
         if (sizeof($signing) === 0) {
             header('Content-Type: text');
-            die("INVALID DIGITAL SIGNATURE!\nPlease contact the document publisher to confirm that you obtain the original file sealed with valid Digital Signing.");
+            die($this->say('INVALID_DIGITAL_SIGNATURE'));
         }
 
         $data = [];
         foreach ($signing as $item) {
             $data['Signing'] = [
                 'Created' => $item['created'],
-                'DocumentName' => $item['documentname'],
+                'DocumentName' => $item['document_name'],
                 'Location' => $item['location'],
                 'Reason' => $item['reason']
             ];
-            $users = DigitalSignUserModel::SearchData([
+            $users = digital_sign_usersContracts::SearchData([
                 'email' => $item['email']
             ]);
             foreach ($users as $user) {
@@ -52,12 +71,13 @@ class digitalsigns extends View
                     'Address' => $user['address'],
                     'Phone' => $user['phone'],
                     'Email' => $user['email'],
-                    'OrgUnit' => $user['orgUnit'],
-                    'WorkUnit' => $user['workUnit'],
+                    'OrgUnit' => $user['org_unit'],
+                    'WorkUnit' => $user['work_unit'],
                     'Position' => $user['position']
                 ];
             }
         }
+
         return array_merge($data['Signing'], $data['User']);
     }
 

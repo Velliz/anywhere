@@ -1,0 +1,32 @@
+[
+  {
+    "key": "nama",
+    "display": "Nama",
+    "width": 20,
+    "column": "A"
+  },
+  {
+    "key": "umur",
+    "display": "Umur",
+    "width": 8,
+    "column": "B"
+  },
+  {
+    "key": "dob",
+    "display": "Tempat, Tanggal Lahir",
+    "width": 20,
+    "column": "C"
+  },
+  {
+    "key": "hobi",
+    "display": "Hobi",
+    "width": 25,
+    "column": "D"
+  },
+  {
+    "key": "alamat",
+    "display": "Alamat",
+    "width": 35,
+    "column": "E"
+  }
+]

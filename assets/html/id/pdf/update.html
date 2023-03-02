@@ -1,38 +1,8 @@
-<style>
-    .navbar-custom {
-        background-color:#e61919;
-        color:#ffffff;
-        border-radius:0;
-    }
+{!css(<link href="assets/styles/pdf/update.css" rel="stylesheet">)}
 
-    .navbar-custom .navbar-nav > li > a {
-        color:#fff;
-    }
+<input type="hidden" name="id" value="{!id_pdf}">
+<input type="hidden" name="api_key" value="{!api_key}">
 
-    .navbar-custom .navbar-nav > .active > a {
-        color: #ffffff;
-        background-color:transparent;
-    }
-
-    .navbar-custom .navbar-nav > li > a:hover,
-    .navbar-custom .navbar-nav > li > a:focus,
-    .navbar-custom .navbar-nav > .active > a:hover,
-    .navbar-custom .navbar-nav > .active > a:focus,
-    .navbar-custom .navbar-nav > .open >a {
-        text-decoration: none;
-        background-color: #e61919;
-    }
-
-    .navbar-custom .navbar-brand {
-        color:#eeeeee;
-    }
-    .navbar-custom .navbar-toggle {
-        background-color:#eeeeee;
-    }
-    .navbar-custom .icon-bar {
-        background-color:#e61919;
-    }
-</style>
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -51,20 +21,19 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-user"></i> @{!name}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> <span class="auth-username"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header text-center">{!name}</li>
-                        <li class="dropdown-header text-center">{!status}</li>
+                        <li class="dropdown-header text-center auth-name"></li>
+                        <li class="dropdown-header text-center auth-status"></li>
                         <hr style="margin: 8px">
-                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
+                        <li class="dropdown-header"><i class="fa fa-key"></i> <span class="auth-api_key"></span></li>
                         <hr style="margin: 8px">
                         <li><a href="{!url()}profil">Profil</a></li>
                         <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                         <hr style="margin: 8px">
-                        <li><a href="{!url()}logout">Logout</a></li>
+                        <li><a onclick="logout()" style="cursor: pointer">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -74,104 +43,73 @@
 
 <div class="design-page">
     <div class="form">
-        <form class="login-form" method="POST">
-            <!--{!pdf}-->
-            <input type="hidden" name="pdfid" value="{!PDFID}">
+        <div class="form-group">
             <input type="text" name="reportname" placeholder="report name" value="{!reportname}"/>
-
-            <center>
-                <label>
-                    <input type="text" name="paper" value="{!paper}">
-                </label>
-                <br>
-                PAPER SIZE AVAILABLE: folio, legal, letter, F4, A3, A4, A5, A6, B5, CUSTOM [padding-x, padding-y, width, height]
-            </center>
-
-            <br/>
-
-            <center>
-                <label><input type="radio" name="requesttype" value="POST" {!POST}>POST</label>
-                <label><input type="radio" name="requesttype" value="URL" {!URL}>URL</label>
-            </center>
-
-            <br/>
-
-            <center>
-                <label><input type="radio" name="orientation" value="portrait" {!portrait}>Portrait</label>
-                <label><input type="radio" name="orientation" value="landscape" {!landscape}>Landscape</label>
-            </center>
-
+        </div>
+        <div class="form-group text-center">
+            <label><input type="radio" name="paper" value="folio">Folio</label>
+            <label><input type="radio" name="paper" value="legal">Legal</label>
+            <label><input type="radio" name="paper" value="letter">Letter</label>
+            <label><input type="radio" name="paper" value="F4">F4</label>
+            <label><input type="radio" name="paper" value="A3">A3</label>
+            <label><input type="radio" name="paper" value="A4">A4</label>
+            <label><input type="radio" name="paper" value="A5">A5</label>
+            <label><input type="radio" name="paper" value="A6">A6</label>
+            <label><input type="radio" name="paper" value="B5">B5</label>
+        </div>
+        <div class="form-group text-center">
+            <label><input type="radio" name="requesttype" value="POST">POST</label>
+            <label><input type="radio" name="requesttype" value="URL">URL</label>
+        </div>
+        <div class="form-group text-center">
+            <label><input type="radio" name="orientation" value="portrait">Portrait / Tegak</label>
+            <label><input type="radio" name="orientation" value="landscape">Landscape / Mendatar</label>
+        </div>
+        <div class="form-group">
             <input type="text" name="requesturl" placeholder="url data source here" value="{!requesturl}"/>
+        </div>
+        <div class="form-group text-center">
+            <label><input type="radio" name="outputmode" value="Inline">Buka di Browser</label>
+            <label><input type="radio" name="outputmode" value="Download">Download Berkas</label>
+        </div>
+        <hr style="border: dashed 1px #0067AC;"/>
+        <div class="form-group">
+            <label for="cssexternal">Tambah .css dari Content Delivery Network (CDN)</label>
+            <textarea style="width: 100%;" id="cssexternal" name="cssexternal" rows="8"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="requestsample">Sample data .json</label>
+            <textarea style="width: 100%;" id="requestsample" name="requestsample" rows="8"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="phpscript">Custom Code PHP</label>
+            <textarea style="width: 100%;" id="phpscript" name="phpscript" rows="8"></textarea>
+        </div>
 
-            <br>
-            <center>
-                <label><input type="radio" name="outputmode" value="Inline" {!Inline}>Open in Browser</label>
-                <label><input type="radio" name="outputmode" value="Download" {!Download}>Download File</label>
-            </center>
-            <br>
-            <b>Add CSS from CDN</b>
-            <textarea style="resize: none; width: 100%;" id="cssexternal" name="cssexternal" rows="8">{!cssexternal}</textarea>
-            <br>
-            <b>.json data sample</b>
-            <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8">{!requestsample}</textarea>
-            <br><br>
-            <b>Custom PHP script</b>
-            <textarea style="resize: none; width: 100%;" id="phpscript" name="phpscript" rows="8">{!phpscript}</textarea>
-            <br>
-            <br>
-            <p id="apiurl">API URL <a target="_blank" href="{!url()}pdf/render/{!apikey}/{!PDFID}">{!url()}pdf/render/{!apikey}/{!PDFID}</a></p>
+        <div class="form-group">
+            <a href="{!url()}pdf/html/{!id_pdf}" class="btn btn-dark">Open .html designer</a>
+            <a href="{!url()}pdf/style/{!id_pdf}" class="btn btn-dark">Open .css designer</a>
+        </div>
 
-            <a href="{!url()}pdf/html/{!PDFID}" class="btn btn-dark">.html designer</a>
-            <a href="{!url()}pdf/style/{!PDFID}" class="btn btn-dark">.css designer</a>
+        <div class="alert alert-info text-center">
+            <p><b>API URL</b></p>
+            <p><a target="_blank" href="{!url()}pdf/render/{!api_key}/{!id_pdf}">{!url()}pdf/render/{!api_key}/{!id_pdf}</a></p>
+        </div>
 
-            <br>
-            <br>
-            <button name="submit" type="submit">save configuration</button>
-            <!--{/pdf}-->
-        </form>
+        <button name="submit" type="submit">Simpan Konfigurasi</button>
     </div>
 </div>
 
-<script src="{!url()}assets/global/js/jquery.js"></script>
-<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
-<script>
-    var editor = CodeMirror.fromTextArea(document.getElementById("requestsample"), {
-        lineNumbers: true,
-        name: "javascript",
-        mode: "javascript",
-        extraKeys: {
-            "F11": function (cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-            },
-            "Esc": function (cm) {
-                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-            }
-        }
-    });
-    var external = CodeMirror.fromTextArea(document.getElementById("cssexternal"), {
-        lineNumbers: true,
-        name: "htmlmixed",
-        mode: "htmlmixed",
-        extraKeys: {
-            "F11": function (cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-            },
-            "Esc": function (cm) {
-                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-            }
-        }
-    });
-    var phpscript = CodeMirror.fromTextArea(document.getElementById("phpscript"), {
-        lineNumbers: true,
-        name: "php",
-        mode: "text/x-php",
-        extraKeys: {
-            "F11": function (cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-            },
-            "Esc": function (cm) {
-                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-            }
-        }
-    });
-</script>
+{!js(
+<script src="assets/global/js/jquery.js"></script>
+<script src="assets/global/js/bootstrap.min.js"></script>
+<script src="assets/script/utility.js"></script>
+<script src="assets/script/master.js"></script>
+
+<script src="assets/vendor/pnotify/dist/pnotify.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.buttons.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.nonblock.js"></script>
+)}
+
+{!js(<script src="assets/script/auth.js"></script>)}
+{!js(<script src="assets/script/pdf/update.js"></script>)}

@@ -1,38 +1,8 @@
-<style>
-    .navbar-custom {
-        background-color:#229922;
-        color:#ffffff;
-        border-radius:0;
-    }
+{!css(<link href="assets/styles/excel/update.css" rel="stylesheet">)}
 
-    .navbar-custom .navbar-nav > li > a {
-        color:#fff;
-    }
+<input type="hidden" name="id" value="{!id_excel}">
+<input type="hidden" name="api_key" value="{!api_key}">
 
-    .navbar-custom .navbar-nav > .active > a {
-        color: #ffffff;
-        background-color:transparent;
-    }
-
-    .navbar-custom .navbar-nav > li > a:hover,
-    .navbar-custom .navbar-nav > li > a:focus,
-    .navbar-custom .navbar-nav > .active > a:hover,
-    .navbar-custom .navbar-nav > .active > a:focus,
-    .navbar-custom .navbar-nav > .open >a {
-        text-decoration: none;
-        background-color: #33aa33;
-    }
-
-    .navbar-custom .navbar-brand {
-        color:#eeeeee;
-    }
-    .navbar-custom .navbar-toggle {
-        background-color:#eeeeee;
-    }
-    .navbar-custom .icon-bar {
-        background-color:#33aa33;
-    }
-</style>
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -51,20 +21,19 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-user"></i> @{!name}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> <span class="auth-username"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header text-center">{!name}</li>
-                        <li class="dropdown-header text-center">{!status}</li>
+                        <li class="dropdown-header text-center auth-name"></li>
+                        <li class="dropdown-header text-center auth-status"></li>
                         <hr style="margin: 8px">
-                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
+                        <li class="dropdown-header"><i class="fa fa-key"></i> <span class="auth-api_key"></span></li>
                         <hr style="margin: 8px">
                         <li><a href="{!url()}profil">Profil</a></li>
                         <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                         <hr style="margin: 8px">
-                        <li><a href="{!url()}logout">Logout</a></li>
+                        <li><a onclick="logout()" style="cursor: pointer">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -74,58 +43,48 @@
 
 <div class="design-page">
     <div class="form">
-        <form class="login-form" method="POST">
-            <!--{!excel}-->
-            <input type="hidden" name="excelid" value="{!EXCELID}">
+        <div class="form-group">
             <input type="text" name="excelname" placeholder="excel name" value="{!excelname}"/>
+        </div>
+        <div class="form-group text-center">
+            <label><input type="radio" name="requesttype" value="POST">POST</label>
+            <label><input type="radio" name="requesttype" value="URL">URL</label>
+        </div>
 
-            <center>
-                <label><input type="radio" name="requesttype" value="POST" {!POST}>POST</label>
-                <label><input type="radio" name="requesttype" value="URL" {!URL}>URL</label>
-            </center>
-            <br>
-            <b>JSON Column Specs</b>
+        <hr style="border: dashed 1px #0067AC;"/>
+
+        <div class="form-group">
+            <label for="columnspecs">JSON column specs</label>
             <textarea style="resize: none; width: 100%;" id="columnspecs" name="columnspecs" rows="8">{!columnspecs}</textarea>
-            <br>
-            <b>JSON Data Specs</b>
+        </div>
+        <div class="form-group">
+            <label for="dataspecs">JSON data specs</label>
             <textarea style="resize: none; width: 100%;" id="dataspecs" name="dataspecs" rows="8">{!dataspecs}</textarea>
-            <br>
-            <p id="apiurl">API URL <a target="_blank" href="{!url()}excel/render/{!apikey}/{!EXCELID}">{!url()}excel/render/{!apikey}/{!EXCELID}</a></p>
-            <a target="_blank" href="{!url()}excel/coderender/{!apikey}/{!EXCELID}" class="btn btn-success"><i class="fa fa-eye"></i> <span style="margin-left: 5px">PREVIEW EXCEL</span></a>
-            <br><br>
-            <button name="submit" type="submit">save configuration</button>
-            <!--{/excel}-->
-        </form>
+        </div>
+
+        <div class="form-group">
+            <a href="{!url()}excel/coderender/{!api_key}/{!id_excel}" class="btn btn-success">Download .xlsx example</a>
+        </div>
+
+        <div class="alert alert-info text-center">
+            <p><b>API URL</b></p>
+            <p><a target="_blank" href="{!url()}excel/render/{!api_key}/{!id_excel}">{!url()}excel/render/{!api_key}/{!id_excel}</a></p>
+        </div>
+
+        <button name="submit" type="submit">Save configuration</button>
     </div>
 </div>
 
-<script src="{!url()}assets/global/js/jquery.js"></script>
-<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
-<script>
-    var columnspecs = CodeMirror.fromTextArea(document.getElementById("columnspecs"), {
-        lineNumbers: true,
-        name: "javascript",
-        mode: "javascript",
-        extraKeys: {
-            "F11": function (cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-            },
-            "Esc": function (cm) {
-                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-            }
-        }
-    });
-    var dataspecs = CodeMirror.fromTextArea(document.getElementById("dataspecs"), {
-        lineNumbers: true,
-        name: "javascript",
-        mode: "javascript",
-        extraKeys: {
-            "F11": function (cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-            },
-            "Esc": function (cm) {
-                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-            }
-        }
-    });
-</script>
+{!js(
+<script src="assets/global/js/jquery.js"></script>
+<script src="assets/global/js/bootstrap.min.js"></script>
+<script src="assets/script/utility.js"></script>
+<script src="assets/script/master.js"></script>
+
+<script src="assets/vendor/pnotify/dist/pnotify.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.buttons.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.nonblock.js"></script>
+)}
+
+{!js(<script src="assets/script/auth.js"></script>)}
+{!js(<script src="assets/script/excel/update.js"></script>)}

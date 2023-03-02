@@ -18,7 +18,7 @@
 
 namespace controller;
 
-use plugins\controller\AnywhereView;
+use pukoframework\middleware\View;
 
 /**
  * Class testimonial
@@ -26,12 +26,11 @@ use plugins\controller\AnywhereView;
  * #Master master.html
  * #Value PageTitle Testimoni
  */
-class testimonial extends AnywhereView
+class testimonial extends View
 {
 
     public function main()
     {
-        //coming soon
     }
 
 }

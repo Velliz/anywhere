@@ -1,3 +1,8 @@
+{!css(<link href="assets/styles/mail/css.css" rel="stylesheet">)}
+
+<input type="hidden" name="id" value="{!id_mail}">
+<input type="hidden" name="api_key" value="{!api_key}">
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -11,37 +16,29 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <!--{!mail}-->
-                <li><a data-toggle="tooltip" title="Back" href="{!url()}mail/update/{!MAILID}"><i class="fa fa-arrow-left"></i></a></li>
-                <!--{/mail}-->
-
-                <li><a data-toggle="tooltip" title="Save and Reload" name="save-btn"><i class="fa fa-save"></i> <span style="margin-left: 5px">SIMPAN</span></a></li>
-
-                <!--{!designer}-->
-                <li><a data-toggle="tooltip" title="Switch To HTML Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}mail/html/{!ID}"><i class="fa fa-refresh"></i> <span style="margin-left: 5px">TUKAR KE HTML</span></a></li>
-                <!--{/designer}-->
-
-                <!--{!style}-->
-                <li><a data-toggle="tooltip" title="Switch To CSS Editor" onclick="return confirm('Are you sure? Changes will not saved!')" href="{!url()}mail/style/{!ID}"><i class="fa fa-refresh"></i> <span style="margin-left: 5px">TUKAR KE CSS</span></a></li>
-                <!--{/style}-->
+                <li>
+                    <a data-toggle="tooltip" title="CSS Editor" href="{!url()}mail/html/{!id_mail}">
+                        <i class="fa fa-refresh"></i>
+                        <span style="margin-left: 5px">TUKAR KE HTML</span>
+                    </a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <i class="fa fa-user"></i> @{!name}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> <span class="auth-username"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header text-center">{!name}</li>
-                        <li class="dropdown-header text-center">{!status}</li>
+                        <li class="dropdown-header text-center auth-name"></li>
+                        <li class="dropdown-header text-center auth-status"></li>
                         <hr style="margin: 8px">
-                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
+                        <li class="dropdown-header"><i class="fa fa-key"></i> <span class="auth-api_key"></span></li>
                         <hr style="margin: 8px">
                         <li><a href="{!url()}profil">Profil</a></li>
                         <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
                         <hr style="margin: 8px">
-                        <li><a href="{!url()}logout">Logout</a></li>
+                        <li><a onclick="logout()" style="cursor: pointer">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -52,42 +49,25 @@
 <section class="editor-view full-height">
     <div class="container-fluid full-height">
         <div class="row full-height">
-            <div class="col-lg-6 nopadding" style="height: 100%;">
-                <form class="full-height" name="save" id="save" action="" method="post">
-                    <textarea id="code" name="code">{!css}</textarea>
-                </form>
+            <div class="col-lg-6 nopadding full-height">
+                <textarea id="code" name="code"></textarea>
             </div>
-            <div class="col-lg-6" style="height: 100%;">
-                <!--{!mail}-->
-                <iframe id="iframe" src="{!url()}mail/coderender/{!apikey}/{!MAILID}" frameborder="0" style="overflow:hidden;height:99%;width:100%"></iframe>
-                <!--{/mail}-->
+            <div class="col-lg-6 iframe full-height no-padding no-margin">
             </div>
         </div>
     </div>
 </section>
 
-<script src="{!url()}assets/global/js/jquery.js"></script>
-<script src="{!url()}assets/global/js/bootstrap.min.js"></script>
+{!js(
+<script src="assets/global/js/jquery.js"></script>
+<script src="assets/global/js/bootstrap.min.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.buttons.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.nonblock.js"></script>
 
-<script type="text/javascript">
-    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-        lineNumbers: true,
-        theme: "night",
-        extraKeys: {
-            "F11": function (cm) {
-                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-            },
-            "Esc": function (cm) {
-                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-            }
-        }
-    });
+<script src="assets/script/utility.js"></script>
+<script src="assets/script/master.js"></script>
+)}
 
-    $(document).ready(function () {
-        $('a[name=save-btn]').on('click', function () {
-            $('form[name=save]').submit();
-        });
-    });
-</script>
-
-</body>
+{!js(<script src="assets/script/auth.js"></script>)}
+{!js(<script src="assets/script/mail/css.js"></script>)}

@@ -18,6 +18,10 @@
           rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
           rel="stylesheet" type="text/css">
+
+    <link href="assets/vendor/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="assets/vendor/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="assets/vendor/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
 </head>
 
 <body>
@@ -33,54 +37,104 @@
         </div>
 
         <div class="navbar-collapse collapse" id="navbar">
-            <!--{!!IsLoginBlock}-->
-            <ul class="nav navbar-nav">
-                <li><a href="{!url()}">Anywhere</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{!url()}login">Login</a></li>
-                <li><a href="{!url()}register">Register</a></li>
-            </ul>
-            <!--{/IsLoginBlock}-->
+            <div class="guest-menu" style="display: none;">
+                <ul class="nav navbar-nav">
+                    <li><a href="{!url()}">Anywhere</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{!url()}login">Login</a></li>
+                    <li><a href="{!url()}register">Register</a></li>
+                </ul>
+            </div>
 
-            <!--{!!IsSessionBlock}-->
-            <ul class="nav navbar-nav">
-                <li class="selected">
-                    <a href="{!url()}beranda">
-                        Dashboard Console
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user"></i> @{!name}
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header text-center">{!name}</li>
-                        <li class="dropdown-header text-center">{!status}</li>
-                        <hr style="margin: 8px">
-                        <li class="dropdown-header"><i class="fa fa-key"></i> {!apikey}</li>
-                        <hr style="margin: 8px">
-                        <li><a href="{!url()}profil">Profil</a></li>
-                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
-                        <hr style="margin: 8px">
-                        <li><a href="{!url()}logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <!--{/IsSessionBlock}-->
+            <div class="auth-menu" style="display: none;">
+                <ul class="nav navbar-nav">
+                    <li class="selected">
+                        <a href="{!url()}beranda">
+                            Dashboard Console
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i> <span class="auth-username"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header text-center auth-name"></li>
+                            <li class="dropdown-header text-center auth-status"></li>
+                            <hr style="margin: 8px">
+                            <li class="dropdown-header"><i class="fa fa-key"></i> <span class="auth-api_key"></span></li>
+                            <hr style="margin: 8px">
+                            <li><a href="{!url()}profil">Profil</a></li>
+                            <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
+                            <hr style="margin: 8px">
+                            <li><a onclick="logout()" style="cursor: pointer">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
 
 {CONTENT}
 
+<div class="container">
+    <footer class="footer-bs">
+        <div class="row">
+            <div class="col-md-3 footer-brand animated fadeInLeft">
+                <h2>Anywhere</h2>
+                <p>your one-stop solution for effortless output generation in applications, with powerful tools to create professional-grade PDFs, Excel sheets, and QR codes.</p>
+                <p>© 2016 Anywhere, All rights reserved</p>
+            </div>
+            <div class="col-md-4 footer-nav animated fadeInUp">
+                <h4>Menu</h4>
+                <div class="col-md-12">
+                    <ul class="list">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contacts</a></li>
+                        <li><a href="#">Terms & Condition</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 footer-social animated fadeInDown">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">RSS</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 footer-ns animated fadeInRight">
+                <h4>Newsletter</h4>
+                <p>Get update from us!</p>
+                <p>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
+                      </span>
+                </div>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <section style="text-align:center; margin:10px auto;"><p>Designed by <a href="https://github.com/Velliz">Didit Velliz</a></p></section>
+</div>
+
 {!part(css)}
 
 <script src="assets/global/js/jquery.js"></script>
 <script src="assets/global/js/bootstrap.min.js"></script>
+<script src="assets/script/utility.js"></script>
+<script src="assets/script/master.js"></script>
 
+<script src="assets/vendor/pnotify/dist/pnotify.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.buttons.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.nonblock.js"></script>
 {!part(js)}
 
 </body>

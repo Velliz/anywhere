@@ -3,19 +3,13 @@
 namespace plugins\controller;
 
 use Exception;
-use model\ConstantaModel;
-use model\DigitalSignUserModel;
-use model\UserModel;
-use plugins\auth\AnywhereAuthenticator;
-use plugins\model\digitalsigns;
-use pukoframework\auth\Session;
+use model\primary\constantaContracts;
+use model\primary\digital_signsContracts;
+use model\primary\usersContracts;
+use plugins\model\primary\digital_signs;
 use pukoframework\Framework;
 use pukoframework\middleware\View;
 
-/**
- * #Master master.html
- * #Value title Hello World
- */
 class AnywhereView extends View
 {
 
@@ -28,28 +22,19 @@ class AnywhereView extends View
     public function __construct()
     {
         parent::__construct();
-
-        //because session class don't trigger this instance
-        session_start();
     }
 
     /**
-     * @return array|mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function BeforeInitialize()
     {
-        if (Session::Is()) {
-            $data['IsSessionBlock'] = Session::Get(AnywhereAuthenticator::Instance())->GetLoginData();
+        $request = explode('/', $_GET['request']);
+        $apikey = $request[sizeof($request) - 2];
 
-            //pre-fill the data with logged in account
-            $this->vars = ConstantaModel::GetCollection($data['IsSessionBlock']['ID']);
-        } else {
-            $data['IsLoginBlock'] = array(
-                'login' => true
-            );
-        }
-        return $data;
+        $this->vars = constantaContracts::SearchData([
+            'api_key' => $apikey,
+        ]);
     }
 
     /**
@@ -74,9 +59,9 @@ class AnywhereView extends View
             if ($data === null) {
                 return '';
             }
-            foreach ($this->vars as $key => $val) {
-                if ($val['uniquekey'] === $data) {
-                    return $val['constantaval'];
+            foreach ($this->vars as $val) {
+                if ($val['unique_key'] === $data) {
+                    return $val['constanta_val'];
                 }
             }
         }
@@ -88,44 +73,48 @@ class AnywhereView extends View
                 return '';
             }
 
-            $digitalsign = (array)json_decode($_POST['digitalsign'], true);
+            $digital_sign = (array)json_decode($_POST['digitalsign'], true);
             //scan data as identifier
-            if (!isset($digitalsign[$data])) {
+            if (!isset($digital_sign[$data])) {
                 return '';
             }
-            $digitalsign = $digitalsign[$data];
+            $digital_sign = $digital_sign[$data];
 
-            $user = UserModel::UserIdByApiKey($digitalsign['apikey']);
-            $signs = DigitalSignUserModel::SearchData([
-                'email' => $digitalsign['email']
+            $user = usersContracts::SearchData([
+                'api_key' => $digital_sign['apikey'],
+            ]);
+            if (sizeof($user) === 0) {
+                return '';
+            }
+            $signs = digital_signsContracts::SearchData([
+                'ds.email' => $digital_sign['email']
             ]);
             if (sizeof($signs) === 0) {
                 return '';
             }
             foreach ($signs as $sign) {
-                $stamps = new digitalsigns();
+                $stamps = new digital_signs();
                 $stamps->created = $this->GetServerDateTime();
-                $stamps->cuid = $user;
-                $stamps->userid = $user;
+                $stamps->cuid = $user[0]['id'];
+                $stamps->user_id = $user[0]['id'];
 
-                $stamps->digitalsignsecure = $this->GetRandomToken(4) . "=";
-                $stamps->digitalsignhash = md5($stamps->created . $stamps->digitalsignsecure);
+                $stamps->digital_sign_secure = $this->GetRandomToken(4) . "=";
+                $stamps->digital_sign_hash = md5($stamps->created . $stamps->digital_sign_secure);
                 $stamps->email = $sign['email'];
 
-                $stamps->documentname = $digitalsign['docName'];
-                $stamps->location = $digitalsign['location'];
-                $stamps->reason = $digitalsign['reason'];
+                $stamps->document_name = $digital_sign['docName'];
+                $stamps->location = $digital_sign['location'];
+                $stamps->reason = $digital_sign['reason'];
 
-                if ((int)$sign['isverified'] === 1) {
+                if ((int)$sign['is_verified'] === 1) {
                     $stamps->save();
                 }
 
-                return $sign['callbackurl'] . $stamps->digitalsignhash;
+                return $sign['callback_url'] . $stamps->digital_sign_hash;
             }
         }
 
         return '';
     }
-
 
 }
