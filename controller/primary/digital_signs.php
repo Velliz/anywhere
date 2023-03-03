@@ -4,8 +4,6 @@ namespace controller\primary;
 
 use DateTime;
 use Exception;
-use model\primary\digital_sign_usersContracts;
-use model\primary\digital_signsContracts;
 use model\primary\usersContracts;
 use plugins\UserBearerData;
 use pukoframework\middleware\Service;

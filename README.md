@@ -1,25 +1,26 @@
 ## Anywhere
 
-Anywhere is Output as-a Service (OAAS) platform to simplify your output and reduce your effort in coding. 
-Anywhere basic concept is by using HTML and CSS for layouting the output and you supply it later with JSON 
-to display data and Anywhere generating the output for you.
+Anywhere is an Output as-a Service (OAAS) platform that simplifies your output and reduces your coding effort. 
+With Anywhere, you can use HTML and CSS to design the layout of the output and then supply it with JSON data. 
+Anywhere will generate the output for you automatically.
 
 ### Features
 
-* PDF output
-* MAIL output
-* QR code output
-* Image processing output
-
-And another feature on going listed on `TODO.md` files.
+* PDF generator with Dompdf
+* Spreadsheet generator with Php-spreadsheet
+* Email via SMTP with PhpMailer
+* Digital Signing (*Self signed)
+* Images
+* QRCode
 
 ### Requirement
 
-* PHP >= 7.0
-* MariaDB
+* PHP >= 7.3
 * gnu-libiconv (extensions)
-* gd (extensions)
-* mbstring (extensions)
+* ext-fileinfo (extensions)
+* ext-gd (extensions)
+* ext-mbstring (extensions)
+* Mysql or MariaDB
 
 ### Install
 
@@ -28,13 +29,17 @@ And another feature on going listed on `TODO.md` files.
 ```bash
 git clone https://github.com/Velliz/anywhere.git
 cd anywhere
+
+composer install
+npm install
+
 php puko generate db
 php puko serve 4000
 ```
 
-> if you want installing local, don't forget to import MariaDB/MySQL database from **bootstrap/anywhere.sql**
+Don't forget to set up `config/app.php` `config/database.php` `config/encryption.php` as your local machine settings.
 
-Setup `config/app.php` `config/database.php` `config/encryption.php` as your local machine settings and open: `http://localhost:4000/`
+Then open `http://localhost:4000`
 
 * docker-compose
 
@@ -45,13 +50,12 @@ anywhere:
         - '80:80'
         - '4000:443'
     environment:
-        SECRET_KEY: <RANDOM_STRING_HERE>
+        ENCRYPTION_KEY: <RANDOM_STRING_HERE>
         HOOK: <CUSTOM_HOOKS_HERE>
+        HOOK_ACTIVE: false
         SLACK: <CUSTOM_SLACK_HOOKS>
         SLACK_ACTIVE: false
-        HOOK_ACTIVE: false
-        DB_TYPE: mysql
-        DB_HOST: 172.17.0.1
+        DB_HOST: 172.0.0.1
         DB_USER: root
         DB_PASS: root
         DB_NAME: master
@@ -59,11 +63,10 @@ anywhere:
         INSTALLED: true
         LIMITATIONS: 100
         ENVIRONMENT: PROD
+        MEMCACHED_IP: localhost
     networks:
         - services
 ```
-
-> don't forget to import MariaDB/MySQL database from **bootstrap/anywhere.sql**
 
 ### Documentation
 
@@ -76,3 +79,5 @@ Anywhere is build on top [puko framework](https://github.com/Velliz/pukoframewor
 ### Contributing
 
 If you want to join to develop this project, free to open a issue or pull request.
+
+Made with <3 from Bandung, Indonesia.
