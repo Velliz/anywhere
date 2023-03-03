@@ -135,7 +135,7 @@ class excelContracts extends excel implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, user_id, excel_name, column_specs, data_specs, request_type
+        $sql = sprintf("SELECT id, user_id, excel_name, NULL AS column_specs, NULL AS data_specs, request_type
         FROM excel
         WHERE dflag = 0 %s;", $strings);
 
