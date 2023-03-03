@@ -143,7 +143,7 @@ class imagesContracts extends images implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, user_id, image_name, placeholder_name, placeholder_file, x, y, x2, y2, w, h, request_type, request_url, request_sample, request_sample_name, request_sample_file
+        $sql = sprintf("SELECT id, user_id, image_name, placeholder_name, NULL AS placeholder_file, x, y, x2, y2, w, h, request_type, request_url, request_sample, request_sample_name, NULL AS request_sample_file
         FROM images
         WHERE dflag = 0 %s;", $strings);
 

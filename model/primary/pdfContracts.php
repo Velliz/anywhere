@@ -142,7 +142,7 @@ class pdfContracts extends pdf implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, user_id, report_name, html, css, php_script, output_mode, paper, orientation, request_type, request_url, request_sample, css_external
+        $sql = sprintf("SELECT id, user_id, report_name, NULL AS html, NULL AS css, NULL AS php_script, output_mode, paper, orientation, request_type, request_url, NULL AS request_sample, NULL AS css_external
         FROM pdf
         WHERE dflag = 0 %s;", $strings);
 

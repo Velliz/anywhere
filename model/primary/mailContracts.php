@@ -147,7 +147,7 @@ class mailContracts extends mail implements ModelContracts
             $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
         }
 
-        $sql = sprintf("SELECT id, user_id, html, css, mail_name, mail_address, mail_password, cc, bcc, reply_to, host, port, smtp_auth, smtp_secure, request_type, request_url, request_sample, css_external
+        $sql = sprintf("SELECT id, user_id, NULL AS html, NULL AS css, mail_name, mail_address, mail_password, cc, bcc, reply_to, host, port, smtp_auth, smtp_secure, request_type, request_url, NULL AS request_sample, css_external
         FROM mail
         WHERE dflag = 0 %s;", $strings);
 
