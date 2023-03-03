@@ -27,6 +27,7 @@ use Endroid\QrCode\Label\Font\NotoSans;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 use Exception;
+use pukoframework\Framework;
 use pukoframework\middleware\View;
 
 /**
@@ -69,6 +70,7 @@ class qr extends View
             ->margin(5)
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->labelText($label)
+            ->logoPath(Framework::$factory->getRoot() . '/logo100.png')
             ->labelFont(new NotoSans(14))
             ->foregroundColor(new Color(0, 102, 204))
             ->labelAlignment(new LabelAlignmentCenter())
