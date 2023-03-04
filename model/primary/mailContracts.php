@@ -63,7 +63,11 @@ class mailContracts extends mail implements ModelContracts
     {
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT COUNT(id) data FROM mail WHERE dflag = 0 %s;", $strings);
         $data = DBI::Prepare($sql)->FirstRow();
@@ -84,7 +88,11 @@ class mailContracts extends mail implements ModelContracts
     {
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT id, user_id, html, css, mail_name, mail_address, mail_password, cc, bcc, reply_to, host, port, smtp_auth, smtp_secure, request_type, request_url, request_sample, css_external
         FROM mail
@@ -99,7 +107,11 @@ class mailContracts extends mail implements ModelContracts
 
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT id, user_id, html, css, mail_name, mail_address, mail_password, cc, bcc, reply_to, host, port, smtp_auth, smtp_secure, request_type, request_url, request_sample, css_external
@@ -144,7 +156,11 @@ class mailContracts extends mail implements ModelContracts
 
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT id, user_id, NULL AS html, NULL AS css, mail_name, mail_address, mail_password, cc, bcc, reply_to, host, port, smtp_auth, smtp_secure, request_type, request_url, NULL AS request_sample, css_external

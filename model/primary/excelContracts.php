@@ -63,7 +63,11 @@ class excelContracts extends excel implements ModelContracts
     {
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT COUNT(id) data FROM excel WHERE dflag = 0 %s;", $strings);
         $data = DBI::Prepare($sql)->FirstRow();
@@ -84,7 +88,11 @@ class excelContracts extends excel implements ModelContracts
     {
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT id, user_id, excel_name, column_specs, data_specs, request_type
         FROM excel
@@ -99,7 +107,11 @@ class excelContracts extends excel implements ModelContracts
 
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT id, user_id, excel_name, column_specs, data_specs, request_type
@@ -132,7 +144,11 @@ class excelContracts extends excel implements ModelContracts
 
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT id, user_id, excel_name, NULL AS column_specs, NULL AS data_specs, request_type

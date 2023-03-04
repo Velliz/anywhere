@@ -63,7 +63,11 @@ class log_mailContracts extends log_mail implements ModelContracts
     {
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT COUNT(id) data FROM log_mail WHERE dflag = 0 %s;", $strings);
         $data = DBI::Prepare($sql)->FirstRow();
@@ -84,7 +88,11 @@ class log_mailContracts extends log_mail implements ModelContracts
     {
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT id, mail_id, user_id, sent_at, json_data, result_data, debug_info, processing_time
         FROM log_mail
@@ -99,7 +107,11 @@ class log_mailContracts extends log_mail implements ModelContracts
 
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT id, mail_id, user_id, sent_at, json_data, result_data, debug_info, processing_time
@@ -134,7 +146,11 @@ class log_mailContracts extends log_mail implements ModelContracts
 
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT id, mail_id, user_id, sent_at, json_data, result_data, debug_info, processing_time

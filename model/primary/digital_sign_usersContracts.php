@@ -63,7 +63,11 @@ class digital_sign_usersContracts extends digital_sign_users implements ModelCon
     {
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT COUNT(id) data FROM digital_sign_users WHERE dflag = 0 %s;", $strings);
         $data = DBI::Prepare($sql)->FirstRow();
@@ -84,7 +88,11 @@ class digital_sign_usersContracts extends digital_sign_users implements ModelCon
     {
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT id, user_id, name, phone, email, type, ktp, npwp, address, city, province, gender, place_of_birth, date_of_birth, org_unit, work_unit, position, is_verified, callback_url, is_speciment
         FROM digital_sign_users
@@ -99,7 +107,11 @@ class digital_sign_usersContracts extends digital_sign_users implements ModelCon
 
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT id, user_id, name, phone, email, type, ktp, npwp, address, city, province, gender, place_of_birth, date_of_birth, org_unit, work_unit, position, is_verified, callback_url, is_speciment
@@ -146,7 +158,11 @@ class digital_sign_usersContracts extends digital_sign_users implements ModelCon
 
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT id, user_id, name, phone, email, type, ktp, npwp, address, city, province, gender, place_of_birth, date_of_birth, org_unit, work_unit, position, is_verified, callback_url, is_speciment

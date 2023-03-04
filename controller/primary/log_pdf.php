@@ -167,6 +167,24 @@ class log_pdf extends Service
             $keyword['pdf_id'] = $param['pdf_id'];
         }
 
+        if (isset($param['range'])) {
+            $range = explode(' - ', $param['range']);
+            if (sizeof($range) !== 2) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+
+            $start = DateTime::createFromFormat('d/m/Y', $range[0]);
+            $end = DateTime::createFromFormat('d/m/Y', $range[1]);
+            if (!$start instanceof DateTime) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+            if (!$end instanceof DateTime) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+
+            $keyword['*'] = " AND DATE(sent_at) BETWEEN DATE('{$start->format('Y-m-d')}') AND DATE('{$end->format('Y-m-d')}') ";
+        }
+
         return \model\primary\log_pdfContracts::SearchDataPagination($keyword);
     }
 
@@ -185,6 +203,23 @@ class log_pdf extends Service
         }
         if (isset($param['pdf_id'])) {
             $keyword['pdf_id'] = $param['pdf_id'];
+        }
+        if (isset($param['range'])) {
+            $range = explode(' - ', $param['range']);
+            if (sizeof($range) !== 2) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+
+            $start = DateTime::createFromFormat('d/m/Y', $range[0]);
+            $end = DateTime::createFromFormat('d/m/Y', $range[1]);
+            if (!$start instanceof DateTime) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+            if (!$end instanceof DateTime) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+
+            $keyword['*'] = " AND DATE(sent_at) BETWEEN DATE('{$start->format('Y-m-d')}') AND DATE('{$end->format('Y-m-d')}') ";
         }
 
         $data['log_pdf'] = \model\primary\log_pdfContracts::SearchData($keyword);

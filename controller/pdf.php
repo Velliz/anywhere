@@ -284,23 +284,23 @@ class pdf extends AnywhereView
         $pdfRender = pdfContracts::GetPdfRender($api_key, $pdfId);
         $logData = log_pdfContracts::GetById($logID);
 
-        $this->outputmode = $pdfRender['outputmode'];
+        $this->outputmode = $pdfRender['output_mode'];
         $this->paper = $pdfRender['paper'];
         $this->orientation = $pdfRender['orientation'];
         $this->html = $pdfRender['html'];
         $this->css = $pdfRender['css'];
-        $this->reportname = $pdfRender['reportname'];
-        $this->requesttype = $pdfRender['requesttype'];
-        $this->requestsample = $pdfRender['requestsample'];
-        $this->cssexternal = $pdfRender['cssexternal'];
-        $this->requesturl = $pdfRender['requesturl'];
+        $this->reportname = $pdfRender['report_name'];
+        $this->requesttype = $pdfRender['request_type'];
+        $this->requestsample = $pdfRender['request_sample'];
+        $this->cssexternal = $pdfRender['css_external'];
+        $this->requesturl = $pdfRender['request_url'];
 
-        $script = $pdfRender['phpscript'];
+        $script = $pdfRender['php_script'];
         $php_script = $this->php_head . $script . $this->php_tail;
 
         $htmlFactory = $this->head . $this->css . $this->middle . $php_script . $this->cssexternal . $this->html . $this->tail;
 
-        $coreData = (array)json_decode($logData['jsondata'], true);
+        $coreData = (array)json_decode($logData['json_data'], true);
 
         $response = new Response();
         $response->useMasterLayout = false;
