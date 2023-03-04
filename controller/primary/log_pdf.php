@@ -163,6 +163,9 @@ class log_pdf extends Service
         if (isset($param['user_id'])) {
             $keyword['user_id'] = $param['user_id'];
         }
+        if (isset($param['pdf_id'])) {
+            $keyword['pdf_id'] = $param['pdf_id'];
+        }
 
         return \model\primary\log_pdfContracts::SearchDataPagination($keyword);
     }
@@ -180,6 +183,9 @@ class log_pdf extends Service
         if (isset($param['user_id'])) {
             $keyword['user_id'] = $param['user_id'];
         }
+        if (isset($param['pdf_id'])) {
+            $keyword['pdf_id'] = $param['pdf_id'];
+        }
 
         $data['log_pdf'] = \model\primary\log_pdfContracts::SearchData($keyword);
         return $data;
@@ -195,6 +201,11 @@ class log_pdf extends Service
 
         //post addition filter here
         $keyword['user_id'] = $this->user['id'];
+
+        $pdf_id = Request::Post('pdf_id', '');
+        if ($pdf_id !== '') {
+            $keyword['pdf_id'] = $pdf_id;
+        }
 
         return \model\primary\log_pdfContracts::GetDataTable($keyword);
     }

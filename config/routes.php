@@ -531,6 +531,104 @@
                 "POST"
             ]
         ],
+        "log_excel/create" => [
+            "controller" => "primary\\log_excel",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_excel/explore" => [
+            "controller" => "primary\\log_excel",
+            "function" => "explore",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_excel/search" => [
+            "controller" => "primary\\log_excel",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_excel/table" => [
+            "controller" => "primary\\log_excel",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_excel/{?}" => [
+            "controller" => "primary\\log_excel",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "log_excel/{?}/delete" => [
+            "controller" => "primary\\log_excel",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "log_excel/{?}/update" => [
+            "controller" => "primary\\log_excel",
+            "function" => "update",
+            "accept" => [
+                "PUT"
+            ]
+        ],
+        "log_images/create" => [
+            "controller" => "primary\\log_images",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_images/explore" => [
+            "controller" => "primary\\log_images",
+            "function" => "explore",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_images/search" => [
+            "controller" => "primary\\log_images",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_images/table" => [
+            "controller" => "primary\\log_images",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_images/{?}" => [
+            "controller" => "primary\\log_images",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "log_images/{?}/delete" => [
+            "controller" => "primary\\log_images",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "log_images/{?}/update" => [
+            "controller" => "primary\\log_images",
+            "function" => "update",
+            "accept" => [
+                "PUT"
+            ]
+        ],
         "log_mail/create" => [
             "controller" => "primary\\log_mail",
             "function" => "create",

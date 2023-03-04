@@ -173,6 +173,9 @@ class log_mail extends Service
         if (isset($param['user_id'])) {
             $keyword['user_id'] = $param['user_id'];
         }
+        if (isset($param['mail_id'])) {
+            $keyword['mail_id'] = $param['mail_id'];
+        }
 
         return \model\primary\log_mailContracts::SearchDataPagination($keyword);
     }
@@ -190,6 +193,9 @@ class log_mail extends Service
         if (isset($param['user_id'])) {
             $keyword['user_id'] = $param['user_id'];
         }
+        if (isset($param['mail_id'])) {
+            $keyword['mail_id'] = $param['mail_id'];
+        }
 
         $data['log_mail'] = \model\primary\log_mailContracts::SearchData($keyword);
         return $data;
@@ -205,6 +211,11 @@ class log_mail extends Service
 
         //post addition filter here
         $keyword['user_id'] = $this->user['id'];
+
+        $mail_id = Request::Post('mail_id', '');
+        if ($mail_id !== '') {
+            $keyword['mail_id'] = $mail_id;
+        }
 
         return \model\primary\log_mailContracts::GetDataTable($keyword);
     }
