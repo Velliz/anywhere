@@ -1,5 +1,5 @@
 ALTER TABLE constanta
-    CHANGE COLUMN constID id int(11),
+    CHANGE COLUMN constID id int(11) AUTO_INCREMENT,
     CHANGE COLUMN userID user_id int(11),
     CHANGE COLUMN uniquekey unique_key varchar(250),
     CHANGE COLUMN constantaval constanta_val text,
@@ -35,7 +35,7 @@ ALTER TABLE digital_signs
     CHANGE COLUMN digitalsignsecure digital_sign_secure varchar(8);
 
 ALTER TABLE excel
-    CHANGE COLUMN EXCELID id int(11),
+    CHANGE COLUMN EXCELID id int(11) AUTO_INCREMENT,
     CHANGE COLUMN userID user_id varchar(250),
     CHANGE COLUMN excelname excel_name varchar(255),
     CHANGE COLUMN columnspecs column_specs text,
@@ -48,7 +48,7 @@ ALTER TABLE excel
     ADD COLUMN dflag    tinyint(1) not null default 0;
 
 ALTER TABLE feedback
-    CHANGE COLUMN feedbackID id int(11),
+    CHANGE COLUMN feedbackID id int(11) AUTO_INCREMENT,
     CHANGE COLUMN userID user_id int(11),
     CHANGE COLUMN isapproved is_approved tinyint(1),
     CHANGE COLUMN approveddate approved_date datetime,
@@ -59,7 +59,7 @@ ALTER TABLE feedback
     ADD COLUMN dflag    tinyint(1) not null default 0;
 
 ALTER TABLE images
-    CHANGE COLUMN IMAGEID id int(11),
+    CHANGE COLUMN IMAGEID id int(11) AUTO_INCREMENT,
     CHANGE COLUMN userID user_id int(11),
     CHANGE COLUMN imagename image_name varchar(180),
     CHANGE COLUMN placeholdername placeholder_name varchar(180),
@@ -79,7 +79,7 @@ RENAME
     TABLE languageindices TO language_indices;
 
 ALTER TABLE language_indices
-    CHANGE COLUMN LANGID id int(11),
+    CHANGE COLUMN LANGID id int(11) AUTO_INCREMENT,
     CHANGE COLUMN userID user_id int(11),
     CHANGE COLUMN appname app_name varchar(180),
     ADD COLUMN created  datetime   not null,
@@ -92,7 +92,7 @@ RENAME
     TABLE logmail TO log_mail;
 
 ALTER TABLE log_mail
-    CHANGE COLUMN logid id int(11),
+    CHANGE COLUMN logid id int(11) AUTO_INCREMENT,
     CHANGE COLUMN MAILID mail_id int(11),
     CHANGE COLUMN userid user_id int(11),
     CHANGE COLUMN sentat sent_at timestamp,
@@ -110,7 +110,7 @@ RENAME
     TABLE logpdf TO log_pdf;
 
 ALTER TABLE log_pdf
-    CHANGE COLUMN logid id int(11),
+    CHANGE COLUMN logid id int(11) AUTO_INCREMENT,
     CHANGE COLUMN PDFID pdf_id int(11),
     CHANGE COLUMN userid user_id int(11),
     CHANGE COLUMN sentat sent_at timestamp,
@@ -124,7 +124,7 @@ ALTER TABLE log_pdf
     ADD COLUMN dflag tinyint(1) not null default 0;
 
 ALTER TABLE mail
-    CHANGE COLUMN MAILID id int(11),
+    CHANGE COLUMN MAILID id int(11) AUTO_INCREMENT,
     CHANGE COLUMN userid user_id int(11),
     CHANGE COLUMN mailname mail_name varchar(255),
     CHANGE COLUMN mailaddress mail_address varchar(255),
@@ -143,7 +143,7 @@ ALTER TABLE mail
     ADD COLUMN dflag tinyint(1) not null default 0;
 
 ALTER TABLE pdf
-    CHANGE COLUMN PDFID id int(11),
+    CHANGE COLUMN PDFID id int(11) AUTO_INCREMENT,
     CHANGE COLUMN userID user_id int(11),
     CHANGE COLUMN reportname report_name varchar(255),
     CHANGE COLUMN phpscript php_script longblob,
@@ -159,7 +159,7 @@ ALTER TABLE pdf
     ADD COLUMN dflag tinyint(1) not null default 0;
 
 ALTER TABLE status
-    CHANGE COLUMN ID id int(11),
+    CHANGE COLUMN ID id int(11) AUTO_INCREMENT,
     ADD COLUMN created datetime not null,
     ADD COLUMN modified timestamp not null,
     ADD COLUMN cuid int (11) not null default 0,
@@ -168,7 +168,7 @@ ALTER TABLE status
     ADD COLUMN description varchar(255) not null;
 
 ALTER TABLE testimonial
-    CHANGE COLUMN testimonialID id int(11),
+    CHANGE COLUMN testimonialID id int(11) AUTO_INCREMENT,
     CHANGE COLUMN userID user_id int(11),
     CHANGE COLUMN isvalid is_valid tinyint(1),
     CHANGE COLUMN validationdate validation_date datetime,
@@ -178,7 +178,7 @@ ALTER TABLE testimonial
     ADD COLUMN dflag tinyint(1) not null default 0;
 
 ALTER TABLE users
-    CHANGE COLUMN ID id int(11),
+    CHANGE COLUMN ID id int(11) AUTO_INCREMENT,
     CHANGE COLUMN statusID status_id int(11),
     CHANGE COLUMN apikey api_key varchar(255),
     ADD COLUMN created datetime not null,
