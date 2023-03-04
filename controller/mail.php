@@ -327,6 +327,11 @@ TAIL;
         exit();
     }
 
+    public function timelinerender($logID, $api_key, $mailId)
+    {
+
+    }
+
     /**
      * Strips extra whitespace, breaklines.
      *
@@ -342,6 +347,19 @@ TAIL;
 
         return preg_replace('/\s{2,}/u', "\n\r", $str);
     }
-    public function timeline($id2 = '') {}
+
+    /**
+     * @param $id_mail
+     * @return array
+     * @throws Exception
+     * #Master master-codes.html
+     */
+    public function timeline($id_mail = '')
+    {
+        $data['id_mail'] = $id_mail;
+        $data['api_key'] = mailContracts::GetApiKeyById($id_mail);
+
+        return $data;
+    }
 
 }

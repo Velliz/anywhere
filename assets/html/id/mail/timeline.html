@@ -1,9 +1,86 @@
-{!css(<!-- place your custom CSS file here -->)}
-<div style="margin:10px;">
-    <p>Blank pages is proof that your routes looks right.</p>
-    <p>Happy designing :)</p>
+{!css(<link href="assets/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">)}
+{!css(<link href="assets/styles/mail/timeline.css" rel="stylesheet">)}
+
+<input type="hidden" name="id" value="{!id_mail}">
+<input type="hidden" name="api_key" value="{!api_key}">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                    class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a data-toggle="tooltip" title="Back" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> <span class="auth-username"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header text-center auth-name"></li>
+                        <li class="dropdown-header text-center auth-status"></li>
+                        <hr style="margin: 8px">
+                        <li class="dropdown-header"><i class="fa fa-key"></i> <span class="auth-api_key"></span></li>
+                        <hr style="margin: 8px">
+                        <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
+                        <hr style="margin: 8px">
+                        <li><a onclick="logout()" style="cursor: pointer">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="design-page">
+    <div class="form">
+        <h4><b>Timeline Mail Template</b></h4>
+        <div class="form-group">
+            <label for="dates"></label>
+            <input id="dates" type="text" name="dates" placeholder="pick date" value="{!dates}"/>
+        </div>
+
+        <div class="timeline-view"></div>
+    </div>
 </div>
+
+<div class="hidden timeline-card">
+    <div class="padding-10 fa-border">
+        <dl>
+            <dt>Sequence</dt>
+            <dd class="timeline-sequence"></dd>
+            <dt>Generated at</dt>
+            <dd class="timeline-sent_at"></dd>
+            <dt>Processing time</dt>
+            <dd class="timeline-processing_time"></dd>
+            <dt>Preview</dt>
+            <dd class="timeline-preview"></dd>
+        </dl>
+    </div>
+</div>
+
 {!js(
-<script src="assets/script/mail/timeline.js"></script>
-<!-- place your custom JavaScript file here -->
+<script src="assets/global/js/jquery.js"></script>
+<script src="assets/global/js/bootstrap.min.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.buttons.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.nonblock.js"></script>
+<script src="assets/vendor/bootstrap-daterangepicker/moment.min.js"></script>
+<script src="assets/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<script src="assets/script/utility.js"></script>
+<script src="assets/script/master.js"></script>
 )}
+
+{!js(<script src="assets/script/auth.js"></script>)}
+{!js(<script src="assets/script/mail/timeline.js"></script>)}

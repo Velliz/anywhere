@@ -816,6 +816,14 @@
                 "GET"
             ]
         ],
+        "mail/timeline/{?}/{?}/{?}" => [
+            "controller" => "mail",
+            "function" => "timelinerender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "mail/update/{?}" => [
             "controller" => "mail",
             "function" => "update",
