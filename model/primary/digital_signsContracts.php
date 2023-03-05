@@ -159,6 +159,7 @@ class digital_signsContracts extends digital_signs implements ModelContracts
             "email", //5
             "location", //6
             "reason", //7
+            "created", //8
         ));
 
         $strings = "";

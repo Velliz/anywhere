@@ -207,6 +207,11 @@ class digital_signs extends Service
         //post addition filter here
         $keyword['ds.user_id'] = $this->user['id'];
 
+        $email = Request::Post('email', '');
+        if ($email !== '') {
+            $keyword['ds.email'] = $email;
+        }
+
         return \model\primary\digital_signsContracts::GetDataTable($keyword);
     }
 

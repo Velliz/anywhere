@@ -5,6 +5,7 @@ namespace controller;
 use Exception;
 use model\primary\digital_sign_usersContracts;
 use model\primary\digital_signsContracts;
+use plugins\model\primary\digital_sign_users;
 use pukoframework\middleware\View;
 
 /**
@@ -20,6 +21,9 @@ class digitalsigns extends View
      */
     public function users($id_digitalsign_users = '')
     {
+        $dsu = new digital_sign_users($id_digitalsign_users);
+        $data['email'] = $dsu->email;
+
         $data['id_digitalsign_users'] = $id_digitalsign_users;
         $data['api_key'] = digital_sign_usersContracts::GetApiKeyById($id_digitalsign_users);
 
@@ -33,6 +37,9 @@ class digitalsigns extends View
      */
     public function timeline($id_digitalsign_users = '')
     {
+        $dsu = new digital_sign_users($id_digitalsign_users);
+        $data['email'] = $dsu->email;
+
         $data['id_digitalsign_users'] = $id_digitalsign_users;
         $data['api_key'] = digital_sign_usersContracts::GetApiKeyById($id_digitalsign_users);
 
