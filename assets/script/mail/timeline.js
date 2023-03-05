@@ -39,6 +39,8 @@ dates.on('apply.daterangepicker', function (ev, picker) {
                 $('.timeline-sent_at', templates).html(val.sent_at);
                 $('.timeline-processing_time', templates).html(val.processing_time);
                 $('.timeline-preview', templates).html(iframe);
+                $('.timeline-result_data', templates).html(val.result_data);
+                $('.timeline-debug_info', templates).html(val.debug_info);
 
                 $('.timeline-view').append(templates);
             });

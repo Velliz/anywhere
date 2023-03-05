@@ -19,6 +19,7 @@
 namespace controller;
 
 use Exception;
+use model\primary\log_mailContracts;
 use model\primary\mailContracts;
 use PHPMailer\PHPMailer\PHPMailer;
 use plugins\controller\AnywhereView;
@@ -329,7 +330,26 @@ TAIL;
 
     public function timelinerender($logID, $api_key, $mailId)
     {
+        $mailRender = mailContracts::GetMailRender($api_key, $mailId);
+        $logData = log_mailContracts::GetById($logID);
 
+        $this->mailName = $mailRender['mail_name'];
+        $this->mailAddress = $mailRender['mail_address'];
+
+        $this->html = $mailRender['html'];
+        $this->css = $mailRender['css'];
+
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->cssexternal . $this->html . $this->tail;
+
+        $coreData = (array)json_decode($logData['json_data'], true);
+
+        $render = new Pte(false);
+        $render->SetValue($coreData);
+        $render->SetHtml($htmlFactory, true);
+        $template = $render->Output($this, Pte::VIEW_HTML);
+
+        echo $template;
+        exit();
     }
 
     /**

@@ -18,7 +18,7 @@ class log_excelContracts extends log_excel implements ModelContracts
 
     public static function GetData()
     {
-        $sql = "SELECT id, excel_id, user_id, json_data, processing_time
+        $sql = "SELECT id, excel_id, user_id, sent_at, json_data, processing_time
         FROM log_excel
         WHERE dflag = 0";
         return DBI::Prepare($sql)->GetData();
@@ -26,7 +26,7 @@ class log_excelContracts extends log_excel implements ModelContracts
 
     public static function GetById($id)
     {
-        $sql = "SELECT id, excel_id, user_id, json_data, processing_time
+        $sql = "SELECT id, excel_id, user_id, sent_at, json_data, processing_time
         FROM log_excel
         WHERE dflag = 0 AND id = @1";
         return DBI::Prepare($sql)->FirstRow($id);
@@ -76,7 +76,7 @@ class log_excelContracts extends log_excel implements ModelContracts
 
     public static function GetLastData()
     {
-        $sql = "SELECT id, excel_id, user_id, json_data, processing_time
+        $sql = "SELECT id, excel_id, user_id, sent_at, json_data, processing_time
         FROM log_excel
         WHERE dflag = 0
         ORDER BY id DESC
@@ -94,7 +94,7 @@ class log_excelContracts extends log_excel implements ModelContracts
                 $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
             }
         }
-        $sql = sprintf("SELECT id, excel_id, user_id, json_data, processing_time
+        $sql = sprintf("SELECT id, excel_id, user_id, sent_at, json_data, processing_time
         FROM log_excel
         WHERE dflag = 0 %s;", $strings);
         return DBI::Prepare($sql)->GetData();
@@ -114,7 +114,7 @@ class log_excelContracts extends log_excel implements ModelContracts
             }
         }
 
-        $sql = sprintf("SELECT id, excel_id, user_id, json_data, processing_time
+        $sql = sprintf("SELECT id, excel_id, user_id, sent_at, json_data, processing_time
         FROM log_excel
         WHERE dflag = 0 %s;", $strings);
 
@@ -135,10 +135,11 @@ class log_excelContracts extends log_excel implements ModelContracts
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
             "id",
-"excel_id",
-"user_id",
-"json_data",
-"processing_time"
+            "excel_id",
+            "user_id",
+            "sent_at",
+            "json_data",
+            "processing_time",
         ));
 
         $strings = "";
@@ -150,7 +151,7 @@ class log_excelContracts extends log_excel implements ModelContracts
             }
         }
 
-        $sql = sprintf("SELECT id, excel_id, user_id, json_data, processing_time
+        $sql = sprintf("SELECT id, excel_id, user_id, sent_at, json_data, processing_time
         FROM log_excel
         WHERE dflag = 0 %s;", $strings);
 

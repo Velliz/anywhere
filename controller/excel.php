@@ -24,6 +24,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use plugins\controller\AnywhereView;
+use plugins\model\primary\log_excel;
 
 /**
  * Class excel
@@ -191,6 +192,18 @@ class excel extends AnywhereView
             }
         }
 
+        //save logs
+        $log_excel = new log_excel();
+        $log_excel->created = $this->GetServerDateTime();
+        $log_excel->cuid = $excelRender['user_id'];
+
+        $log_excel->excel_id = $excelId;
+        $log_excel->user_id = $excelRender['user_id'];
+        $log_excel->sent_at = $this->GetServerDateTime();
+        $log_excel->json_data = json_encode($_POST['jsondata'], true);
+        $log_excel->processing_time = 0.0;
+        $log_excel->save();
+
         $invalidCharacters = $shit->getInvalidCharacters();
         $title = str_replace($invalidCharacters, '.', $this->excelname);
         $shit->setTitle($title);
@@ -320,7 +333,14 @@ class excel extends AnywhereView
         exit();
     }
 
-
-    public function timeline($id2 = '') {}
+    /**
+     * @param $id_excel
+     * @return array
+     * @throws Exception
+     * #Master master-codes.html
+     */
+    public function timeline($id_excel = '')
+    {
+    }
 
 }

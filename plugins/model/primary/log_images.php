@@ -63,5 +63,10 @@ class log_images extends Model
      */
     var $processing_time = 0;
 
+    /**
+     * #Column sent_at timestamp not null 
+     */
+    var $sent_at = null;
+
 
 }

@@ -35,3 +35,10 @@
     margin-left: 0;
     margin-right: 0;
 }
+
+.preview-width {
+    width: 100%;
+}
+.preview-height {
+    height: 200px;
+}

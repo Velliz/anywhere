@@ -169,6 +169,11 @@ class images extends View
         exit();
     }
 
+    /**
+     * @param $id2
+     * @return void
+     * #Master master-codes.html
+     */
     public function timeline($id2 = '') {}
 
 }

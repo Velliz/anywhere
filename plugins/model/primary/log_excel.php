@@ -59,6 +59,11 @@ class log_excel extends Model
     var $user_id = 0;
 
     /**
+     * #Column sent_at timestamp not null 
+     */
+    var $sent_at = null;
+
+    /**
      * #Column json_data text not null 
      */
     var $json_data = '';
