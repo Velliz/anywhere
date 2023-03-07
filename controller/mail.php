@@ -315,7 +315,7 @@ TAIL;
         $log_mail->created = $this->GetServerDateTime();
         $log_mail->cuid = $mailRender['user_id'];
 
-        $log_mail->mail_id = $mailRender['id'];
+        $log_mail->mail_id = $mailId;
         $log_mail->user_id = $mailRender['user_id'];
         $log_mail->sent_at = $this->GetServerDateTime();
         $log_mail->json_data = json_encode($coreData, true);
