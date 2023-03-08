@@ -292,6 +292,14 @@
                 "POST"
             ]
         ],
+        "excel/timeline/{?}/{?}/{?}" => [
+            "controller" => "excel",
+            "function" => "timelinerender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "excel/update/{?}" => [
             "controller" => "excel",
             "function" => "update",
