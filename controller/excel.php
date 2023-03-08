@@ -201,7 +201,7 @@ class excel extends AnywhereView
         $log_excel->excel_id = $excelId;
         $log_excel->user_id = $excelRender['user_id'];
         $log_excel->sent_at = $this->GetServerDateTime();
-        $log_excel->json_data = json_encode($_POST['jsondata'], true);
+        $log_excel->json_data = json_encode($this->dataspecs, true);
         $log_excel->processing_time = 0.0;
         $log_excel->save();
 
