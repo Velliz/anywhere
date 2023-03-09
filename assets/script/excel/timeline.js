@@ -38,7 +38,7 @@ $(function() {
                     $('.timeline-view').append(templates);
                 });
 
-                if (log_pdf.length === 0) {
+                if (log_excel.length === 0) {
                     $('.timeline-view').append(`<p><b>No data in selected range</b></p>`);
                 }
 
