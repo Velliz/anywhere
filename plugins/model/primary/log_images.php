@@ -64,6 +64,11 @@ class log_images extends Model
     var $processing_time = 0;
 
     /**
+     * #Column result_data longblob  
+     */
+    var $result_data = null;
+
+    /**
      * #Column sent_at timestamp not null 
      */
     var $sent_at = null;

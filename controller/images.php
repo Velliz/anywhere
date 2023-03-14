@@ -20,6 +20,7 @@ namespace controller;
 
 use model\primary\imagesContracts;
 use Exception;
+use plugins\model\primary\log_images;
 use pukoframework\middleware\View;
 use pukoframework\Request;
 
@@ -116,6 +117,18 @@ class images extends View
         header('Content-Type: image/png');
         header('Content-Disposition: inline; filename="' . $imageName . '.png"');
 
+        //save logs
+        $log_excel = new log_images();
+        $log_excel->created = $this->GetServerDateTime();
+        $log_excel->cuid = $imageRender['user_id'];
+
+        $log_excel->images_id = $imageId;
+        $log_excel->user_id = $imageRender['user_id'];
+        $log_excel->sent_at = $this->GetServerDateTime();
+        $log_excel->result_data = $image;
+        $log_excel->processing_time = 0.0;
+        $log_excel->save();
+        
         echo $image;
 
         exit();
@@ -174,6 +187,8 @@ class images extends View
      * @return void
      * #Master master-codes.html
      */
-    public function timeline($id2 = '') {}
+    public function timeline($id2 = '')
+    {
+    }
 
 }

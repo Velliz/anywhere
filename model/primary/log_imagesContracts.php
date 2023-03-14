@@ -26,7 +26,7 @@ class log_imagesContracts extends log_images implements ModelContracts
 
     public static function GetById($id)
     {
-        $sql = "SELECT id, images_id, user_id, processing_time
+        $sql = "SELECT id, images_id, user_id, processing_time, result_data
         FROM log_images
         WHERE dflag = 0 AND id = @1";
         return DBI::Prepare($sql)->FirstRow($id);
@@ -134,10 +134,10 @@ class log_imagesContracts extends log_images implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-"images_id",
-"user_id",
-"processing_time"
+            "id", //0
+            "images_id", //1
+            "user_id", //2
+            "processing_time", //3
         ));
 
         $strings = "";
