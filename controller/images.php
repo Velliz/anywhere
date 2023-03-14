@@ -213,7 +213,7 @@ class images extends View
         header('Content-Type: image/png');
         header('Content-Disposition: inline; filename="' . $imageRender['image_name'] . '.png"');
 
-        echo $logData['result_data'];;
+        echo $logData['result_data'];
 
         exit();
     }
