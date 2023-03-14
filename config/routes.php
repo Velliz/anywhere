@@ -458,6 +458,14 @@
                 "POST"
             ]
         ],
+        "images/timeline/{?}/{?}/{?}" => [
+            "controller" => "images",
+            "function" => "timelinerender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "images/update/{?}" => [
             "controller" => "images",
             "function" => "update",
@@ -1237,4 +1245,5 @@
             "POST"
         ]
     ]
-]; return $routes;
+];
+return $routes;

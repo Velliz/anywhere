@@ -247,12 +247,15 @@ $(function () {
             let details = `<a title="Details" href="images/update/${data[0]}" target="_blank" class="btn btn-xs btn-primary">
                 <i class="fa fa-eye"></i> Details
             </a>`;
+            let usages = `<a title="Usage History" href="images/timeline/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+                <i class="fa fa-external-link"></i> Usage History
+            </a>`;
 
             $('td:eq(0)', row).html(`<b>${data[2]}</b>`);
             $('td:eq(1)', row).html(data[3]);
             $('td:eq(2)', row).html(data[10]);
             $('td:eq(3)', row).html(`${parseInt(data[4])}, ${parseInt(data[5])}, ${parseInt(data[6])}, ${parseInt(data[7])}, ${parseInt(data[8])}, ${parseInt(data[9])}`);
-            $('td:eq(4)', row).html(details);
+            $('td:eq(4)', row).html(details + usages);
         },
         fnDrawCallback: function () {
         },
