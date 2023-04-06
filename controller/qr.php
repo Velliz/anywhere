@@ -27,6 +27,7 @@ use Endroid\QrCode\Label\Font\NotoSans;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 use Exception;
+use PHPQRCode\QRcode;
 use pukoframework\Framework;
 use pukoframework\middleware\View;
 
@@ -55,30 +56,41 @@ class qr extends View
         }
 
         $size = 300;
-        $label = "";
+        if (isset($_GET['size'])) {
+            $size = $_GET['size'];
+        }
 
-        if (isset($_GET['size'])) $size = $_GET['size'];
-        if (isset($_GET['label'])) $label = $_GET['label'];
+        //generate with new QR lib if with labels
+        if (isset($_GET['label'])) {
+            $label = $_GET['label'];
+            $result = Builder::create()
+                ->writer(new PngWriter())
+                ->writerOptions([])
+                ->data($_GET['data'])
+                ->encoding(new Encoding('UTF-8'))
+                ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+                ->size($size)
+                ->margin(5)
+                ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
+                ->labelText($label)
+                ->logoPath(Framework::$factory->getRoot() . '/logo100.png')
+                ->labelFont(new NotoSans(14))
+                ->foregroundColor(new Color(0, 102, 204))
+                ->labelAlignment(new LabelAlignmentCenter())
+                ->validateResult(false)
+                ->build();
 
-        $result = Builder::create()
-            ->writer(new PngWriter())
-            ->writerOptions([])
-            ->data($_GET['data'])
-            ->encoding(new Encoding('UTF-8'))
-            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-            ->size($size)
-            ->margin(5)
-            ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
-            ->labelText($label)
-            ->logoPath(Framework::$factory->getRoot() . '/logo100.png')
-            ->labelFont(new NotoSans(14))
-            ->foregroundColor(new Color(0, 102, 204))
-            ->labelAlignment(new LabelAlignmentCenter())
-            ->validateResult(false)
-            ->build();
+            header('Content-Type: ' . $result->getMimeType());
+            echo $result->getString();
+            die();
+        } else {
+            $output = 'png';
+            $margin = 2;
 
-        header('Content-Type: ' . $result->getMimeType());
-        echo $result->getString();
-        die();
+            header('Content-Type: image/' . $output);
+            QRcode::png($_GET['data'], false, 'L', $size, $margin);
+        }
+
+        die($this->say('QR_FAILED'));
     }
 }
