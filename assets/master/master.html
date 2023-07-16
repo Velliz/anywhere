@@ -8,25 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Output as-a Service (OAAS) Platform">
     <meta name="author" content="Didit Velliz">
-
     <title>{!PageTitle} | Anywhere</title>
-
-    <link href="assets/global/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="assets/global/css/stylish-portfolio.css" rel="stylesheet" type="text/css">
-    <link href="assets/global/css/custom.css" rel="stylesheet" type="text/css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-          rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
-          rel="stylesheet" type="text/css">
-
-    <link href="assets/vendor/pnotify/dist/pnotify.css" rel="stylesheet">
-    <link href="assets/vendor/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
-    <link href="assets/vendor/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/style.css"/>
+    <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Prata&display=swap" rel="stylesheet"/>
+    {!part(css)}
 </head>
 
-<body>
-<nav class="navbar navbar-blue navbar-fixed-top">
-    <div class="container">
+<body class="bg-amber-100">
+<nav class="max-w-4xl mx-auto py-8 lg:px-4">
+    <div class="flex justify-between items-center text-white px-4 lg:px-0">
         <div class="navbar-header">
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                 <span class="sr-only">Toggle navigation</span>
@@ -36,7 +29,7 @@
             </button>
         </div>
 
-        <div class="navbar-collapse collapse" id="navbar">
+        <div class="max-w-4xl mx-auto py-8 lg:px-4" id="navbar">
             <div class="guest-menu" style="display: none;">
                 <ul class="nav navbar-nav">
                     <li><a href="{!url()}">Anywhere</a></li>
@@ -125,16 +118,7 @@
     <section style="text-align:center; margin:10px auto;"><p>Designed by <a href="https://github.com/Velliz">Didit Velliz</a></p></section>
 </div>
 
-{!part(css)}
-
-<script src="assets/global/js/jquery.js"></script>
-<script src="assets/global/js/bootstrap.min.js"></script>
-<script src="assets/script/utility.js"></script>
 <script src="assets/script/master.js"></script>
-
-<script src="assets/vendor/pnotify/dist/pnotify.js"></script>
-<script src="assets/vendor/pnotify/dist/pnotify.buttons.js"></script>
-<script src="assets/vendor/pnotify/dist/pnotify.nonblock.js"></script>
 {!part(js)}
 
 </body>

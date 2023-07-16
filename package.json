@@ -1,21 +1,13 @@
 {
   "name": "anywhere",
   "version": "1.0.0",
-  "description": "Anywhere is Output as-a Service (OAAS) platform to simplify your output and reduce your effort in coding. \r Anywhere basic concept is by using HTML and CSS for layouting the output and you supply it later with JSON \r to display data and Anywhere generating the output for you.",
-  "main": "gulpfile.js",
-  "directories": {
-    "test": "tests"
-  },
-  "dependencies": {
-    "browser-sync": "^2.26.13",
-    "gulp": "^4.0.2"
-  },
+  "description": "Anywhere is Output as-a Service (OAAS) platform.",
   "devDependencies": {
-    "gulp-connect-php": "^1.0.3"
+    "tailwindcss": "^3.3.2"
   },
   "scripts": {
-    "watch": "gulp connect-sync",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx tailwindcss -i ./assets/styles/tailwind.css -o ./assets/styles/style.css --watch",
+    "build": "npx tailwindcss -i ./assets/styles/tailwind.css -o ./assets/styles/style.css --minify"
   },
   "repository": {
     "type": "git",
