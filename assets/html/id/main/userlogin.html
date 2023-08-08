@@ -1,27 +1,40 @@
 {!css(
 <link href="assets/global/css/login.css" rel="stylesheet">)}
 
-<div class="login-page">
-    <div class="form">
-        <p>Masuk dengan akun Anywhere </p>
-        <hr>
-        <div>
-            <div class="alert alert-danger ajax-login-error" style="display: none;">
-                <strong class="ajax-login-error-message"></strong>
-            </div>
-            <div class="alert alert-success ajax-register-success" style="display: none;">
-                <strong>Pendaftaran berhasil.<br>Silahkan login untuk melanjutkan.</strong>
-            </div>
+<div class="bg-white border-gray-200 py-2.5 dark:bg-gray-900">
+    <div class="login-page">
+        <div class="form p-4">
+            <p class="text-xl font-semibold">Masuk dengan akun Anywhere</p>
+            <hr class="my-4">
+            <div>
+                <div class="alert alert-danger ajax-login-error hidden">
+                    <strong class="ajax-login-error-message"></strong>
+                </div>
+                <div class="alert alert-success ajax-register-success hidden">
+                    <strong>Pendaftaran berhasil.<br>Silahkan login untuk melanjutkan.</strong>
+                </div>
 
-            <input type="text" name="username" placeholder="username" value="{!username}" required/>
-            <input type="password" name="password" placeholder="password" required/>
-            <br/>
-            <button type="submit" name="login-submit" class="login-submit">Login</button>
+                <input type="text" name="username" placeholder="username" value="{!username}" required
+                       class="block w-full rounded border px-2 py-1 my-2"/>
+                <input type="password" name="password" placeholder="password" required
+                       class="block w-full rounded border px-2 py-1 my-2"/>
+                <br/>
+                <button type="submit" name="login-submit" class="login-submit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    Login
+                </button>
 
-            <p class="message">Belum terdaftar? <a href="{!url()}register">Buat akun baru</a></p>
+                <div class="mt-4">
+                    <p class="message">Belum terdaftar? <a href="{!url()}register" class="text-blue-500">Buat akun baru</a></p>
+                    <p class="text-center my-4">- Atau -</p>
+                    <a href="#" class="google-login bg-red-600 text-white py-2 px-4 rounded inline-block">
+                        <i class="fab fa-google mr-2"></i> Login dengan Google
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 
 {!js(
 <script src="assets/script/login.js"></script>)}

@@ -1,34 +1,41 @@
 {!css(
 <link href="assets/global/css/register.css" rel="stylesheet">)}
 
-<div class="register-page">
-    <div class="form">
-        <p>Anywhere Registration</p>
-        <p class="text-danger small">*Please enter your valid email.</p>
-        <hr>
-        <div>
-            <div class="alert alert-danger ajax-register" style="display: none;">
-                <span class="ajax-register-message"></span>
-            </div>
-
-            <input type="text" name="name" placeholder="Your Name" value="" required/>
-            <input type="email" name="email" placeholder="Your Email" value="" required/>
-            <input type="text" name="username" placeholder="Username" value="" required/>
-            <div class="row">
-                <div class="col-lg-6">
-                    <input type="password" name="password" placeholder="Password" required/>
+<div class="bg-white border-gray-200 py-2.5 dark:bg-gray-900">
+    <div class="register-page">
+        <div class="form p-4">
+            <p class="text-xl font-semibold">Anywhere Registration</p>
+            <p class="text-red-500 text-xs">*Please enter your valid email.</p>
+            <hr class="my-4">
+            <div>
+                <div class="alert alert-danger ajax-register hidden">
+                    <span class="ajax-register-message"></span>
                 </div>
-                <div class="col-lg-6">
-                    <input type="password" name="repeat_password" placeholder="Re-type Password" required/>
-                </div>
-            </div>
-            <br>
-            <button type="submit" name="register-submit" class="register-submit">Regsiter</button>
 
-            <p class="message">Already have account? <a href="{!url()}login">Login</a></p>
+                <input type="text" name="name" placeholder="Your Name" value="" required
+                       class="block w-full rounded border px-2 py-1 my-2"/>
+                <input type="email" name="email" placeholder="Your Email" value="" required
+                       class="block w-full rounded border px-2 py-1 my-2"/>
+                <input type="text" name="username" placeholder="Username" value="" required
+                       class="block w-full rounded border px-2 py-1 my-2"/>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="password" name="password" placeholder="Password" required
+                           class="block w-full rounded border px-2 py-1"/>
+                    <input type="password" name="repeat_password" placeholder="Re-type Password" required
+                           class="block w-full rounded border px-2 py-1"/>
+                </div>
+                <br>
+                <button type="submit" name="register-submit"
+                        class="register-submit bg-blue-500 text-white py-2 px-4 rounded">
+                    Register
+                </button>
+
+                <p class="message mt-4">Already have an account? <a href="{!url()}login" class="text-blue-500">Login</a></p>
+            </div>
         </div>
     </div>
 </div>
+
 
 {!js(
 <script src="assets/script/register.js"></script>)}
