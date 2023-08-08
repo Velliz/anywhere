@@ -68,6 +68,10 @@ anywhere:
         - services
 ```
 
+### Start Dev
+
+`yarn start`
+
 ### Documentation
 
 Read the docs at: [the docs](https://velliz.github.io/anydocs/)
