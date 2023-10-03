@@ -274,8 +274,24 @@ TAIL;
         if (isset($coreData['replyto']) && isset($coreData['replyname']))
             $this->mail->addReplyTo($coreData['replyto'], $coreData['replyname']);
 
-        if (isset($coreData['cc'])) $this->mail->addCC($coreData['cc']);
-        if (isset($coreData['bcc'])) $this->mail->addBCC($coreData['bcc']);
+        if (isset($coreData['cc'])) {
+            if (is_array($coreData['cc'])) {
+                foreach ($coreData['cc'] as $cc) {
+                    $this->mail->addCC($cc);
+                }
+            } else {
+                $this->mail->addCC($coreData['cc']);
+            }
+        }
+        if (isset($coreData['bcc'])) {
+            if (is_array($coreData['bcc'])) {
+                foreach ($coreData['bcc'] as $bcc) {
+                    $this->mail->addBCC($bcc);
+                }
+            } else {
+                $this->mail->addBCC($coreData['bcc']);
+            }
+        }
 
         if (isset($coreData['attachment']) && is_array($coreData['attachment'])) {
             foreach ($coreData['attachment'] as $key => $val) {
