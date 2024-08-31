@@ -48,7 +48,6 @@ anywhere:
     image: diditvelliz/anywhere
     ports:
         - '80:80'
-        - '4000:443'
     environment:
         ENCRYPTION_KEY: <RANDOM_STRING_HERE>
         HOOK: <CUSTOM_HOOKS_HERE>
