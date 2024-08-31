@@ -156,6 +156,10 @@ class pdf extends AnywhereView
         $render->SetHtml($htmlFactory, true);
         $template = $render->Output($this);
 
+        if (strpos($this->paper, '[') !== false) {
+            $this->paper = json_decode($this->paper);
+        }
+
         $this->dompdf->setPaper($this->paper, $this->orientation);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
@@ -247,6 +251,10 @@ class pdf extends AnywhereView
         header("Author: Anywhere 0.1");
         header('Content-Type: application/pdf');
 
+        if (strpos($this->paper, '[') !== false) {
+            $this->paper = json_decode($this->paper);
+        }
+
         $this->dompdf->setPaper($this->paper, $this->orientation);
         $this->dompdf->loadHtml($template);
         $this->dompdf->render();
@@ -317,6 +325,10 @@ class pdf extends AnywhereView
         header("Pragma: no-cache");
         header("Author: Anywhere 0.1");
         header('Content-Type: application/pdf');
+
+        if (strpos($this->paper, '[') !== false) {
+            $this->paper = json_decode($this->paper);
+        }
 
         $this->dompdf->setPaper($this->paper, $this->orientation);
         $this->dompdf->loadHtml($template);
