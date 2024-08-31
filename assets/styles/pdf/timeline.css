@@ -1,33 +1,61 @@
 .navbar-custom {
-    background-color:#e61919;
-    color:#ffffff;
-    border-radius:0;
+    background-color: #e61919;
+    color: #ffffff;
+    border-radius: 0;
 }
 
 .navbar-custom .navbar-nav > li > a {
-    color:#fff;
+    color: #fff;
 }
 
 .navbar-custom .navbar-nav > .active > a {
     color: #ffffff;
-    background-color:transparent;
+    background-color: transparent;
 }
 
 .navbar-custom .navbar-nav > li > a:hover,
 .navbar-custom .navbar-nav > li > a:focus,
 .navbar-custom .navbar-nav > .active > a:hover,
 .navbar-custom .navbar-nav > .active > a:focus,
-.navbar-custom .navbar-nav > .open >a {
+.navbar-custom .navbar-nav > .open > a {
     text-decoration: none;
     background-color: #e61919;
 }
 
 .navbar-custom .navbar-brand {
-    color:#eeeeee;
+    color: #eeeeee;
 }
+
 .navbar-custom .navbar-toggle {
-    background-color:#eeeeee;
+    background-color: #eeeeee;
 }
+
 .navbar-custom .icon-bar {
-    background-color:#e61919;
+    background-color: #e61919;
 }
+
+.padding-10 {
+    padding: 10px;
+}
+
+.margin-10 {
+    margin: 10px;
+}
+
+.preview-height {
+    height: 400px;
+}
+.preview-width {
+    width: 100%;
+}
+
+.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+.no-margin {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+

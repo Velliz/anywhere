@@ -173,6 +173,27 @@ class log_mail extends Service
         if (isset($param['user_id'])) {
             $keyword['user_id'] = $param['user_id'];
         }
+        if (isset($param['mail_id'])) {
+            $keyword['mail_id'] = $param['mail_id'];
+        }
+
+        if (isset($param['range'])) {
+            $range = explode(' - ', $param['range']);
+            if (sizeof($range) !== 2) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+
+            $start = DateTime::createFromFormat('d/m/Y', $range[0]);
+            $end = DateTime::createFromFormat('d/m/Y', $range[1]);
+            if (!$start instanceof DateTime) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+            if (!$end instanceof DateTime) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+
+            $keyword['*'] = " AND DATE(sent_at) BETWEEN DATE('{$start->format('Y-m-d')}') AND DATE('{$end->format('Y-m-d')}') ";
+        }
 
         return \model\primary\log_mailContracts::SearchDataPagination($keyword);
     }
@@ -190,6 +211,27 @@ class log_mail extends Service
         if (isset($param['user_id'])) {
             $keyword['user_id'] = $param['user_id'];
         }
+        if (isset($param['mail_id'])) {
+            $keyword['mail_id'] = $param['mail_id'];
+        }
+
+        if (isset($param['range'])) {
+            $range = explode(' - ', $param['range']);
+            if (sizeof($range) !== 2) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+
+            $start = DateTime::createFromFormat('d/m/Y', $range[0]);
+            $end = DateTime::createFromFormat('d/m/Y', $range[1]);
+            if (!$start instanceof DateTime) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+            if (!$end instanceof DateTime) {
+                throw new Exception($this->say('INVALID_RANGE'));
+            }
+
+            $keyword['*'] = " AND DATE(sent_at) BETWEEN DATE('{$start->format('Y-m-d')}') AND DATE('{$end->format('Y-m-d')}') ";
+        }
 
         $data['log_mail'] = \model\primary\log_mailContracts::SearchData($keyword);
         return $data;
@@ -205,6 +247,11 @@ class log_mail extends Service
 
         //post addition filter here
         $keyword['user_id'] = $this->user['id'];
+
+        $mail_id = Request::Post('mail_id', '');
+        if ($mail_id !== '') {
+            $keyword['mail_id'] = $mail_id;
+        }
 
         return \model\primary\log_mailContracts::GetDataTable($keyword);
     }

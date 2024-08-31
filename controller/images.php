@@ -20,6 +20,8 @@ namespace controller;
 
 use model\primary\imagesContracts;
 use Exception;
+use model\primary\log_imagesContracts;
+use plugins\model\primary\log_images;
 use pukoframework\middleware\View;
 use pukoframework\Request;
 
@@ -116,6 +118,18 @@ class images extends View
         header('Content-Type: image/png');
         header('Content-Disposition: inline; filename="' . $imageName . '.png"');
 
+        //save logs
+        $log_excel = new log_images();
+        $log_excel->created = $this->GetServerDateTime();
+        $log_excel->cuid = $imageRender['user_id'];
+
+        $log_excel->images_id = $imageId;
+        $log_excel->user_id = $imageRender['user_id'];
+        $log_excel->sent_at = $this->GetServerDateTime();
+        $log_excel->result_data = $image;
+        $log_excel->processing_time = 0.0;
+        $log_excel->save();
+
         echo $image;
 
         exit();
@@ -169,6 +183,39 @@ class images extends View
         exit();
     }
 
-    public function timeline($id2 = '') {}
+    /**
+     * @param $id_image
+     * @return array
+     * #Master master-codes.html
+     */
+    public function timeline($id_image = '')
+    {
+        $data['id_image'] = $id_image;
+        $data['api_key'] = imagesContracts::GetApiKeyById($id_image);
+
+        return $data;
+    }
+
+    /**
+     * @param $logID
+     * @param $api_key
+     * @param $imagesId
+     * @return void
+     */
+    public function timelinerender($logID, $api_key, $imageId)
+    {
+        $imageRender = imagesContracts::GetImageRender($api_key, $imageId);
+        $logData = log_imagesContracts::GetById($logID);
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: image/png');
+        header('Content-Disposition: inline; filename="' . $imageRender['image_name'] . '.png"');
+
+        echo $logData['result_data'];
+
+        exit();
+    }
 
 }

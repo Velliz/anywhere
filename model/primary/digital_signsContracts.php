@@ -69,7 +69,11 @@ class digital_signsContracts extends digital_signs implements ModelContracts
     {
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT COUNT(id) data FROM digital_signs WHERE dflag = 0 %s;", $strings);
         $data = DBI::Prepare($sql)->FirstRow();
@@ -93,7 +97,11 @@ class digital_signsContracts extends digital_signs implements ModelContracts
     {
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
         $sql = sprintf("SELECT ds.id, ds.created, ds.user_id, ds.document_name, ds.digital_sign_hash, 
         ds.digital_sign_secure, ds.email, ds.location, ds.reason,
@@ -112,7 +120,11 @@ class digital_signsContracts extends digital_signs implements ModelContracts
 
         $strings = "";
         foreach ($keyword as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT ds.id, ds.created, ds.user_id, ds.document_name, ds.digital_sign_hash, 
@@ -147,11 +159,16 @@ class digital_signsContracts extends digital_signs implements ModelContracts
             "email", //5
             "location", //6
             "reason", //7
+            "created", //8
         ));
 
         $strings = "";
         foreach ($condition as $column => $values) {
-            $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            if ($column === '*') {
+                $strings .= $values;
+            } else {
+                $strings .= sprintf(" AND (%s = '%s') ", $column, $values);
+            }
         }
 
         $sql = sprintf("SELECT ds.id, ds.created, ds.user_id, ds.document_name, ds.digital_sign_hash, 

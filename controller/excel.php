@@ -19,11 +19,13 @@
 namespace controller;
 
 use model\primary\excelContracts;
+use model\primary\log_excelContracts;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use plugins\controller\AnywhereView;
+use plugins\model\primary\log_excel;
 
 /**
  * Class excel
@@ -191,6 +193,18 @@ class excel extends AnywhereView
             }
         }
 
+        //save logs
+        $log_excel = new log_excel();
+        $log_excel->created = $this->GetServerDateTime();
+        $log_excel->cuid = $excelRender['user_id'];
+
+        $log_excel->excel_id = $excelId;
+        $log_excel->user_id = $excelRender['user_id'];
+        $log_excel->sent_at = $this->GetServerDateTime();
+        $log_excel->json_data = json_encode($this->dataspecs, true);
+        $log_excel->processing_time = 0.0;
+        $log_excel->save();
+
         $invalidCharacters = $shit->getInvalidCharacters();
         $title = str_replace($invalidCharacters, '.', $this->excelname);
         $shit->setTitle($title);
@@ -320,7 +334,146 @@ class excel extends AnywhereView
         exit();
     }
 
+    /**
+     * @param $logID
+     * @param $api_key
+     * @param $excelId
+     * @return void
+     * @throws Exception
+     */
+    public function timelinerender($logID, $api_key, $excelId)
+    {
+        $mode = 1;
 
-    public function timeline($id2 = '') {}
+        $excelRender = excelContracts::GetExcelRender($api_key, $excelId);
+        $logData = log_excelContracts::GetById($logID);
+
+        $this->excelname = $excelRender['excel_name'];
+        $this->columnspecs = json_decode($excelRender['column_specs'], true);
+        $this->dataspecs = json_decode($excelRender['data_specs'], true);
+        $this->requesttype = $excelRender['request_type'];
+
+        $excel = new Spreadsheet();
+        $shit = $excel->getActiveSheet();
+
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Author: Anywhere 0.1");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        $styleArray = array(
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN
+                ]
+            ]
+        );
+
+        $header = [];
+        $footer = [];
+
+        $idx = 1;
+
+        if ($this->requesttype === 'POST') {
+            $decoded_data = (array)json_decode($logData['json_data'], true);
+            if (isset($decoded_data['tables'])) {
+                if (isset($decoded_data['header'])) {
+                    $mode = 2;
+                    $header = $decoded_data['header'];
+                }
+                if (isset($decoded_data['footer'])) {
+                    $mode = 2;
+                    $footer = $decoded_data['footer'];
+                }
+
+                $this->dataspecs = $decoded_data['tables'];
+            } else {
+                $this->dataspecs = $decoded_data;
+            }
+        }
+
+        if ($this->requesttype === 'URL') {
+            throw new Exception('not supported for a moment');
+        }
+
+        if ($mode === 1) {
+            foreach ($this->columnspecs as $key => $val) {
+                $shit->getColumnDimension($val['column'])->setWidth((int)$val['width']);
+                $shit->setCellValue("{$val['column']}1", $val['display']);
+                $shit->getStyle("{$val['column']}1")->getFont()->setBold(true);
+                $shit->getStyle("{$val['column']}1")->applyFromArray($styleArray);
+                foreach ($this->dataspecs as $x => $y) {
+                    if ($y['key'] === $val['key']) {
+                        foreach ($y['value'] as $pointer => $item) {
+                            $shit->setCellValue($val['column'] . ($pointer + 2), $item);
+                            $shit->getStyle($val['column'] . ($pointer + 2))->applyFromArray($styleArray);
+                        }
+                    }
+                }
+            }
+        }
+        if ($mode === 2) {
+            $shit->setCellValue("A{$idx}", $this->excelname);
+            $shit->getStyle("A{$idx}:B{$idx}")->getFont()->setBold(true);
+
+            $idx++;
+
+            foreach ($header as $key => $val) {
+                $shit->setCellValue("A{$idx}", $val['key']);
+                $shit->setCellValue("B{$idx}", $val['value']);
+                $idx++;
+            }
+
+            $idx++;
+
+            foreach ($this->columnspecs as $key => $val) {
+                $shit->getColumnDimension($val['column'])->setWidth((int)$val['width']);
+                $shit->setCellValue("{$val['column']}{$idx}", $val['display']);
+                $shit->getStyle("{$val['column']}{$idx}")->getFont()->setBold(true);
+                $shit->getStyle("{$val['column']}{$idx}")->applyFromArray($styleArray);
+                foreach ($this->dataspecs as $x => $y) {
+                    if ($y['key'] === $val['key']) {
+                        foreach ($y['value'] as $pointer => $item) {
+                            $shit->setCellValue($val['column'] . ($pointer + $idx + 1), $item);
+                            $shit->getStyle($val['column'] . ($pointer + $idx + 1))->applyFromArray($styleArray);
+                        }
+                    }
+                }
+            }
+
+            $idx = $idx + sizeof($this->columnspecs);
+
+            foreach ($footer as $key => $val) {
+                $shit->setCellValue("A{$idx}", $val['key']);
+                $shit->setCellValue("B{$idx}", $val['value']);
+                $idx++;
+            }
+        }
+
+        $invalidCharacters = $shit->getInvalidCharacters();
+        $title = str_replace($invalidCharacters, '.', $this->excelname);
+        $shit->setTitle($title);
+
+        $writer = IOFactory::createWriter($excel, "Xlsx");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header(sprintf('Content-Disposition: attachment; filename="%s.xlsx"', $title));
+        $writer->save("php://output");
+
+        exit();
+    }
+
+    /**
+     * @param $id_excel
+     * @return array
+     * @throws Exception
+     * #Master master-codes.html
+     */
+    public function timeline($id_excel = '')
+    {
+        $data['id_excel'] = $id_excel;
+        $data['api_key'] = excelContracts::GetApiKeyById($id_excel);
+
+        return $data;
+    }
 
 }

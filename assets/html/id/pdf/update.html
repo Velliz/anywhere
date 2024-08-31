@@ -46,17 +46,15 @@
         <div class="form-group">
             <input type="text" name="reportname" placeholder="report name" value="{!reportname}"/>
         </div>
+
         <div class="form-group text-center">
-            <label><input type="radio" name="paper" value="folio">Folio</label>
-            <label><input type="radio" name="paper" value="legal">Legal</label>
-            <label><input type="radio" name="paper" value="letter">Letter</label>
-            <label><input type="radio" name="paper" value="F4">F4</label>
-            <label><input type="radio" name="paper" value="A3">A3</label>
-            <label><input type="radio" name="paper" value="A4">A4</label>
-            <label><input type="radio" name="paper" value="A5">A5</label>
-            <label><input type="radio" name="paper" value="A6">A6</label>
-            <label><input type="radio" name="paper" value="B5">B5</label>
+            <label>
+                <input type="text" name="paper" value="{!paper}" placeholder="PAPER SIZE">
+            </label>
+            <br>
+            PAPER SIZE AVAILABLE: folio, legal, letter, F4, A3, A4, A5, A6, B5, CUSTOM [padding-x, padding-y, width, height]
         </div>
+
         <div class="form-group text-center">
             <label><input type="radio" name="requesttype" value="POST">POST</label>
             <label><input type="radio" name="requesttype" value="URL">URL</label>

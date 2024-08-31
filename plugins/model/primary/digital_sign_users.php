@@ -109,9 +109,9 @@ class digital_sign_users extends Model
     var $place_of_birth = '';
 
     /**
-     * #Column date_of_birth varchar(10) not null 
+     * #Column date_of_birth date not null 
      */
-    var $date_of_birth = '';
+    var $date_of_birth = null;
 
     /**
      * #Column org_unit varchar(50) not null 

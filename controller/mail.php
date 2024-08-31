@@ -19,6 +19,7 @@
 namespace controller;
 
 use Exception;
+use model\primary\log_mailContracts;
 use model\primary\mailContracts;
 use PHPMailer\PHPMailer\PHPMailer;
 use plugins\controller\AnywhereView;
@@ -273,8 +274,24 @@ TAIL;
         if (isset($coreData['replyto']) && isset($coreData['replyname']))
             $this->mail->addReplyTo($coreData['replyto'], $coreData['replyname']);
 
-        if (isset($coreData['cc'])) $this->mail->addCC($coreData['cc']);
-        if (isset($coreData['bcc'])) $this->mail->addBCC($coreData['bcc']);
+        if (isset($coreData['cc'])) {
+            if (is_array($coreData['cc'])) {
+                foreach ($coreData['cc'] as $cc) {
+                    $this->mail->addCC($cc);
+                }
+            } else {
+                $this->mail->addCC($coreData['cc']);
+            }
+        }
+        if (isset($coreData['bcc'])) {
+            if (is_array($coreData['bcc'])) {
+                foreach ($coreData['bcc'] as $bcc) {
+                    $this->mail->addBCC($bcc);
+                }
+            } else {
+                $this->mail->addBCC($coreData['bcc']);
+            }
+        }
 
         if (isset($coreData['attachment']) && is_array($coreData['attachment'])) {
             foreach ($coreData['attachment'] as $key => $val) {
@@ -314,7 +331,7 @@ TAIL;
         $log_mail->created = $this->GetServerDateTime();
         $log_mail->cuid = $mailRender['user_id'];
 
-        $log_mail->mail_id = $mailRender['id'];
+        $log_mail->mail_id = $mailId;
         $log_mail->user_id = $mailRender['user_id'];
         $log_mail->sent_at = $this->GetServerDateTime();
         $log_mail->json_data = json_encode($coreData, true);
@@ -324,6 +341,30 @@ TAIL;
         $log_mail->save();
 
         echo json_encode($response);
+        exit();
+    }
+
+    public function timelinerender($logID, $api_key, $mailId)
+    {
+        $mailRender = mailContracts::GetMailRender($api_key, $mailId);
+        $logData = log_mailContracts::GetById($logID);
+
+        $this->mailName = $mailRender['mail_name'];
+        $this->mailAddress = $mailRender['mail_address'];
+
+        $this->html = $mailRender['html'];
+        $this->css = $mailRender['css'];
+
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->cssexternal . $this->html . $this->tail;
+
+        $coreData = (array)json_decode($logData['json_data'], true);
+
+        $render = new Pte(false);
+        $render->SetValue($coreData);
+        $render->SetHtml($htmlFactory, true);
+        $template = $render->Output($this, Pte::VIEW_HTML);
+
+        echo $template;
         exit();
     }
 
@@ -342,6 +383,19 @@ TAIL;
 
         return preg_replace('/\s{2,}/u', "\n\r", $str);
     }
-    public function timeline($id2 = '') {}
+
+    /**
+     * @param $id_mail
+     * @return array
+     * @throws Exception
+     * #Master master-codes.html
+     */
+    public function timeline($id_mail = '')
+    {
+        $data['id_mail'] = $id_mail;
+        $data['api_key'] = mailContracts::GetApiKeyById($id_mail);
+
+        return $data;
+    }
 
 }

@@ -29,7 +29,7 @@ class digital_signs extends Model
     var $created = null;
 
     /**
-     * #Column modified timestamp  on update current_timestamp()
+     * #Column modified timestamp not null on update current_timestamp()
      */
     var $modified = null;
 

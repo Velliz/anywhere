@@ -1,5 +1,8 @@
 {!css(<link href="assets/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">)}
-{!css(<link href="assets/styles/pdf/css.css" rel="stylesheet">)}
+{!css(<link href="assets/styles/pdf/timeline.css" rel="stylesheet">)}
+
+<input type="hidden" name="id" value="{!id_pdf}">
+<input type="hidden" name="api_key" value="{!api_key}">
 
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
@@ -48,6 +51,21 @@
         </div>
 
         <div class="timeline-view"></div>
+    </div>
+</div>
+
+<div class="hidden timeline-card">
+    <div class="padding-10 fa-border">
+        <dl>
+            <dt>Sequence</dt>
+            <dd class="timeline-sequence"></dd>
+            <dt>Generated at</dt>
+            <dd class="timeline-sent_at"></dd>
+            <dt>Processing time</dt>
+            <dd class="timeline-processing_time"></dd>
+            <dt>Preview</dt>
+            <dd class="timeline-preview"></dd>
+        </dl>
     </div>
 </div>
 

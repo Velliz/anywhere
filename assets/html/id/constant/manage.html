@@ -9,13 +9,13 @@
                 <div class="form-group">
                     <label>Key</label>
                     <input onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control" name="key" placeholder="key"/>
-                    <p class="help-block">*Key bersifat unik dan tidak dapat diganti nilainya setelah disimpan</p>
+                    <p class="help-block">*Key is unique and cannot be replaced by value once saved.</p>
                 </div>
                 <div class="form-group">
                     <label>Values</label>
                     <textarea name="val" cols="10" rows="2" class="form-control" placeholder="values...."></textarea>
                 </div>
-                <p>Pemanggilan global variable pada template layout dapat menggunakan tag: <b>{ ! var( VAR_KEY ) }</b></p>
+                <p>calling global variables on layout templates can use <b>{ ! var( VAR_KEY ) }</b> tags</p>
                 <input type="submit" name="action" value="Save" class="btn btn-primary" />
             </form>
         </div>

@@ -25,7 +25,7 @@ $(function () {
             let pdf = result.pdf;
 
             reportname = $(`input[name=reportname]`).val(pdf.report_name);
-            paper = $(`input[name=paper][value="${pdf.paper}"]`).prop("checked", true);
+            paper = $(`input[name=paper]`).val(pdf.paper);
             requesttype = $(`input[name=requesttype][value="${pdf.request_type}"]`).prop("checked", true);
             orientation = $(`input[name=orientation][value="${pdf.orientation}"]`).prop("checked", true);
             requesturl = $(`input[name=requesturl]`).val(pdf.request_url);
@@ -91,7 +91,7 @@ $(function () {
             `pdf/${id_pdf}/update`,
             {
                 report_name: reportname.val(),
-                paper: $(`input[name=paper]:checked`).val(),
+                paper: $(`input[name=paper]`).val(),
                 request_type: $(`input[name=requesttype]:checked`).val(),
                 orientation: $(`input[name=orientation]:checked`).val(),
                 request_url: requesturl.val(),
