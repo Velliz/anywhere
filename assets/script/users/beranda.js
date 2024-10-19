@@ -471,28 +471,6 @@ $(function () {
             $('td:eq(7)', row).html(details + history);
         },
         fnDrawCallback: function () {
-            $('.btn-update-variable').on('click', function () {
-                let id = $(this).attr('data-id');
-                let variable_key = $(this).parent().find('input').val();
-                let variable_name = $(this).parent().find('textarea').val();
-                ajax_post(
-                    `digital_signs/${id}/update`,
-                    {
-                        unique_key: variable_key,
-                        constanta_val: variable_name
-                    },
-                    var_table,
-                    function (result) {
-                        let constanta = result.constanta;
-                        pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
-                    },
-                    function (xhr, error) {
-                        if (error === 'error') {
-                            pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
-                        }
-                    }
-                );
-            });
         },
         preDrawCallback: function (settings) {
         }
@@ -581,68 +559,66 @@ $(function () {
             let history = `<a title="Mail History" href="mail/timeline/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
                 <i class="fa fa-external-link"></i> Usage History
             </a>`;
+            let send_mail_test = `<a title="Test Kirim Email" class="btn btn-xs btn-danger send_mail_test" style="margin-left: 10px" data-id="${data[0]}">
+                <i class="fa fa-reply"></i> Test Kirim Email
+            </a>`;
             $('td:eq(0)', row).html(`<b>${data[4]}</b>`);
             $('td:eq(1)', row).html(data[5]);
             $('td:eq(2)', row).html(data[10]);
-            $('td:eq(3)', row).html(details + history);
+            $('td:eq(3)', row).html(details + history + send_mail_test);
         },
         fnDrawCallback: function () {
-
-            $(document).on('click', '.btn-digitalsign-history', function (e) {
-                e.preventDefault();
-
+            $('.send_mail_test').on('click', function () {
                 let id = $(this).attr('data-id');
+                let test_form = `<div class="form-group">
+                    <input type="text" class="form-control" name="email" placeholder="Email Tujuan" value="">
+                </div>`;
 
-                let dial = bootbox.dialog({
-                    title: 'Histori Digital Sign',
-                    message: digitalsigns_forms,
-                    size: 'large',
-                });
-                dial.init(function () {
+                let send_action = function () {
+                    let mail = $('.bootbox-body input[name=email]').val();
+                    let payload = {
+                        mail: mail
+                    };
+                    ajax_post(`mail/sendtest/${id}`, payload, null, function (data) {
+                        pnotify("Test Send Mail", data.Message, 'error');
+                    });
+                }
+                bootbox_dialog(`Testing Kirim Email`, test_form, `medium`, send_action);
 
-                });
-            });
-
-            $(document).on('click', '.btn-digitalsign-users', function (e) {
-                e.preventDefault();
-
-                let id = $(this).attr('data-id');
-
-                let dial = bootbox.dialog({
-                    title: 'Data Detail Penandatangan',
-                    message: digitalsigns_forms,
-                    size: 'large',
-                });
-                dial.init(function () {
-
-                });
-            });
-
-            $('.btn-update-variable').on('click', function () {
-                let id = $(this).attr('data-id');
-                let variable_key = $(this).parent().find('input').val();
-                let variable_name = $(this).parent().find('textarea').val();
-                ajax_post(
-                    `mail/${id}/update`,
-                    {
-                        unique_key: variable_key,
-                        constanta_val: variable_name
-                    },
-                    mail_table,
-                    function (result) {
-                        let constanta = result.constanta;
-                        pnotify(`Template created`, `New variable ${variable_key} successfully created!`, 'success');
-                    },
-                    function (xhr, error) {
-                        if (error === 'error') {
-                            pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
-                        }
-                    }
-                );
             });
         },
         preDrawCallback: function (settings) {
         }
+    });
+
+    $(document).on('click', '.btn-digitalsign-history', function (e) {
+        e.preventDefault();
+
+        let id = $(this).attr('data-id');
+
+        let dial = bootbox.dialog({
+            title: 'Histori Digital Sign',
+            message: digitalsigns_forms,
+            size: 'large',
+        });
+        dial.init(function () {
+
+        });
+    });
+
+    $(document).on('click', '.btn-digitalsign-users', function (e) {
+        e.preventDefault();
+
+        let id = $(this).attr('data-id');
+
+        let dial = bootbox.dialog({
+            title: 'Data Detail Penandatangan',
+            message: digitalsigns_forms,
+            size: 'large',
+        });
+        dial.init(function () {
+
+        });
     });
 
 });

@@ -398,4 +398,91 @@ TAIL;
         return $data;
     }
 
+    /**
+     * @param $mailId
+     * @return void
+     * @throws PteException
+     * @throws \PHPMailer\PHPMailer\Exception
+     */
+    public function sendtest($mailId = '')
+    {
+        $param = Request::JsonBody();
+        if ($param['mail'] === '') {
+            throw new Exception($this->say('EMAIL_REQUIRED'));
+        }
+
+        $mailRender = mailContracts::GetById($mailId);
+
+        $this->mailName = $mailRender['mail_name'];
+        $this->mailAddress = $mailRender['mail_address'];
+        $this->mailPassword = $mailRender['mail_password'];
+
+        $this->html = $mailRender['html'];
+        $this->css = $mailRender['css'];
+
+        $this->host = $mailRender['host'];
+        $this->port = $mailRender['port'];
+
+        $this->smtpauth = $mailRender['smtp_auth'];
+        $this->smtpsecure = $mailRender['smtp_secure'];
+        $this->requesttype = $mailRender['request_type'];
+        $this->requesturl = $mailRender['request_url'];
+        $this->requestsample = $mailRender['request_sample'];
+        $this->cssexternal = $mailRender['css_external'];
+
+        $htmlFactory = $this->head . $this->css . $this->middle . $this->cssexternal . $this->html . $this->tail;
+
+        $render = new Pte(false);
+        $render->SetValue(json_decode($this->requestsample, true));
+        $render->SetHtml($htmlFactory, true);
+        $template = $render->Output($this, Pte::VIEW_HTML);
+
+        header("Author: Anywhere 0.1");
+
+        $this->mail->Host = $this->host;
+        $this->mail->SMTPAuth = ($this->smtpauth == 'true') ? true : false;
+        $this->mail->Username = $this->mailAddress;
+        $this->mail->Password = $this->mailPassword;
+        $this->mail->SMTPSecure = $this->smtpsecure;
+        $this->mail->Port = (int)$this->port;
+
+        $this->mail->setFrom($this->mailAddress, $this->mailName);
+        $this->mail->addAddress($param['mail']);
+        $this->mail->addReplyTo($this->mailAddress, $this->mailName);
+
+        $this->mail->Subject = "Testing Sendmail";
+
+        $this->mail->msgHTML($template);
+        $this->mail->AltBody = $this->formatHtml2Text($template);
+
+        Request::OutputBufferStart();
+
+        $response = array();
+        if (!$this->mail->send()) {
+            $response['IsSuccess'] = false;
+            $response['Message'] = 'Message could not be sent';
+            $response['ErrorMessage'] = $this->mail->ErrorInfo;
+        } else {
+            $response['IsSuccess'] = true;
+            $response['Message'] = 'Message sent';
+        }
+
+        //save logs
+        $log_mail = new \plugins\model\primary\log_mail();
+        $log_mail->created = $this->GetServerDateTime();
+        $log_mail->cuid = $mailRender['user_id'];
+
+        $log_mail->mail_id = $mailId;
+        $log_mail->user_id = $mailRender['user_id'];
+        $log_mail->sent_at = $this->GetServerDateTime();
+        $log_mail->json_data = $this->requestsample;
+        $log_mail->result_data = json_encode($response, true);
+        $log_mail->debug_info = Request::OutputBufferClean();
+        $log_mail->processing_time = $render->GetElapsedTime();
+        $log_mail->save();
+
+        echo json_encode($response);
+        exit();
+    }
+
 }

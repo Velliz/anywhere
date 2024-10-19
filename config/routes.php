@@ -809,6 +809,13 @@
                 "POST"
             ]
         ],
+        "mail/sendtest/{?}" => [
+            "controller" => "mail",
+            "function" => "sendtest",
+            "accept" => [
+                "POST"
+            ]
+        ],
         "mail/style/{?}" => [
             "controller" => "mail",
             "function" => "style",
@@ -1245,5 +1252,4 @@
             "POST"
         ]
     ]
-];
-return $routes;
+]; return $routes;
