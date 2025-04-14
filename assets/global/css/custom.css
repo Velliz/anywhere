@@ -147,3 +147,22 @@ fieldset[disabled] .navbar-blue .btn-link:focus {
     display: inline-flex !important;
     float: left;
 }
+
+.footer-bs {
+    background-color: #3c3d41;
+    padding: 40px 20px;
+    color: white;
+}
+
+.footer-bs a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.animated {
+    transition: all 0.3s ease;
+}
+
+.fadeInLeft, .fadeInUp, .fadeInDown, .fadeInRight {
+    opacity: 1;
+}

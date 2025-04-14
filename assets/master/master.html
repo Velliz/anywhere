@@ -80,50 +80,58 @@
 
 {CONTENT}
 
-<div class="container">
-    <footer class="footer-bs">
+<footer class="footer-bs" style="background-color: #3c3d41; padding: 40px 20px; color: white;">
+    <div class="container">
         <div class="row">
+            <!-- Brand Section -->
             <div class="col-md-3 footer-brand animated fadeInLeft">
-                <h2>Anywhere</h2>
-                <p>your one-stop solution for effortless output generation in applications, with powerful tools to create professional-grade PDFs, Excel sheets, and QR codes.</p>
-                <p>© 2016 Anywhere, All rights reserved</p>
+                <h2 style="margin-top: 0; color: #fff;">Anywhere</h2>
+                <p style="color: #ddd; font-size: 13px; line-height: 1.6;">Your one-stop solution for effortless output generation in applications, with powerful tools to create professional-grade PDFs, Excel sheets, and QR codes.</p>
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
+                <p style="color: #aaa; font-size: 12px;">&copy; 2024 Anywhere, All rights reserved</p>
             </div>
+
+            <!-- Menu Section -->
             <div class="col-md-4 footer-nav animated fadeInUp">
-                <h4>Menu</h4>
-                <div class="col-md-12">
-                    <ul class="list">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contacts</a></li>
-                        <li><a href="#">Terms & Condition</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                <h4 style="color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;">Menu</h4>
+                <div class="col-md-12" style="padding-left: 0;">
+                    <ul class="list" style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 8px;"><a href="#" style="color: #ddd; text-decoration: none;"><span class="glyphicon glyphicon-chevron-right" style="font-size: 10px; margin-right: 5px;"></span> About Us</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#" style="color: #ddd; text-decoration: none;"><span class="glyphicon glyphicon-chevron-right" style="font-size: 10px; margin-right: 5px;"></span> Contacts</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#" style="color: #ddd; text-decoration: none;"><span class="glyphicon glyphicon-chevron-right" style="font-size: 10px; margin-right: 5px;"></span> Terms &amp; Condition</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#" style="color: #ddd; text-decoration: none;"><span class="glyphicon glyphicon-chevron-right" style="font-size: 10px; margin-right: 5px;"></span> Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
+
+            <!-- Social Section -->
             <div class="col-md-2 footer-social animated fadeInDown">
-                <h4>Follow Us</h4>
-                <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">RSS</a></li>
+                <h4 style="color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;">Follow Us</h4>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 8px;"><a href="#" style="color: #ddd; text-decoration: none;"><span class="glyphicon glyphicon-thumbs-up" style="margin-right: 8px;"></span> Facebook</a></li>
+                    <li style="margin-bottom: 8px;"><a href="#" style="color: #ddd; text-decoration: none;"><span class="glyphicon glyphicon-send" style="margin-right: 8px;"></span> Twitter</a></li>
+                    <li style="margin-bottom: 8px;"><a href="#" style="color: #ddd; text-decoration: none;"><span class="glyphicon glyphicon-camera" style="margin-right: 8px;"></span> Instagram</a></li>
+                    <li style="margin-bottom: 8px;"><a href="#" style="color: #ddd; text-decoration: none;"><span class="glyphicon glyphicon-signal" style="margin-right: 8px;"></span> RSS</a></li>
                 </ul>
             </div>
+
+            <!-- Newsletter Section -->
             <div class="col-md-3 footer-ns animated fadeInRight">
-                <h4>Newsletter</h4>
-                <p>Get update from us!</p>
-                <p>
+                <h4 style="color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;">Newsletter</h4>
+                <p style="color: #ddd; margin-bottom: 15px;">Get updates from us!</p>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
+                    <input type="text" class="form-control" placeholder="Your email" aria-label="Newsletter email input">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
-                      </span>
+                    <button class="btn btn-default" type="button" aria-label="Subscribe to newsletter">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </button>
+                </span>
                 </div>
-                </p>
+                <p class="text-muted" style="margin-top: 10px; font-size: 12px; color: #aaa;">We'll never share your email with anyone else.</p>
             </div>
         </div>
-    </footer>
-    <section style="text-align:center; margin:10px auto;"><p>Designed by <a href="https://github.com/Velliz">Didit Velliz</a></p></section>
-</div>
+    </div>
+</footer>
 
 {!part(css)}
 
