@@ -27,9 +27,9 @@ if (isset($_SERVER['HTTPS'])) {
 }
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Credentials: true ");
+header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
-header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, Cache-Control, Authorization, If-Modified-Since, X-File-Size, X-Requested-With, X-File-Name, X-Permissions");
+header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, Cache-Control, Authorization, If-Modified-Since, X-File-Size, X-Requested-With, X-File-Name, X-Permissions, X-Agen");
 
 $factory = array(
     'cli_param' => null,
