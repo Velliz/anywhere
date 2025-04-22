@@ -1228,6 +1228,17 @@
             ]
         ]
     ],
+    "cms" => [
+        "controller" => "cms",
+        "function" => "engine",
+        "accept" => [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE"
+        ]
+    ],
     "error" => [
         "controller" => "error",
         "function" => "display",
@@ -1236,7 +1247,7 @@
             "POST"
         ]
     ],
-    "not_found" => [
+    "notfound" => [
         "controller" => "error",
         "function" => "notfound",
         "accept" => [
