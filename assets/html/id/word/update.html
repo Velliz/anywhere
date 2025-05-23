@@ -1,0 +1,113 @@
+{!css(<link href="assets/styles/word/update.css" rel="stylesheet">)}
+
+<input type="hidden" name="id" value="{!id_word}">
+<input type="hidden" name="api_key" value="{!api_key}">
+
+<nav class="navbar navbar-custom navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                    class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a data-toggle="tooltip" title="Back" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> <span class="auth-username"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header text-center auth-name"></li>
+                        <li class="dropdown-header text-center auth-status"></li>
+                        <hr style="margin: 8px">
+                        <li class="dropdown-header"><i class="fa fa-key"></i> <span class="auth-api_key"></span></li>
+                        <hr style="margin: 8px">
+                        <li><a href="{!url()}profil">Profil</a></li>
+                        <li><a href="{!url()}guide">Panduan Penggunaan</a></li>
+                        <hr style="margin: 8px">
+                        <li><a onclick="logout()" style="cursor: pointer">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="design-page">
+    <div class="form">
+        <div class="form-group">
+            <input type="text" name="reportname" placeholder="report name" value="{!reportname}"/>
+        </div>
+
+        <div class="form-group text-center">
+            <label>
+                <input type="text" name="paper" value="{!paper}" placeholder="PAPER SIZE">
+            </label>
+            <br>
+            PAPER SIZE AVAILABLE: folio, legal, letter, F4, A3, A4, A5, A6, B5, CUSTOM [padding-x, padding-y, width, height]
+        </div>
+
+        <div class="form-group text-center">
+            <label><input type="radio" name="requesttype" value="POST">POST</label>
+            <label><input type="radio" name="requesttype" value="URL">URL</label>
+        </div>
+        <div class="form-group text-center">
+            <label><input type="radio" name="orientation" value="portrait">Portrait / Tegak</label>
+            <label><input type="radio" name="orientation" value="landscape">Landscape / Mendatar</label>
+        </div>
+        <div class="form-group">
+            <input type="text" name="requesturl" placeholder="url data source here" value="{!requesturl}"/>
+        </div>
+        <div class="form-group text-center">
+            <label><input type="radio" name="outputmode" value="Inline">Buka di Browser</label>
+            <label><input type="radio" name="outputmode" value="Download">Download Berkas</label>
+        </div>
+        <hr style="border: dashed 1px #0067AC;"/>
+        <div class="form-group">
+            <label for="cssexternal">Tambah .css dari Content Delivery Network (CDN)</label>
+            <textarea style="width: 100%;" id="cssexternal" name="cssexternal" rows="8"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="requestsample">Sample data .json</label>
+            <textarea style="width: 100%;" id="requestsample" name="requestsample" rows="8"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="phpscript">Custom Code PHP</label>
+            <textarea style="width: 100%;" id="phpscript" name="phpscript" rows="8"></textarea>
+        </div>
+
+        <div class="form-group">
+            <a href="{!url()}word/html/{!id_word}" class="btn btn-dark">Open .html designer</a>
+            <a href="{!url()}word/style/{!id_word}" class="btn btn-dark">Open .css designer</a>
+        </div>
+
+        <div class="alert alert-info text-center">
+            <p><b>API URL</b></p>
+            <p><a target="_blank" href="{!url()}word/render/{!api_key}/{!id_word}">{!url()}word/render/{!api_key}/{!id_word}</a></p>
+        </div>
+
+        <button name="submit" type="submit">Simpan Konfigurasi</button>
+    </div>
+</div>
+
+{!js(
+<script src="assets/global/js/jquery.js"></script>
+<script src="assets/global/js/bootstrap.min.js"></script>
+<script src="assets/script/utility.js"></script>
+<script src="assets/script/master.js"></script>
+
+<script src="assets/vendor/pnotify/dist/pnotify.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.buttons.js"></script>
+<script src="assets/vendor/pnotify/dist/pnotify.nonblock.js"></script>
+)}
+
+{!js(<script src="assets/script/auth.js"></script>)}
+{!js(<script src="assets/script/word/update.js"></script>)}

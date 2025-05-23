@@ -230,6 +230,38 @@
                 </div>
             </div>
         </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+                        Word Document Generator
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse8" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table id="word-table" class="table table-bordered full-width">
+                        <thead>
+                        <tr>
+                            <th>Template name</th>
+                            <th>Paper Size</th>
+                            <th>Orientation</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <div class="well well-sm no-shadow">
+                        <p><b>Notes for WORD generator</b></p>
+                        <p>Tag HTML tidak perlu menggunakan `head` atau `body`. Langsung gunakan html untuk content seperti `div` atau `table` dan pastikan setiap tag yang dibuka, ditutup dengan benar</p>
+                        <p>Pastikan semua tag css ditulis dengan benar, jika menggunakan variabel dari json data. Pastikan tidak ada css yang kosong seperti: `font-color: ; background: ;`. Untuk menghindari error saat dokumen WORD dibuat gunakan default value `font-color: #000000; background: #0067AA;`</p>
+                        <p>Proses rendering menggunakan tag PTE {!} yang dokumentasinya dapat dilihat dari link berikut ini https://github.com/Velliz/pte</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

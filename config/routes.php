@@ -330,6 +330,97 @@
                 "POST"
             ]
         ],
+        "word/coderender/{?}/{?}" => [
+            "controller" => "word",
+            "function" => "coderender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/create" => [
+            "controller" => "primary\\word",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "word/explore" => [
+            "controller" => "primary\\word",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "word/render/{?}/{?}" => [
+            "controller" => "word",
+            "function" => "render",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/search" => [
+            "controller" => "primary\\word",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "word/table" => [
+            "controller" => "primary\\word",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "word/timeline/{?}" => [
+            "controller" => "word",
+            "function" => "timeline",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/timeline/{?}/{?}/{?}" => [
+            "controller" => "word",
+            "function" => "timelinerender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/update/{?}" => [
+            "controller" => "word",
+            "function" => "update",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/{?}" => [
+            "controller" => "primary\\word",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "word/{?}/delete" => [
+            "controller" => "primary\\word",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "word/{?}/update" => [
+            "controller" => "primary\\word",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
         "feedback/create" => [
             "controller" => "primary\\feedback",
             "function" => "create",

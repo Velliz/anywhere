@@ -89,6 +89,95 @@ $(function () {
         }
     });
 
+    let word_table = $('#word-table').DataTable({
+        ajax: {
+            type: "POST",
+            dataType: "json",
+            responsive: true,
+            url: "word/table",
+            data: function (data) {
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            },
+            dataSrc: function (json) {
+                if (json.exception !== undefined) {
+                    return [];
+                }
+                return json.data;
+            }
+        },
+        processing: true,
+        serverSide: true,
+        stateSave: true,
+        bAutoWidth: false,
+        dom: 'Bfrtip',
+        lengthMenu: datatables_menu,
+        buttons: [
+            {
+                extend: "pageLength",
+                className: "btn-sm"
+            },
+            {
+                className: "btn-sm btn-primary",
+                text: `Create new template`,
+                action: function () {
+                    bootbox_dialog(
+                        `Template name`,
+                        `<input class="form-control" name="report_name" placeholder="word template name"/>`,
+                        `small`,
+                        function () {
+                            $('.bootbox-accept').prop('disabled', true);
+                            let report_name = $('.bootbox-body input[name=report_name]').val();
+                            ajax_post(
+                                `word/create`,
+                                {
+                                    report_name: report_name
+                                },
+                                word_table,
+                                function (result) {
+                                    word_table.ajax.reload();
+
+                                    let word = result.word;
+                                    pnotify(`Template created`, `New template ${report_name} successfully created!`, 'success');
+                                    bootbox.hideAll();
+                                },
+                                function (xhr, error) {
+                                    $('.bootbox-accept').prop('disabled', false);
+                                    if (error === 'error') {
+                                        pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                                    }
+                                }
+                            );
+                            return false;
+                        }
+                    );
+                }
+            },
+        ],
+        language: datatables_config,
+        rowCallback: function (row, data) {
+            let details = `<a title="Details" href="word/update/${data[0]}" target="_blank" class="btn btn-xs btn-primary">
+                <i class="fa fa-eye"></i> Details
+            </a>`;
+            let designer = `<a title="Designer" href="word/html/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+                <i class="fa fa-pencil"></i> Designer
+            </a>`;
+            let usages = `<a title="Usage History" href="word/timeline/${data[0]}" target="_blank" class="btn btn-xs btn-primary" style="margin-left: 10px">
+                <i class="fa fa-external-link"></i> Usage History
+            </a>`;
+
+            $('td:eq(0)', row).html(`<b>${data[2]}</b>`);
+            $('td:eq(1)', row).html(`<span class="label label-danger">${data[7]}</span>`);
+            $('td:eq(2)', row).html(data[8]);
+            $('td:eq(3)', row).html(details + designer + usages);
+        },
+        fnDrawCallback: function () {
+        },
+        preDrawCallback: function (settings) {
+        }
+    });
+
     let excel_table = $('#excel-table').DataTable({
         ajax: {
             type: "POST",
