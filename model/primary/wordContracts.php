@@ -18,7 +18,7 @@ class wordContracts extends word implements ModelContracts
 
     public static function GetData()
     {
-        $sql = "SELECT id, user_id, word_name, word_template, request_sample
+        $sql = "SELECT id, user_id, word_name, request_sample
         FROM word
         WHERE dflag = 0";
         return DBI::Prepare($sql)->GetData();
@@ -76,7 +76,7 @@ class wordContracts extends word implements ModelContracts
 
     public static function GetLastData()
     {
-        $sql = "SELECT id, user_id, word_name, word_template, request_sample
+        $sql = "SELECT id, user_id, word_name, request_sample
         FROM word
         WHERE dflag = 0
         ORDER BY id DESC
@@ -94,7 +94,7 @@ class wordContracts extends word implements ModelContracts
                 $strings .= sprintf(" AND (%s = '%s') ", $column, str_replace("'", "\'", $values));
             }
         }
-        $sql = sprintf("SELECT id, user_id, word_name, word_template, request_sample
+        $sql = sprintf("SELECT id, user_id, word_name, request_sample
         FROM word
         WHERE dflag = 0 %s;", $strings);
         return DBI::Prepare($sql)->GetData();
@@ -114,7 +114,7 @@ class wordContracts extends word implements ModelContracts
             }
         }
 
-        $sql = sprintf("SELECT id, user_id, word_name, word_template, request_sample
+        $sql = sprintf("SELECT id, user_id, word_name, request_sample
         FROM word
         WHERE dflag = 0 %s;", $strings);
 
@@ -148,7 +148,7 @@ class wordContracts extends word implements ModelContracts
             }
         }
 
-        $sql = sprintf("SELECT id, user_id, word_name, word_template, request_sample
+        $sql = sprintf("SELECT id, user_id, word_name, request_sample
         FROM word
         WHERE dflag = 0 %s;", $strings);
 
