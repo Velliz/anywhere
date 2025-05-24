@@ -17,44 +17,29 @@ use pukoframework\pda\Model;
 class word extends Model
 {
 
-    
+
     /**
      * #Column id int(11) not null auto_increment
      */
     var $id = 0;
 
     /**
-     * #Column user_id varchar(250)  
+     * #Column user_id varchar(250)
      */
     var $user_id = '';
 
     /**
-     * #Column word_name varchar(255)  
+     * #Column word_name varchar(255)
      */
     var $word_name = '';
 
     /**
-     * #Column html longblob  
+     * #Column word_template longblob
      */
-    var $html = null;
+    var $word_template = null;
 
     /**
-     * #Column css longblob  
-     */
-    var $css = null;
-
-    /**
-     * #Column php_script longblob  
-     */
-    var $php_script = null;
-
-    /**
-     * #Column request_type varchar(60)  
-     */
-    var $request_type = '';
-
-    /**
-     * #Column created datetime not null 
+     * #Column created datetime not null
      */
     var $created = null;
 
@@ -64,19 +49,23 @@ class word extends Model
     var $modified = null;
 
     /**
-     * #Column cuid int(11) not null 
+     * #Column cuid int(11) not null
      */
     var $cuid = 0;
 
     /**
-     * #Column muid int(11) not null 
+     * #Column muid int(11) not null
      */
     var $muid = 0;
 
     /**
-     * #Column dflag tinyint(1) not null 
+     * #Column dflag tinyint(1) not null
      */
     var $dflag = 0;
 
+    /**
+     * #Column request_sample text
+     */
+    var $request_sample = '';
 
 }

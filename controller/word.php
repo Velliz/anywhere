@@ -3,10 +3,13 @@
 namespace controller;
 
 use Exception;
+use model\primary\log_wordContracts;
 use model\primary\wordContracts;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\TemplateProcessor;
 use plugins\controller\AnywhereView;
+use plugins\model\primary\log_word;
 
 /**
  * Class word
@@ -18,6 +21,21 @@ use plugins\controller\AnywhereView;
  */
 class word extends AnywhereView
 {
+
+    private $word_name;
+
+    private $word_template;
+
+    private $request_sample;
+
+    /**
+     * word constructor.
+     * @throws Exception
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * @param $id_word
@@ -45,7 +63,10 @@ class word extends AnywhereView
      */
     public function html($id_word)
     {
+        $data['id_word'] = $id_word;
+        $data['api_key'] = wordContracts::GetApiKeyById($id_word);
 
+        return $data;
 
     }
 
@@ -61,6 +82,10 @@ class word extends AnywhereView
      */
     public function style($id_word)
     {
+        $data['id_word'] = $id_word;
+        $data['api_key'] = wordContracts::GetApiKeyById($id_word);
+
+        return $data;
     }
 
     /**
@@ -70,80 +95,60 @@ class word extends AnywhereView
      */
     public function coderender($api_key, $wordId)
     {
+        $wordRender = wordContracts::GetWordRender($api_key, $wordId);
+        $this->word_name = $wordRender['word_name'];
+        $this->word_template = $wordRender['word_template'];
+        $this->request_sample = $wordRender['request_sample'];
 
-        $html = '
-<h2 style="text-align:center;">INVOICE</h2>
+        // 1. Write BLOB to temp file
+        $tempInput = tempnam(sys_get_temp_dir(), 'tpl_') . '.docx';
+        file_put_contents($tempInput, $this->word_template);
 
-<table width="100%" style="margin-bottom:20px;">
-    <tr>
-        <td>
-            <strong>From:</strong><br />
-            My Company<br />
-            123 Business Street<br />
-            Jakarta, Indonesia<br />
-            Email: hello@mycompany.com
-        </td>
-        <td align="right">
-            <strong>To:</strong><br />
-            Client Name<br />
-            456 Client Road<br />
-            Surabaya, Indonesia<br />
-            Email: client@example.com
-        </td>
-    </tr>
-</table>
+        // 2. Use TemplateProcessor
+        $templateProcessor = new TemplateProcessor($tempInput);
+        $data = json_decode($this->request_sample, true);
 
-<table width="100%" border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Description</th>
-            <th>Qty</th>
-            <th>Unit Price</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Web Development Services</td>
-            <td>1</td>
-            <td>$1000</td>
-            <td>$1000</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Hosting (12 months)</td>
-            <td>1</td>
-            <td>$120</td>
-            <td>$120</td>
-        </tr>
-    </tbody>
-</table>
+        // Scalar replacements
+        foreach ($data as $key => $value) {
+            if (!is_array($value)) {
+                $templateProcessor->setValue($key, $value);
+            }
+        }
 
-<p style="text-align:right; margin-top:10px;">
-    <strong>Subtotal:</strong> $1120<br />
-    <strong>Tax (10%):</strong> $112<br />
-    <strong>Total:</strong> <strong>$1232</strong>
-</p>
+        // Clone rows for array data
+        foreach ($data as $key => $value) {
+            if (is_array($value) && isset($value[0]) && is_array($value[0])) {
+                $firstSubKey = array_key_first($value[0]);
+                $templateProcessor->cloneRow("$key.$firstSubKey", count($value));
+                foreach ($value as $index => $row) {
+                    $rowIndex = $index + 1;
+                    foreach ($row as $subKey => $subValue) {
+                        $templateProcessor->setValue("$key.$subKey#$rowIndex", $subValue);
+                    }
+                }
+            }
+        }
 
-<p>Thank you for your business!</p>
-';
+        // 3. Save to temp output file
+        $tempOutput = tempnam(sys_get_temp_dir(), 'out_') . '.docx';
+        $templateProcessor->saveAs($tempOutput);
 
-        $phpWord = new PhpWord();
-        $section = $phpWord->addSection();
+        // 4. Load and stream using IOFactory
+        $phpWord = IOFactory::load($tempOutput);
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename={$this->word_name}.docx");
+        header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        header("Cache-Control: must-revalidate");
+        header("Expires: 0");
+        header("Pragma: public");
 
-        // Load HTML into the section
-        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+        $writer->save('php://output');
 
-        $filename = "document.docx";
-        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-        header("Content-Disposition: attachment; filename=\"$filename\"");
-
-        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-        $objWriter->save("php://output");
+        // 5. Clean up
+        unlink($tempInput);
+        unlink($tempOutput);
         exit;
-
     }
 
     /**
@@ -154,7 +159,82 @@ class word extends AnywhereView
      */
     public function render($api_key, $wordId)
     {
+        $wordRender = wordContracts::GetWordRender($api_key, $wordId);
+        $this->word_name = $wordRender['word_name'];
+        $this->word_template = $wordRender['word_template'];
 
+        $data['status'] = 'success';
+        if (!isset($_POST['jsondata'])) {
+            $data['status'] = 'failed';
+            $data['reason'] = 'post data [jsondata] is not defined.';
+            header('Content-Type: application/json');
+            die(json_encode($data));
+        }
+        $this->request_sample = $_POST['jsondata'];
+
+        // 1. Write BLOB to temp file
+        $tempInput = tempnam(sys_get_temp_dir(), 'tpl_') . '.docx';
+        file_put_contents($tempInput, $this->word_template);
+
+        // 2. Use TemplateProcessor
+        $templateProcessor = new TemplateProcessor($tempInput);
+        $data = json_decode($this->request_sample, true);
+
+        // Scalar replacements
+        foreach ($data as $key => $value) {
+            if (!is_array($value)) {
+                $templateProcessor->setValue($key, $value);
+            }
+        }
+
+        // Clone rows for array data
+        foreach ($data as $key => $value) {
+            if (is_array($value) && isset($value[0]) && is_array($value[0])) {
+                $firstSubKey = array_key_first($value[0]);
+                $templateProcessor->cloneRow("$key.$firstSubKey", count($value));
+                foreach ($value as $index => $row) {
+                    $rowIndex = $index + 1;
+                    foreach ($row as $subKey => $subValue) {
+                        $templateProcessor->setValue("$key.$subKey#$rowIndex", $subValue);
+                    }
+                }
+            }
+        }
+
+        // 3. Save to temp output file
+        $tempOutput = tempnam(sys_get_temp_dir(), 'out_') . '.docx';
+        $templateProcessor->saveAs($tempOutput);
+
+        //save logs
+        $log_word = new log_word();
+        $log_word->created = $this->GetServerDateTime();
+        $log_word->cuid = $wordRender['user_id'];
+
+        $log_word->word_id = $wordId;
+        $log_word->user_id = $wordRender['user_id'];
+        $log_word->sent_at = $this->GetServerDateTime();
+        $log_word->json_data = json_encode($this->request_sample, true);
+        $log_word->creator_info = $_POST['creator'] ?? null;
+        $log_word->processing_time = 0;
+        $log_word->save();
+        //end save logs
+
+        // 4. Load and stream using IOFactory
+        $phpWord = IOFactory::load($tempOutput);
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename='{$this->word_name}.docx'");
+        header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        header("Cache-Control: must-revalidate");
+        header("Expires: 0");
+        header("Pragma: public");
+
+        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+        $writer->save('php://output');
+
+        // 5. Clean up
+        unlink($tempInput);
+        unlink($tempOutput);
+        exit;
     }
 
     /**
@@ -165,7 +245,62 @@ class word extends AnywhereView
      */
     public function timelinerender($logID, $api_key, $wordId)
     {
+        $wordRender = wordContracts::GetWordRender($api_key, $wordId);
+        $logData = log_wordContracts::GetById($logID);
+        $this->word_name = $wordRender['word_name'];
+        $this->word_template = $wordRender['word_template'];
 
+        $this->request_sample = $logData['json_data'];
+
+        // 1. Write BLOB to temp file
+        $tempInput = tempnam(sys_get_temp_dir(), 'tpl_') . '.docx';
+        file_put_contents($tempInput, $this->word_template);
+
+        // 2. Use TemplateProcessor
+        $templateProcessor = new TemplateProcessor($tempInput);
+        $data = json_decode($this->request_sample, true);
+
+        // Scalar replacements
+        foreach ($data as $key => $value) {
+            if (!is_array($value)) {
+                $templateProcessor->setValue("!$key", $value);
+            }
+        }
+
+        // Clone rows for array data
+        foreach ($data as $key => $value) {
+            if (is_array($value) && isset($value[0]) && is_array($value[0])) {
+                $firstSubKey = array_key_first($value[0]);
+                $templateProcessor->cloneRow("!$key.$firstSubKey", count($value));
+                foreach ($value as $index => $row) {
+                    $rowIndex = $index + 1;
+                    foreach ($row as $subKey => $subValue) {
+                        $templateProcessor->setValue("!$key.$subKey#$rowIndex", $subValue);
+                    }
+                }
+            }
+        }
+
+        // 3. Save to temp output file
+        $tempOutput = tempnam(sys_get_temp_dir(), 'out_') . '.docx';
+        $templateProcessor->saveAs($tempOutput);
+
+        // 4. Load and stream using IOFactory
+        $phpWord = IOFactory::load($tempOutput);
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename='{$this->word_name}.docx'");
+        header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        header("Cache-Control: must-revalidate");
+        header("Expires: 0");
+        header("Pragma: public");
+
+        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+        $writer->save('php://output');
+
+        // 5. Clean up
+        unlink($tempInput);
+        unlink($tempOutput);
+        exit;
     }
 
     /**
@@ -176,7 +311,10 @@ class word extends AnywhereView
      */
     public function timeline($id_word)
     {
+        $data['id_word'] = $id_word;
+        $data['api_key'] = wordContracts::GetApiKeyById($id_word);
 
+        return $data;
     }
 
 }

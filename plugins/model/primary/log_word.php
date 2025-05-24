@@ -17,19 +17,19 @@ use pukoframework\pda\Model;
 class log_word extends Model
 {
 
-    
+
     /**
      * #Column id int(11) not null auto_increment
      */
     var $id = 0;
 
     /**
-     * #Column pdf_id int(11)  
+     * #Column word_id int(11)
      */
-    var $pdf_id = 0;
+    var $word_id = 0;
 
     /**
-     * #Column user_id int(11)  
+     * #Column user_id int(11)
      */
     var $user_id = 0;
 
@@ -39,42 +39,42 @@ class log_word extends Model
     var $sent_at = null;
 
     /**
-     * #Column json_data longblob  
+     * #Column json_data longblob
      */
     var $json_data = null;
 
     /**
-     * #Column creator_info text  
+     * #Column creator_info text
      */
     var $creator_info = '';
 
     /**
-     * #Column processing_time text  
+     * #Column processing_time text
      */
     var $processing_time = '';
 
     /**
-     * #Column created datetime not null 
+     * #Column created datetime not null
      */
     var $created = null;
 
     /**
-     * #Column modified timestamp not null 
+     * #Column modified timestamp not null
      */
     var $modified = null;
 
     /**
-     * #Column cuid int(11) not null 
+     * #Column cuid int(11) not null
      */
     var $cuid = 0;
 
     /**
-     * #Column muid int(11) not null 
+     * #Column muid int(11) not null
      */
     var $muid = 0;
 
     /**
-     * #Column dflag tinyint(1) not null 
+     * #Column dflag tinyint(1) not null
      */
     var $dflag = 0;
 

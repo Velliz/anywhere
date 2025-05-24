@@ -18,7 +18,7 @@ class wordContracts extends word implements ModelContracts
 
     public static function GetData()
     {
-        $sql = "SELECT id, user_id, word_name, html, css, php_script, request_type
+        $sql = "SELECT id, user_id, word_name, word_template, request_sample
         FROM word
         WHERE dflag = 0";
         return DBI::Prepare($sql)->GetData();
@@ -26,7 +26,7 @@ class wordContracts extends word implements ModelContracts
 
     public static function GetById($id)
     {
-        $sql = "SELECT id, user_id, word_name, html, css, php_script, request_type
+        $sql = "SELECT id, user_id, word_name, word_template, request_sample
         FROM word
         WHERE dflag = 0 AND id = @1";
         return DBI::Prepare($sql)->FirstRow($id);
@@ -76,7 +76,7 @@ class wordContracts extends word implements ModelContracts
 
     public static function GetLastData()
     {
-        $sql = "SELECT id, user_id, word_name, html, css, php_script, request_type
+        $sql = "SELECT id, user_id, word_name, word_template, request_sample
         FROM word
         WHERE dflag = 0
         ORDER BY id DESC
@@ -94,7 +94,7 @@ class wordContracts extends word implements ModelContracts
                 $strings .= sprintf(" AND (%s = '%s') ", $column, str_replace("'", "\'", $values));
             }
         }
-        $sql = sprintf("SELECT id, user_id, word_name, html, css, php_script, request_type
+        $sql = sprintf("SELECT id, user_id, word_name, word_template, request_sample
         FROM word
         WHERE dflag = 0 %s;", $strings);
         return DBI::Prepare($sql)->GetData();
@@ -114,7 +114,7 @@ class wordContracts extends word implements ModelContracts
             }
         }
 
-        $sql = sprintf("SELECT id, user_id, word_name, html, css, php_script, request_type
+        $sql = sprintf("SELECT id, user_id, word_name, word_template, request_sample
         FROM word
         WHERE dflag = 0 %s;", $strings);
 
@@ -134,13 +134,9 @@ class wordContracts extends word implements ModelContracts
         $table = new DataTables(DataTables::POST);
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
-            "id",
-            "user_id",
-            "word_name",
-            "html",
-            "css",
-            "php_script",
-            "request_type"
+            "id", //0
+            "user_id", //1
+            "word_name", //2
         ));
 
         $strings = "";
@@ -152,7 +148,7 @@ class wordContracts extends word implements ModelContracts
             }
         }
 
-        $sql = sprintf("SELECT id, user_id, word_name, html, css, php_script, request_type
+        $sql = sprintf("SELECT id, user_id, word_name, word_template, request_sample
         FROM word
         WHERE dflag = 0 %s;", $strings);
 

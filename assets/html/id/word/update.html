@@ -44,49 +44,27 @@
 <div class="design-page">
     <div class="form">
         <div class="form-group">
-            <input type="text" name="reportname" placeholder="report name" value="{!reportname}"/>
-        </div>
-
-        <div class="form-group text-center">
-            <label>
-                <input type="text" name="paper" value="{!paper}" placeholder="PAPER SIZE">
-            </label>
-            <br>
-            PAPER SIZE AVAILABLE: folio, legal, letter, F4, A3, A4, A5, A6, B5, CUSTOM [padding-x, padding-y, width, height]
-        </div>
-
-        <div class="form-group text-center">
-            <label><input type="radio" name="requesttype" value="POST">POST</label>
-            <label><input type="radio" name="requesttype" value="URL">URL</label>
-        </div>
-        <div class="form-group text-center">
-            <label><input type="radio" name="orientation" value="portrait">Portrait / Tegak</label>
-            <label><input type="radio" name="orientation" value="landscape">Landscape / Mendatar</label>
-        </div>
-        <div class="form-group">
-            <input type="text" name="requesturl" placeholder="url data source here" value="{!requesturl}"/>
-        </div>
-        <div class="form-group text-center">
-            <label><input type="radio" name="outputmode" value="Inline">Buka di Browser</label>
-            <label><input type="radio" name="outputmode" value="Download">Download Berkas</label>
-        </div>
-        <hr style="border: dashed 1px #0067AC;"/>
-        <div class="form-group">
-            <label for="cssexternal">Tambah .css dari Content Delivery Network (CDN)</label>
-            <textarea style="width: 100%;" id="cssexternal" name="cssexternal" rows="8"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="requestsample">Sample data .json</label>
-            <textarea style="width: 100%;" id="requestsample" name="requestsample" rows="8"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="phpscript">Custom Code PHP</label>
-            <textarea style="width: 100%;" id="phpscript" name="phpscript" rows="8"></textarea>
+            <input type="text" name="word_name" placeholder="report name" value="{!word_name}"/>
         </div>
 
         <div class="form-group">
-            <a href="{!url()}word/html/{!id_word}" class="btn btn-dark">Open .html designer</a>
-            <a href="{!url()}word/style/{!id_word}" class="btn btn-dark">Open .css designer</a>
+            <label for="request_sample">Sample data .json</label>
+            <textarea style="width: 100%;" id="request_sample" name="request_sample" rows="8"></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <p>Pilih Template .docx</p>
+                <input type="file" name="word_template" value="Pilih Template Word">
+            </div>
+            <div class="col-lg-6">
+                <p>Template .docx saat ini</p>
+                <a target="_blank" href="{!url()}word/{!id_word}/download/template" class="btn btn-default">Download template .docx</a>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <a target="_blank" href="{!url()}word/coderender/{!api_key}/{!id_word}" class="btn btn-primary">Open example .docx output</a>
         </div>
 
         <div class="alert alert-info text-center">
@@ -107,6 +85,8 @@
 <script src="assets/vendor/pnotify/dist/pnotify.js"></script>
 <script src="assets/vendor/pnotify/dist/pnotify.buttons.js"></script>
 <script src="assets/vendor/pnotify/dist/pnotify.nonblock.js"></script>
+
+<script src="assets/vendor/bootstrap-waitingfor/build/bootstrap-waitingfor.min.js" type="text/javascript"></script>
 )}
 
 {!js(<script src="assets/script/auth.js"></script>)}

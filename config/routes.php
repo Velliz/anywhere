@@ -421,6 +421,20 @@
                 "POST"
             ]
         ],
+        "word/{?}/update/template" => [
+            "controller" => "primary\\word",
+            "function" => "update_word_template",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "word/{?}/download/template" => [
+            "controller" => "primary\\word",
+            "function" => "download_word_template",
+            "accept" => [
+                "GET"
+            ]
+        ],
         "feedback/create" => [
             "controller" => "primary\\feedback",
             "function" => "create",
@@ -1354,4 +1368,5 @@
             "POST"
         ]
     ]
-]; return $routes;
+];
+return $routes;
