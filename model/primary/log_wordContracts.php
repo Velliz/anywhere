@@ -18,7 +18,7 @@ class log_wordContracts extends log_word implements ModelContracts
 
     public static function GetData()
     {
-        $sql = "SELECT id, pdf_id, user_id, sent_at, json_data, creator_info, processing_time
+        $sql = "SELECT id, word_id, user_id, sent_at, json_data, creator_info, processing_time
         FROM log_word
         WHERE dflag = 0";
         return DBI::Prepare($sql)->GetData();
@@ -26,7 +26,7 @@ class log_wordContracts extends log_word implements ModelContracts
 
     public static function GetById($id)
     {
-        $sql = "SELECT id, pdf_id, user_id, sent_at, json_data, creator_info, processing_time
+        $sql = "SELECT id, word_id, user_id, sent_at, json_data, creator_info, processing_time
         FROM log_word
         WHERE dflag = 0 AND id = @1";
         return DBI::Prepare($sql)->FirstRow($id);
@@ -76,7 +76,7 @@ class log_wordContracts extends log_word implements ModelContracts
 
     public static function GetLastData()
     {
-        $sql = "SELECT id, pdf_id, user_id, sent_at, json_data, creator_info, processing_time
+        $sql = "SELECT id, word_id, user_id, sent_at, json_data, creator_info, processing_time
         FROM log_word
         WHERE dflag = 0
         ORDER BY id DESC
@@ -94,7 +94,7 @@ class log_wordContracts extends log_word implements ModelContracts
                 $strings .= sprintf(" AND (%s = '%s') ", $column, str_replace("'", "\'", $values));
             }
         }
-        $sql = sprintf("SELECT id, pdf_id, user_id, sent_at, json_data, creator_info, processing_time
+        $sql = sprintf("SELECT id, word_id, user_id, sent_at, json_data, creator_info, processing_time
         FROM log_word
         WHERE dflag = 0 %s;", $strings);
         return DBI::Prepare($sql)->GetData();
@@ -114,7 +114,7 @@ class log_wordContracts extends log_word implements ModelContracts
             }
         }
 
-        $sql = sprintf("SELECT id, pdf_id, user_id, sent_at, json_data, creator_info, processing_time
+        $sql = sprintf("SELECT id, word_id, user_id, sent_at, json_data, creator_info, processing_time
         FROM log_word
         WHERE dflag = 0 %s;", $strings);
 
@@ -135,7 +135,7 @@ class log_wordContracts extends log_word implements ModelContracts
         $table->SetDBEngine('mysql');
         $table->SetColumnSpec(array(
             "id", //0
-            "pdf_id", //1
+            "word_id", //1
             "user_id", //2
             "sent_at", //3
             "json_data", //4
@@ -152,7 +152,7 @@ class log_wordContracts extends log_word implements ModelContracts
             }
         }
 
-        $sql = sprintf("SELECT id, pdf_id, user_id, sent_at, json_data, creator_info, processing_time
+        $sql = sprintf("SELECT id, word_id, user_id, sent_at, json_data, creator_info, processing_time
         FROM log_word
         WHERE dflag = 0 %s;", $strings);
 

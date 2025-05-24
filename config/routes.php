@@ -330,111 +330,6 @@
                 "POST"
             ]
         ],
-        "word/coderender/{?}/{?}" => [
-            "controller" => "word",
-            "function" => "coderender",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "word/create" => [
-            "controller" => "primary\\word",
-            "function" => "create",
-            "accept" => [
-                "POST"
-            ]
-        ],
-        "word/explore" => [
-            "controller" => "primary\\word",
-            "function" => "explore",
-            "accept" => [
-                "POST",
-                "GET"
-            ]
-        ],
-        "word/render/{?}/{?}" => [
-            "controller" => "word",
-            "function" => "render",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "word/search" => [
-            "controller" => "primary\\word",
-            "function" => "search",
-            "accept" => [
-                "POST"
-            ]
-        ],
-        "word/table" => [
-            "controller" => "primary\\word",
-            "function" => "table",
-            "accept" => [
-                "POST"
-            ]
-        ],
-        "word/timeline/{?}" => [
-            "controller" => "word",
-            "function" => "timeline",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "word/timeline/{?}/{?}/{?}" => [
-            "controller" => "word",
-            "function" => "timelinerender",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "word/update/{?}" => [
-            "controller" => "word",
-            "function" => "update",
-            "accept" => [
-                "GET",
-                "POST"
-            ]
-        ],
-        "word/{?}" => [
-            "controller" => "primary\\word",
-            "function" => "read",
-            "accept" => [
-                "GET"
-            ]
-        ],
-        "word/{?}/delete" => [
-            "controller" => "primary\\word",
-            "function" => "delete",
-            "accept" => [
-                "DELETE"
-            ]
-        ],
-        "word/{?}/update" => [
-            "controller" => "primary\\word",
-            "function" => "update",
-            "accept" => [
-                "PUT",
-                "POST"
-            ]
-        ],
-        "word/{?}/update/template" => [
-            "controller" => "primary\\word",
-            "function" => "update_word_template",
-            "accept" => [
-                "POST"
-            ]
-        ],
-        "word/{?}/download/template" => [
-            "controller" => "primary\\word",
-            "function" => "download_word_template",
-            "accept" => [
-                "GET"
-            ]
-        ],
         "feedback/create" => [
             "controller" => "primary\\feedback",
             "function" => "create",
@@ -850,6 +745,55 @@
             "accept" => [
                 "PUT",
                 "POST"
+            ]
+        ],
+        "log_word/create" => [
+            "controller" => "primary\\log_word",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_word/explore" => [
+            "controller" => "primary\\log_word",
+            "function" => "explore",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_word/search" => [
+            "controller" => "primary\\log_word",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_word/table" => [
+            "controller" => "primary\\log_word",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "log_word/{?}" => [
+            "controller" => "primary\\log_word",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "log_word/{?}/delete" => [
+            "controller" => "primary\\log_word",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "log_word/{?}/update" => [
+            "controller" => "primary\\log_word",
+            "function" => "update",
+            "accept" => [
+                "PUT"
             ]
         ],
         "login" => [
@@ -1331,6 +1275,111 @@
                 "PUT",
                 "POST"
             ]
+        ],
+        "word/coderender/{?}/{?}" => [
+            "controller" => "word",
+            "function" => "coderender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/create" => [
+            "controller" => "primary\\word",
+            "function" => "create",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "word/explore" => [
+            "controller" => "primary\\word",
+            "function" => "explore",
+            "accept" => [
+                "POST",
+                "GET"
+            ]
+        ],
+        "word/render/{?}/{?}" => [
+            "controller" => "word",
+            "function" => "render",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/search" => [
+            "controller" => "primary\\word",
+            "function" => "search",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "word/table" => [
+            "controller" => "primary\\word",
+            "function" => "table",
+            "accept" => [
+                "POST"
+            ]
+        ],
+        "word/timeline/{?}" => [
+            "controller" => "word",
+            "function" => "timeline",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/timeline/{?}/{?}/{?}" => [
+            "controller" => "word",
+            "function" => "timelinerender",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/update/{?}" => [
+            "controller" => "word",
+            "function" => "update",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "word/{?}" => [
+            "controller" => "primary\\word",
+            "function" => "read",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "word/{?}/delete" => [
+            "controller" => "primary\\word",
+            "function" => "delete",
+            "accept" => [
+                "DELETE"
+            ]
+        ],
+        "word/{?}/download/template" => [
+            "controller" => "primary\\word",
+            "function" => "download_word_template",
+            "accept" => [
+                "GET"
+            ]
+        ],
+        "word/{?}/update" => [
+            "controller" => "primary\\word",
+            "function" => "update",
+            "accept" => [
+                "PUT",
+                "POST"
+            ]
+        ],
+        "word/{?}/update/template" => [
+            "controller" => "primary\\word",
+            "function" => "update_word_template",
+            "accept" => [
+                "POST"
+            ]
         ]
     ],
     "cms" => [
@@ -1368,5 +1417,4 @@
             "POST"
         ]
     ]
-];
-return $routes;
+]; return $routes;
