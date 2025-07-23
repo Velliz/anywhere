@@ -6,7 +6,6 @@ use Exception;
 use model\primary\log_wordContracts;
 use model\primary\wordContracts;
 use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\TemplateProcessor;
 use plugins\controller\AnywhereView;
 use plugins\model\primary\log_word;

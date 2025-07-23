@@ -4,7 +4,6 @@ namespace controller\primary;
 
 use Exception;
 use model\primary\wordContracts;
-use PhpOffice\PhpWord\IOFactory;
 use plugins\UserBearerData;
 use pukoframework\Framework;
 use pukoframework\middleware\Service;
