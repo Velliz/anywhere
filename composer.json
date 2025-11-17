@@ -2,7 +2,7 @@
   "name": "velliz/anywhere",
   "description": "Anywhere output as-a service platform.",
   "license": "MIT",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "authors": [
     {
       "name": "Didit Velliz",
@@ -15,7 +15,7 @@
     "puko/framework": "^1.3.3",
     "vlucas/phpdotenv": "v5.6.1",
     "aferrandini/phpqrcode": "1.0.1",
-    "dompdf/dompdf": "v0.8.5",
+    "dompdf/dompdf": "v1.2.0",
     "endroid/qr-code": "4.3.5",
     "phpmailer/phpmailer": "v6.6.4",
     "phpoffice/phpspreadsheet": "1.20.0",
