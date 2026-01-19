@@ -18,6 +18,7 @@ $(function() {
         `excel/${id_excel}`,
         null,
         function (result) {
+            NProgress.done();
             let excel = result.excel;
 
             excelname = $(`input[name=excelname]`).val(excel.excel_name);
@@ -131,6 +132,8 @@ $(function() {
             },
             null,
             function (result) {
+                NProgress.done();
+
                 let excel = result.excel;
                 pnotify(`Template updated`, `"${excel.excel_name}" successfully updated!`, 'success');
 
@@ -138,6 +141,7 @@ $(function() {
                 btn_submit.html('Simpan Konfigurasi');
             },
             function (xhr, error) {
+                NProgress.done();
                 if (error === 'error') {
                     pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
                 }

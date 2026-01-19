@@ -11,6 +11,8 @@ $(function() {
         `mail/${id_mail}`,
         null,
         function (result) {
+            NProgress.done();
+
             let mail = result.mail;
 
             css = $(`textarea[name=code]`).val(mail.css);
@@ -62,6 +64,8 @@ $(function() {
 
         },
         function (xhr, error) {
+            NProgress.done();
+
             if (error === 'error') {
                 pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
             }

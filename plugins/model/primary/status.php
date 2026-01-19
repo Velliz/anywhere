@@ -24,6 +24,16 @@ class status extends Model
     var $id = 0;
 
     /**
+     * #Column status varchar(255) not null 
+     */
+    var $status = '';
+
+    /**
+     * #Column limitations int(11) not null 
+     */
+    var $limitations = 0;
+
+    /**
      * #Column created datetime not null 
      */
     var $created = null;
@@ -49,19 +59,9 @@ class status extends Model
     var $dflag = 0;
 
     /**
-     * #Column status varchar(40) not null 
-     */
-    var $status = '';
-
-    /**
-     * #Column description varchar(250) not null 
+     * #Column description varchar(255) not null 
      */
     var $description = '';
-
-    /**
-     * #Column limitations int(10) not null 
-     */
-    var $limitations = 0;
 
 
 }

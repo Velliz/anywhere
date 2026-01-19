@@ -24,12 +24,17 @@ class digital_signs extends Model
     var $id = 0;
 
     /**
+     * #Column user_id varchar(250)  
+     */
+    var $user_id = '';
+
+    /**
      * #Column created datetime not null 
      */
     var $created = null;
 
     /**
-     * #Column modified timestamp not null on update current_timestamp()
+     * #Column modified timestamp  on update current_timestamp()
      */
     var $modified = null;
 
@@ -49,22 +54,17 @@ class digital_signs extends Model
     var $dflag = 0;
 
     /**
-     * #Column user_id int(11) not null 
-     */
-    var $user_id = 0;
-
-    /**
-     * #Column document_name varchar(250) not null 
+     * #Column document_name varchar(250)  
      */
     var $document_name = '';
 
     /**
-     * #Column digital_sign_hash varchar(40) not null 
+     * #Column digital_sign_hash varchar(40)  
      */
     var $digital_sign_hash = '';
 
     /**
-     * #Column digital_sign_secure varchar(8) not null 
+     * #Column digital_sign_secure varchar(8)  
      */
     var $digital_sign_secure = '';
 

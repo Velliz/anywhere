@@ -23,6 +23,7 @@ $(function() {
             },
             null,
             function (result) {
+                NProgress.done();
                 let log_excel = result.log_excel;
 
                 $('.timeline-view').html(``);
@@ -46,6 +47,7 @@ $(function() {
             function (xhr, error) {
                 if (error === 'error') {
                     pnotify(`Timeline error`, xhr.responseJSON.exception.message, 'error');
+                    NProgress.done();
                 }
             }
         );

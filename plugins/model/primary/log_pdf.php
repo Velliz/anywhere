@@ -24,12 +24,42 @@ class log_pdf extends Model
     var $id = 0;
 
     /**
+     * #Column pdf_id int(11)  
+     */
+    var $pdf_id = 0;
+
+    /**
+     * #Column user_id int(11)  
+     */
+    var $user_id = 0;
+
+    /**
+     * #Column sent_at timestamp not null on update current_timestamp()
+     */
+    var $sent_at = null;
+
+    /**
+     * #Column json_data longblob  
+     */
+    var $json_data = null;
+
+    /**
+     * #Column creator_info text  
+     */
+    var $creator_info = '';
+
+    /**
+     * #Column processing_time text  
+     */
+    var $processing_time = '';
+
+    /**
      * #Column created datetime not null 
      */
     var $created = null;
 
     /**
-     * #Column modified timestamp not null on update current_timestamp()
+     * #Column modified timestamp not null 
      */
     var $modified = null;
 
@@ -47,36 +77,6 @@ class log_pdf extends Model
      * #Column dflag tinyint(1) not null 
      */
     var $dflag = 0;
-
-    /**
-     * #Column pdf_id int(11) not null 
-     */
-    var $pdf_id = 0;
-
-    /**
-     * #Column user_id int(11) not null 
-     */
-    var $user_id = 0;
-
-    /**
-     * #Column sent_at timestamp not null on update current_timestamp()
-     */
-    var $sent_at = null;
-
-    /**
-     * #Column json_data longblob not null 
-     */
-    var $json_data = null;
-
-    /**
-     * #Column creator_info text  
-     */
-    var $creator_info = '';
-
-    /**
-     * #Column processing_time double  
-     */
-    var $processing_time = 0;
 
 
 }

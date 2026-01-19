@@ -22,6 +22,8 @@ $(function () {
         `mail/${id_mail}`,
         null,
         function (result) {
+            NProgress.done();
+
             let mail = result.mail;
 
             mailname = $('input[name=mailname]').val(mail.mail_name);
@@ -65,6 +67,8 @@ $(function () {
             });
         },
         function (xhr, error) {
+            NProgress.done();
+
             if (error === 'error') {
                 pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
             }
@@ -92,6 +96,8 @@ $(function () {
             },
             null,
             function (result) {
+                NProgress.done();
+
                 let mail = result.mail;
                 pnotify(`Template updated`, `New template "${mail.mail_name}" successfully updated!`, 'success');
 
@@ -99,6 +105,8 @@ $(function () {
                 btn_submit.html('Simpan Konfigurasi');
             },
             function (xhr, error) {
+                NProgress.done();
+
                 if (error === 'error') {
                     pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
                 }

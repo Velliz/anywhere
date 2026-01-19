@@ -1,7 +1,8 @@
 <?php return [
     'const' => [
         'INSTALLED' => $_SERVER['INSTALLED'],
-        'LIMITATIONS' => $_SERVER['LIMITATIONS']
+        'LIMITATIONS' => $_SERVER['LIMITATIONS'],
+        'ALLOW_REGISTER' => $_SERVER['ALLOW_REGISTER'],
     ],
     'cache' => [
         'kind' => 'MEMCACHED',

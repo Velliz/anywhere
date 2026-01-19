@@ -20,7 +20,7 @@ class digital_sign_users extends Service
 
     /**
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function create()
     {
@@ -98,7 +98,7 @@ class digital_sign_users extends Service
      * @param string $id
      * @return mixed
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function update($id = '')
     {
@@ -221,7 +221,7 @@ class digital_sign_users extends Service
     /**
      * @param string $id
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function delete($id = '')
     {

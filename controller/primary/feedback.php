@@ -19,7 +19,7 @@ class feedback extends Service
 
     /**
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function create()
     {
@@ -74,7 +74,7 @@ class feedback extends Service
      * @param string $id
      * @return mixed
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function update($id = '')
     {
@@ -134,7 +134,7 @@ class feedback extends Service
     /**
      * @param string $id
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function delete($id = '')
     {

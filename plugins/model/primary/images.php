@@ -24,32 +24,7 @@ class images extends Model
     var $id = 0;
 
     /**
-     * #Column created datetime not null 
-     */
-    var $created = null;
-
-    /**
-     * #Column modified timestamp not null on update current_timestamp()
-     */
-    var $modified = null;
-
-    /**
-     * #Column cuid int(11) not null 
-     */
-    var $cuid = 0;
-
-    /**
-     * #Column muid int(11) not null 
-     */
-    var $muid = 0;
-
-    /**
-     * #Column dflag tinyint(1) not null 
-     */
-    var $dflag = 0;
-
-    /**
-     * #Column user_id int(11) not null 
+     * #Column user_id int(11)  
      */
     var $user_id = 0;
 
@@ -122,6 +97,31 @@ class images extends Model
      * #Column request_sample_file longblob  
      */
     var $request_sample_file = null;
+
+    /**
+     * #Column created datetime not null 
+     */
+    var $created = null;
+
+    /**
+     * #Column modified timestamp not null on update current_timestamp()
+     */
+    var $modified = null;
+
+    /**
+     * #Column cuid int(11) not null 
+     */
+    var $cuid = 0;
+
+    /**
+     * #Column muid int(11) not null 
+     */
+    var $muid = 0;
+
+    /**
+     * #Column dflag tinyint(1) not null 
+     */
+    var $dflag = 0;
 
 
 }

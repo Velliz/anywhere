@@ -16,7 +16,7 @@ class AnywhereAuthenticator implements Auth
      */
     static $authenticator;
 
-    public static function Instance()
+    public static function Instance(): AnywhereAuthenticator
     {
         if (!self::$authenticator instanceof AnywhereAuthenticator) {
             self::$authenticator = new AnywhereAuthenticator();
@@ -30,7 +30,7 @@ class AnywhereAuthenticator implements Auth
      * @return PukoAuth
      * @throws Exception
      */
-    public function Login($username, $password)
+    public function Login($username, $password): PukoAuth
     {
         $res = usersContracts::GetUser($username, $password);
         $uid = (isset($res['id'])) ? $res['id'] : null;
@@ -48,7 +48,7 @@ class AnywhereAuthenticator implements Auth
      * @return array
      * @throws Exception
      */
-    public function GetLoginData($data, $permission)
+    public function GetLoginData($data, $permission): array
     {
         $user = usersContracts::GetById($data);
 

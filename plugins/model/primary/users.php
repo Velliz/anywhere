@@ -24,6 +24,36 @@ class users extends Model
     var $id = 0;
 
     /**
+     * #Column name varchar(255) not null 
+     */
+    var $name = '';
+
+    /**
+     * #Column username varchar(255) not null 
+     */
+    var $username = '';
+
+    /**
+     * #Column password varchar(255) not null 
+     */
+    var $password = '';
+
+    /**
+     * #Column email varchar(255) not null 
+     */
+    var $email = '';
+
+    /**
+     * #Column api_key varchar(255)  
+     */
+    var $api_key = '';
+
+    /**
+     * #Column status_id int(11)  
+     */
+    var $status_id = 0;
+
+    /**
      * #Column created datetime not null 
      */
     var $created = null;
@@ -47,36 +77,6 @@ class users extends Model
      * #Column dflag tinyint(1) not null 
      */
     var $dflag = 0;
-
-    /**
-     * #Column status_id int(11) not null 
-     */
-    var $status_id = 0;
-
-    /**
-     * #Column name varchar(100) not null 
-     */
-    var $name = '';
-
-    /**
-     * #Column username varchar(60) not null 
-     */
-    var $username = '';
-
-    /**
-     * #Column password varchar(200) not null 
-     */
-    var $password = '';
-
-    /**
-     * #Column email varchar(100) not null 
-     */
-    var $email = '';
-
-    /**
-     * #Column api_key varchar(80) not null 
-     */
-    var $api_key = '';
 
 
 }

@@ -24,34 +24,14 @@ class feedback extends Model
     var $id = 0;
 
     /**
+     * #Column user_id int(11)  
+     */
+    var $user_id = 0;
+
+    /**
      * #Column created datetime not null 
      */
     var $created = null;
-
-    /**
-     * #Column modified timestamp not null on update current_timestamp()
-     */
-    var $modified = null;
-
-    /**
-     * #Column cuid int(11) not null 
-     */
-    var $cuid = 0;
-
-    /**
-     * #Column muid int(11) not null 
-     */
-    var $muid = 0;
-
-    /**
-     * #Column dflag tinyint(1) not null 
-     */
-    var $dflag = 0;
-
-    /**
-     * #Column user_id int(11) not null 
-     */
-    var $user_id = 0;
 
     /**
      * #Column signature varchar(255) not null 
@@ -82,6 +62,26 @@ class feedback extends Model
      * #Column feedback_responds text  
      */
     var $feedback_responds = '';
+
+    /**
+     * #Column modified timestamp not null on update current_timestamp()
+     */
+    var $modified = null;
+
+    /**
+     * #Column cuid int(11) not null 
+     */
+    var $cuid = 0;
+
+    /**
+     * #Column muid int(11) not null 
+     */
+    var $muid = 0;
+
+    /**
+     * #Column dflag tinyint(1) not null 
+     */
+    var $dflag = 0;
 
 
 }

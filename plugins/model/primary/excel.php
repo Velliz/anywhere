@@ -24,6 +24,31 @@ class excel extends Model
     var $id = 0;
 
     /**
+     * #Column user_id varchar(250)  
+     */
+    var $user_id = '';
+
+    /**
+     * #Column excel_name varchar(255)  
+     */
+    var $excel_name = '';
+
+    /**
+     * #Column column_specs text  
+     */
+    var $column_specs = '';
+
+    /**
+     * #Column data_specs text  
+     */
+    var $data_specs = '';
+
+    /**
+     * #Column request_type varchar(60)  
+     */
+    var $request_type = '';
+
+    /**
      * #Column created datetime not null 
      */
     var $created = null;
@@ -47,31 +72,6 @@ class excel extends Model
      * #Column dflag tinyint(1) not null 
      */
     var $dflag = 0;
-
-    /**
-     * #Column user_id int(11) not null 
-     */
-    var $user_id = 0;
-
-    /**
-     * #Column excel_name varchar(255) not null 
-     */
-    var $excel_name = '';
-
-    /**
-     * #Column column_specs text not null 
-     */
-    var $column_specs = '';
-
-    /**
-     * #Column data_specs text not null 
-     */
-    var $data_specs = '';
-
-    /**
-     * #Column request_type varchar(60) not null 
-     */
-    var $request_type = '';
 
 
 }

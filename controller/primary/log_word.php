@@ -15,10 +15,10 @@ class log_word extends Service
 {
 
     use UserBearerData;
-    
+
     /**
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function create()
     {
@@ -82,7 +82,7 @@ class log_word extends Service
      * @param string $id
      * @return mixed
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function update($id = '')
     {
@@ -145,7 +145,7 @@ class log_word extends Service
     /**
      * @param string $id
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function delete($id = '')
     {

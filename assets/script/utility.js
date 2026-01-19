@@ -19,9 +19,12 @@ $(function () {
 });
 
 function ajax_post(url, data, table, success, error) {
+    NProgress.start();
+
     if (success === undefined) {
         success = function () {
             pnotify('Berhasil', 'Permintaan anda berhasil diproses.', 'info');
+            NProgress.done();
             if (table !== null) {
                 table.ajax.reload();
             }
@@ -32,8 +35,10 @@ function ajax_post(url, data, table, success, error) {
             $("#overlay").hide();
             if (jqXHR.responseJSON !== undefined) {
                 pnotify(errorThrown, jqXHR.responseJSON.exception.Message, 'error');
+                NProgress.done();
             } else {
                 pnotify(errorThrown, 'Gagal terhubung ke server', 'error');
+                NProgress.done();
             }
         };
     }
@@ -49,9 +54,12 @@ function ajax_post(url, data, table, success, error) {
 }
 
 function ajax_put(url, data, table, success, error) {
+    NProgress.start();
+
     if (success === undefined) {
         success = function () {
             pnotify('Berhasil', 'Permintaan anda berhasil diproses.', 'info');
+            NProgress.done();
             if (table !== null) {
                 table.ajax.reload();
             }
@@ -62,8 +70,10 @@ function ajax_put(url, data, table, success, error) {
             $("#overlay").hide();
             if (jqXHR.responseJSON !== undefined) {
                 pnotify(errorThrown, jqXHR.responseJSON.exception.Message, 'error');
+                NProgress.done();
             } else {
                 pnotify(errorThrown, 'Gagal terhubung ke server', 'error');
+                NProgress.done();
             }
         };
     }
@@ -79,9 +89,12 @@ function ajax_put(url, data, table, success, error) {
 }
 
 function ajax_get(url, table, success, error) {
+    NProgress.start();
+
     if (success === undefined) {
         success = function () {
             pnotify('Berhasil', 'Permintaan anda berhasil diproses.', 'info');
+            NProgress.done();
             if (table !== null) {
                 table.ajax.reload();
             }
@@ -92,8 +105,10 @@ function ajax_get(url, table, success, error) {
             $("#overlay").hide();
             if (jqXHR.responseJSON !== undefined) {
                 pnotify(errorThrown, jqXHR.responseJSON.exception.Message, 'error');
+                NProgress.done();
             } else {
                 pnotify(errorThrown, 'Gagal terhubung ke server', 'error');
+                NProgress.done();
             }
         };
     }
@@ -108,9 +123,12 @@ function ajax_get(url, table, success, error) {
 }
 
 function ajax_delete(url, table, success, error) {
+    NProgress.start();
+
     if (success === undefined) {
         success = function () {
             pnotify('Berhasil', 'Permintaan anda berhasil diproses.', 'info');
+            NProgress.done();
             if (table !== null) {
                 table.ajax.reload();
             }
@@ -121,8 +139,10 @@ function ajax_delete(url, table, success, error) {
             $("#overlay").hide();
             if (jqXHR.responseJSON !== undefined) {
                 pnotify(errorThrown, jqXHR.responseJSON.exception.Message, 'error');
+                NProgress.done();
             } else {
                 pnotify(errorThrown, 'Gagal terhubung ke server', 'error');
+                NProgress.done();
             }
         };
     }

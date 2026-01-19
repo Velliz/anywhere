@@ -24,6 +24,8 @@ $(document).ready(function () {
         `images/${image_id}`,
         null,
         function (result) {
+            NProgress.done();
+
             let images = result.images;
 
             imagename = $('input[name=imagename]').val(images.image_name);
@@ -102,10 +104,11 @@ $(document).ready(function () {
 
         },
         function (xhr, error) {
-        if (error === 'error') {
-            pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
-        }
-    });
+            NProgress.done();
+            if (error === 'error') {
+                pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+            }
+        });
 
     let btn_submit = $('button[name=submit]').on('click', function () {
         btn_submit.prop('disabled', true);
@@ -125,6 +128,8 @@ $(document).ready(function () {
             },
             null,
             function (result) {
+                NProgress.done();
+
                 let images = result.images;
                 pnotify(`Template updated`, `New template "${images.image_name}" successfully updated!`, 'success');
 
@@ -132,6 +137,8 @@ $(document).ready(function () {
                 btn_submit.html('Simpan Konfigurasi');
             },
             function (xhr, error) {
+                NProgress.done();
+
                 if (error === 'error') {
                     pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
                 }

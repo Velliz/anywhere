@@ -19,6 +19,7 @@ class mail extends Service
 
     /**
      * @throws Exception
+     * #Auth bearer true
      */
     public function create()
     {
@@ -103,6 +104,7 @@ class mail extends Service
      * @param string $id
      * @return mixed
      * @throws Exception
+     * #Auth bearer true
      */
     public function update($id = '')
     {
@@ -193,6 +195,7 @@ class mail extends Service
     /**
      * @param string $id
      * @throws Exception
+     * #Auth bearer true
      */
     public function delete($id = '')
     {
@@ -212,6 +215,7 @@ class mail extends Service
     /**
      * @return array
      * @throws Exception
+     * #Auth bearer true
      */
     public function explore()
     {
@@ -229,6 +233,7 @@ class mail extends Service
     /**
      * @return mixed
      * @throws Exception
+     * #Auth bearer true
      */
     public function search()
     {
@@ -247,6 +252,7 @@ class mail extends Service
     /**
      * @return array|mixed
      * @throws Exception
+     * #Auth bearer true
      */
     public function table()
     {
@@ -262,6 +268,7 @@ class mail extends Service
      * @param string $id
      * @return mixed
      * @throws Exception
+     * #Auth bearer true
      */
     public function read($id = '')
     {
@@ -296,6 +303,7 @@ class mail extends Service
      * @param $id
      * @return array
      * @throws Exception
+     * #Auth bearer true
      */
     public function update_html($id = '')
     {
@@ -341,6 +349,7 @@ class mail extends Service
      * @param $id
      * @return array
      * @throws Exception
+     * #Auth bearer true
      */
     public function update_style($id = '')
     {

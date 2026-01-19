@@ -19,9 +19,24 @@ class constanta extends Model
 
     
     /**
-     * #Column id int(10) unsigned not null auto_increment
+     * #Column id int(11) not null auto_increment
      */
     var $id = 0;
+
+    /**
+     * #Column user_id int(11)  
+     */
+    var $user_id = 0;
+
+    /**
+     * #Column unique_key varchar(250)  
+     */
+    var $unique_key = '';
+
+    /**
+     * #Column constanta_val text  
+     */
+    var $constanta_val = '';
 
     /**
      * #Column created datetime not null 
@@ -47,21 +62,6 @@ class constanta extends Model
      * #Column dflag tinyint(1) not null 
      */
     var $dflag = 0;
-
-    /**
-     * #Column user_id int(11) not null 
-     */
-    var $user_id = 0;
-
-    /**
-     * #Column unique_key varchar(250) not null 
-     */
-    var $unique_key = '';
-
-    /**
-     * #Column constanta_val text not null 
-     */
-    var $constanta_val = '';
 
 
 }

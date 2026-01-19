@@ -14,6 +14,8 @@ $(function () {
         `word/${id_word}`,
         null,
         function (result) {
+            NProgress.done();
+
             let word = result.word;
 
             word_name = $(`input[name=word_name]`).val(word.word_name);
@@ -63,6 +65,8 @@ $(function () {
             });
         },
         function (xhr, error) {
+            NProgress.done();
+
             if (error === 'error') {
                 pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
             }
@@ -83,6 +87,8 @@ $(function () {
             },
             null,
             function (result) {
+                NProgress.done();
+
                 let word = result.word;
                 pnotify(`Template updated`, `New template "${word.report_name}" successfully updated!`, 'success');
 

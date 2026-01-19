@@ -64,9 +64,9 @@ class log_excel extends Model
     var $sent_at = null;
 
     /**
-     * #Column json_data text not null 
+     * #Column json_data longblob not null 
      */
-    var $json_data = '';
+    var $json_data = null;
 
     /**
      * #Column processing_time double  

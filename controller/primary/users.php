@@ -22,10 +22,13 @@ class users extends Service
 
     /**
      * @throws Exception
-     * @auth bearer true
      */
     public function create()
     {
+        if ((int)$this->GetAppConstant('ALLOW_REGISTER') !== 1) {
+            throw new Exception($this->say('REGISTRATION_MAINTENANCE'));
+        }
+
         $param = Request::JsonBody();
 
         //validations: empty check
@@ -94,10 +97,14 @@ class users extends Service
      * @param string $id
      * @return mixed
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function update($id = '')
     {
+        if ($this->GetAppConstant('ALLOW_REGISTER') !== true) {
+            throw new Exception($this->say('REGISTRATION_MAINTENANCE'));
+        }
+
         $param = Request::JsonBody();
 
         //validations: empty check
@@ -136,10 +143,14 @@ class users extends Service
     /**
      * @param string $id
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function delete($id = '')
     {
+        if ($this->GetAppConstant('ALLOW_REGISTER') !== true) {
+            throw new Exception($this->say('REGISTRATION_MAINTENANCE'));
+        }
+
         $users = new \plugins\model\primary\users($id);
         $users->modified = $this->GetServerDateTime();
         $users->muid = $this->user['id'];

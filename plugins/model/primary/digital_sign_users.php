@@ -24,6 +24,11 @@ class digital_sign_users extends Model
     var $id = 0;
 
     /**
+     * #Column user_id int(11)  
+     */
+    var $user_id = 0;
+
+    /**
      * #Column created datetime not null 
      */
     var $created = null;
@@ -47,11 +52,6 @@ class digital_sign_users extends Model
      * #Column dflag tinyint(1) not null 
      */
     var $dflag = 0;
-
-    /**
-     * #Column user_id int(11) not null 
-     */
-    var $user_id = 0;
 
     /**
      * #Column name varchar(180) not null 
@@ -104,22 +104,22 @@ class digital_sign_users extends Model
     var $gender = '';
 
     /**
-     * #Column place_of_birth varchar(100) not null 
+     * #Column place_of_birth varchar(100)  
      */
     var $place_of_birth = '';
 
     /**
-     * #Column date_of_birth date not null 
+     * #Column date_of_birth date  
      */
     var $date_of_birth = null;
 
     /**
-     * #Column org_unit varchar(50) not null 
+     * #Column org_unit varchar(50)  
      */
     var $org_unit = '';
 
     /**
-     * #Column work_unit varchar(50) not null 
+     * #Column work_unit varchar(50)  
      */
     var $work_unit = '';
 
@@ -129,17 +129,17 @@ class digital_sign_users extends Model
     var $position = '';
 
     /**
-     * #Column is_verified tinyint(1) not null 
+     * #Column is_verified tinyint(1)  
      */
     var $is_verified = 0;
 
     /**
-     * #Column callback_url varchar(250) not null 
+     * #Column callback_url varchar(250)  
      */
     var $callback_url = '';
 
     /**
-     * #Column is_speciment tinyint(1) not null 
+     * #Column is_speciment tinyint(1)  
      */
     var $is_speciment = 0;
 

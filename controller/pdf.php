@@ -19,7 +19,6 @@
 namespace controller;
 
 use Exception;
-use model\primary\constantaContracts;
 use model\primary\log_pdfContracts;
 use model\primary\pdfContracts;
 use Dompdf\Options;

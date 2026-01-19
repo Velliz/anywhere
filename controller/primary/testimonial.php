@@ -19,7 +19,7 @@ class testimonial extends Service
 
     /**
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function create()
     {
@@ -75,7 +75,7 @@ class testimonial extends Service
      * @param string $id
      * @return mixed
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function update($id = '')
     {
@@ -130,7 +130,7 @@ class testimonial extends Service
     /**
      * @param string $id
      * @throws Exception
-     * @auth bearer true
+     * #Auth bearer true
      */
     public function delete($id = '')
     {

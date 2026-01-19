@@ -74,6 +74,7 @@ $(function () {
                     function (result) {
                         let digital_sign_users = result.digital_sign_users;
                         pnotify(`Sign updated`, `User sign "${digital_sign_users.name}" successfully updated!`, 'success');
+                        NProgress.done();
 
                         btn_submit.prop('disabled', false);
                         btn_submit.html('Update Data');
@@ -81,6 +82,7 @@ $(function () {
                     function (xhr, error) {
                         if (error === 'error') {
                             pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                            NProgress.done();
                         }
 
                         btn_submit.prop('disabled', false);
@@ -93,6 +95,7 @@ $(function () {
         function (xhr, error) {
             if (error === 'error') {
                 pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
+                NProgress.done();
             }
         }
     );

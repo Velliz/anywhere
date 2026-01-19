@@ -99,7 +99,7 @@ class mail extends Model
     var $host = '';
 
     /**
-     * #Column port int(8) not null 
+     * #Column port int(11) not null 
      */
     var $port = 0;
 

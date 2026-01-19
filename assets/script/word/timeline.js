@@ -22,6 +22,8 @@ $(function () {
             },
             null,
             function (result) {
+                NProgress.done();
+
                 let log_word = result.log_word;
 
                 $('.timeline-view').html(``);
@@ -52,6 +54,8 @@ $(function () {
                 }
             },
             function (xhr, error) {
+                NProgress.done();
+
                 if (error === 'error') {
                     pnotify(`Timeline error`, xhr.responseJSON.exception.message, 'error');
                 }

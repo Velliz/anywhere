@@ -24,12 +24,47 @@ class log_mail extends Model
     var $id = 0;
 
     /**
+     * #Column mail_id int(11)  
+     */
+    var $mail_id = 0;
+
+    /**
+     * #Column user_id int(11)  
+     */
+    var $user_id = 0;
+
+    /**
+     * #Column sent_at timestamp not null on update current_timestamp()
+     */
+    var $sent_at = null;
+
+    /**
+     * #Column json_data text  
+     */
+    var $json_data = '';
+
+    /**
+     * #Column result_data text  
+     */
+    var $result_data = '';
+
+    /**
+     * #Column debug_info text  
+     */
+    var $debug_info = '';
+
+    /**
+     * #Column processing_time text  
+     */
+    var $processing_time = '';
+
+    /**
      * #Column created datetime not null 
      */
     var $created = null;
 
     /**
-     * #Column modified timestamp not null on update current_timestamp()
+     * #Column modified timestamp not null 
      */
     var $modified = null;
 
@@ -47,41 +82,6 @@ class log_mail extends Model
      * #Column dflag tinyint(1) not null 
      */
     var $dflag = 0;
-
-    /**
-     * #Column mail_id int(11) not null 
-     */
-    var $mail_id = 0;
-
-    /**
-     * #Column user_id int(11) not null 
-     */
-    var $user_id = 0;
-
-    /**
-     * #Column sent_at timestamp not null on update current_timestamp()
-     */
-    var $sent_at = null;
-
-    /**
-     * #Column json_data text not null 
-     */
-    var $json_data = '';
-
-    /**
-     * #Column result_data text  
-     */
-    var $result_data = '';
-
-    /**
-     * #Column debug_info text  
-     */
-    var $debug_info = '';
-
-    /**
-     * #Column processing_time double  
-     */
-    var $processing_time = 0;
 
 
 }

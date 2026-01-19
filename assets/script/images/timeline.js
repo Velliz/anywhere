@@ -23,6 +23,8 @@ $(function () {
             },
             null,
             function (result) {
+                NProgress.done();
+
                 let log_images = result.log_images;
 
                 $('.timeline-view').html(``);
@@ -48,6 +50,7 @@ $(function () {
                 }
             },
             function (xhr, error) {
+                NProgress.done();
                 if (error === 'error') {
                     pnotify(`Timeline error`, xhr.responseJSON.exception.message, 'error');
                 }

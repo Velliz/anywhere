@@ -22,6 +22,8 @@ $(function () {
         `pdf/${id_pdf}`,
         null,
         function (result) {
+            NProgress.done();
+
             let pdf = result.pdf;
 
             reportname = $(`input[name=reportname]`).val(pdf.report_name);
@@ -78,6 +80,8 @@ $(function () {
             });
         },
         function (xhr, error) {
+            NProgress.done();
+
             if (error === 'error') {
                 pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
             }
@@ -102,6 +106,8 @@ $(function () {
             },
             null,
             function (result) {
+                NProgress.done();
+
                 let pdf = result.pdf;
                 pnotify(`Template updated`, `New template "${pdf.report_name}" successfully updated!`, 'success');
 
@@ -109,6 +115,8 @@ $(function () {
                 btn_submit.html('Simpan Konfigurasi');
             },
             function (xhr, error) {
+                NProgress.done();
+
                 if (error === 'error') {
                     pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
                 }

@@ -11,6 +11,8 @@ $(function () {
         `pdf/${id_pdf}`,
         null,
         function (result) {
+            NProgress.done();
+
             let pdf = result.pdf;
 
             css = $(`textarea[name=code]`).val(pdf.css);
@@ -61,6 +63,8 @@ $(function () {
             });
         },
         function (xhr, error) {
+            NProgress.done();
+
             if (error === 'error') {
                 pnotify(`Template error`, xhr.responseJSON.exception.message, 'error');
             }

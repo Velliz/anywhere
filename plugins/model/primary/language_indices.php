@@ -24,6 +24,31 @@ class language_indices extends Model
     var $id = 0;
 
     /**
+     * #Column user_id int(11)  
+     */
+    var $user_id = 0;
+
+    /**
+     * #Column app_name varchar(180)  
+     */
+    var $app_name = '';
+
+    /**
+     * #Column identifier varchar(250) not null 
+     */
+    var $identifier = '';
+
+    /**
+     * #Column variables varchar(250) not null 
+     */
+    var $variables = '';
+
+    /**
+     * #Column texts text not null 
+     */
+    var $texts = '';
+
+    /**
      * #Column created datetime not null 
      */
     var $created = null;
@@ -47,31 +72,6 @@ class language_indices extends Model
      * #Column dflag tinyint(1) not null 
      */
     var $dflag = 0;
-
-    /**
-     * #Column user_id int(11) not null 
-     */
-    var $user_id = 0;
-
-    /**
-     * #Column app_name varchar(150) not null 
-     */
-    var $app_name = '';
-
-    /**
-     * #Column identifier varchar(250) not null 
-     */
-    var $identifier = '';
-
-    /**
-     * #Column variables varchar(250) not null 
-     */
-    var $variables = '';
-
-    /**
-     * #Column texts text not null 
-     */
-    var $texts = '';
 
 
 }

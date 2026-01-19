@@ -21,6 +21,8 @@ dates.on('apply.daterangepicker', function (ev, picker) {
         },
         null,
         function (result) {
+            NProgress.done();
+
             let log_mail = result.log_mail;
 
             $('.timeline-view').html(``);
@@ -50,6 +52,8 @@ dates.on('apply.daterangepicker', function (ev, picker) {
             }
         },
         function (xhr, error) {
+            NProgress.done();
+
             if (error === 'error') {
                 pnotify(`Timeline error`, xhr.responseJSON.exception.message, 'error');
             }
