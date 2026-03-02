@@ -68,10 +68,17 @@ class pdf extends AnywhereView
     public function __construct()
     {
         parent::__construct();
+
+        $rootPath = dirname(__DIR__);
+        $storagePath = $rootPath . DIRECTORY_SEPARATOR . 'storage';
+
         $options = new Options();
         $options->set('isRemoteEnabled', true);
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
+        $options->set('tempDir', $storagePath . DIRECTORY_SEPARATOR . 'tmp');
+        $options->set('fontDir', $storagePath . DIRECTORY_SEPARATOR . 'fonts');
+        $options->set('fontCache', $storagePath . DIRECTORY_SEPARATOR . 'tmpfonts');
         $this->dompdf = new Dompdf($options);
     }
 

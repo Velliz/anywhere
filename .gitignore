@@ -27,5 +27,6 @@ package-lock.json
 # Dotnev stuff
 .env
 
-# Anywhere stuff
-storage/
+/storage/fonts/
+/storage/tmp/
+/storage/tmpfonts/

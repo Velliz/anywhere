@@ -25,7 +25,13 @@ WORKDIR /var/www/html
 COPY . /var/www/html/
 
 # Dir permissions
-RUN chmod -R 777 /var/www/html
+RUN chown -R root:root /var/www/html \
+    && chmod -R 755 /var/www/html
+
+RUN mkdir -p /var/www/html/storage/tmp \
+    && mkdir -p /var/www/html/storage/fonts \
+    && chown -R nobody:nobody /var/www/html/storage \
+    && chmod -R 775 /var/www/html/storage
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer

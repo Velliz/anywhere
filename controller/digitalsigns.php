@@ -18,6 +18,7 @@ class digitalsigns extends View
     /**
      * @return array
      * #Value PageTitle Digital sign user
+     * @throws Exception
      */
     public function users($id_digitalsign_users = '')
     {
@@ -34,6 +35,7 @@ class digitalsigns extends View
      * #Master master-codes.html
      * @return array
      * #Value PageTitle Digital sign user
+     * @throws Exception
      */
     public function timeline($id_digitalsign_users = '')
     {
