@@ -3,29 +3,29 @@
 
 <div class="register-page">
     <div class="form">
-        <p>Anywhere Registration</p>
-        <p class="text-danger small">*Please enter your valid email.</p>
+        <p>Pendaftaran Anywhere</p>
+        <p class="text-danger small">*Gunakan email aktif untuk verifikasi.</p>
         <hr>
         <div>
             <div class="alert alert-danger ajax-register" style="display: none;">
                 <span class="ajax-register-message"></span>
             </div>
 
-            <input type="text" name="name" placeholder="Your Name" value="" required/>
-            <input type="email" name="email" placeholder="Your Email" value="" required/>
-            <input type="text" name="username" placeholder="Username" value="" required/>
+            <input type="text" name="name" placeholder="Nama lengkap" value="" required/>
+            <input type="email" name="email" placeholder="Email" value="" required/>
+            <input type="text" name="username" placeholder="Nama pengguna" value="" required/>
             <div class="row">
                 <div class="col-lg-6">
-                    <input type="password" name="password" placeholder="Password" required/>
+                    <input type="password" name="password" placeholder="Kata sandi" required/>
                 </div>
                 <div class="col-lg-6">
-                    <input type="password" name="repeat_password" placeholder="Re-type Password" required/>
+                    <input type="password" name="repeat_password" placeholder="Ulangi kata sandi" required/>
                 </div>
             </div>
             <br>
-            <button type="submit" name="register-submit" class="register-submit">Regsiter</button>
+            <button type="submit" name="register-submit" class="register-submit">Daftar</button>
 
-            <p class="message">Already have account? <a href="{!url()}login">Login</a></p>
+            <p class="message">Sudah punya akun? <a href="{!url()}login">Masuk</a></p>
         </div>
     </div>
 </div>

@@ -16,7 +16,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a data-toggle="tooltip" title="Back" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
+                <li><a data-toggle="tooltip" title="Kembali" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -44,7 +44,7 @@
 <div class="design-page">
     <div class="form">
         <div class="form-group">
-            <input type="text" name="excelname" placeholder="excel name" value="{!excelname}"/>
+            <input type="text" name="excelname" placeholder="nama spreadsheet" value="{!excelname}"/>
         </div>
         <div class="form-group text-center">
             <label><input type="radio" name="requesttype" value="POST">POST</label>
@@ -54,16 +54,16 @@
         <hr style="border: dashed 1px #0067AC;"/>
 
         <div class="form-group">
-            <label for="columnspecs">JSON column specs</label>
+            <label for="columnspecs">Spesifikasi kolom JSON</label>
             <textarea style="resize: none; width: 100%;" id="columnspecs" name="columnspecs" rows="8">{!columnspecs}</textarea>
         </div>
         <div class="form-group">
-            <label for="dataspecs">JSON data specs</label>
+            <label for="dataspecs">Spesifikasi data JSON</label>
             <textarea style="resize: none; width: 100%;" id="dataspecs" name="dataspecs" rows="8">{!dataspecs}</textarea>
         </div>
 
         <div class="form-group">
-            <a href="{!url()}excel/coderender/{!api_key}/{!id_excel}" class="btn btn-success">Download .xlsx example</a>
+            <a href="{!url()}excel/coderender/{!api_key}/{!id_excel}" class="btn btn-success">Unduh contoh .xlsx</a>
         </div>
 
         <div class="alert alert-info text-center">
@@ -71,7 +71,7 @@
             <p><a target="_blank" href="{!url()}excel/render/{!api_key}/{!id_excel}">{!url()}excel/render/{!api_key}/{!id_excel}</a></p>
         </div>
 
-        <button name="submit" type="submit">Save configuration</button>
+        <button name="submit" type="submit">Simpan konfigurasi</button>
     </div>
 </div>
 

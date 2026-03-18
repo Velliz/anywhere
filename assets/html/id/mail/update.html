@@ -16,7 +16,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a data-toggle="tooltip" title="Back" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
+                <li><a data-toggle="tooltip" title="Kembali" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -44,25 +44,25 @@
 <div class="design-page">
     <div class="form">
         <div class="form-group">
-            <input type="text" name="mailname" placeholder="Mail name"/>
+            <input type="text" name="mailname" placeholder="Nama template email"/>
         </div>
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-6">
-                    <input type="text" name="host" placeholder="Mail host" autocomplete="off"/>
+                    <input type="text" name="host" placeholder="Host SMTP" autocomplete="off"/>
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" name="port" placeholder="Mail port"/>
+                    <input type="text" name="port" placeholder="Port SMTP"/>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-6">
-                    <input type="text" name="mailaddress" placeholder="Mail username" autocomplete="off"/>
+                    <input type="text" name="mailaddress" placeholder="Username email" autocomplete="off"/>
                 </div>
                 <div class="col-sm-6">
-                    <input class="password" type="text" name="mailpassword" placeholder="Mail password" autocomplete="off" style="text-security: disc;-webkit-text-security: disc;-mox-text-security: disc;"/>
+                    <input class="password" type="text" name="mailpassword" placeholder="Kata sandi email" autocomplete="off" style="text-security: disc;-webkit-text-security: disc;-mox-text-security: disc;"/>
                 </div>
             </div>
         </div>
@@ -71,19 +71,19 @@
             <label><input type="radio" name="requesttype" value="URL">URL</label>
         </div>
         <div class="form-group">
-            <input type="text" name="requesturl" placeholder="URL data source here"/>
+            <input type="text" name="requesturl" placeholder="URL sumber data"/>
         </div>
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>SMTP Auth</p>
+                    <p>Autentikasi SMTP</p>
                     <select name="smtpauth" id="smtpauth" class="form-control">
                         <option value="true">true</option>
                         <option value="false">false</option>
                     </select>
                 </div>
                 <div class="col-sm-6">
-                    <p>SMTP Secure</p>
+                    <p>Keamanan SMTP</p>
                     <select name="smtpsecure" id="smtpsecure" class="form-control">
                         <option value="tls">TLS</option>
                         <option value="ssl">SSL</option>
@@ -93,22 +93,22 @@
         </div>
         <hr style="border: dashed 1px #0067AC;"/>
         <div class="form-group">
-            <label for="cssexternal">Tambah .css dari Content Delivery Network (CDN)</label>
+            <label for="cssexternal">Tambahkan .css dari Content Delivery Network (CDN)</label>
             <textarea style="resize: none; width: 100%;" id="cssexternal" name="cssexternal" rows="8"></textarea>
         </div>
         <div class="form-group">
-            <label for="requestsample">Sample data .json</label>
+            <label for="requestsample">Contoh data .json</label>
             <textarea style="resize: none; width: 100%;" id="requestsample" name="requestsample" rows="8"></textarea>
         </div>
         <div class="form-group">
-            <a href="{!url()}mail/html/{!id_mail}" class="btn btn-dark">Open .html designer</a>
-            <a href="{!url()}mail/style/{!id_mail}" class="btn btn-dark">Open .css designer</a>
+            <a href="{!url()}mail/html/{!id_mail}" class="btn btn-dark">Buka desainer HTML</a>
+            <a href="{!url()}mail/style/{!id_mail}" class="btn btn-dark">Buka desainer CSS</a>
         </div>
         <div class="alert alert-info text-center">
             <p><b>API URL</b></p>
             <p><a target="_blank" href="{!url()}mail/render/{!api_key}/{!id_mail}">{!url()}mail/render/{!api_key}/{!id_mail}</a></p>
         </div>
-        <button name="submit" type="submit">Simpan Konfigurasi</button>
+        <button name="submit" type="submit">Simpan konfigurasi</button>
     </div>
 </div>
 

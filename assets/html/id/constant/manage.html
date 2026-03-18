@@ -1,22 +1,22 @@
 {!css(<!-- place your custom CSS file here -->)}
 
 <div class="container content-main">
-    <h1>Global Variable</h1>
+    <h1>Variabel Global</h1>
 
     <div class="row">
         <div class="col-lg-4">
             <form action="" method="post">
                 <div class="form-group">
-                    <label>Key</label>
-                    <input onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control" name="key" placeholder="key"/>
-                    <p class="help-block">*Key is unique and cannot be replaced by value once saved.</p>
+                    <label>Kunci</label>
+                    <input onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control" name="key" placeholder="kunci"/>
+                    <p class="help-block">*Kunci bersifat unik dan tidak bisa diganti setelah disimpan.</p>
                 </div>
                 <div class="form-group">
-                    <label>Values</label>
-                    <textarea name="val" cols="10" rows="2" class="form-control" placeholder="values...."></textarea>
+                    <label>Nilai</label>
+                    <textarea name="val" cols="10" rows="2" class="form-control" placeholder="nilai...."></textarea>
                 </div>
-                <p>calling global variables on layout templates can use <b>{ ! var( VAR_KEY ) }</b> tags</p>
-                <input type="submit" name="action" value="Save" class="btn btn-primary" />
+                <p>Panggil variabel global di template dengan tag <b>{ ! var( VAR_KEY ) }</b></p>
+                <input type="submit" name="action" value="Simpan" class="btn btn-primary" />
             </form>
         </div>
         <div class="col-lg-4">
@@ -25,7 +25,7 @@
 
     <hr />
 
-    <h1>Available Variable ({!total})</h1>
+    <h1>Variabel Tersedia ({!total})</h1>
 
     <br/>
 
@@ -35,14 +35,14 @@
             <form class="form-inline" action="" method="post">
                 <input type="hidden" name="constID" value="{!constID}">
                 <div class="form-group">
-                    <label>Key</label>
-                    <input readonly="readonly" type="text" class="form-control" name="key" placeholder="key" value="{!uniquekey}"/>
+                    <label>Kunci</label>
+                    <input readonly="readonly" type="text" class="form-control" name="key" placeholder="kunci" value="{!uniquekey}"/>
                 </div>
                 <div class="form-group">
-                    <label>Values</label>
-                    <input name="val" class="form-control" placeholder="values...." value="{!constantaval}">
+                    <label>Nilai</label>
+                    <input name="val" class="form-control" placeholder="nilai...." value="{!constantaval}">
                 </div>
-                <input type="submit" name="action" value="Update" class="btn btn-primary"/>
+                <input type="submit" name="action" value="Perbarui" class="btn btn-primary"/>
             </form>
             <br/>
             <!--{/constanta}-->

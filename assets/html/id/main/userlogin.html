@@ -3,22 +3,22 @@
 
 <div class="login-page">
     <div class="form">
-        <p>Masuk dengan akun Anywhere </p>
+        <p>Masuk ke Anywhere</p>
         <hr>
         <div>
             <div class="alert alert-danger ajax-login-error" style="display: none;">
                 <strong class="ajax-login-error-message"></strong>
             </div>
             <div class="alert alert-success ajax-register-success" style="display: none;">
-                <strong>Pendaftaran berhasil.<br>Silahkan login untuk melanjutkan.</strong>
+                <strong>Pendaftaran berhasil.<br>Silakan masuk untuk melanjutkan.</strong>
             </div>
 
-            <input type="text" name="username" placeholder="username" value="{!username}" required/>
-            <input type="password" name="password" placeholder="password" required/>
+            <input type="text" name="username" placeholder="Nama pengguna" value="{!username}" required/>
+            <input type="password" name="password" placeholder="Kata sandi" required/>
             <br/>
-            <button type="submit" name="login-submit" class="login-submit">Login</button>
+            <button type="submit" name="login-submit" class="login-submit">Masuk</button>
 
-            <p class="message">Belum terdaftar? <a href="{!url()}register">Buat akun baru</a></p>
+            <p class="message">Belum punya akun? <a href="{!url()}register">Daftar sekarang</a></p>
         </div>
     </div>
 </div>

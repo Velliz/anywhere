@@ -16,7 +16,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a data-toggle="tooltip" title="Back" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
+                <li><a data-toggle="tooltip" title="Kembali" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -44,15 +44,15 @@
 <div class="design-page">
     <div class="form">
         <div class="form-group">
-            <input type="text" name="reportname" placeholder="report name" value="{!reportname}"/>
+            <input type="text" name="reportname" placeholder="nama laporan" value="{!reportname}"/>
         </div>
 
         <div class="form-group text-center">
             <label>
-                <input type="text" name="paper" value="{!paper}" placeholder="PAPER SIZE">
+                <input type="text" name="paper" value="{!paper}" placeholder="UKURAN KERTAS">
             </label>
             <br>
-            PAPER SIZE AVAILABLE: folio, legal, letter, F4, A3, A4, A5, A6, B5, CUSTOM [padding-x, padding-y, width, height]
+            UKURAN TERSEDIA: folio, legal, letter, F4, A3, A4, A5, A6, B5, CUSTOM [padding-x, padding-y, width, height]
         </div>
 
         <div class="form-group text-center">
@@ -64,29 +64,29 @@
             <label><input type="radio" name="orientation" value="landscape">Landscape / Mendatar</label>
         </div>
         <div class="form-group">
-            <input type="text" name="requesturl" placeholder="url data source here" value="{!requesturl}"/>
+            <input type="text" name="requesturl" placeholder="URL sumber data" value="{!requesturl}"/>
         </div>
         <div class="form-group text-center">
-            <label><input type="radio" name="outputmode" value="Inline">Buka di Browser</label>
-            <label><input type="radio" name="outputmode" value="Download">Download Berkas</label>
+            <label><input type="radio" name="outputmode" value="Inline">Buka di browser</label>
+            <label><input type="radio" name="outputmode" value="Download">Unduh berkas</label>
         </div>
         <hr style="border: dashed 1px #0067AC;"/>
         <div class="form-group">
-            <label for="cssexternal">Tambah .css dari Content Delivery Network (CDN)</label>
+            <label for="cssexternal">Tambahkan .css dari Content Delivery Network (CDN)</label>
             <textarea style="width: 100%;" id="cssexternal" name="cssexternal" rows="8"></textarea>
         </div>
         <div class="form-group">
-            <label for="requestsample">Sample data .json</label>
+            <label for="requestsample">Contoh data .json</label>
             <textarea style="width: 100%;" id="requestsample" name="requestsample" rows="8"></textarea>
         </div>
         <div class="form-group">
-            <label for="phpscript">Custom Code PHP</label>
+            <label for="phpscript">Kode PHP kustom</label>
             <textarea style="width: 100%;" id="phpscript" name="phpscript" rows="8"></textarea>
         </div>
 
         <div class="form-group">
-            <a href="{!url()}pdf/html/{!id_pdf}" class="btn btn-dark">Open .html designer</a>
-            <a href="{!url()}pdf/style/{!id_pdf}" class="btn btn-dark">Open .css designer</a>
+            <a href="{!url()}pdf/html/{!id_pdf}" class="btn btn-dark">Buka desainer HTML</a>
+            <a href="{!url()}pdf/style/{!id_pdf}" class="btn btn-dark">Buka desainer CSS</a>
         </div>
 
         <div class="alert alert-info text-center">
@@ -94,7 +94,7 @@
             <p><a target="_blank" href="{!url()}pdf/render/{!api_key}/{!id_pdf}">{!url()}pdf/render/{!api_key}/{!id_pdf}</a></p>
         </div>
 
-        <button name="submit" type="submit">Simpan Konfigurasi</button>
+        <button name="submit" type="submit">Simpan konfigurasi</button>
     </div>
 </div>
 

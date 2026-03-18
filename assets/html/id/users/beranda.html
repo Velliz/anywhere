@@ -3,15 +3,15 @@
 
 <div class="container content-main">
     <div>
-        <h1>Welcome <span class="auth-name"></span>!</h1>
-        <p>Your current plan is <span class="auth-status"></span>. You can create up to <span class="auth-limitations"></span> templates.</p>
+        <h1>Selamat datang, <span class="auth-name"></span>!</h1>
+        <p>Paket Anda saat ini <span class="auth-status"></span>. Anda bisa membuat hingga <span class="auth-limitations"></span> template.</p>
     </div>
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                        PDF Generator
+                        Pembuat PDF
                     </a>
                 </h4>
             </div>
@@ -20,10 +20,10 @@
                     <table id="pdf-table" class="table table-bordered full-width">
                         <thead>
                         <tr>
-                            <th>Template name</th>
-                            <th>Paper Size</th>
-                            <th>Orientation</th>
-                            <th>Actions</th>
+                            <th>Nama template</th>
+                            <th>Ukuran kertas</th>
+                            <th>Orientasi</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,10 +31,10 @@
                     </table>
                     <br/>
                     <div class="well well-sm no-shadow">
-                        <p><b>Notes for PDF generator</b></p>
-                        <p>Tag HTML tidak perlu menggunakan `head` atau `body`. Langsung gunakan html untuk content seperti `div` atau `table` dan pastikan setiap tag yang dibuka, ditutup dengan benar</p>
-                        <p>Pastikan semua tag css ditulis dengan benar, jika menggunakan variabel dari json data. Pastikan tidak ada css yang kosong seperti: `font-color: ; background: ;`. Untuk menghindari error saat dokumen PDF dibuat gunakan default value `font-color: #000000; background: #0067AA;`</p>
-                        <p>Proses rendering menggunakan tag PTE {!} yang dokumentasinya dapat dilihat dari link berikut ini https://github.com/Velliz/pte</p>
+                        <p><b>Catatan PDF</b></p>
+                        <p>HTML tidak perlu menyertakan tag `head` atau `body`. Gunakan elemen konten seperti `div` atau `table` dan pastikan semua tag ditutup dengan benar.</p>
+                        <p>Pastikan CSS valid saat memakai variabel JSON. Hindari deklarasi kosong seperti `color: ;` atau `background: ;`. Gunakan nilai default misalnya `color: #000000; background: #0067AA;`.</p>
+                        <p>Proses rendering menggunakan tag PTE {!}. Dokumentasi tersedia di https://github.com/Velliz/pte</p>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                        Spreadsheet Generator
+                        Pembuat Spreadsheet
                     </a>
                 </h4>
             </div>
@@ -52,9 +52,9 @@
                     <table id="excel-table" class="table table-bordered full-width">
                         <thead>
                         <tr>
-                            <th>Template name</th>
-                            <th>HTTP Verb</th>
-                            <th>Actions</th>
+                            <th>Nama template</th>
+                            <th>Metode HTTP</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,8 +62,8 @@
                     </table>
                     <br/>
                     <div class="well well-sm no-shadow">
-                        <p><b>Notes for Spreadsheet generator</b></p>
-                        <p>TODO</p>
+                        <p><b>Catatan Spreadsheet</b></p>
+                        <p>Tentukan spesifikasi kolom dan data JSON agar hasil ekspor konsisten.</p>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                        Email Service (via SMTP)
+                        Layanan Email (SMTP)
                     </a>
                 </h4>
             </div>
@@ -81,18 +81,18 @@
                     <table id="mail-table" class="table table-bordered full-width">
                         <thead>
                         <tr>
-                            <th>Template name</th>
-                            <th>Sender</th>
+                            <th>Nama template</th>
+                            <th>Pengirim</th>
                             <th>Host</th>
-                            <th>Actions</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
                     <br/>
                     <div class="well well-sm no-shadow">
-                        <p><b>Notes for Mail service</b></p>
-                        <p>TODO</p>
+                        <p><b>Catatan Email</b></p>
+                        <p>Pastikan kredensial SMTP valid dan template HTML telah diuji.</p>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                        Digital Signing (Self Signed)
+                        Tanda Tangan Digital (Self-Signed)
                     </a>
                 </h4>
             </div>
@@ -113,9 +113,9 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Tipe</th>
-                            <th>Gender</th>
-                            <th>Organization</th>
-                            <th>Work Unit</th>
+                            <th>Jenis kelamin</th>
+                            <th>Organisasi</th>
+                            <th>Unit kerja</th>
                             <th>Posisi</th>
                             <th width="170">Aksi</th>
                         </tr>
@@ -124,8 +124,8 @@
                     </table>
                     <br/>
                     <div class="well well-sm no-shadow">
-                        <p><b>Notes for Digital Sign</b></p>
-                        <p>TODO</p>
+                        <p><b>Catatan Tanda Tangan Digital</b></p>
+                        <p>Lengkapi data pengguna agar proses verifikasi berjalan lancar.</p>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-                        Images
+                        Gambar
                     </a>
                 </h4>
             </div>
@@ -143,11 +143,11 @@
                     <table id="image-table" class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>Image name</th>
+                            <th>Nama gambar</th>
                             <th>Placeholder</th>
-                            <th>Type</th>
-                            <th>Coordinate</th>
-                            <th>Actions</th>
+                            <th>Tipe</th>
+                            <th>Koordinat</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -155,8 +155,8 @@
                     </table>
                     <br/>
                     <div class="well well-sm no-shadow">
-                        <p><b>Notes for Images</b></p>
-                        <p>TODO</p>
+                        <p><b>Catatan Gambar</b></p>
+                        <p>Gunakan placeholder beresolusi tinggi agar hasil komposisi tetap tajam.</p>
                     </div>
                 </div>
             </div>
@@ -165,7 +165,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
-                        QRCode Generator
+                        Pembuat QR Code
                     </a>
                 </h4>
             </div>
@@ -174,20 +174,20 @@
                     <table class="table table-bordered table-responsive">
                         <thead>
                         <tr>
-                            <th>Options</th>
-                            <th>Value</th>
-                            <th>Example</th>
+                            <th>Opsi</th>
+                            <th>Nilai</th>
+                            <th>Contoh</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>Label</td>
-                            <td>Name or email or id</td>
+                            <td>Nama, email, atau id</td>
                             <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&label=Anywhere">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&label=Anywhere</a></td>
                         </tr>
                         <tr>
-                            <td>Size</td>
-                            <td>300 to 1000</td>
+                            <td>Ukuran</td>
+                            <td>300 hingga 1000</td>
                             <td><a href="{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&size=300&label=Anywhere">{!url()}qr/render?data=05b810384abc26a2365e1108501534a2&size=300&label=Anywhere</a></td>
                         </tr>
                         </tbody>
@@ -208,7 +208,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
-                        Custom Variables
+                        Variabel Kustom
                     </a>
                 </h4>
             </div>
@@ -217,15 +217,15 @@
                     <table id="var-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Variables</th>
+                                <th>Variabel</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
                     <br/>
                     <div class="well well-sm no-shadow">
-                        <p><b>Notes for Variable</b></p>
-                        <p>TODO</p>
+                        <p><b>Catatan Variabel</b></p>
+                        <p>Gunakan variabel global untuk menyederhanakan nilai yang berulang di template.</p>
                     </div>
                 </div>
             </div>
@@ -234,7 +234,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">
-                        Word Generator
+                        Pembuat Word
                     </a>
                 </h4>
             </div>
@@ -243,8 +243,8 @@
                     <table id="word-table" class="table table-bordered full-width">
                         <thead>
                         <tr>
-                            <th>Template name</th>
-                            <th>Actions</th>
+                            <th>Nama template</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -252,8 +252,8 @@
                     </table>
                     <br/>
                     <div class="well well-sm no-shadow">
-                        <p><b>Notes for WORD generator</b></p>
-                        <p>Proses rendering menggunakan tag PTE {!} yang dokumentasinya dapat dilihat dari link berikut ini https://github.com/Velliz/pte</p>
+                        <p><b>Catatan Word</b></p>
+                        <p>Rendering menggunakan tag PTE {!}. Dokumentasi tersedia di https://github.com/Velliz/pte</p>
                     </div>
                 </div>
             </div>

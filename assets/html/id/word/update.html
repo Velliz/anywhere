@@ -16,7 +16,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a data-toggle="tooltip" title="Back" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
+                <li><a data-toggle="tooltip" title="Kembali" href="{!url()}beranda"><i class="fa fa-arrow-left"></i></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -44,27 +44,27 @@
 <div class="design-page">
     <div class="form">
         <div class="form-group">
-            <input type="text" name="word_name" placeholder="report name" value="{!word_name}"/>
+            <input type="text" name="word_name" placeholder="nama laporan" value="{!word_name}"/>
         </div>
 
         <div class="form-group">
-            <label for="request_sample">Sample data .json</label>
+            <label for="request_sample">Contoh data .json</label>
             <textarea style="width: 100%;" id="request_sample" name="request_sample" rows="8"></textarea>
         </div>
 
         <div class="row">
             <div class="col-lg-6">
-                <p>Pilih Template .docx</p>
+                <p>Pilih template .docx</p>
                 <input type="file" name="word_template" value="Pilih Template Word">
             </div>
             <div class="col-lg-6">
                 <p>Template .docx saat ini</p>
-                <a target="_blank" href="{!url()}word/{!id_word}/download/template" class="btn btn-default">Download template .docx</a>
+                <a target="_blank" href="{!url()}word/{!id_word}/download/template" class="btn btn-default">Unduh template .docx</a>
             </div>
         </div>
 
         <div class="form-group">
-            <a target="_blank" href="{!url()}word/coderender/{!api_key}/{!id_word}" class="btn btn-primary">Open example .docx output</a>
+            <a target="_blank" href="{!url()}word/coderender/{!api_key}/{!id_word}" class="btn btn-primary">Buka contoh hasil .docx</a>
         </div>
 
         <div class="alert alert-info text-center">
@@ -72,7 +72,7 @@
             <p><a target="_blank" href="{!url()}word/render/{!api_key}/{!id_word}">{!url()}word/render/{!api_key}/{!id_word}</a></p>
         </div>
 
-        <button name="submit" type="submit">Simpan Konfigurasi</button>
+        <button name="submit" type="submit">Simpan konfigurasi</button>
     </div>
 </div>
 
