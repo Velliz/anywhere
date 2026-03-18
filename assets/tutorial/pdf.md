@@ -1,47 +1,37 @@
-## PDF
+# PDF Integration Guide
 
-#### Konfigurasi Dasar
+Welcome to the PDF Integration Guide! This document will walk you through the process of generating professional-quality PDF documents using Anywhere. Whether you're setting up basic configurations, defining your templates, or integrating PDF generation into your codebase, we'll help you create dynamic and pixel-perfect PDFs with ease.
 
-Untuk mengenerate sebuah halaman PDF buatlah sebuah template dengan melakukan klik **New PDF** 
-Kemudian lakukan konfigurasi sesuai kebutuhan pada halaman template. 
-Berikut ini beberapa konfigurasi template untuk PDF.
+---
 
-#### Konfigurasi Template
+## 1. Basic Configuration
 
-- Report name (string)
-Sesuaikan dengan nama laporan yang dibuat
+To begin generating PDF documents, you'll first need to create a PDF template. Simply click **New PDF** in your Anywhere dashboard. From there, you can configure the settings to meet your specific requirements. Below are the key template configurations for PDF generation:
 
-- Paper type (radio button)
-F4, A4, B5
+*   **Report Name (string):** Assign a descriptive name for your report. This helps in organizing and identifying your PDF templates.
+*   **Paper Type (radio button):** Select the desired paper size for your PDF:
+    *   `F4`
+    *   `A4`
+    *   `B5`
+*   **Data Source Type (radio button):**
+    *   **POST:** Choose this option to send data directly to Anywhere. The AnywhereWrapper can be utilized for this purpose.
+    *   **URL:** Anywhere will fetch the necessary data by opening a specified URL.
+*   **CSS from CDN (URL):** Provide the address of a CSS CDN (e.g., `<link href="http://example.com/assets/global/css/bootstrap.css" rel="stylesheet">`). This allows you to style your PDF content using external stylesheets.
+*   **URL Data Source Here (URL):** If you've selected "URL" as your data source type, enter the address where Anywhere should download the data.
+*   **File Output (radio button):** Determine how the generated PDF should be handled:
+    *   **Open directly in Browser:** The PDF will be displayed directly in the user's web browser.
+    *   **Download:** The PDF will be downloaded as a file.
+    *   *Note: If you're using AnywhereWrapper, data will automatically open directly in the browser.*
+*   **API URL (URL):** The API endpoint for making requests to generate your PDF report.
+*   **.html Designer (file):** Use this section to design the HTML layout of your PDF report. You do not need to include standard `<html>`, `<head>`, or `<body>` tags. The HTML designer adheres to the Puko Template Engine (PTE) rules, which you can learn more about [here](link-to-pte-docs).
+*   **.css Designer (file):** Design the CSS styles for your PDF report here. This CSS will automatically be linked to your `.html` designer content.
+*   **.json Data Sample:** Provide a sample JSON data structure that corresponds to the placeholders used in your HTML template. This is invaluable for design and development.
 
-- data source type (radio button)
-POST - untuk mengirim data ke Anywhere. Dapat mengunakan AnywhereWrapper
-URL - Anywhere akan membuka url untuk mendapatkan data
+---
 
-- CSS from CDN (url)
-Alamat cdn CSS misal: `<link href="http://example.com/assets/global/css/bootstrap.css" rel="stylesheet">`
+## 2. Code Integration
 
-- url data source here (url)
-Alamat untuk mengunduh data. Isi jika memilih data source type URL
-
-- file output (radio button)
-Buka langsung di Browser atau Download. Jika menggunakan AnywhereWrapper data otomatis di buka langsung di Browser
-
-- API url
-Untuk melakukan request laporan PDF
-
-- .html designer
-Designer template laporan PDF menggunakan HTML. Tidak perlu menuliskan ulang tag html, head, body. HTML designer menggunakan aturan Puko Template Engine (PTE) yang dapat kamu lihat di sini
-
-- .css designer
-Designer template laporan PDF menggunakan CSS. Otomatis terhubung dengan .html designer
-
-- .json data sample
-Menyediakan data contoh untuk pengembangan pada tahap design HTML dan CSS
-
-#### Konfigurasi Kode
-
-Untuk membuat request PDF download AnywhereWrapper Kemudian kamu bisa menuliskan kodenya seperti contoh berikut:
+Once your PDF template is configured, integrating PDF generation into your application is straightforward. Download the AnywhereWrapper, and you can write code similar to the example below:
 
 ```php
 require 'Wrapper.php';
@@ -52,4 +42,8 @@ $pdf->setValue('Age', '22');
 $pdf->Send(API_URL);
 ```
 
-Jika request berhasil maka browser akan menampilkan file PDF sesuai dengan template dan data.
+If your request is successful, the browser will display the PDF file based on your template and provided data.
+
+---
+
+We hope this guide empowers you to create stunning and functional PDF documents with Anywhere! Feel free to explore and enhance your reporting capabilities. Happy coding!

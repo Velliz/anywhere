@@ -149,9 +149,7 @@ fieldset[disabled] .navbar-blue .btn-link:focus {
 }
 
 .footer-bs {
-    background-color: #3c3d41;
     padding: 40px 20px;
-    color: white;
 }
 
 .footer-bs a:hover {
