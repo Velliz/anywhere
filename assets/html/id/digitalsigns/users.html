@@ -4,10 +4,14 @@
 <input type="hidden" name="api_key" value="{!api_key}">
 
 <div class="container content-main">
-    <h1>Pengguna Tanda Tangan Digital</h1>
-    <p>Detail pengguna</p>
+    <div class="page-hero page-hero-sm">
+        <h1 class="page-title">Pengguna Tanda Tangan Digital</h1>
+        <p class="page-subtitle">Lengkapi informasi untuk proses verifikasi dan tanda tangan.</p>
+    </div>
 
-    <table class="table table-hover table-bordered">
+    <div class="card">
+        <div class="card-header">Detail Pengguna</div>
+        <table class="table table-hover table-bordered">
         <tr>
             <td><b>Nama</b></td>
             <td><input type="text" class="form-control" name="dsu-name" placeholder="Nama"></td>
@@ -78,9 +82,10 @@
             <td><b>Posisi</b></td>
             <td><input type="text" class="form-control" name="dsu-position" placeholder="Posisi"></td>
         </tr>
-    </table>
+        </table>
 
-    <button class="btn btn-primary" name="submit" type="submit">Simpan perubahan</button>
+        <button class="btn btn-primary" name="submit" type="submit">Simpan perubahan</button>
+    </div>
 
 </div>
 

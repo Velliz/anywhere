@@ -1,11 +1,14 @@
 {!css(<!-- place your custom CSS file here -->)}
 
 <div class="container content-main">
-    <h1>Variabel Global</h1>
+    <div class="page-hero page-hero-sm">
+        <h1 class="page-title">Variabel Global</h1>
+        <p class="page-subtitle">Simpan nilai global untuk digunakan di seluruh template.</p>
+    </div>
 
     <div class="row">
         <div class="col-lg-4">
-            <form action="" method="post">
+            <form class="card" action="" method="post">
                 <div class="form-group">
                     <label>Kunci</label>
                     <input onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control" name="key" placeholder="kunci"/>
@@ -25,14 +28,14 @@
 
     <hr />
 
-    <h1>Variabel Tersedia ({!total})</h1>
+    <h1 class="section-title">Variabel Tersedia ({!total})</h1>
 
     <br/>
 
     <div class="row">
         <div class="col-lg-12">
             <!--{!constanta}-->
-            <form class="form-inline" action="" method="post">
+            <form class="form-inline card" action="" method="post">
                 <input type="hidden" name="constID" value="{!constID}">
                 <div class="form-group">
                     <label>Kunci</label>

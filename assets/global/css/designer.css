@@ -107,3 +107,15 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* Modern rounded corners for designer views */
+.form {
+    border-radius: 14px;
+}
+
+.form input,
+.form textarea,
+.form button,
+.form select {
+    border-radius: 10px;
+}

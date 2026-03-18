@@ -15,6 +15,13 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
+.auth-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #1f2937;
+}
+
 .form input {
     font-family: sans-serif;
     outline: 0;
@@ -98,4 +105,14 @@ body {
     font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Modern rounded corners */
+.form {
+    border-radius: 16px;
+}
+
+.form input,
+.form button {
+    border-radius: 10px;
 }
