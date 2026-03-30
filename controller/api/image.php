@@ -37,6 +37,7 @@ class image extends Service
     /**
      * @return array
      * @throws Exception
+     * #Auth bearer true
      */
     public function placeholder()
     {

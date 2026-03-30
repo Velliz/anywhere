@@ -311,7 +311,6 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(15, 23, 42, 0.35);
 }
 
 .header .text-vertical-center,
@@ -321,7 +320,6 @@ body {
 }
 
 .service-item {
-    background: #fff;
     border: 1px solid #e6edf7;
     border-radius: 16px;
     padding: 20px 16px;
