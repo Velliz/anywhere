@@ -6,12 +6,16 @@ $(function () {
         `users/data`,
         null,
         function (result) {
+            NProgress.done();
+
             let status = result.status;
             if (status === 'success') {
                 location.replace('/beranda');
             }
         },
         function (xhr, result) {
+            NProgress.done();
+
             if (result === 'error') {
                 localStorage.clear();
             }

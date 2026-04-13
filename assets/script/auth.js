@@ -5,6 +5,8 @@ $(function () {
         `users/data`,
         null,
         function (result) {
+            NProgress.done();
+
             let status = result.status;
             let message = result.message;
             let data = result.data;
@@ -19,6 +21,8 @@ $(function () {
             $('.auth-api_key').html(data.user.api_key);
         },
         function (xhr, result) {
+            NProgress.done();
+
             if (result === 'error') {
                 localStorage.clear();
                 location.replace('/');
