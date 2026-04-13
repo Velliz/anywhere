@@ -65,7 +65,35 @@ class main extends View
     {
     }
 
+    /**
+     * #Template master true
+     * #Value PageTitle About
+     */
     public function about()
+    {
+    }
+
+    /**
+     * #Template master true
+     * #Value PageTitle Contacts
+     */
+    public function contacts()
+    {
+    }
+
+    /**
+     * #Template master true
+     * #Value PageTitle Terms
+     */
+    public function terms()
+    {
+    }
+
+    /**
+     * #Template master true
+     * #Value PageTitle Privacy Policy
+     */
+    public function privacy()
     {
     }
 

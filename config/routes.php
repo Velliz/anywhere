@@ -16,6 +16,30 @@
                 "POST"
             ]
         ],
+        "contacts" => [
+            "controller" => "main",
+            "function" => "contacts",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "terms" => [
+            "controller" => "main",
+            "function" => "terms",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
+        "privacy" => [
+            "controller" => "main",
+            "function" => "privacy",
+            "accept" => [
+                "GET",
+                "POST"
+            ]
+        ],
         "api/convert/{?}/to/pdf" => [
             "controller" => "api\\convert",
             "function" => "topdf",
