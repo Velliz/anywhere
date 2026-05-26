@@ -15,7 +15,7 @@
     "puko/framework": "1.4.2",
     "vlucas/phpdotenv": "v5.6.1",
     "aferrandini/phpqrcode": "1.0.1",
-    "dompdf/dompdf": "v1.2.0",
+    "dompdf/dompdf": "v0.8.5",
     "endroid/qr-code": "4.3.5",
     "phpmailer/phpmailer": "v6.6.4",
     "phpoffice/phpspreadsheet": "1.20.0",

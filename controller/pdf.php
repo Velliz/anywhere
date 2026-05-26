@@ -55,7 +55,7 @@ class pdf extends AnywhereView
      */
     private $dompdf;
 
-    private $head = "<!DOCTYPE html><html><body><style type='text/css'>";
+    private $head = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'><html lang='en'><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/></head><body><style type='text/css'>";
     private $middle = "</style>";
     private $php_head = "<script type='text/php'>";
     private $php_tail = "</script>";
